@@ -1,0 +1,33 @@
+name: Lean
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Lean via elan
+        uses: leanprover/lean-action@v1
+        with:
+          build: false
+
+      - name: Build
+        run: lake build
+
+      - name: Fail on sorry
+        run: |
+          set -e
+          if lake env lean --recursive PNDS 2>/dev/null | grep -q sorry; then
+            echo "::error::sorry found in PNDS sources"
+            exit 1
+          fi
+
+      - name: Print axioms
+        run: |
+          lake env lean PNDS.lean 2>&1 | grep -E "axioms|sorry" || true

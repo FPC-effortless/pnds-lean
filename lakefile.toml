@@ -1,0 +1,7 @@
+[info]
+version = "0.1.0"
+prefix = "PNDS"
+keywords = ["math", "formalization"]
+
+[lean]
+version = "leanprover/lean4:stable"
