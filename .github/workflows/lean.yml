@@ -29,16 +29,16 @@ jobs:
           fi
           echo "Mathlib resolved"
 
-      - name: Build
-        run: lake build 2>&1 | tee build.log
+      - name: Build (explicit roots, so nothing can be silently skipped)
+        run: lake build PNDS Audit 2>&1 | tee build.log
 
       - name: Verify the tree actually compiled
         run: |
           set -e
-          n=$(find . -name "*.olean" -path "*PNDS*" | wc -l)
-          echo "PNDS .olean files produced: $n"
+          n=$(find .lake/build -name "*.olean" | wc -l)
+          echo ".olean files produced under .lake/build: $n"
           if [ "$n" -eq 0 ]; then
-            echo "::error::No PNDS .olean files were produced; lake build compiled nothing"
+            echo "::error::No .olean files were produced; lake build compiled nothing"
             exit 1
           fi
 
