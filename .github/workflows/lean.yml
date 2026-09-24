@@ -20,8 +20,27 @@ jobs:
       - name: Resolve dependencies
         run: lake update
 
+      - name: Verify Mathlib was actually resolved
+        run: |
+          set -e
+          if ! grep -q "leanprover-community/mathlib4" lake-manifest.json; then
+            echo "::error::Mathlib is not in lake-manifest.json; the build would be a no-op"
+            exit 1
+          fi
+          echo "Mathlib resolved"
+
       - name: Build
         run: lake build 2>&1 | tee build.log
+
+      - name: Verify the tree actually compiled
+        run: |
+          set -e
+          n=$(find . -name "*.olean" -path "*PNDS*" | wc -l)
+          echo "PNDS .olean files produced: $n"
+          if [ "$n" -eq 0 ]; then
+            echo "::error::No PNDS .olean files were produced; lake build compiled nothing"
+            exit 1
+          fi
 
       - name: Fail on sorry in build output
         run: |

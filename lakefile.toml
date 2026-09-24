@@ -2,5 +2,10 @@ name = "pnds"
 version = "0.1.0"
 keywords = ["math", "formalization"]
 
+[[require]]
+scope = "leanprover-community"
+name = "mathlib"
+rev = "v4.14.0"
+
 [lean]
 version = "leanprover/lean4:v4.14.0"
