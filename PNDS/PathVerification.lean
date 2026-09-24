@@ -46,9 +46,13 @@ noncomputable def V_P (n : ℕ) (v : ℝ) : ℝ := v ^ n
 theorem pow_succ_le_pow {v : ℝ} (hv : 0 ≤ v) (hv1 : v ≤ 1) (n : ℕ) :
     v ^ (n + 1) ≤ v ^ n := by
   induction n with
-  | zero => simp [pow_one, pow_zero]; exact hv1
+  | zero =>
+    -- `v ^ 1 ≤ v ^ 0`, i.e. `v ≤ 1`
+    simp [pow_one, pow_zero]
+    exact hv1
   | succ k ih =>
-    rw [pow_succ, pow_succ]
+    -- `v ^ (k+2) ≤ v ^ (k+1)`, using `v ^ (k+1) ≤ v ^ k` and `v ≤ 1`
+    rw [eq_comm (b := v ^ (k + 1)), pow_succ, pow_succ]
     exact (mul_le_mul_of_nonneg_left ih (pow_nonneg hv k)).trans
       (mul_le_mul_of_nonneg_right hv1 (pow_nonneg hv k))
 
@@ -57,9 +61,11 @@ theorem pow_succ_le_pow {v : ℝ} (hv : 0 ≤ v) (hv1 : v ≤ 1) (n : ℕ) :
 theorem V_P_antitone {v : ℝ} (hv : 0 ≤ v) (hv1 : v ≤ 1) :
     Antitone (V_P · v) := by
   intro n m hnm
+  -- `Nat.le` is the inductive with constructors `refl` and `step {m}`; `step`
+  -- increments the *second* index only, so no induction hypothesis is needed.
   induction hnm with
   | refl => simp only [V_P]
-  | step k h ik => exact (pow_succ_le_pow hv hv1 k).trans ik
+  | step h => exact (pow_succ_le_pow hv hv1 _).trans (by simp only [V_P])
 
 /-- **Monotone decay.** With per-step reliability `v ∈ (0,1)`, `V_P n v` is strictly
     decreasing in `n`, and `V_P n v → 0` as `n → ∞`. -/

@@ -51,10 +51,24 @@ noncomputable def expExp : Exp ℝ where
 
 /-- `app` is strictly positive. -/
 theorem app_pos (x : F) : 0 < E.app x := by
-  have h := E.app_strictMono
+  -- Key: `app (-x) * app x = app 0 = 1`. Since `app` is monotone and `-x ≥ 0` or
+  -- `x ≥ 0`, one factor is `≥ app 0 = 1 > 0`; the other then divides `1` by a
+  -- positive quantity, so it is positive too.
+  have hmono : Monotone E.app := E.app_strictMono.monotone
   have hzero : E.app 0 = 1 := E.app_one
-  have hpos : 0 < E.app 0 := by rw [hzero]; exact one_pos
-  exact lt_of_lt_of_le hpos (h.monotone x)
+  have hpos0 : 0 < E.app 0 := by rw [hzero]; exact one_pos
+  have hprod : E.app x * E.app (-x) = 1 := by
+    rw [E.app_add, neg_add_cancel]
+  rcases le_or_lt 0 x with hx | hx
+  · -- `x ≥ 0`: monotonicity gives `app x ≥ app 0 = 1 > 0`.
+    exact lt_of_lt_of_le hpos0 (hmono hx)
+  · -- `x < 0`, so `-x > 0`: monotonicity gives `app(-x) ≥ app 0 = 1 > 0`, and
+    -- `app x = 1 / app(-x) > 0` since `app(-x) > 0`.
+    have hbx : 0 < E.app (-x) := lt_of_lt_of_le hpos0 (hmono (by linarith))
+    have hbx' : E.app (-x) ≠ 0 := ne_of_gt hbx
+    field_simp at hprod
+    field_simp
+    linarith
 
 theorem app_ne_zero (x : F) : E.app x ≠ 0 := ne_of_gt (app_pos E x)
 
@@ -72,8 +86,12 @@ variable {r n ε s : F}
 theorem distractorShare_le (hr : 0 < r) (hn : 0 < n) (hε : 0 < ε) (hεε : ε < 1)
     (hbound : r * ε * E.app s ≥ n * (1 - ε)) :
     distractorShare E r n s ≤ ε := by
-  have hdenom : 0 < r * E.app s + n := by positivity
-  rw [distractorShare, le_div_iff₀ hdenom]
+  -- `E.app s > 0` and `r, n > 0`, so the denominator is strictly positive.
+  have hdenom : 0 < r * E.app s + n := by
+    have hE : 0 < E.app s := app_pos E s
+    positivity
+  rw [distractorShare]
+  rw [le_div_iff₀ hdenom]
   -- Goal: n ≤ ε * (r * E.app s + n)
   linarith
 

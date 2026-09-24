@@ -24,13 +24,12 @@ noncomputable def minP_twoSided (k : ℕ) : ℝ := 2 * (1 / 2 : ℝ) ^ k
 
 /-- `minP_oneSided k = 2 ^ (-(k:ℝ))`. -/
 theorem minP_oneSided_eq (k : ℕ) : minP_oneSided k = 2 ^ (-(k : ℝ)) := by
-  rw [minP_oneSided]
-  field_simp
-  ring
+  rw [minP_oneSided, ← inv_eq_one_div, div_pow, zpow_natCast, zpow_neg,
+    inv_eq_one_div]
 
 /-- `minP_twoSided k = 2 ^ (1 - (k:ℝ))`. -/
 theorem minP_twoSided_eq (k : ℕ) : minP_twoSided k = 2 ^ (1 - (k : ℝ)) := by
-  rw [minP_twoSided, minP_oneSided]
+  rw [minP_twoSided, minP_oneSided_eq]
   field_simp
   ring
 

@@ -42,6 +42,9 @@ def allGates {α : Type*} (g : Gates α) (x : α) : Bool :=
 theorem Register_iff_allGates {α : Type*} (g : Gates α) (x : α) :
     Register g x ↔ allGates g x = true := by
   simp only [Register, allGates, Bool.and_eq_true, decide_eq_true_eq]
+  -- `Bool.and` nests left: ((u && s) && i) && c, whereas `∧` in `Register` nests
+  -- right: u ∧ (s ∧ (i ∧ c)). Reassociate.
+  rw [and_assoc, and_assoc]
 
 /-! ## 2. Contamination vs false admission (§14)
 
@@ -52,8 +55,7 @@ inversion is visible without committing to a particular probability model.
 directly in `ℝ≥0∞` rather than casting to `ℝ`; this keeps the hypotheses honest —
 a division is only meaningful when the denominator is nonzero and finite. -/
 
-variable {Ω : Type*} [MeasurableSpace Ω] (μ : Measure Ω) [IsProbabilityMeasure μ]
-         (S invalid : Set Ω)
+variable {Ω : Type*} [MeasurableSpace Ω] (μ : Measure Ω) [IsProbabilityMeasure μ] (S invalid : Set Ω)
 
 /-- The false-admit rate: `μ(S ∩ invalid) / μ(invalid)`. This is what v0.1 *called*
     `P_contam`, and it is not the contamination fraction. -/

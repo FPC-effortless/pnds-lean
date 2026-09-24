@@ -1,0 +1,399 @@
+build	Set up job	﻿2026-09-24T21:13:40.9692344Z Current runner version: '2.337.0'
+build	Set up job	2026-09-24T21:13:40.9712670Z ##[group]Runner Image Provisioner
+build	Set up job	2026-09-24T21:13:40.9713528Z Hosted Compute Agent
+build	Set up job	2026-09-24T21:13:40.9714040Z Version: 20260828.587
+build	Set up job	2026-09-24T21:13:40.9714776Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+build	Set up job	2026-09-24T21:13:40.9715462Z Build Date: 2026-08-28T16:44:25Z
+build	Set up job	2026-09-24T21:13:40.9716060Z Worker ID: {bb356fcf-3d46-4a16-b0bf-2dd385b8fc26}
+build	Set up job	2026-09-24T21:13:40.9716711Z Azure Region: centralus
+build	Set up job	2026-09-24T21:13:40.9717221Z ##[endgroup]
+build	Set up job	2026-09-24T21:13:40.9718444Z ##[group]Operating System
+build	Set up job	2026-09-24T21:13:40.9718968Z Ubuntu
+build	Set up job	2026-09-24T21:13:40.9719402Z 24.04.5
+build	Set up job	2026-09-24T21:13:40.9719907Z LTS
+build	Set up job	2026-09-24T21:13:40.9720352Z ##[endgroup]
+build	Set up job	2026-09-24T21:13:40.9720831Z ##[group]Runner Image
+build	Set up job	2026-09-24T21:13:40.9721393Z Image: ubuntu-24.04
+build	Set up job	2026-09-24T21:13:40.9721855Z Version: 20260920.314.1
+build	Set up job	2026-09-24T21:13:40.9722796Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260920.314/images/ubuntu/Ubuntu2404-Readme.md
+build	Set up job	2026-09-24T21:13:40.9724268Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260920.314
+build	Set up job	2026-09-24T21:13:40.9725209Z ##[endgroup]
+build	Set up job	2026-09-24T21:13:40.9726216Z ##[group]GITHUB_TOKEN Permissions
+build	Set up job	2026-09-24T21:13:40.9728049Z Contents: read
+build	Set up job	2026-09-24T21:13:40.9728518Z Metadata: read
+build	Set up job	2026-09-24T21:13:40.9729645Z Packages: read
+build	Set up job	2026-09-24T21:13:40.9730166Z ##[endgroup]
+build	Set up job	2026-09-24T21:13:40.9732052Z Secret source: Actions
+build	Set up job	2026-09-24T21:13:40.9732873Z Cache mode: write
+build	Set up job	2026-09-24T21:13:40.9733457Z Prepare workflow directory
+build	Set up job	2026-09-24T21:13:41.0009004Z Prepare all required actions
+build	Set up job	2026-09-24T21:13:41.0050673Z Getting action download info
+build	Set up job	2026-09-24T21:13:41.2549177Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+build	Set up job	2026-09-24T21:13:41.4757612Z Complete job name: build
+build	Run actions/checkout@v4	﻿2026-09-24T21:13:41.5362925Z ##[group]Run actions/checkout@v4
+build	Run actions/checkout@v4	2026-09-24T21:13:41.5363649Z with:
+build	Run actions/checkout@v4	2026-09-24T21:13:41.5364201Z   repository: FPC-effortless/pnds-lean
+build	Run actions/checkout@v4	2026-09-24T21:13:41.5367952Z   token: ***
+build	Run actions/checkout@v4	2026-09-24T21:13:41.5368423Z   ssh-strict: true
+build	Run actions/checkout@v4	2026-09-24T21:13:41.5368927Z   ssh-user: git
+build	Run actions/checkout@v4	2026-09-24T21:13:41.5369367Z   persist-credentials: true
+build	Run actions/checkout@v4	2026-09-24T21:13:41.5369896Z   clean: true
+build	Run actions/checkout@v4	2026-09-24T21:13:41.5370379Z   sparse-checkout-cone-mode: true
+build	Run actions/checkout@v4	2026-09-24T21:13:41.5370893Z   fetch-depth: 1
+build	Run actions/checkout@v4	2026-09-24T21:13:41.5371351Z   fetch-tags: false
+build	Run actions/checkout@v4	2026-09-24T21:13:41.5371804Z   show-progress: true
+build	Run actions/checkout@v4	2026-09-24T21:13:41.5372275Z   lfs: false
+build	Run actions/checkout@v4	2026-09-24T21:13:41.5372727Z   submodules: false
+build	Run actions/checkout@v4	2026-09-24T21:13:41.5373173Z   set-safe-directory: true
+build	Run actions/checkout@v4	2026-09-24T21:13:41.5373743Z   allow-unsafe-pr-checkout: false
+build	Run actions/checkout@v4	2026-09-24T21:13:41.5374415Z ##[endgroup]
+build	Run actions/checkout@v4	2026-09-24T21:13:41.6284093Z Syncing repository: FPC-effortless/pnds-lean
+build	Run actions/checkout@v4	2026-09-24T21:13:41.6286857Z ##[group]Getting Git version info
+build	Run actions/checkout@v4	2026-09-24T21:13:41.6287922Z Working directory is '/home/runner/work/pnds-lean/pnds-lean'
+build	Run actions/checkout@v4	2026-09-24T21:13:41.6289670Z [command]/usr/bin/git version
+build	Run actions/checkout@v4	2026-09-24T21:13:41.6898150Z git version 2.55.0
+build	Run actions/checkout@v4	2026-09-24T21:13:41.6916034Z ##[endgroup]
+build	Run actions/checkout@v4	2026-09-24T21:13:41.6927831Z Temporarily overriding HOME='/home/runner/work/_temp/f4d85f3f-b3e0-4382-b758-3e3aab53b869' before making global git config changes
+build	Run actions/checkout@v4	2026-09-24T21:13:41.6930721Z Adding repository directory to the temporary git global config as a safe directory
+build	Run actions/checkout@v4	2026-09-24T21:13:41.6932973Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/pnds-lean/pnds-lean
+build	Run actions/checkout@v4	2026-09-24T21:13:41.6976396Z Deleting the contents of '/home/runner/work/pnds-lean/pnds-lean'
+build	Run actions/checkout@v4	2026-09-24T21:13:41.6980484Z ##[group]Initializing the repository
+build	Run actions/checkout@v4	2026-09-24T21:13:41.6983335Z [command]/usr/bin/git init /home/runner/work/pnds-lean/pnds-lean
+build	Run actions/checkout@v4	2026-09-24T21:13:41.7059717Z hint: Using 'master' as the name for the initial branch. This default branch name
+build	Run actions/checkout@v4	2026-09-24T21:13:41.7061300Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+build	Run actions/checkout@v4	2026-09-24T21:13:41.7062706Z hint: to use in all of your new repositories, which will suppress this warning,
+build	Run actions/checkout@v4	2026-09-24T21:13:41.7064417Z hint: call:
+build	Run actions/checkout@v4	2026-09-24T21:13:41.7065542Z hint:
+build	Run actions/checkout@v4	2026-09-24T21:13:41.7067158Z hint: 	git config --global init.defaultBranch <name>
+build	Run actions/checkout@v4	2026-09-24T21:13:41.7068248Z hint:
+build	Run actions/checkout@v4	2026-09-24T21:13:41.7069175Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+build	Run actions/checkout@v4	2026-09-24T21:13:41.7071228Z hint: 'development'. The just-created branch can be renamed via this command:
+build	Run actions/checkout@v4	2026-09-24T21:13:41.7072398Z hint:
+build	Run actions/checkout@v4	2026-09-24T21:13:41.7072992Z hint: 	git branch -m <name>
+build	Run actions/checkout@v4	2026-09-24T21:13:41.7073667Z hint:
+build	Run actions/checkout@v4	2026-09-24T21:13:41.7074673Z hint: Disable this message with "git config set advice.defaultBranchName false"
+build	Run actions/checkout@v4	2026-09-24T21:13:41.7075942Z Initialized empty Git repository in /home/runner/work/pnds-lean/pnds-lean/.git/
+build	Run actions/checkout@v4	2026-09-24T21:13:41.7078075Z [command]/usr/bin/git remote add origin https://github.com/FPC-effortless/pnds-lean
+build	Run actions/checkout@v4	2026-09-24T21:13:41.7810920Z ##[endgroup]
+build	Run actions/checkout@v4	2026-09-24T21:13:41.7812489Z ##[group]Disabling automatic garbage collection
+build	Run actions/checkout@v4	2026-09-24T21:13:41.7813760Z [command]/usr/bin/git config --local gc.auto 0
+build	Run actions/checkout@v4	2026-09-24T21:13:41.7840058Z ##[endgroup]
+build	Run actions/checkout@v4	2026-09-24T21:13:41.7840932Z ##[group]Setting up auth
+build	Run actions/checkout@v4	2026-09-24T21:13:41.7846533Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+build	Run actions/checkout@v4	2026-09-24T21:13:41.7870841Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+build	Run actions/checkout@v4	2026-09-24T21:13:41.8902518Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+build	Run actions/checkout@v4	2026-09-24T21:13:41.8931164Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+build	Run actions/checkout@v4	2026-09-24T21:13:41.9107884Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+build	Run actions/checkout@v4	2026-09-24T21:13:41.9133851Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+build	Run actions/checkout@v4	2026-09-24T21:13:41.9296258Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+build	Run actions/checkout@v4	2026-09-24T21:13:41.9325792Z ##[endgroup]
+build	Run actions/checkout@v4	2026-09-24T21:13:41.9327157Z ##[group]Fetching the repository
+build	Run actions/checkout@v4	2026-09-24T21:13:41.9334962Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +9e0ebd4115a0f9f451c1a357513440fb7e8b113b:refs/remotes/origin/main
+build	Run actions/checkout@v4	2026-09-24T21:13:42.4292737Z From https://github.com/FPC-effortless/pnds-lean
+build	Run actions/checkout@v4	2026-09-24T21:13:42.4295658Z  * [new ref]         9e0ebd4115a0f9f451c1a357513440fb7e8b113b -> origin/main
+build	Run actions/checkout@v4	2026-09-24T21:13:42.4300804Z ##[endgroup]
+build	Run actions/checkout@v4	2026-09-24T21:13:42.4303217Z ##[group]Determining the checkout info
+build	Run actions/checkout@v4	2026-09-24T21:13:42.4305701Z ##[endgroup]
+build	Run actions/checkout@v4	2026-09-24T21:13:42.4310384Z [command]/usr/bin/git sparse-checkout disable
+build	Run actions/checkout@v4	2026-09-24T21:13:42.4356137Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+build	Run actions/checkout@v4	2026-09-24T21:13:42.4383726Z ##[group]Checking out the ref
+build	Run actions/checkout@v4	2026-09-24T21:13:42.4386280Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+build	Run actions/checkout@v4	2026-09-24T21:13:42.4438439Z Switched to a new branch 'main'
+build	Run actions/checkout@v4	2026-09-24T21:13:42.4442947Z branch 'main' set up to track 'origin/main'.
+build	Run actions/checkout@v4	2026-09-24T21:13:42.4448623Z ##[endgroup]
+build	Run actions/checkout@v4	2026-09-24T21:13:42.4480300Z [command]/usr/bin/git log -1 --format=%H
+build	Run actions/checkout@v4	2026-09-24T21:13:42.4499937Z 9e0ebd4115a0f9f451c1a357513440fb7e8b113b
+build	Install elan	﻿2026-09-24T21:13:42.4731623Z ##[group]Run curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain none
+build	Install elan	2026-09-24T21:13:42.4735133Z ^[[36;1mcurl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain none^[[0m
+build	Install elan	2026-09-24T21:13:42.4737337Z ^[[36;1mecho "$HOME/.elan/bin" >> "$GITHUB_PATH"^[[0m
+build	Install elan	2026-09-24T21:13:42.6247933Z shell: /usr/bin/bash -e {0}
+build	Install elan	2026-09-24T21:13:42.6249076Z ##[endgroup]
+build	Install elan	2026-09-24T21:13:42.8082060Z info: downloading installer
+build	Resolve dependencies	﻿2026-09-24T21:13:43.3047867Z ##[group]Run lake update
+build	Resolve dependencies	2026-09-24T21:13:43.3048376Z ^[[36;1mlake update^[[0m
+build	Resolve dependencies	2026-09-24T21:13:43.3097123Z shell: /usr/bin/bash -e {0}
+build	Resolve dependencies	2026-09-24T21:13:43.3097639Z ##[endgroup]
+build	Resolve dependencies	2026-09-24T21:13:43.9427026Z info: downloading https://releases.lean-lang.org/lean4/v4.14.0/lean-4.14.0-linux.tar.zst
+build	Resolve dependencies	2026-09-24T21:13:47.2622753Z info: installing /home/runner/.elan/toolchains/leanprover--lean4---v4.14.0
+build	Resolve dependencies	2026-09-24T21:13:49.4537204Z info: pnds: no previous manifest, creating one from scratch
+build	Resolve dependencies	2026-09-24T21:14:44.6744087Z info: leanprover-community/mathlib: cloning https://github.com/leanprover-community/mathlib4
+build	Resolve dependencies	2026-09-24T21:14:44.6745740Z info: leanprover-community/mathlib: checking out revision '4bbdccd9c5f862bf90ff12f0a9e2c8be032b9a84'
+build	Resolve dependencies	2026-09-24T21:14:44.6746523Z info: toolchain not updated; already up-to-date
+build	Resolve dependencies	2026-09-24T21:14:45.5137384Z info: plausible: cloning https://github.com/leanprover-community/plausible
+build	Resolve dependencies	2026-09-24T21:14:45.5138240Z info: plausible: checking out revision '42dc02bdbc5d0c2f395718462a76c3d87318f7fa'
+build	Resolve dependencies	2026-09-24T21:14:45.9346084Z info: LeanSearchClient: cloning https://github.com/leanprover-community/LeanSearchClient
+build	Resolve dependencies	2026-09-24T21:14:45.9347286Z info: LeanSearchClient: checking out revision 'd7caecce0d0f003fd5e9cce9a61f1dd6ba83142b'
+build	Resolve dependencies	2026-09-24T21:14:46.4314980Z info: importGraph: cloning https://github.com/leanprover-community/import-graph
+build	Resolve dependencies	2026-09-24T21:14:46.4316142Z info: importGraph: checking out revision '519e509a28864af5bed98033dd33b95cf08e9aa7'
+build	Resolve dependencies	2026-09-24T21:14:47.6366885Z info: proofwidgets: cloning https://github.com/leanprover-community/ProofWidgets4
+build	Resolve dependencies	2026-09-24T21:14:47.6367753Z info: proofwidgets: checking out revision '68280daef58803f68368eb2e53046dabcd270c9d'
+build	Resolve dependencies	2026-09-24T21:14:49.2483550Z info: aesop: cloning https://github.com/leanprover-community/aesop
+build	Resolve dependencies	2026-09-24T21:14:49.2484656Z info: aesop: checking out revision '5a0ec8588855265ade536f35bcdcf0fb24fd6030'
+build	Resolve dependencies	2026-09-24T21:14:50.0821522Z info: Qq: cloning https://github.com/leanprover-community/quote4
+build	Resolve dependencies	2026-09-24T21:14:50.0822383Z info: Qq: checking out revision '303b23fbcea94ac4f96e590c1cad6618fd4f5f41'
+build	Resolve dependencies	2026-09-24T21:14:55.9874074Z info: batteries: cloning https://github.com/leanprover-community/batteries
+build	Resolve dependencies	2026-09-24T21:14:55.9874993Z info: batteries: checking out revision '8d6c853f11a5172efa0e96b9f2be1a83d861cdd9'
+build	Resolve dependencies	2026-09-24T21:14:56.4592190Z info: Cli: cloning https://github.com/leanprover/lean4-cli
+build	Resolve dependencies	2026-09-24T21:14:56.4592902Z info: Cli: checking out revision '726b3c9ad13acca724d4651f14afc4804a7b0e4d'
+build	Resolve dependencies	2026-09-24T21:14:56.4607569Z info: mathlib: running post-update hooks
+build	Resolve dependencies	2026-09-24T21:14:58.3768171Z ✔ [3/11] Built Cache.IO
+build	Resolve dependencies	2026-09-24T21:14:59.0768716Z ✔ [4/11] Built Cache.Hashing
+build	Resolve dependencies	2026-09-24T21:15:00.2781393Z ✔ [5/11] Built Cache.Requests
+build	Resolve dependencies	2026-09-24T21:15:00.2782246Z ✔ [6/11] Built Cache.IO:c.o
+build	Resolve dependencies	2026-09-24T21:15:00.2806555Z ✔ [7/11] Built Cache.Hashing:c.o
+build	Resolve dependencies	2026-09-24T21:15:00.6787154Z ✔ [8/11] Built Cache.Main
+build	Resolve dependencies	2026-09-24T21:15:00.9781286Z ✔ [9/11] Built Cache.Requests:c.o
+build	Resolve dependencies	2026-09-24T21:15:01.0781719Z ✔ [10/11] Built Cache.Main:c.o
+build	Resolve dependencies	2026-09-24T21:15:01.4786889Z ✔ [11/11] Built cache
+build	Resolve dependencies	2026-09-24T21:15:02.3246468Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+build	Resolve dependencies	2026-09-24T21:15:02.3247632Z                                  Dload  Upload   Total   Spent    Left  Speed
+build	Resolve dependencies	2026-09-24T21:15:02.3248081Z 
+build	Resolve dependencies	2026-09-24T21:15:02.3248379Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+build	Resolve dependencies	2026-09-24T21:15:02.3248912Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+build	Resolve dependencies	2026-09-24T21:15:02.3249176Z 
+build	Resolve dependencies	2026-09-24T21:15:02.3249441Z 100 1059k  100 1059k    0     0  2746k      0 --:--:-- --:--:-- --:--:-- 2746k
+build	Resolve dependencies	2026-09-24T21:15:02.3249746Z 
+build	Resolve dependencies	2026-09-24T21:15:02.3495261Z installing leantar 0.1.14
+build	Resolve dependencies	2026-09-24T21:15:03.4968263Z Attempting to download 5685 file(s)
+build	Resolve dependencies	2026-09-24T21:15:04.3962119Z 
+build	Resolve dependencies	2026-09-24T21:15:04.4959453Z Downloaded: 1 file(s) [attempted 1/5685 = 0%]
+build	Resolve dependencies	2026-09-24T21:15:04.5959663Z Downloaded: 291 file(s) [attempted 291/5685 = 5%]
+build	Resolve dependencies	2026-09-24T21:15:04.6960222Z Downloaded: 804 file(s) [attempted 804/5685 = 14%]
+build	Resolve dependencies	2026-09-24T21:15:04.7957487Z Downloaded: 1424 file(s) [attempted 1424/5685 = 25%]
+build	Resolve dependencies	2026-09-24T21:15:04.8958845Z Downloaded: 2030 file(s) [attempted 2030/5685 = 35%]
+build	Resolve dependencies	2026-09-24T21:15:04.9958396Z Downloaded: 2632 file(s) [attempted 2632/5685 = 46%]
+build	Resolve dependencies	2026-09-24T21:15:05.0961090Z Downloaded: 3264 file(s) [attempted 3264/5685 = 57%]
+build	Resolve dependencies	2026-09-24T21:15:05.1958011Z Downloaded: 3890 file(s) [attempted 3890/5685 = 68%]
+build	Resolve dependencies	2026-09-24T21:15:05.2965148Z Downloaded: 4485 file(s) [attempted 4485/5685 = 78%]
+build	Resolve dependencies	2026-09-24T21:15:05.3964744Z Downloaded: 5104 file(s) [attempted 5104/5685 = 89%]
+build	Resolve dependencies	2026-09-24T21:15:05.4474743Z Downloaded: 5676 file(s) [attempted 5676/5685 = 99%]
+build	Resolve dependencies	2026-09-24T21:15:05.4476136Z Downloaded: 5685 file(s) [attempted 5685/5685 = 100%] (100% success)
+build	Resolve dependencies	2026-09-24T21:15:24.2562854Z Decompressing 5685 file(s)
+build	Resolve dependencies	2026-09-24T21:15:24.2563583Z Unpacked in 18793 ms
+build	Resolve dependencies	2026-09-24T21:15:24.2564069Z Completed successfully!
+build	Verify Mathlib was actually resolved	﻿2026-09-24T21:15:24.2833958Z ##[group]Run set -e
+build	Verify Mathlib was actually resolved	2026-09-24T21:15:24.2834344Z ^[[36;1mset -e^[[0m
+build	Verify Mathlib was actually resolved	2026-09-24T21:15:24.2835101Z ^[[36;1mif ! grep -q "leanprover-community/mathlib4" lake-manifest.json; then^[[0m
+build	Verify Mathlib was actually resolved	2026-09-24T21:15:24.2835663Z ^[[36;1m  echo "::error::Mathlib is not in lake-manifest.json; the build would be a no-op"^[[0m
+build	Verify Mathlib was actually resolved	2026-09-24T21:15:24.2836121Z ^[[36;1m  exit 1^[[0m
+build	Verify Mathlib was actually resolved	2026-09-24T21:15:24.2836389Z ^[[36;1mfi^[[0m
+build	Verify Mathlib was actually resolved	2026-09-24T21:15:24.2836653Z ^[[36;1mecho "Mathlib resolved"^[[0m
+build	Verify Mathlib was actually resolved	2026-09-24T21:15:24.2882438Z shell: /usr/bin/bash -e {0}
+build	Verify Mathlib was actually resolved	2026-09-24T21:15:24.2882886Z ##[endgroup]
+build	Verify Mathlib was actually resolved	2026-09-24T21:15:24.3346357Z Mathlib resolved
+build	Build (explicit roots, so nothing can be silently skipped)	﻿2026-09-24T21:15:24.3378981Z ##[group]Run lake build 'PNDS' 'Audit' 2>&1 | tee build.log
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:24.3379477Z ^[[36;1mlake build 'PNDS' 'Audit' 2>&1 | tee build.log^[[0m
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:24.3417655Z shell: /usr/bin/bash -e {0}
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:24.3418268Z ##[endgroup]
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.0586725Z ✖ [5697/5705] Building PNDS.Registration
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.0618817Z trace: .> LEAN_PATH=././.lake/packages/Cli/.lake/build/lib:././.lake/packages/batteries/.lake/build/lib:././.lake/packages/Qq/.lake/build/lib:././.lake/packages/aesop/.lake/build/lib:././.lake/packages/proofwidgets/.lake/build/lib:././.lake/packages/importGraph/.lake/build/lib:././.lake/packages/LeanSearchClient/.lake/build/lib:././.lake/packages/plausible/.lake/build/lib:././.lake/packages/mathlib/.lake/build/lib:././.lake/build/lib LD_LIBRARY_PATH= /home/runner/.elan/toolchains/leanprover--lean4---v4.14.0/bin/lean ././././PNDS/Registration.lean -R ./././. -o ././.lake/build/lib/PNDS/Registration.olean -i ././.lake/build/lib/PNDS/Registration.ilean -c ././.lake/build/ir/PNDS/Registration.c --json
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.0645740Z error: ././././PNDS/Registration.lean:43:42: unsolved goals
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.0665957Z α : Type u_1
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.0675458Z g : Gates α
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.0705506Z x : α
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.0726222Z ⊢ g.utility x = true ∧ g.stability x = true ∧ g.integrity x = true ∧ g.cost x = true ↔
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.0755877Z     ((g.utility x = true ∧ g.stability x = true) ∧ g.integrity x = true) ∧ g.cost x = true
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.0812976Z error: ././././PNDS/Registration.lean:55:58: invalid binder annotation, type is not a class instance
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.0815029Z   ?m.1126
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.0815856Z use the command `set_option checkBinderAnnotations false` to disable the check
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.0875374Z error: ././././PNDS/Registration.lean:60:37: expected token
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.0876420Z error: ././././PNDS/Registration.lean:60:34: failed to synthesize
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.0877051Z   LE Type
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.0877738Z Additional diagnostic information may be available using the `set_option diagnostics true` command.
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.0878647Z error: ././././PNDS/Registration.lean:60:36: failed to synthesize
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.0879157Z   OfNat Type 0
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.0879854Z numerals are polymorphic in Lean, but the numeral `0` cannot be used in a context where the expected type is
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.0880657Z   Type
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.0881473Z due to the absence of the instance above
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.0882264Z Additional diagnostic information may be available using the `set_option diagnostics true` command.
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.0883070Z error: ././././PNDS/Registration.lean:64:32: expected token
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.0883689Z error: ././././PNDS/Registration.lean:64:29: failed to synthesize
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.0884240Z   LE Type
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.0884979Z Additional diagnostic information may be available using the `set_option diagnostics true` command.
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.0885750Z error: ././././PNDS/Registration.lean:64:31: failed to synthesize
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.0886289Z   OfNat Type 0
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.0886925Z numerals are polymorphic in Lean, but the numeral `0` cannot be used in a context where the expected type is
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.0887671Z   Type
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.0888043Z due to the absence of the instance above
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.0888751Z Additional diagnostic information may be available using the `set_option diagnostics true` command.
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.0889559Z error: ././././PNDS/Registration.lean:70:54: expected token
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.0890112Z error: Lean exited with code 1
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.1556321Z ✖ [5698/5705] Building PNDS.PathVerification
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.1588114Z trace: .> LEAN_PATH=././.lake/packages/Cli/.lake/build/lib:././.lake/packages/batteries/.lake/build/lib:././.lake/packages/Qq/.lake/build/lib:././.lake/packages/aesop/.lake/build/lib:././.lake/packages/proofwidgets/.lake/build/lib:././.lake/packages/importGraph/.lake/build/lib:././.lake/packages/LeanSearchClient/.lake/build/lib:././.lake/packages/plausible/.lake/build/lib:././.lake/packages/mathlib/.lake/build/lib:././.lake/build/lib LD_LIBRARY_PATH= /home/runner/.elan/toolchains/leanprover--lean4---v4.14.0/bin/lean ././././PNDS/PathVerification.lean -R ./././. -o ././.lake/build/lib/PNDS/PathVerification.olean -i ././.lake/build/lib/PNDS/PathVerification.ilean -c ././.lake/build/ir/PNDS/PathVerification.c --json
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.1594099Z error: ././././PNDS/PathVerification.lean:53:34: application type mismatch
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.1615824Z   mul_le_mul_of_nonneg_right hv1
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.1645814Z argument
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.1675107Z   hv1
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.1695292Z has type
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.1705247Z   v ≤ 1 : Prop
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.1735115Z but is expected to have type
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.1765183Z   v ^ k ≤ ?m.5061 : Prop
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.1775224Z error: ././././PNDS/PathVerification.lean:61:9: unsolved goals
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.1805085Z case refl
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.1835559Z v : ℝ
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.1845802Z hv : 0 ≤ v
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.1865224Z hv1 : v ≤ 1
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.1895129Z n m : ℕ
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.1925192Z ⊢ v ^ n ≤ v ^ n
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.1935271Z error: ././././PNDS/PathVerification.lean:62:2: too many variable names provided at alternative 'step', #3 provided, but #2 expected
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.1978020Z error: ././././PNDS/PathVerification.lean:62:49: application type mismatch
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2005681Z   pow_succ_le_pow hv hv1 k
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2015557Z argument
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2035072Z   k
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2053915Z has type
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2063188Z   n.le m✝ : Prop
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2063983Z but is expected to have type
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2066895Z   ℕ : Type
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2067955Z error: ././././PNDS/PathVerification.lean:62:58: unknown identifier 'ik'
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2068759Z error: ././././PNDS/PathVerification.lean:67:4: function expected at
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2069354Z   Tendsto
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2069919Z term has type
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2070374Z   ?m.7178
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2070988Z error: ././././PNDS/PathVerification.lean:68:14: function expected at
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2071616Z   Tendsto
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2072034Z term has type
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2072587Z   x✝
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2073043Z error: Lean exited with code 1
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2547450Z ✖ [5699/5705] Building PNDS.Scaling
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2551207Z trace: .> LEAN_PATH=././.lake/packages/Cli/.lake/build/lib:././.lake/packages/batteries/.lake/build/lib:././.lake/packages/Qq/.lake/build/lib:././.lake/packages/aesop/.lake/build/lib:././.lake/packages/proofwidgets/.lake/build/lib:././.lake/packages/importGraph/.lake/build/lib:././.lake/packages/LeanSearchClient/.lake/build/lib:././.lake/packages/plausible/.lake/build/lib:././.lake/packages/mathlib/.lake/build/lib:././.lake/build/lib LD_LIBRARY_PATH= /home/runner/.elan/toolchains/leanprover--lean4---v4.14.0/bin/lean ././././PNDS/Scaling.lean -R ./././. -o ././.lake/build/lib/PNDS/Scaling.olean -i ././.lake/build/lib/PNDS/Scaling.ilean -c ././.lake/build/ir/PNDS/Scaling.c --json
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2555251Z warning: ././././PNDS/Scaling.lean:29:27: unused variable `hKr`
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2556147Z note: this linter can be disabled with `set_option linter.unusedVariables false`
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2557028Z warning: ././././PNDS/Scaling.lean:36:32: unused variable `hKr`
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2557942Z note: this linter can be disabled with `set_option linter.unusedVariables false`
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2558828Z warning: ././././PNDS/Scaling.lean:36:46: unused variable `hKN`
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2559635Z note: this linter can be disabled with `set_option linter.unusedVariables false`
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2560401Z error: ././././PNDS/Scaling.lean:52:4: type mismatch
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2561001Z   Fin.mk.inj h
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2561502Z has type
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2562046Z   ↑a = ↑b : Prop
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2562611Z but is expected to have type
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2563109Z   a = b : Prop
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2563683Z error: ././././PNDS/Scaling.lean:56:35: application type mismatch
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2564606Z   finEmbed m hK
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2565090Z argument
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2565522Z   hK
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2565970Z has type
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2566503Z   K ≤ m : Prop
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2567045Z but is expected to have type
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2567584Z   ℕ : Type
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2568133Z error: ././././PNDS/Scaling.lean:59:28: function expected at
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2568792Z   relevantFin m
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2569251Z term has type
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2569724Z   Finset (Fin m)
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2570461Z error: ././././PNDS/Scaling.lean:60:6: failed to rewrite using equation theorems for 'PNDS.Scaling.relevantFin'.
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2571395Z error: ././././PNDS/Scaling.lean:67:16: function expected at
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2572060Z   relevantFin m
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2572577Z term has type
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2573200Z   Finset (Fin m)
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2573758Z error: ././././PNDS/Scaling.lean:68:25: function expected at
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2574415Z   relevantFin m
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2574979Z term has type
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2575444Z   Finset (Fin m)
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2576016Z error: ././././PNDS/Scaling.lean:68:47: function expected at
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2576620Z   relevantFin m
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2577050Z term has type
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2577577Z   Finset (Fin m)
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2578166Z error: ././././PNDS/Scaling.lean:69:4: function expected at
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2578824Z   Finset.inter_subset_right ?m.4766
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2579360Z term has type
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2579895Z   ?m.4765 ∈ ?m.4764
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2580688Z error: ././././PNDS/Scaling.lean:71:6: tactic 'rewrite' failed, equality or iff proof expected
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2581443Z   ?m.5030
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2581921Z r m : ℕ
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2582414Z selected : Finset (Fin m)
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2583000Z hsub : selected ∩ sorry ⊆ sorry
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2583668Z hcard : (selected ∩ sorry).card ≤ sorry.card
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2584319Z ⊢ (selected ∩ sorry).card ≤ r
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2585040Z warning: ././././PNDS/Scaling.lean:79:58: unused variable `hD`
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2585843Z note: this linter can be disabled with `set_option linter.unusedVariables false`
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2586641Z warning: ././././PNDS/Scaling.lean:80:5: unused variable `hN`
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2587539Z note: this linter can be disabled with `set_option linter.unusedVariables false`
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.2588514Z error: Lean exited with code 1
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.4552904Z ✖ [5700/5705] Building PNDS.Statistics
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.4556620Z trace: .> LEAN_PATH=././.lake/packages/Cli/.lake/build/lib:././.lake/packages/batteries/.lake/build/lib:././.lake/packages/Qq/.lake/build/lib:././.lake/packages/aesop/.lake/build/lib:././.lake/packages/proofwidgets/.lake/build/lib:././.lake/packages/importGraph/.lake/build/lib:././.lake/packages/LeanSearchClient/.lake/build/lib:././.lake/packages/plausible/.lake/build/lib:././.lake/packages/mathlib/.lake/build/lib:././.lake/build/lib LD_LIBRARY_PATH= /home/runner/.elan/toolchains/leanprover--lean4---v4.14.0/bin/lean ././././PNDS/Statistics.lean -R ./././. -o ././.lake/build/lib/PNDS/Statistics.olean -i ././.lake/build/lib/PNDS/Statistics.ilean -c ././.lake/build/ir/PNDS/Statistics.c --json
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.4560059Z info: ././././PNDS/Statistics.lean:29:2: Try this: ring_nf
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.4560762Z error: ././././PNDS/Statistics.lean:26:71: unsolved goals
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.4561422Z k : ℕ
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.4561936Z ⊢ 1 = 2 ^ (-↑k) * 2 ^ k
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.4562697Z error: ././././PNDS/Statistics.lean:33:21: failed to rewrite using equation theorems for 'PNDS.Statistics.minP_oneSided'.
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:29.4563515Z error: Lean exited with code 1
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.1572996Z ✔ [5701/5705] Built PNDS.Causal
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6578441Z ✖ [5702/5705] Building PNDS.Softmax
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6580778Z trace: .> LEAN_PATH=././.lake/packages/Cli/.lake/build/lib:././.lake/packages/batteries/.lake/build/lib:././.lake/packages/Qq/.lake/build/lib:././.lake/packages/aesop/.lake/build/lib:././.lake/packages/proofwidgets/.lake/build/lib:././.lake/packages/importGraph/.lake/build/lib:././.lake/packages/LeanSearchClient/.lake/build/lib:././.lake/packages/plausible/.lake/build/lib:././.lake/packages/mathlib/.lake/build/lib:././.lake/build/lib LD_LIBRARY_PATH= /home/runner/.elan/toolchains/leanprover--lean4---v4.14.0/bin/lean ././././PNDS/Softmax.lean -R ./././. -o ././.lake/build/lib/PNDS/Softmax.olean -i ././.lake/build/lib/PNDS/Softmax.ilean -c ././.lake/build/ir/PNDS/Softmax.c --json
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6582990Z error: ././././PNDS/Softmax.lean:57:40: application type mismatch
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6583380Z   StrictMono.monotone h x
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6583663Z argument
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6583926Z   x
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6584184Z has type
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6584668Z   F : Type u_1
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6585653Z but is expected to have type
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6586137Z   0 ≤ x : Prop
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6586497Z error: ././././PNDS/Softmax.lean:75:42: failed to prove positivity/nonnegativity/nonzeroness
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6587124Z error: ././././PNDS/Softmax.lean:76:23: tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6587663Z   ?m.15237 ≤ ?m.15238 / (r * E.app s + n)
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6587957Z F : Type u_1
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6588321Z inst✝ : LinearOrderedField F
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6588622Z E : Exp F
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6588905Z r n ε s : F
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6589144Z hr : 0 < r
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6589386Z hn : 0 < n
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6589666Z hε : 0 < ε
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6589914Z hεε : ε < 1
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6590222Z hbound : r * ε * E.app s ≥ n * (1 - ε)
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6590524Z hdenom : 0 < r * E.app s + n
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6590824Z ⊢ n / (r * E.app s + n) ≤ ε
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6591190Z error: ././././PNDS/Softmax.lean:90:4: type mismatch, term
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6591542Z   hbound
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6591807Z after simplification has type
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6592122Z   n * (1 - ε) / ε ≤ E.app s : Prop
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6592418Z but is expected to have type
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6592775Z   n * (1 - ε) ≤ ε * E.app s : Prop
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6593069Z error: Lean exited with code 1
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6593361Z Some required builds logged failures:
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6593668Z - PNDS.Registration
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6593936Z - PNDS.PathVerification
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6594230Z - PNDS.Scaling
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6594743Z - PNDS.Statistics
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6595002Z - PNDS.Softmax
+build	Build (explicit roots, so nothing can be silently skipped)	2026-09-24T21:15:31.6615386Z error: build failed
+build	Verify the tree actually compiled	﻿2026-09-24T21:15:31.6723332Z ##[group]Run set -e
+build	Verify the tree actually compiled	2026-09-24T21:15:31.6723712Z ^[[36;1mset -e^[[0m
+build	Verify the tree actually compiled	2026-09-24T21:15:31.6724011Z ^[[36;1mn=$(find .lake/build -name "*.olean" | wc -l)^[[0m
+build	Verify the tree actually compiled	2026-09-24T21:15:31.6724407Z ^[[36;1mecho ".olean files produced under .lake/build: $n"^[[0m
+build	Verify the tree actually compiled	2026-09-24T21:15:31.6724960Z ^[[36;1mif [ "$n" -eq 0 ]; then^[[0m
+build	Verify the tree actually compiled	2026-09-24T21:15:31.6725348Z ^[[36;1m  echo "::error::No .olean files were produced; lake build compiled nothing"^[[0m
+build	Verify the tree actually compiled	2026-09-24T21:15:31.6725742Z ^[[36;1m  exit 1^[[0m
+build	Verify the tree actually compiled	2026-09-24T21:15:31.6725996Z ^[[36;1mfi^[[0m
+build	Verify the tree actually compiled	2026-09-24T21:15:31.6769864Z shell: /usr/bin/bash -e {0}
+build	Verify the tree actually compiled	2026-09-24T21:15:31.6770276Z ##[endgroup]
+build	Verify the tree actually compiled	2026-09-24T21:15:31.6917383Z .olean files produced under .lake/build: 1
+build	Fail on sorry in build output	﻿2026-09-24T21:15:31.6946825Z ##[group]Run set -e
+build	Fail on sorry in build output	2026-09-24T21:15:31.6947149Z ^[[36;1mset -e^[[0m
+build	Fail on sorry in build output	2026-09-24T21:15:31.6947437Z ^[[36;1mif grep -n "sorry" build.log; then^[[0m
+build	Fail on sorry in build output	2026-09-24T21:15:31.6947823Z ^[[36;1m  echo "::error::sorry present in the build output"^[[0m
+build	Fail on sorry in build output	2026-09-24T21:15:31.6948192Z ^[[36;1m  exit 1^[[0m
+build	Fail on sorry in build output	2026-09-24T21:15:31.6948486Z ^[[36;1mfi^[[0m
+build	Fail on sorry in build output	2026-09-24T21:15:31.6948812Z ^[[36;1mecho "no sorry in build output: clean"^[[0m
+build	Fail on sorry in build output	2026-09-24T21:15:31.6977733Z shell: /usr/bin/bash -e {0}
+build	Fail on sorry in build output	2026-09-24T21:15:31.6978087Z ##[endgroup]
+build	Fail on sorry in build output	2026-09-24T21:15:31.7783607Z 117:hsub : selected ∩ sorry ⊆ sorry
+build	Fail on sorry in build output	2026-09-24T21:15:31.7784282Z 118:hcard : (selected ∩ sorry).card ≤ sorry.card
+build	Fail on sorry in build output	2026-09-24T21:15:31.7784964Z 119:⊢ (selected ∩ sorry).card ≤ r
+build	Fail on sorry in build output	2026-09-24T21:15:31.7804279Z ##[error]sorry present in the build output
+build	Fail on sorry in build output	2026-09-24T21:15:31.7811897Z ##[error]Process completed with exit code 1.
+build	Post Run actions/checkout@v4	﻿2026-09-24T21:15:31.7931552Z Post job cleanup.
+build	Post Run actions/checkout@v4	2026-09-24T21:15:31.8696857Z [command]/usr/bin/git version
+build	Post Run actions/checkout@v4	2026-09-24T21:15:31.8731963Z git version 2.55.0
+build	Post Run actions/checkout@v4	2026-09-24T21:15:31.8760113Z Temporarily overriding HOME='/home/runner/work/_temp/5e237394-0652-4fc9-8f10-c10e1ffe527c' before making global git config changes
+build	Post Run actions/checkout@v4	2026-09-24T21:15:31.8761942Z Adding repository directory to the temporary git global config as a safe directory
+build	Post Run actions/checkout@v4	2026-09-24T21:15:31.8766265Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/pnds-lean/pnds-lean
+build	Post Run actions/checkout@v4	2026-09-24T21:15:31.9115252Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+build	Post Run actions/checkout@v4	2026-09-24T21:15:31.9156404Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+build	Post Run actions/checkout@v4	2026-09-24T21:15:31.9346511Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+build	Post Run actions/checkout@v4	2026-09-24T21:15:31.9368098Z http.https://github.com/.extraheader
+build	Post Run actions/checkout@v4	2026-09-24T21:15:31.9377933Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+build	Post Run actions/checkout@v4	2026-09-24T21:15:32.0143140Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+build	Post Run actions/checkout@v4	2026-09-24T21:15:32.0313134Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+build	Post Run actions/checkout@v4	2026-09-24T21:15:32.0339034Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+build	Complete job	﻿2026-09-24T21:15:32.0626873Z Cleaning up orphan processes
+build	Complete job	2026-09-24T21:15:32.0869239Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

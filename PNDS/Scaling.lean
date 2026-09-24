@@ -47,16 +47,14 @@ variable (m : ℕ) (hK : K ≤ m) (hr : r ≤ K)
 
 /-- Embed `Fin r` into `Fin m` when `r ≤ m`. -/
 def finEmbed (h : r ≤ m) : Fin r ↪ Fin m :=
-  ⟨fun i => ⟨i, by omega⟩, by
-    intro a b h
-    exact Fin.mk.inj h⟩
+  ⟨fun i => ⟨i, by omega⟩, fun a b h => h⟩
 
 /-- The relevant items, as a finset over `Fin m`: the first `r` indices. -/
 def relevantFin : Finset (Fin m) :=
   (Finset.range r).map (finEmbed m hK)
 
 /-- The relevant set has cardinality exactly `r`. -/
-theorem card_relevantFin : (relevantFin m hK hr).card = r := by
+theorem card_relevantFin : (relevantFin (m := m) (hK := hK)).card = r := by
   rw [relevantFin, Finset.card_map]
   exact Finset.card_range r
 
@@ -64,11 +62,11 @@ theorem card_relevantFin : (relevantFin m hK hr).card = r := by
     relevant items, so their count is bounded by `r`. This is the counting statement
     that forces `K >= r` if all relevant items are to be selected. -/
 theorem inter_le_relevant (selected : Finset (Fin m)) :
-    (selected ∩ relevantFin m hK hr).card ≤ r := by
-  have hsub : selected ∩ relevantFin m hK hr ⊆ relevantFin m hK hr :=
+    (selected ∩ relevantFin (m := m) (hK := hK)).card ≤ r := by
+  have hsub : selected ∩ relevantFin (m := m) (hK := hK) ⊆ relevantFin (m := m) (hK := hK) :=
     Finset.inter_subset_right _ _
   have hcard := Finset.card_le_card hsub
-  rw [card_relevantFin m hK hr] at hcard
+  rw [card_relevantFin] at hcard
   exact hcard
 
 /-! ## 3. The residual `N` dependence -/
