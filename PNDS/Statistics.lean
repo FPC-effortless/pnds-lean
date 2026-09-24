@@ -1,14 +1,3 @@
-/-!
-# Statistics: sign-test minima (§20)
-
-The document states that under a sign test the minimum attainable one-sided p-value
-with `k` seeds is `(1/2)^k`, so three seeds cannot reach `p < 0.05` (one-sided
-`p_min = 0.125`, two-sided `0.250`), and at least 6 seeds are required
-(two-sided `0.0312`).
-
-We prove the exact minima.
--/
-
 import Mathlib
 
 open Real
@@ -85,3 +74,14 @@ theorem minP_antitone : Antitone minP_oneSided := by
   · exact pow_le_pow_of_le_one (by norm_num) (by norm_num) hnm
 
 end PNDS.Statistics
+
+/-!
+# Statistics: sign-test minima (§20)
+
+The document states that under a sign test the minimum attainable one-sided p-value
+with `k` seeds is `(1/2)^k`, so three seeds cannot reach `p < 0.05` (one-sided
+`p_min = 0.125`, two-sided `0.250`), and at least 6 seeds are required
+(two-sided `0.0312`).
+
+We prove the exact minima.
+-/

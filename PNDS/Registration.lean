@@ -1,19 +1,3 @@
-/-!
-# Registration gates and contamination (§12, §14)
-
-Two facts are provable.
-
-1. Admission requires all four gates (§12). v0.1 named them but defined none.
-2. `P_contam` and `P_false_admit` are Bayes-inverted quantities and are **not**
-   interchangeable. v0.1 defined `P_contam = P(x ∈ S_P | x invalid)`, which is the
-   false-admit rate; the contamination fraction is `P(x invalid | x ∈ S_P)` (§14).
-
-Only the admission half of the status alphabet is formalised. The document states an
-admission condition and no transition function, no retention rule for items already in
-`R`, and no quarantine or retirement rule — so no transition or invariant theorem is
-claimed here. That is deliberately left open, and flagged in `Causal.lean`.
--/
-
 import Mathlib
 
 open Real
@@ -78,3 +62,19 @@ theorem bayes_inversion (hS : (Measure.map volume) S ≠ 0) :
   field_simp
 
 end PNDS.Registration
+
+/-!
+# Registration gates and contamination (§12, §14)
+
+Two facts are provable.
+
+1. Admission requires all four gates (§12). v0.1 named them but defined none.
+2. `P_contam` and `P_false_admit` are Bayes-inverted quantities and are **not**
+   interchangeable. v0.1 defined `P_contam = P(x ∈ S_P | x invalid)`, which is the
+   false-admit rate; the contamination fraction is `P(x invalid | x ∈ S_P)` (§14).
+
+Only the admission half of the status alphabet is formalised. The document states an
+admission condition and no transition function, no retention rule for items already in
+`R`, and no quarantine or retirement rule — so no transition or invariant theorem is
+claimed here. That is deliberately left open, and flagged in `Causal.lean`.
+-/

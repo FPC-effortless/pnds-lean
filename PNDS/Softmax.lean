@@ -1,18 +1,3 @@
-/-!
-# Softmax selection-margin bound (§5)
-
-The document states that if every relevant item outscores every distractor by at least
-`m` and all distractors share one logit, then holding distractor mass at `ε` requires
-
-    m ≥ τ · ln((n (1 - ε)) / (r ε))          (§5; worst case r = 1 gives ln(n/ε))
-
-with `n = |I_N| - r` the distractor count and `r` the relevant count.
-
-This is why the `C(R ∪ I_N) → C(R)` claim of §18 must be stated *conditionally*:
-at fixed `m` and `τ` the required margin grows as `ln |I_N|`, so it is the index, not
-the router, that must exclude distractors as the history grows.
--/
-
 import Mathlib
 
 open Real
@@ -94,3 +79,18 @@ theorem distractorShare_le_one (hn : 0 < n) (hε : 0 < ε) (hεε : ε < 1)
     simpa using hbound
 
 end PNDS.Softmax
+
+/-!
+# Softmax selection-margin bound (§5)
+
+The document states that if every relevant item outscores every distractor by at least
+`m` and all distractors share one logit, then holding distractor mass at `ε` requires
+
+    m ≥ τ · ln((n (1 - ε)) / (r ε))          (§5; worst case r = 1 gives ln(n/ε))
+
+with `n = |I_N| - r` the distractor count and `r` the relevant count.
+
+This is why the `C(R ∪ I_N) → C(R)` claim of §18 must be stated *conditionally*:
+at fixed `m` and `τ` the required margin grows as `ln |I_N|`, so it is the index, not
+the router, that must exclude distractors as the history grows.
+-/

@@ -1,16 +1,3 @@
-/-!
-# Scaling: distractor exceedance (§18)
-
-The document's §18 point: two-stage retrieval reduces the softmax population from `N`
-to `|I_N|` but does not remove `N` from the analysis. The expected number of distractors
-outranking the relevant scores is `|I_N| * q(margin)`, so either the TopK width `K` or
-the index margin must grow with `N` to hold recall fixed.
-
-We prove the counting bound that makes this precise, without any distributional
-assumption on the scores. The argument is by counting, so it holds for any scoring
-function.
--/
-
 import Mathlib
 
 open Real
@@ -75,3 +62,16 @@ theorem width_grows_with_distractors (r : ℕ) (D : ℕ → ℕ) (hD : Monotone 
   linarith
 
 end PNDS.Scaling
+
+/-!
+# Scaling: distractor exceedance (§18)
+
+The document's §18 point: two-stage retrieval reduces the softmax population from `N`
+to `|I_N|` but does not remove `N` from the analysis. The expected number of distractors
+outranking the relevant scores is `|I_N| * q(margin)`, so either the TopK width `K` or
+the index margin must grow with `N` to hold recall fixed.
+
+We prove the counting bound that makes this precise, without any distributional
+assumption on the scores. The argument is by counting, so it holds for any scoring
+function.
+-/

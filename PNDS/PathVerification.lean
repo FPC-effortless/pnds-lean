@@ -1,21 +1,3 @@
-/-!
-# Path verification and the commit threshold (§10)
-
-Two §10 facts are provable.
-
-1. `V_P = Π v_i` equals `P(all steps correct)` **only if** each `v_i` is the
-   *conditional* probability of step `i` given all earlier steps correct. Under
-   independent marginals the product is not the joint.
-2. With calibrated conditionals, `E[V_P]` decays in `n`, so a fixed commit threshold
-   yields a length-dependent false-commit rate; `θ_commit` must be a function of `n`
-   calibrated on held-out data. At `v_i = 0.99`: 0.90 at n=10, 0.61 at n=50,
-   0.37 at n=100.
-
-Note that this decay is a *real property of the path* when the `v_i` are calibrated,
-not a bias to be removed. The response is to calibrate the threshold, not to
-"correct" the product.
--/
-
 import Mathlib
 
 open Real
@@ -89,3 +71,21 @@ noncomputable def θ_commit (ε₁ : ℝ) : ℕ → ℝ := fun _ => ε₁
     data at each `n`, since `E[V_P]` falls as `n` grows. -/
 
 end PNDS.PathVerification
+
+/-!
+# Path verification and the commit threshold (§10)
+
+Two §10 facts are provable.
+
+1. `V_P = Π v_i` equals `P(all steps correct)` **only if** each `v_i` is the
+   *conditional* probability of step `i` given all earlier steps correct. Under
+   independent marginals the product is not the joint.
+2. With calibrated conditionals, `E[V_P]` decays in `n`, so a fixed commit threshold
+   yields a length-dependent false-commit rate; `θ_commit` must be a function of `n`
+   calibrated on held-out data. At `v_i = 0.99`: 0.90 at n=10, 0.61 at n=50,
+   0.37 at n=100.
+
+Note that this decay is a *real property of the path* when the `v_i` are calibrated,
+not a bias to be removed. The response is to calibrate the threshold, not to
+"correct" the product.
+-/
