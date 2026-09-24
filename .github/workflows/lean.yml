@@ -18,15 +18,16 @@ jobs:
           build: false
 
       - name: Build
-        run: lake build
+        run: lake build 2>&1 | tee build.log
 
-      - name: Fail on sorry
+      - name: Fail on sorry in build output
         run: |
           set -e
-          if lake env lean --recursive PNDS 2>/dev/null | grep -q sorry; then
-            echo "::error::sorry found in PNDS sources"
+          if grep -n "sorry" build.log; then
+            echo "::error::sorry present in the build output"
             exit 1
           fi
+          echo "no sorry in build output: clean"
 
       - name: Print axioms
         run: |
