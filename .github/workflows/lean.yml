@@ -30,7 +30,7 @@ jobs:
           echo "Mathlib resolved"
 
       - name: Build (explicit roots, so nothing can be silently skipped)
-        run: lake build PNDS Audit 2>&1 | tee build.log
+        run: lake build `PNDS `Audit 2>&1 | tee build.log
 
       - name: Verify the tree actually compiled
         run: |
