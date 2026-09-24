@@ -10,10 +10,7 @@ rev = "v4.14.0"
 [[lean_lib]]
 name = "PNDS"
 srcDir = "."
-globs = [
-  { glob = "andSubmodules", name = "PNDS" },
-  { glob = "one", name = "Audit" },
-]
+globs = ["PNDS.*", "Audit"]
 
 [lean]
 version = "leanprover/lean4:v4.14.0"
