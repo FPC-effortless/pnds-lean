@@ -22,15 +22,27 @@ noncomputable def minP_oneSided (k : ℕ) : ℝ := (1 / 2 : ℝ) ^ k
 /-- The minimum attainable two-sided p-value: twice the one-sided value. -/
 noncomputable def minP_twoSided (k : ℕ) : ℝ := 2 * (1 / 2 : ℝ) ^ k
 
+/-! ## 0. Closed forms
+
+These identify the definitions with the conventional `2 ^ (-(k:ℝ))` notation. Note that
+on `ℝ` the power `2 ^ (-(k:ℝ))` is `Real.rpow`, not `zpow`, so the bridge lemma is
+`rpow_neg` (with `rpow_natCast` for the numeral). -/
+
 /-- `minP_oneSided k = 2 ^ (-(k:ℝ))`. -/
 theorem minP_oneSided_eq (k : ℕ) : minP_oneSided k = 2 ^ (-(k : ℝ)) := by
-  rw [minP_oneSided, ← inv_eq_one_div, div_pow, zpow_natCast, zpow_neg,
-    inv_eq_one_div]
+  have h01 : (1 / 2 : ℝ) = 2 ^ (-(1 : ℝ)) := by
+    rw [rpow_neg (show (0 : ℝ) ≤ 2 := by norm_num)]
+    norm_num
+  rw [minP_oneSided, h01, rpow_natCast]
+  norm_num
 
 /-- `minP_twoSided k = 2 ^ (1 - (k:ℝ))`. -/
 theorem minP_twoSided_eq (k : ℕ) : minP_twoSided k = 2 ^ (1 - (k : ℝ)) := by
-  rw [minP_twoSided, minP_oneSided_eq]
-  field_simp
+  have h01 : (1 / 2 : ℝ) = 2 ^ (-(1 : ℝ)) := by
+    rw [rpow_neg (show (0 : ℝ) ≤ 2 := by norm_num)]
+    norm_num
+  -- `2 * (2 ^ -(k:ℝ)) = 2 ^ (1 - (k:ℝ))` by `rpow_add` at a positive base.
+  rw [minP_twoSided, h01, ← rpow_add (show (0 : ℝ) < 2 := by norm_num)]
   ring
 
 /-! ## 1. The three numbers quoted in §20 -/

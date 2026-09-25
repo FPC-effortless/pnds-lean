@@ -1,6 +1,6 @@
 import Mathlib
 
-open Real
+open Real Filter
 
 namespace PNDS.PathVerification
 
@@ -42,30 +42,30 @@ theorem allCorrect_eq_prod_cond {n : ℕ} (cond : Fin n → ℝ) :
     `v ^ n`. This is `V_P` under per-step reliability `v`. -/
 noncomputable def V_P (n : ℕ) (v : ℝ) : ℝ := v ^ n
 
-/-- Helper: `v ^ (n + 1) ≤ v ^ n` for `0 ≤ v ≤ 1`, by induction on `n`. -/
+/-- Helper: `v ^ (n + 1) ≤ v ^ n` for `0 ≤ v ≤ 1`. Proved without induction: since
+    `Nat.le`'s `step` constructor increments the second index only, a proof by
+    `induction hnm` is fragile; `pow_add` reduces the goal to field algebra. -/
 theorem pow_succ_le_pow {v : ℝ} (hv : 0 ≤ v) (hv1 : v ≤ 1) (n : ℕ) :
     v ^ (n + 1) ≤ v ^ n := by
-  induction n with
-  | zero =>
-    -- `v ^ 1 ≤ v ^ 0`, i.e. `v ≤ 1`
-    simp [pow_one, pow_zero]
-    exact hv1
-  | succ k ih =>
-    -- `v ^ (k+2) ≤ v ^ (k+1)`, using `v ^ (k+1) ≤ v ^ k` and `v ≤ 1`
-    rw [eq_comm (b := v ^ (k + 1)), pow_succ, pow_succ]
-    exact (mul_le_mul_of_nonneg_left ih (pow_nonneg hv k)).trans
-      (mul_le_mul_of_nonneg_right hv1 (pow_nonneg hv k))
+  -- `v ^ (n + 1) = v ^ n * v`, so the goal is `v ^ n * v ≤ v ^ n`.
+  rw [pow_add, one_pow]
+  -- `v ^ n ≥ 0` and `v ≤ 1`, so `v ^ n * v ≤ v ^ n * 1 = v ^ n`.
+  exact mul_le_mul_of_nonneg_left hv1 (pow_nonneg hv n)
 
 /-- `V_P` is antitone in `n` for `0 ≤ v ≤ 1`: longer paths are less likely to be
     entirely correct. -/
 theorem V_P_antitone {v : ℝ} (hv : 0 ≤ v) (hv1 : v ≤ 1) :
     Antitone (V_P · v) := by
+  -- `Antitone f = ∀ a b, a ≤ b → f b ≤ f a`. Given `n ≤ m`, `V_P m v ≤ V_P n v`
+  -- follows from `pow_succ_le_pow` once the exponents are matched by `Nat.le`.
   intro n m hnm
-  -- `Nat.le` is the inductive with constructors `refl` and `step {m}`; `step`
-  -- increments the *second* index only, so no induction hypothesis is needed.
-  induction hnm with
-  | refl => simp only [V_P]
-  | step h => exact (pow_succ_le_pow hv hv1 _).trans (by simp only [V_P])
+  obtain ⟨k, rfl⟩ := Nat.le.dest hnm
+  -- Now `m = n + k`; show `v ^ (n + k) ≤ v ^ n` by induction on `k`.
+  induction k with
+  | zero => exact le_rfl
+  | succ k ih =>
+    -- `v ^ (n + k + 1) ≤ v ^ (n + k) ≤ v ^ n`
+    exact (pow_succ_le_pow hv hv1 (n + k)).trans ih
 
 /-- **Monotone decay.** With per-step reliability `v ∈ (0,1)`, `V_P n v` is strictly
     decreasing in `n`, and `V_P n v → 0` as `n → ∞`. -/

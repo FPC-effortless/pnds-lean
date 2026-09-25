@@ -49,26 +49,31 @@ noncomputable def expExp : Exp ℝ where
 
 /-! ## 1. Positivity -/
 
+/-- `app x * app (-x) = 1`, i.e. `app (-x)` is a right inverse of `app x`. -/
+theorem app_mul_app_neg (x : F) : E.app x * E.app (-x) = 1 := by
+  rw [← E.app_add, neg_add_cancel, E.app_one]
+
 /-- `app` is strictly positive. -/
 theorem app_pos (x : F) : 0 < E.app x := by
-  -- Key: `app (-x) * app x = app 0 = 1`. Since `app` is monotone and `-x ≥ 0` or
-  -- `x ≥ 0`, one factor is `≥ app 0 = 1 > 0`; the other then divides `1` by a
-  -- positive quantity, so it is positive too.
+  -- `app x * app (-x) = 1`. One of `x`, `-x` is nonnegative; monotonicity
+  -- then makes the corresponding factor `≥ app 0 = 1 > 0`, and the other factor is
+  -- `1 / (that positive quantity)`, hence positive.
   have hmono : Monotone E.app := E.app_strictMono.monotone
   have hzero : E.app 0 = 1 := E.app_one
   have hpos0 : 0 < E.app 0 := by rw [hzero]; exact one_pos
-  have hprod : E.app x * E.app (-x) = 1 := by
-    rw [E.app_add, neg_add_cancel]
+  have hprod : E.app x * E.app (-x) = 1 := app_mul_app_neg E x
   rcases le_or_lt 0 x with hx | hx
   · -- `x ≥ 0`: monotonicity gives `app x ≥ app 0 = 1 > 0`.
     exact lt_of_lt_of_le hpos0 (hmono hx)
-  · -- `x < 0`, so `-x > 0`: monotonicity gives `app(-x) ≥ app 0 = 1 > 0`, and
-    -- `app x = 1 / app(-x) > 0` since `app(-x) > 0`.
+  · -- `x < 0`, so `-x > 0`: monotonicity gives `app(-x) ≥ app 0 = 1 > 0`.
+    -- `app x * app(-x) = 1` with `app(-x) > 0` gives `app x = 1 / app(-x) > 0`.
     have hbx : 0 < E.app (-x) := lt_of_lt_of_le hpos0 (hmono (by linarith))
-    have hbx' : E.app (-x) ≠ 0 := ne_of_gt hbx
-    field_simp at hprod
-    field_simp
-    linarith
+    -- Construct `1 / app(-x)` explicitly and prove it positive, then substitute.
+    have hdiv : E.app x = 1 / E.app (-x) := by
+      rw [← eq_div_iff_mul_eq']
+      exact hprod
+    rw [hdiv]
+    exact one_div_pos.mpr hbx
 
 theorem app_ne_zero (x : F) : E.app x ≠ 0 := ne_of_gt (app_pos E x)
 
@@ -91,9 +96,14 @@ theorem distractorShare_le (hr : 0 < r) (hn : 0 < n) (hε : 0 < ε) (hεε : ε 
     have hE : 0 < E.app s := app_pos E s
     positivity
   rw [distractorShare]
-  rw [le_div_iff₀ hdenom]
+  -- Division sits on the *left* of `≤`, so this is `div_le_iff₀`, not `le_div_iff₀`.
+  rw [div_le_iff₀ hdenom]
   -- Goal: n ≤ ε * (r * E.app s + n)
-  linarith
+  -- `linarith` treats products as opaque atoms, so we line the goal up with
+  -- `hbound` by hand and let `ring` do the polynomial bookkeeping.
+  calc n = n * (1 - ε) + ε * n := by ring
+    _ ≤ r * ε * E.app s + ε * n := add_le_add_right hbound (ε * n)
+    _ = ε * (r * E.app s + n) := by ring
 
 /-- **Worst case `r = 1`.** The operational form: holding leakage at `ε` requires
     `E.app s ≥ n * (1 - ε) / ε`. -/
@@ -105,6 +115,14 @@ theorem distractorShare_le_one (hn : 0 < n) (hε : 0 < ε) (hεε : ε < 1)
   · exact hn
   · exact hε
   · exact hεε
-  · simpa using hbound
+  · -- `r = 1`, so `r * ε * E.app s = ε * E.app s ≥ ε * (n * (1-ε) / ε) = n * (1-ε)`
+    -- `ε > 0` is needed to cancel it; `field_simp` alone cannot guess that, so
+    -- discharge it as a side goal.
+    have hE : 0 < E.app s := app_pos E s
+    rw [one_mul]
+    -- `ε * E.app s ≥ n * (1 - ε)`
+    calc ε * E.app s ≥ ε * (n * (1 - ε) / ε) := mul_le_mul_of_nonneg_left hbound hε.le
+      _ = n * (1 - ε) := by
+        field_simp [hε.ne']
 
 end PNDS.Softmax

@@ -55,7 +55,8 @@ inversion is visible without committing to a particular probability model.
 directly in `ℝ≥0∞` rather than casting to `ℝ`; this keeps the hypotheses honest —
 a division is only meaningful when the denominator is nonzero and finite. -/
 
-variable {Ω : Type*} [MeasurableSpace Ω] (μ : Measure Ω) [IsProbabilityMeasure μ] (S invalid : Set Ω)
+variable {Ω : Type*} [MeasurableSpace Ω] (μ : Measure Ω) [IsProbabilityMeasure μ]
+         (S : Set Ω) (invalid : Set Ω)
 
 /-- The false-admit rate: `μ(S ∩ invalid) / μ(invalid)`. This is what v0.1 *called*
     `P_contam`, and it is not the contamination fraction. -/

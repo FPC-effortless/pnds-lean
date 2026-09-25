@@ -17,7 +17,7 @@ assumption on the scores. The argument is by counting, so it holds for any scori
 function.
 -/
 
-variable (N K r : ℕ) (hKr : r ≤ K) (hKN : K ≤ N)
+variable (N K r : ℕ)
 
 /-! ## 1. The exceedance counting bound -/
 
@@ -43,27 +43,27 @@ The counting core: the number of selected-and-relevant items is at most the numb
 relevant items. This is a subset counting argument, so it holds regardless of how the
 scores are distributed. -/
 
-variable (m : ℕ) (hK : K ≤ m) (hr : r ≤ K)
+variable (m : ℕ) (hrm : r ≤ m)
 
-/-- Embed `Fin r` into `Fin m` when `r ≤ m`. -/
+/-- Embed `Fin r` into `Fin m` when `r ≤ m`, via the Mathlib standard `Fin.castLEEmb`. -/
 def finEmbed (h : r ≤ m) : Fin r ↪ Fin m :=
-  ⟨fun i => ⟨i, by omega⟩, fun a b h => h⟩
+  Fin.castLEEmb h
 
 /-- The relevant items, as a finset over `Fin m`: the first `r` indices. -/
-def relevantFin : Finset (Fin m) :=
-  (Finset.range r).map (finEmbed m hK)
+def relevantFin (m : ℕ) (hrm : r ≤ m) : Finset (Fin m) :=
+  (Finset.range r).map (finEmbed m hrm)
 
 /-- The relevant set has cardinality exactly `r`. -/
-theorem card_relevantFin : (relevantFin (m := m) (hK := hK)).card = r := by
-  rw [relevantFin, Finset.card_map]
+theorem card_relevantFin : (relevantFin m hrm).card = r := by
+  rw [relevantFin, finEmbed, Finset.card_map]
   exact Finset.card_range r
 
 /-- **Recall is at most 1.** The selected-and-relevant items are a subset of the
     relevant items, so their count is bounded by `r`. This is the counting statement
     that forces `K >= r` if all relevant items are to be selected. -/
 theorem inter_le_relevant (selected : Finset (Fin m)) :
-    (selected ∩ relevantFin (m := m) (hK := hK)).card ≤ r := by
-  have hsub : selected ∩ relevantFin (m := m) (hK := hK) ⊆ relevantFin (m := m) (hK := hK) :=
+    (selected ∩ relevantFin m hrm).card ≤ r := by
+  have hsub : selected ∩ relevantFin m hrm ⊆ relevantFin m hrm :=
     Finset.inter_subset_right _ _
   have hcard := Finset.card_le_card hsub
   rw [card_relevantFin] at hcard
@@ -74,7 +74,7 @@ theorem inter_le_relevant (selected : Finset (Fin m)) :
 /-- **The `N`-dependence that S18 identifies.** If the index lets `D(N)` distractors
     into the candidate set, then to select all `r` relevant items the width must be at
     least `r + D(N)`. -/
-theorem width_grows_with_distractors (r : ℕ) (D : ℕ → ℕ) (hD : Monotone D)
+theorem width_grows_with_distractors (D : ℕ → ℕ) (hD : Monotone D)
     (hN : 0 < N) : r + D N ≤ K → r ≤ K := by
   intro h
   linarith
