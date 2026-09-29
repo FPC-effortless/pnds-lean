@@ -24,28 +24,32 @@ noncomputable def minP_twoSided (k : ℕ) : ℝ := 2 * (1 / 2 : ℝ) ^ k
 
 /-! ## 0. Closed forms
 
-These identify the definitions with the conventional `2 ^ (-(k:ℝ))` notation. Note that
-on `ℝ` the power `2 ^ (-(k:ℝ))` is `Real.rpow`, not `zpow`, so the bridge lemma is
-`rpow_neg` (with `rpow_natCast` for the numeral). -/
+These identify the definitions with the conventional `2 ^ (-(k:ℝ))` notation.
+
+The bridge between `ℝ`-powers (`Real.rpow`) and `ℕ`-powers (`npow`) is
+`rpow_natCast` (`x ^ (n : ℝ) = x ^ n`), which is `@[simp, norm_cast]`, so the plan is:
+rewrite the exponents with `rpow_sub`/`rpow_add` until only `2 ^ (k : ℝ)` remains, then
+`norm_num` the numeral exponents and let `rpow_natCast` turn `2 ^ (k : ℝ)` into `2 ^ k`,
+which closes against `(1 / 2) ^ k` by `one_div_pow`. -/
 
 /-- `minP_oneSided k = 2 ^ (-(k:ℝ))`. -/
 theorem minP_oneSided_eq (k : ℕ) : minP_oneSided k = 2 ^ (-(k : ℝ)) := by
-  have h01 : (1 / 2 : ℝ) = 2 ^ (-(1 : ℝ)) := by
-    rw [show (-(1 : ℝ)) = (0 : ℝ) - 1 by ring, rpow_sub (show (0 : ℝ) < 2 := by norm_num)]
-    norm_num
-  rw [minP_oneSided, h01]
-  -- `(2 ^ 0 / 2 ^ 1) ^ k = 2 ^ 0 / 2 ^ k` is a plain field identity.
-  field_simp [rpow_ne_zero (by norm_num : (0 : ℝ) ≤ 2) (by norm_num : (0 : ℝ) ≠ 0)]
+  have h02 : (0 : ℝ) < 2 := by norm_num
+  -- `(1 / 2) ^ k = 1 / 2 ^ k` by `one_div_pow`.
+  rw [minP_oneSided, one_div_pow]
+  -- `-(k : ℝ) = 0 - k`, so `rpow_sub` turns the RHS into `2 ^ 0 / 2 ^ k`.
+  rw [show (-(k : ℝ)) = (0 : ℝ) - k by ring, rpow_sub h02]
+  -- `2 ^ 0 = 1` closes the remaining `1 = 2 ^ 0`.
+  exact (rpow_zero 2).symm
 
 /-- `minP_twoSided k = 2 ^ (1 - (k:ℝ))`. -/
 theorem minP_twoSided_eq (k : ℕ) : minP_twoSided k = 2 ^ (1 - (k : ℝ)) := by
-  have h01 : (1 / 2 : ℝ) = 2 ^ (-(1 : ℝ)) := by
-    rw [show (-(1 : ℝ)) = (0 : ℝ) - 1 by ring, rpow_sub (show (0 : ℝ) < 2 := by norm_num)]
-    norm_num
-  -- `2 * (2 ^ 0 / 2 ^ 1) ^ k = 2 ^ (1 - k)` by plain field algebra once the
-  -- powers are expanded by `rpow_sub` and `rpow_natCast`.
-  rw [minP_twoSided, h01]
-  field_simp [rpow_ne_zero (by norm_num : (0 : ℝ) ≤ 2) (by norm_num : (0 : ℝ) ≠ 0)]
+  have h02 : (0 : ℝ) < 2 := by norm_num
+  -- `2 * (1 / 2) ^ k = 2 * (1 / 2 ^ k)`; pull the `2` inside as `2 ^ 1`.
+  rw [minP_twoSided, one_div_pow, ← rpow_one 2]
+  -- Goal: `2 ^ 1 * (1 / 2 ^ k) = 2 ^ (1 - k)`.
+  -- RHS by `rpow_sub`: `2 ^ 1 / 2 ^ k`, and `mul_div_assoc` matches the LHS.
+  rw [rpow_sub h02, mul_div_assoc]
 
 /-! ## 1. The three numbers quoted in §20 -/
 

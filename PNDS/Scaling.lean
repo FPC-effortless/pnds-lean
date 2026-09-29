@@ -49,16 +49,14 @@ variable (m : ℕ) (hrm : r ≤ m)
 def finEmbed (h : r ≤ m) : Fin r ↪ Fin m :=
   Fin.castLEEmb h
 
-/-- The relevant items, as a finset over `Fin m`: the first `r` indices.
-
-    Note: the `m` and `hrm` arguments are explicit binders here (not the section
-    variables of the same names) because `relevantFin` must be usable at any width,
-    not just the section's `m`. -/
-def relevantFin (m' : ℕ) (hrm' : r ≤ m') : Finset (Fin m') :=
-  (Finset.range r).map (finEmbed m' hrm')
+/-- The relevant items, as a finset over `Fin m`: the first `r` indices. The
+    section variables `m : ℕ` and `hrm : r ≤ m` supply the arguments, so this
+    definition is stated at the section's width. -/
+def relevantFin : Finset (Fin m) :=
+  (Finset.range r).map (finEmbed hrm)
 
 /-- The relevant set has cardinality exactly `r`. -/
-theorem card_relevantFin : (relevantFin m hrm).card = r := by
+theorem card_relevantFin : (relevantFin).card = r := by
   rw [relevantFin, finEmbed, Finset.card_map]
   exact Finset.card_range r
 
@@ -66,8 +64,8 @@ theorem card_relevantFin : (relevantFin m hrm).card = r := by
     relevant items, so their count is bounded by `r`. This is the counting statement
     that forces `K >= r` if all relevant items are to be selected. -/
 theorem inter_le_relevant (selected : Finset (Fin m)) :
-    (selected ∩ relevantFin m hrm).card ≤ r := by
-  have hsub : selected ∩ relevantFin m hrm ⊆ relevantFin m hrm :=
+    (selected ∩ relevantFin).card ≤ r := by
+  have hsub : selected ∩ relevantFin ⊆ relevantFin :=
     Finset.inter_subset_right _ _
   have hcard := Finset.card_le_card hsub
   rw [card_relevantFin] at hcard

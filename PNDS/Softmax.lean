@@ -77,10 +77,12 @@ theorem app_pos (x : F) : 0 < E.app x := by
       rw [hprod]
     have hcancel : E.app x * (E.app (-x) * E.app (-x)) = E.app (-x) := by
       rw [mul_assoc] at hkey; rw [hkey, one_mul]
-    -- `app x = app(-x) / (app(-x))² > 0` since numerator and denominator are > 0.
+    -- `app x = app(-x) / (app(-x))² = 1 / app(-x) > 0`, all three by ordered-field
+    -- algebra from `hbx`.
     calc E.app x = E.app (-x) / (E.app (-x) * E.app (-x)) := by
         field_simp [hbx.ne']
-      _ > 0 := div_pos hbx (by positivity)
+      _ = 1 / E.app (-x) := by field_simp [hbx.ne']
+      _ > 0 := one_div_pos.2 hbx
 
 theorem app_ne_zero (x : F) : E.app x ≠ 0 := ne_of_gt (app_pos E x)
 
