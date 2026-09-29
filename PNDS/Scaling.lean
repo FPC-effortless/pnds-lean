@@ -49,9 +49,13 @@ variable (m : ℕ) (hrm : r ≤ m)
 def finEmbed (h : r ≤ m) : Fin r ↪ Fin m :=
   Fin.castLEEmb h
 
-/-- The relevant items, as a finset over `Fin m`: the first `r` indices. -/
-def relevantFin (m : ℕ) (hrm : r ≤ m) : Finset (Fin m) :=
-  (Finset.range r).map (finEmbed m hrm)
+/-- The relevant items, as a finset over `Fin m`: the first `r` indices.
+
+    Note: the `m` and `hrm` arguments are explicit binders here (not the section
+    variables of the same names) because `relevantFin` must be usable at any width,
+    not just the section's `m`. -/
+def relevantFin (m' : ℕ) (hrm' : r ≤ m') : Finset (Fin m') :=
+  (Finset.range r).map (finEmbed m' hrm')
 
 /-- The relevant set has cardinality exactly `r`. -/
 theorem card_relevantFin : (relevantFin m hrm).card = r := by

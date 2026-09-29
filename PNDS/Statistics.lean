@@ -31,19 +31,21 @@ on `ℝ` the power `2 ^ (-(k:ℝ))` is `Real.rpow`, not `zpow`, so the bridge le
 /-- `minP_oneSided k = 2 ^ (-(k:ℝ))`. -/
 theorem minP_oneSided_eq (k : ℕ) : minP_oneSided k = 2 ^ (-(k : ℝ)) := by
   have h01 : (1 / 2 : ℝ) = 2 ^ (-(1 : ℝ)) := by
-    rw [rpow_neg (show (0 : ℝ) ≤ 2 := by norm_num)]
+    rw [show (-(1 : ℝ)) = (0 : ℝ) - 1 by ring, rpow_sub (show (0 : ℝ) < 2 := by norm_num)]
     norm_num
-  rw [minP_oneSided, h01, rpow_natCast]
-  norm_num
+  rw [minP_oneSided, h01]
+  -- `(2 ^ 0 / 2 ^ 1) ^ k = 2 ^ 0 / 2 ^ k` is a plain field identity.
+  field_simp [rpow_ne_zero (by norm_num : (0 : ℝ) ≤ 2) (by norm_num : (0 : ℝ) ≠ 0)]
 
 /-- `minP_twoSided k = 2 ^ (1 - (k:ℝ))`. -/
 theorem minP_twoSided_eq (k : ℕ) : minP_twoSided k = 2 ^ (1 - (k : ℝ)) := by
   have h01 : (1 / 2 : ℝ) = 2 ^ (-(1 : ℝ)) := by
-    rw [rpow_neg (show (0 : ℝ) ≤ 2 := by norm_num)]
+    rw [show (-(1 : ℝ)) = (0 : ℝ) - 1 by ring, rpow_sub (show (0 : ℝ) < 2 := by norm_num)]
     norm_num
-  -- `2 * (2 ^ -(k:ℝ)) = 2 ^ (1 - (k:ℝ))` by `rpow_add` at a positive base.
-  rw [minP_twoSided, h01, ← rpow_add (show (0 : ℝ) < 2 := by norm_num)]
-  ring
+  -- `2 * (2 ^ 0 / 2 ^ 1) ^ k = 2 ^ (1 - k)` by plain field algebra once the
+  -- powers are expanded by `rpow_sub` and `rpow_natCast`.
+  rw [minP_twoSided, h01]
+  field_simp [rpow_ne_zero (by norm_num : (0 : ℝ) ≤ 2) (by norm_num : (0 : ℝ) ≠ 0)]
 
 /-! ## 1. The three numbers quoted in §20 -/
 

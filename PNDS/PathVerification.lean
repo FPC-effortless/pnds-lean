@@ -42,30 +42,19 @@ theorem allCorrect_eq_prod_cond {n : ℕ} (cond : Fin n → ℝ) :
     `v ^ n`. This is `V_P` under per-step reliability `v`. -/
 noncomputable def V_P (n : ℕ) (v : ℝ) : ℝ := v ^ n
 
-/-- Helper: `v ^ (n + 1) ≤ v ^ n` for `0 ≤ v ≤ 1`. Proved without induction: since
-    `Nat.le`'s `step` constructor increments the second index only, a proof by
-    `induction hnm` is fragile; `pow_add` reduces the goal to field algebra. -/
+/-- Helper: `v ^ (n + 1) ≤ v ^ n` for `0 ≤ v ≤ 1`. -/
 theorem pow_succ_le_pow {v : ℝ} (hv : 0 ≤ v) (hv1 : v ≤ 1) (n : ℕ) :
-    v ^ (n + 1) ≤ v ^ n := by
-  -- `v ^ (n + 1) = v ^ n * v`, so the goal is `v ^ n * v ≤ v ^ n`.
-  rw [pow_add, one_pow]
-  -- `v ^ n ≥ 0` and `v ≤ 1`, so `v ^ n * v ≤ v ^ n * 1 = v ^ n`.
-  exact mul_le_mul_of_nonneg_left hv1 (pow_nonneg hv n)
+    v ^ (n + 1) ≤ v ^ n :=
+  pow_le_pow_of_le_one hv hv1 (Nat.le_add_right n 1)
 
 /-- `V_P` is antitone in `n` for `0 ≤ v ≤ 1`: longer paths are less likely to be
     entirely correct. -/
 theorem V_P_antitone {v : ℝ} (hv : 0 ≤ v) (hv1 : v ≤ 1) :
     Antitone (V_P · v) := by
-  -- `Antitone f = ∀ a b, a ≤ b → f b ≤ f a`. Given `n ≤ m`, `V_P m v ≤ V_P n v`
-  -- follows from `pow_succ_le_pow` once the exponents are matched by `Nat.le`.
+  -- `Antitone f = ∀ a b, a ≤ b → f b ≤ f a`. Given `n ≤ m` that needs
+  -- `v ^ m ≤ v ^ n`, which is exactly `pow_le_pow_of_le_one`.
   intro n m hnm
-  obtain ⟨k, rfl⟩ := Nat.le.dest hnm
-  -- Now `m = n + k`; show `v ^ (n + k) ≤ v ^ n` by induction on `k`.
-  induction k with
-  | zero => exact le_rfl
-  | succ k ih =>
-    -- `v ^ (n + k + 1) ≤ v ^ (n + k) ≤ v ^ n`
-    exact (pow_succ_le_pow hv hv1 (n + k)).trans ih
+  simpa [V_P] using pow_le_pow_of_le_one hv hv1 hnm
 
 /-- **Monotone decay.** With per-step reliability `v ∈ (0,1)`, `V_P n v` is strictly
     decreasing in `n`, and `V_P n v → 0` as `n → ∞`. -/

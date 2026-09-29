@@ -51,7 +51,10 @@ noncomputable def expExp : Exp ℝ where
 
 /-- `app x * app (-x) = 1`, i.e. `app (-x)` is a right inverse of `app x`. -/
 theorem app_mul_app_neg (x : F) : E.app x * E.app (-x) = 1 := by
-  rw [← E.app_add, neg_add_cancel, E.app_one]
+  have h1 : E.app (x + -x) = E.app x * E.app (-x) := E.app_add x (-x)
+  have h2 : x + -x = 0 := by ring
+  rw [h2, E.app_one] at h1
+  exact h1
 
 /-- `app` is strictly positive. -/
 theorem app_pos (x : F) : 0 < E.app x := by
@@ -68,12 +71,16 @@ theorem app_pos (x : F) : 0 < E.app x := by
   · -- `x < 0`, so `-x > 0`: monotonicity gives `app(-x) ≥ app 0 = 1 > 0`.
     -- `app x * app(-x) = 1` with `app(-x) > 0` gives `app x = 1 / app(-x) > 0`.
     have hbx : 0 < E.app (-x) := lt_of_lt_of_le hpos0 (hmono (by linarith))
-    -- Construct `1 / app(-x)` explicitly and prove it positive, then substitute.
-    have hdiv : E.app x = 1 / E.app (-x) := by
-      rw [← eq_div_iff_mul_eq']
-      exact hprod
-    rw [hdiv]
-    exact one_div_pos.mpr hbx
+    -- From `app x * app(-x) = 1` and `app(-x) > 0` conclude `app x > 0` purely by
+    -- ordered-field algebra: multiply both sides by the inverse of `app(-x)`.
+    have hkey : E.app x * E.app (-x) * E.app (-x) = 1 * E.app (-x) := by
+      rw [hprod]
+    have hcancel : E.app x * (E.app (-x) * E.app (-x)) = E.app (-x) := by
+      rw [mul_assoc] at hkey; rw [hkey, one_mul]
+    -- `app x = app(-x) / (app(-x))² > 0` since numerator and denominator are > 0.
+    calc E.app x = E.app (-x) / (E.app (-x) * E.app (-x)) := by
+        field_simp [hbx.ne']
+      _ > 0 := div_pos hbx (by positivity)
 
 theorem app_ne_zero (x : F) : E.app x ≠ 0 := ne_of_gt (app_pos E x)
 
