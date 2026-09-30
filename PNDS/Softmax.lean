@@ -77,7 +77,7 @@ theorem app_pos (x : F) : 0 < E.app x := by
     have hne : E.app (-x) ≠ 0 := hbx.ne'
     -- `app(-x)⁻¹ * app(-x) = 1` and `app x * app(-x) = 1`, so cancelling the
     -- common nonzero right factor `app(-x)` gives `app x = app(-x)⁻¹`.
-    have hsymm : E.app x = E.app (-x)⁻¹ :=
+    have hsymm : E.app x = (E.app (-x))⁻¹ :=
       mul_right_cancel₀ hne (hkey.trans (inv_mul_cancel₀ hne).symm)
     calc E.app x = 1 / E.app (-x) := by
         rw [div_eq_mul_inv, one_mul]

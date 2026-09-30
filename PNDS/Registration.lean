@@ -2,6 +2,7 @@ import Mathlib
 
 open Real
 open MeasureTheory
+open scoped ENNReal
 
 namespace PNDS.Registration
 

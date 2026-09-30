@@ -55,14 +55,20 @@ variable (m : ℕ) (hrm : r ≤ m)
 def finEmbed (r : ℕ) {m : ℕ} (h : r ≤ m) : Fin r ↪ Fin m :=
   Fin.castLEEmb h
 
-/-- The relevant items, as a finset over `Fin m`: the first `r` indices. -/
-def relevantFin (r : ℕ) {m : ℕ} (hrm : r ≤ m) : Finset (Fin m) :=
-  (Finset.range r).map (finEmbed r hrm)
+/-- The relevant items, as a finset over `Fin m`: the first `r` indices.
 
-/-- The relevant set has cardinality exactly `r`. -/
+    This is the *type-level* image of `Fin r` under the canonical embedding, which is
+    why it has exactly `r` elements regardless of how the scores are distributed. -/
+
+def relevantFin (r : ℕ) {m : ℕ} (hrm : r ≤ m) : Finset (Fin m) :=
+  (Finset.univ : Finset (Fin r)).map (finEmbed r hrm)
+
+/-- The relevant set has cardinality exactly `r`.
+
+    `Finset.univ` on `Fin r` has `r` elements, and `Finset.map` preserves cardinality
+    (`Finset.card_map`), so the image has `r` elements. -/
 theorem card_relevantFin : (relevantFin r hrm).card = r := by
-  rw [relevantFin, finEmbed, Finset.card_map]
-  exact Finset.card_range r
+  rw [relevantFin, Finset.card_map, Finset.card_univ, Fintype.card_fin]
 
 /-- **Recall is at most 1.** The selected-and-relevant items are a subset of the
     relevant items, so their count is bounded by `r`. This is the counting statement
@@ -70,7 +76,7 @@ theorem card_relevantFin : (relevantFin r hrm).card = r := by
 theorem inter_le_relevant (selected : Finset (Fin m)) :
     (selected ∩ relevantFin r hrm).card ≤ r := by
   have hsub : selected ∩ relevantFin r hrm ⊆ relevantFin r hrm :=
-    Finset.inter_subset_right _ _
+    Finset.inter_subset_right
   have hcard := Finset.card_le_card hsub
   rw [card_relevantFin] at hcard
   exact hcard
