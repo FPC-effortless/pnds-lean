@@ -54,7 +54,7 @@ theorem app_mul_app_neg (x : F) : E.app x * E.app (-x) = 1 := by
   have h1 : E.app (x + -x) = E.app x * E.app (-x) := E.app_add x (-x)
   have h2 : x + -x = 0 := by ring
   rw [h2, E.app_one] at h1
-  exact h1
+  exact h1.symm
 
 /-- `app` is strictly positive. -/
 theorem app_pos (x : F) : 0 < E.app x := by
@@ -71,17 +71,17 @@ theorem app_pos (x : F) : 0 < E.app x := by
   · -- `x < 0`, so `-x > 0`: monotonicity gives `app(-x) ≥ app 0 = 1 > 0`.
     -- `app x * app(-x) = 1` with `app(-x) > 0` gives `app x = 1 / app(-x) > 0`.
     have hbx : 0 < E.app (-x) := lt_of_lt_of_le hpos0 (hmono (by linarith))
-    -- From `app x * app(-x) = 1` and `app(-x) > 0` conclude `app x > 0` purely by
-    -- ordered-field algebra: multiply both sides by the inverse of `app(-x)`.
-    have hkey : E.app x * E.app (-x) * E.app (-x) = 1 * E.app (-x) := by
-      rw [hprod]
-    have hcancel : E.app x * (E.app (-x) * E.app (-x)) = E.app (-x) := by
-      rw [mul_assoc] at hkey; rw [hkey, one_mul]
-    -- `app x = app(-x) / (app(-x))² = 1 / app(-x) > 0`, all three by ordered-field
-    -- algebra from `hbx`.
-    calc E.app x = E.app (-x) / (E.app (-x) * E.app (-x)) := by
-        field_simp [hbx.ne']
-      _ = 1 / E.app (-x) := by field_simp [hbx.ne']
+    -- From `app x * app(-x) = 1` and `app(-x) > 0`, ordered-field algebra gives
+    -- `app x = 1 / app(-x)`, which is positive.
+    have hkey : E.app x * E.app (-x) = 1 := hprod
+    have hne : E.app (-x) ≠ 0 := hbx.ne'
+    -- `app(-x)⁻¹ * app(-x) = 1` and `app x * app(-x) = 1`, so cancelling the
+    -- common nonzero right factor `app(-x)` gives `app x = app(-x)⁻¹`.
+    have hsymm : E.app x = E.app (-x)⁻¹ :=
+      mul_right_cancel₀ hne (hkey.trans (inv_mul_cancel₀ hne).symm)
+    calc E.app x = 1 / E.app (-x) := by
+        rw [div_eq_mul_inv, one_mul]
+        exact hsymm
       _ > 0 := one_div_pos.2 hbx
 
 theorem app_ne_zero (x : F) : E.app x ≠ 0 := ne_of_gt (app_pos E x)

@@ -26,30 +26,39 @@ noncomputable def minP_twoSided (k : ℕ) : ℝ := 2 * (1 / 2 : ℝ) ^ k
 
 These identify the definitions with the conventional `2 ^ (-(k:ℝ))` notation.
 
-The bridge between `ℝ`-powers (`Real.rpow`) and `ℕ`-powers (`npow`) is
-`rpow_natCast` (`x ^ (n : ℝ) = x ^ n`), which is `@[simp, norm_cast]`, so the plan is:
-rewrite the exponents with `rpow_sub`/`rpow_add` until only `2 ^ (k : ℝ)` remains, then
-`norm_num` the numeral exponents and let `rpow_natCast` turn `2 ^ (k : ℝ)` into `2 ^ k`,
-which closes against `(1 / 2) ^ k` by `one_div_pow`. -/
+Two different powers are in play on `ℝ`: `2 ^ n` for `n : ℕ` is `npow`, while
+`2 ^ (y : ℝ)` is `Real.rpow`. The bridge between them is `rpow_natCast`
+(`x ^ (n : ℝ) = x ^ n`, `@[simp, norm_cast]`). So the plan is to rewrite the
+`ℝ`-exponent with `rpow_sub` until only `2 ^ (k : ℝ)` remains, discharge the
+numeral exponents with `rpow_zero`/`rpow_one`, and let `rpow_natCast` unify the
+last `2 ^ (k : ℝ)` with `2 ^ k` from `one_div_pow`. -/
+
+/-- The bridge between the two notions of power on `ℝ`, as a rewrite from the
+    `Real.rpow` form to the `npow` form: `2 ^ (k : ℝ) = 2 ^ k`. It is the one
+    `rw` that makes the two sides of the closed forms syntactically comparable,
+    since `one_div_pow` produces `npow` on the left and `rpow_sub` produces
+    `Real.rpow` on the right. -/
+private theorem rpow_natCast_two (k : ℕ) : (2 : ℝ) ^ (k : ℝ) = 2 ^ k := rpow_natCast 2 k
 
 /-- `minP_oneSided k = 2 ^ (-(k:ℝ))`. -/
 theorem minP_oneSided_eq (k : ℕ) : minP_oneSided k = 2 ^ (-(k : ℝ)) := by
   have h02 : (0 : ℝ) < 2 := by norm_num
-  -- `(1 / 2) ^ k = 1 / 2 ^ k` by `one_div_pow`.
   rw [minP_oneSided, one_div_pow]
-  -- `-(k : ℝ) = 0 - k`, so `rpow_sub` turns the RHS into `2 ^ 0 / 2 ^ k`.
-  rw [show (-(k : ℝ)) = (0 : ℝ) - k by ring, rpow_sub h02]
-  -- `2 ^ 0 = 1` closes the remaining `1 = 2 ^ 0`.
-  exact (rpow_zero 2).symm
+  -- RHS: `2 ^ (-(k:ℝ)) = 2 ^ (0 - k) = 2^0 / 2^(k:ℝ) = 1 / 2^(k:ℝ)`.
+  rw [show (-(k : ℝ)) = (0 : ℝ) - k by ring, rpow_sub h02, rpow_zero]
+  -- Goal: `1 / 2 ^ k = 1 / 2 ^ (k : ℝ)`. Bridge `npow` to `Real.rpow`.
+  exact congrArg (1 / ·) (rpow_natCast_two k).symm
 
 /-- `minP_twoSided k = 2 ^ (1 - (k:ℝ))`. -/
 theorem minP_twoSided_eq (k : ℕ) : minP_twoSided k = 2 ^ (1 - (k : ℝ)) := by
   have h02 : (0 : ℝ) < 2 := by norm_num
-  -- `2 * (1 / 2) ^ k = 2 * (1 / 2 ^ k)`; pull the `2` inside as `2 ^ 1`.
-  rw [minP_twoSided, one_div_pow, ← rpow_one 2]
-  -- Goal: `2 ^ 1 * (1 / 2 ^ k) = 2 ^ (1 - k)`.
-  -- RHS by `rpow_sub`: `2 ^ 1 / 2 ^ k`, and `mul_div_assoc` matches the LHS.
-  rw [rpow_sub h02, mul_div_assoc]
+  rw [minP_twoSided, one_div_pow]
+  -- RHS: `2 ^ (1 - k) = 2^1 / 2^(k:ℝ) = 2 / 2^(k:ℝ)` by `rpow_sub` and `rpow_one`.
+  rw [rpow_sub h02, rpow_one]
+  -- LHS: `2 * (1 / 2 ^ k) = 2 / 2 ^ k` by `mul_one_div`.
+  rw [mul_one_div]
+  -- Goal: `2 / 2 ^ k = 2 / 2 ^ (k : ℝ)`. Bridge `npow` to `Real.rpow`.
+  exact congrArg (2 / ·) (rpow_natCast_two k).symm
 
 /-! ## 1. The three numbers quoted in §20 -/
 

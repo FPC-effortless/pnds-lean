@@ -1,6 +1,7 @@
 import Mathlib
 
 open Real
+open MeasureTheory
 
 namespace PNDS.Registration
 

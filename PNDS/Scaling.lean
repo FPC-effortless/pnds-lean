@@ -45,18 +45,22 @@ scores are distributed. -/
 
 variable (m : ℕ) (hrm : r ≤ m)
 
-/-- Embed `Fin r` into `Fin m` when `r ≤ m`, via the Mathlib standard `Fin.castLEEmb`. -/
-def finEmbed (h : r ≤ m) : Fin r ↪ Fin m :=
+/-- Embed `Fin r` into `Fin m` when `r ≤ m`, via the Mathlib standard `Fin.castLEEmb`.
+
+    The binders `(r : ℕ) (h : r ≤ m)` are explicit here rather than taken from the
+    enclosing `variable` line, because the section also declares `N K r : ℕ` and
+    `m : ℕ` as section variables. A definition that let those be auto-generalized
+    would take `N` as its first explicit argument, so `finEmbed hrm` would pass the
+    proof `hrm` where the width `N` was expected. -/
+def finEmbed (r : ℕ) {m : ℕ} (h : r ≤ m) : Fin r ↪ Fin m :=
   Fin.castLEEmb h
 
-/-- The relevant items, as a finset over `Fin m`: the first `r` indices. The
-    section variables `m : ℕ` and `hrm : r ≤ m` supply the arguments, so this
-    definition is stated at the section's width. -/
-def relevantFin : Finset (Fin m) :=
-  (Finset.range r).map (finEmbed hrm)
+/-- The relevant items, as a finset over `Fin m`: the first `r` indices. -/
+def relevantFin (r : ℕ) {m : ℕ} (hrm : r ≤ m) : Finset (Fin m) :=
+  (Finset.range r).map (finEmbed r hrm)
 
 /-- The relevant set has cardinality exactly `r`. -/
-theorem card_relevantFin : (relevantFin).card = r := by
+theorem card_relevantFin : (relevantFin r hrm).card = r := by
   rw [relevantFin, finEmbed, Finset.card_map]
   exact Finset.card_range r
 
@@ -64,8 +68,8 @@ theorem card_relevantFin : (relevantFin).card = r := by
     relevant items, so their count is bounded by `r`. This is the counting statement
     that forces `K >= r` if all relevant items are to be selected. -/
 theorem inter_le_relevant (selected : Finset (Fin m)) :
-    (selected ∩ relevantFin).card ≤ r := by
-  have hsub : selected ∩ relevantFin ⊆ relevantFin :=
+    (selected ∩ relevantFin r hrm).card ≤ r := by
+  have hsub : selected ∩ relevantFin r hrm ⊆ relevantFin r hrm :=
     Finset.inter_subset_right _ _
   have hcard := Finset.card_le_card hsub
   rw [card_relevantFin] at hcard
