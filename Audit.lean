@@ -7,9 +7,9 @@ import PNDS.Scaling
 import PNDS.Statistics
 import PNDS.Causal
 
-/-- Axiom audit. CI fails if any proof in the PNDS tree depends on an admitted
-    goal, and prints the axioms of each top-level theorem so that hidden
-    assumptions are visible. -/
+/- Axiom audit. CI fails if any proof in the PNDS tree depends on an admitted
+   goal, and prints the axioms of each top-level theorem so that hidden
+   assumptions are visible. -/
 
 #check @PNDS.Softmax.distractorShare_le
 #check @PNDS.Softmax.distractorShare_le_one
