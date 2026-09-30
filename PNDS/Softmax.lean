@@ -77,12 +77,11 @@ theorem app_pos (x : F) : 0 < E.app x := by
     have hne : E.app (-x) ≠ 0 := hbx.ne'
     -- `app(-x)⁻¹ * app(-x) = 1` and `app x * app(-x) = 1`, so cancelling the
     -- common nonzero right factor `app(-x)` gives `app x = app(-x)⁻¹`.
+    -- Then `inv_pos` closes the goal: `0 < app(-x)⁻¹ ↔ 0 < app(-x)`.
     have hsymm : E.app x = (E.app (-x))⁻¹ :=
       mul_right_cancel₀ hne (hkey.trans (inv_mul_cancel₀ hne).symm)
-    calc E.app x = 1 / E.app (-x) := by
-        rw [div_eq_mul_inv, one_mul]
-        exact hsymm
-      _ > 0 := one_div_pos.2 hbx
+    rw [hsymm]
+    exact inv_pos.2 hbx
 
 theorem app_ne_zero (x : F) : E.app x ≠ 0 := ne_of_gt (app_pos E x)
 

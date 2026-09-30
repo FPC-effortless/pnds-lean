@@ -74,7 +74,8 @@ noncomputable def P_contam : ℝ≥0∞ := μ (S ∩ invalid) / μ S
     by `0` is degenerate). -/
 theorem bayes_inversion (hS : μ S ≠ 0) (hSfin : μ S ≠ ∞) (hI : μ invalid ≠ 0)
     (hIfin : μ invalid ≠ ∞) :
-    P_contam μ S invalid * μ S = P_false_admit μ S invalid * μ invalid := by
+    P_contam (Ω := Ω) (μ := μ) (S := S) (invalid := invalid) * μ S =
+      P_false_admit (Ω := Ω) (μ := μ) (S := S) (invalid := invalid) * μ invalid := by
   rw [P_contam, P_false_admit]
   -- In `ℝ≥0∞`, `(a / b) * b = a` requires `b ≠ 0` and `b ≠ ∞`. Both sides of the
   -- goal therefore collapse to the same numerator `μ (S ∩ invalid)`.
