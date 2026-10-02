@@ -71,6 +71,8 @@ here. -/
     `m : ℕ` as section variables. A definition that let those be auto-generalized
     would take `N` as its first explicit argument, so `finEmbed hrm` would pass the
     proof `hrm` where the width `N` was expected. -/
+variable (m : ℕ) (hrm : r ≤ m)
+
 def finEmbed (r : ℕ) {m : ℕ} (h : r ≤ m) : Fin r ↪ Fin m :=
   Fin.castLEEmb h
 
@@ -132,9 +134,9 @@ theorem distractors_in_topK_eq (selected : Finset (Fin m))
     (hcard : selected.card = K) (hrel : relevantFin r hrm ⊆ selected) :
     (selected \ relevantFin r hrm).card = K - r := by
   -- Recall 1 means every relevant item is selected, so the intersection is exactly
-  -- `relevantFin`, whose cardinality is `r` (`card_relevantFin`).
+  -- `relevantFin` (`inter_eq_right`), whose cardinality is `r` (`card_relevantFin`).
   have hinter : selected ∩ relevantFin r hrm = relevantFin r hrm :=
-    le_antisymm Finset.inter_subset_right hrel
+    Finset.inter_eq_right.mpr hrel
   rw [distractors_in_topK_eq_recall selected hcard, hinter, card_relevantFin]
 
 /-- **The `K - r` distractor bound.** The number of distractors in a top-`K` selection
@@ -178,7 +180,7 @@ theorem recall_one_iff (selected : Finset (Fin m)) :
     exact hint
   · intro hsub
     have hinter : selected ∩ relevantFin r hrm = relevantFin r hrm :=
-      le_antisymm Finset.inter_subset_right hsub
+      Finset.inter_eq_right.mpr hsub
     rw [hinter, card_relevantFin]
 
 /-! ## 5. The control: the distractor bound is not a cardinality consequence
