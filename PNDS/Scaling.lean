@@ -62,17 +62,16 @@ variable {N K r : ℕ}
 The universe is `Fin m` for some `m`; the relevant items are the first `r` indices.
 Nothing depends on which particular `r`-subset is chosen — the counting argument below
 works for any relevant set of cardinality `r` — so the canonical choice is made once
-here. -/
+here.
 
-/-- Embed `Fin r` into `Fin m` when `r ≤ m`, via the Mathlib standard `Fin.castLEEmb`.
+The binders `m` and `hrm` are declared per-theorem below rather than as section
+variables. Declaring `variable (m : ℕ)` would insert `m` as the first *explicit*
+parameter of every declaration in the section, which changes every call site: a call
+written as `recall_le selected` would then have to pass a `Finset (Fin m)` where the
+width `m : ℕ` was expected. Keeping them on the declarations keeps the signatures
+stable and the error messages localized. -/
 
-    The binders `(r : ℕ) (h : r ≤ m)` are explicit here rather than taken from the
-    enclosing `variable` line, because the section also declares `N K r : ℕ` and
-    `m : ℕ` as section variables. A definition that let those be auto-generalized
-    would take `N` as its first explicit argument, so `finEmbed hrm` would pass the
-    proof `hrm` where the width `N` was expected. -/
-variable (m : ℕ) (hrm : r ≤ m)
-
+/-- Embed `Fin r` into `Fin m` when `r ≤ m`, via the Mathlib standard `Fin.castLEEmb`. -/
 def finEmbed (r : ℕ) {m : ℕ} (h : r ≤ m) : Fin r ↪ Fin m :=
   Fin.castLEEmb h
 
@@ -87,7 +86,7 @@ def relevantFin (r : ℕ) {m : ℕ} (hrm : r ≤ m) : Finset (Fin m) :=
 
     `Finset.univ` on `Fin r` has `r` elements, and `Finset.map` preserves cardinality
     (`Finset.card_map`), so the image has `r` elements. -/
-theorem card_relevantFin : (relevantFin r hrm).card = r := by
+theorem card_relevantFin {m : ℕ} (hrm : r ≤ m) : (relevantFin r hrm).card = r := by
   rw [relevantFin, Finset.card_map, Finset.card_univ, Fintype.card_fin]
 
 /-! ## 2. Recall
@@ -97,12 +96,12 @@ Recall `ρ` is the number of *selected-and-relevant* items. -/
 /-- **Recall is at most 1.** The selected-and-relevant items are a subset of the
     relevant items, so their count is bounded by `r`. This is the counting statement
     that forces `K ≥ r` if all relevant items are to be selected. -/
-theorem recall_le (selected : Finset (Fin m)) :
+theorem recall_le {m : ℕ} (hrm : r ≤ m) (selected : Finset (Fin m)) :
     (selected ∩ relevantFin r hrm).card ≤ r := by
   have hsub : selected ∩ relevantFin r hrm ⊆ relevantFin r hrm :=
     Finset.inter_subset_right
   have hcard := Finset.card_le_card hsub
-  rw [card_relevantFin] at hcard
+  rw [card_relevantFin hrm] at hcard
   exact hcard
 
 /-! ## 3. The §18 counting identity
@@ -116,8 +115,8 @@ identity, not a bound, and it needs no assumption beyond `#selected = K`. -/
     recall. Equivalently, holding recall at `ρ` while adding one more distractor to the
     candidate pool costs one unit of width. This holds for *any* scoring function, with
     no distributional assumption: it is pure counting. -/
-theorem distractors_in_topK_eq_recall (selected : Finset (Fin m))
-    (hcard : selected.card = K) :
+theorem distractors_in_topK_eq_recall {m : ℕ} (hrm : r ≤ m)
+    (selected : Finset (Fin m)) (hcard : selected.card = K) :
     (selected \ relevantFin r hrm).card = K - (selected ∩ relevantFin r hrm).card := by
   -- Reduce to the complement of the intersection: `s \ t = s \ (s ∩ t)`.
   rw [← Finset.sdiff_inter_self_left]
@@ -130,14 +129,15 @@ theorem distractors_in_topK_eq_recall (selected : Finset (Fin m))
     usually quoted: holding recall at 1 requires `K ≥ r`, and the number of distractors
     that can enter the selected set grows linearly with `K` at fixed `r`. Pure counting;
     no distributional assumption. -/
-theorem distractors_in_topK_eq (selected : Finset (Fin m))
-    (hcard : selected.card = K) (hrel : relevantFin r hrm ⊆ selected) :
+theorem distractors_in_topK_eq {m : ℕ} (hrm : r ≤ m)
+    (selected : Finset (Fin m)) (hcard : selected.card = K)
+    (hrel : relevantFin r hrm ⊆ selected) :
     (selected \ relevantFin r hrm).card = K - r := by
   -- Recall 1 means every relevant item is selected, so the intersection is exactly
   -- `relevantFin` (`inter_eq_right`), whose cardinality is `r` (`card_relevantFin`).
   have hinter : selected ∩ relevantFin r hrm = relevantFin r hrm :=
     Finset.inter_eq_right.mpr hrel
-  rw [distractors_in_topK_eq_recall selected hcard, hinter, card_relevantFin]
+  rw [distractors_in_topK_eq_recall hrm selected hcard, hinter, card_relevantFin hrm]
 
 /-- **The `K - r` distractor bound.** The number of distractors in a top-`K` selection
     is at most `K - r` **provided recall is at least 1** — that is, provided every
@@ -145,13 +145,13 @@ theorem distractors_in_topK_eq (selected : Finset (Fin m))
     content of the selected set is bounded by the width minus the relevant count, and
     the hypothesis that makes the bound hold is a recall hypothesis, not a consequence
     of cardinality. -/
-theorem distractors_in_topK_le_of_recall (selected : Finset (Fin m))
-    (hcard : selected.card = K) (hrec : r ≤ (selected ∩ relevantFin r hrm).card) :
+theorem distractors_in_topK_le_of_recall {m : ℕ} (hrm : r ≤ m)
+    (selected : Finset (Fin m)) (hcard : selected.card = K)
+    (hrec : r ≤ (selected ∩ relevantFin r hrm).card) :
     (selected \ relevantFin r hrm).card ≤ K - r := by
-  rw [distractors_in_topK_eq_recall selected hcard]
-  -- `recall_le` gives `ρ ≤ r`, and subtracting on the left is antitone in the subtrahend:
-  -- `K - ρ ≤ K - r` follows from `r ≤ ρ`.
-  have hρ := recall_le selected
+  rw [distractors_in_topK_eq_recall hrm selected hcard]
+  -- `recall_le` gives `ρ ≤ r`, and the hypothesis gives `r ≤ ρ`, so `ρ = r`.
+  have hρ := recall_le hrm selected
   have hkey : (selected ∩ relevantFin r hrm).card = r := Nat.le_antisymm hρ hrec
   rw [hkey]
 
@@ -164,7 +164,7 @@ relevant set is contained in the selection. -/
 /-- Recall is `1` (every relevant item selected) exactly when the intersection has
     cardinality `r`. Since `ρ ≤ r` always (`recall_le`), this is the unique way to
     reach recall 1. -/
-theorem recall_one_iff (selected : Finset (Fin m)) :
+theorem recall_one_iff {m : ℕ} (hrm : r ≤ m) (selected : Finset (Fin m)) :
     (selected ∩ relevantFin r hrm).card = r ↔ relevantFin r hrm ⊆ selected := by
   constructor
   · -- `ρ = r` with `inter ⊆ relevant` forces `inter = relevant`, hence `relevant ⊆ selected`.
@@ -173,7 +173,7 @@ theorem recall_one_iff (selected : Finset (Fin m)) :
     -- Equal cardinality plus a subset gives equality of finsets.
     have hcard_eq : selected ∩ relevantFin r hrm = relevantFin r hrm := by
       apply Finset.eq_of_subset_of_card_le hsub
-      rw [heq, card_relevantFin]
+      rw [heq, card_relevantFin hrm]
     -- `(s ∩ relevant) ⊆ selected` together with `(s ∩ relevant) = relevant`.
     have hint : selected ∩ relevantFin r hrm ⊆ selected := Finset.inter_subset_left
     rw [hcard_eq] at hint
@@ -181,7 +181,7 @@ theorem recall_one_iff (selected : Finset (Fin m)) :
   · intro hsub
     have hinter : selected ∩ relevantFin r hrm = relevantFin r hrm :=
       Finset.inter_eq_right.mpr hsub
-    rw [hinter, card_relevantFin]
+    rw [hinter, card_relevantFin hrm]
 
 /-! ## 5. The control: the distractor bound is not a cardinality consequence
 
@@ -195,38 +195,45 @@ grow *because* recall is not guaranteed by counting alone. -/
 /-- **The distractor bound fails when recall is below 1.** If the recall `ρ` is strictly
     below `r`, the number of distractors in the top-`K` selection is strictly greater than
     `K - r`. So the bound `|D ∩ TopK| ≤ K - r` is a consequence of the recall hypothesis,
-    not of the width and the relevant count alone. -/
-theorem distractors_in_topK_ge_of_missed (selected : Finset (Fin m))
-    (hcard : selected.card = K) (hmiss : (selected ∩ relevantFin r hrm).card < r) :
+    not of the width and the relevant count alone.
+
+    The assumption `r ≤ K` is needed: without it `K - r = 0` and the counting identity
+    can leave the distractor count at `0` too (all `K < r` slots filled with relevant
+    items), so `K - r < distractors` would read `0 < 0`. -/
+theorem distractors_in_topK_ge_of_missed {m : ℕ} (hrm : r ≤ m)
+    (selected : Finset (Fin m)) (hcard : selected.card = K) (hKr : r ≤ K)
+    (hmiss : (selected ∩ relevantFin r hrm).card < r) :
     K - r < (selected \ relevantFin r hrm).card := by
-  rw [distractors_in_topK_eq_recall selected hcard]
-  -- `recall_le` gives `ρ ≤ r`; with `ρ < r` the counting identity yields `K - ρ > K - r`.
-  have hρ := recall_le selected
+  rw [distractors_in_topK_eq_recall hrm selected hcard]
+  -- `recall_le` gives `ρ ≤ r`; with `ρ < r` and `r ≤ K` the counting identity yields
+  -- `K - ρ > K - r`.
+  have hρ := recall_le hrm selected
   omega
 
 /-- **Tightness: the bound is attained.** When recall is exactly 1 the distractor count
     equals `K - r`, so the recall hypothesis of `distractors_in_topK_le_of_recall` cannot
-    be weakened. The assumption `r ≤ K` is needed for the reverse direction: without it
+    be weakened. The assumption `r ≤ K` is needed for the forward direction: without it
     both `#(selected \ relevant)` and `K - r` are `0` while the relevant set is not
     contained in `selected`, so the iff would fail. -/
-theorem distractors_in_topK_eq_iff_recall_one (selected : Finset (Fin m))
-    (hcard : selected.card = K) (hKr : r ≤ K) :
+theorem distractors_in_topK_eq_iff_recall_one {m : ℕ} (hrm : r ≤ m)
+    (selected : Finset (Fin m)) (hcard : selected.card = K) (hKr : r ≤ K) :
     (selected \ relevantFin r hrm).card = K - r ↔ relevantFin r hrm ⊆ selected := by
-  rw [distractors_in_topK_eq_recall selected hcard]
+  rw [distractors_in_topK_eq_recall hrm selected hcard]
   constructor
   · -- Forward: `K - ρ = K - r` with `ρ ≤ r` and `r ≤ K` forces `ρ = r`.
     intro heq
-    have hρ := recall_le selected
+    have hρ := recall_le hrm selected
     have hρ_eq : (selected ∩ relevantFin r hrm).card = r := by
       by_contra hne
       have hlt : (selected ∩ relevantFin r hrm).card < r := lt_of_le_of_ne hρ hne
       -- `ρ < r` and `r ≤ K` give `K - ρ > K - r`, contradicting `heq`.
       have : K - (selected ∩ relevantFin r hrm).card > K - r := by omega
       linarith
-    exact (recall_one_iff selected).1 hρ_eq
+    exact (recall_one_iff hrm selected).1 hρ_eq
   · -- Backward: recall 1 substitutes `ρ = r` into the counting identity.
     intro hrel
-    have hρ_eq : (selected ∩ relevantFin r hrm).card = r := (recall_one_iff selected).2 hrel
+    have hρ_eq : (selected ∩ relevantFin r hrm).card = r :=
+      (recall_one_iff hrm selected).2 hrel
     rw [hρ_eq]
 
 end PNDS.Scaling
