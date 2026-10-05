@@ -51,3 +51,21 @@ theorem terminal_success_le_min_one
   exact le_min hOne hqBdiv
 
 end PNDS.InformationBounds
+/-- Budget-capped posterior utility for a finite evidence partition.
+    Under a uniform target prior, it is the expected fraction of targets that can
+    be retained by a terminal selector with budget B after observing the evidence. -/
+noncomputable def budgetCappedUtility
+    (q B M : ℕ) (n : Fin q → ℕ) : ℝ :=
+    ((∑ b : Fin q, min B (n b) : ℝ) / M)
+
+/-- The budget-capped utility obeys the universal qB/M ceiling.
+    The assumptions make the probabilistic interpretation explicit: M is the
+    positive candidate population size and n is a complete deterministic partition
+    whose bucket sizes sum to M. -/
+theorem budgetCappedUtility_le_min_one
+    (q B M : ℕ) (n : Fin q → ℕ)
+    (hM : 0 < M) (hsum : (∑ b : Fin q, n b) = M) :
+    budgetCappedUtility q B M n
+      ≤ min 1 (((q * B : ℕ) : ℝ) / M) := by
+  simpa [budgetCappedUtility] using
+    (terminal_success_le_min_one q B M n hM hsum)
