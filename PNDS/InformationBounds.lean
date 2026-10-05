@@ -50,7 +50,6 @@ theorem terminal_success_le_min_one
     exact (div_le_iff₀ hMreal).2 (by simpa using hMnum)
   exact le_min hOne hqBdiv
 
-end PNDS.InformationBounds
 /-- Budget-capped posterior utility for a finite evidence partition.
     Under a uniform target prior, it is the expected fraction of targets that can
     be retained by a terminal selector with budget B after observing the evidence. -/
@@ -69,3 +68,4 @@ theorem budgetCappedUtility_le_min_one
       ≤ min 1 (((q * B : ℕ) : ℝ) / M) := by
   simpa [budgetCappedUtility] using
     (terminal_success_le_min_one q B M n hM hsum)
+end PNDS.InformationBounds
