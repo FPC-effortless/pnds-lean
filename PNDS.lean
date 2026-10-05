@@ -6,6 +6,7 @@ import PNDS.Registration
 import PNDS.Scaling
 import PNDS.Statistics
 import PNDS.Causal
+import PNDS.InformationBounds
 
 /-- The version of the document this formalization targets. -/
 def docVersion : String := "v0.2"
