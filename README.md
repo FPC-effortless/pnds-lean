@@ -73,3 +73,28 @@ docstring of `PNDS/Scaling.lean` states this as well. The measured scaling resul
 project has (a six-point pilot on retrieval top-1 accuracy at 6 / 12 / 24 candidates) are
 recorded in the experiment repository, are explicitly *not* a scaling result, and are
 unchanged by anything proved here.
+
+
+TAC-OSM companion formalization (new, not part of PNDS v0.2)
+---------------------------------------------------------
+
+The new `PNDS/TACOSM.lean` is an explicit **proposed TAC-OSM world-memory
+transition design**, rather than a claim that PNDS v0.2 supplied the missing
+E/P/R/Q/T transition semantics. The module proves:
+
+- Provisional→persistent iff all specified Boolean gates pass;
+  no promotion without authenticated evidence, fresh independent context or
+  utility; quarantine cannot promote through this transition function.
+- Scalar convex updates preserve [-1,1] under bounded-state, bounded-proposal
+  and admissible-gate hypotheses, matching the native TAC fast/slow contract.
+- Refinement toward a **fixed** target contracts its absolute error for
+  a step size in [0,1].
+
+The externally supplied authentication and independence Boolean values are
+**assumptions**, not verified network receipts. Lean does not prove that a
+source is honest, that a trained network predicts correct outcomes, or that
+a deployment is safe. Runtime consistency tests live in the TAC-OSM ME-006
+branch and are independent of the mathematical theorem statements.
+
+GitHub Actions explicitly requires `PNDS/TACOSM.olean` and builds the Lean
+root to prevent a false-green CI run where the new module was not compiled.
