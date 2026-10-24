@@ -17,7 +17,7 @@ from variant_math import (
     gated, affine_run, affine_compose, projected_gated_delta,
     quadratic_motion_gate, source_eor_mass, translated_cdf, bitemporal_eligible,
     window_readout, distribution_mass, edge_abs_error, causal_identified,
-    independent_real_basis, KERNELS, evaluate_kernel,
+    independent_real_basis, KERNELS, evaluate_kernel, evaluate_variant,
 )
 
 
@@ -80,6 +80,11 @@ class MathematicalKernels(unittest.TestCase):
         self.assertFalse(independent_real_basis("synthetic_diagnostic"))
         self.assertEqual(len(KERNELS), 12)
         self.assertEqual(evaluate_kernel("motion", speed=0.0, c=.25), 0)
+        self.assertEqual(evaluate_variant("ESWAM-ESWAM014", speed=0.0, c=.25), 0)
+        self.assertTrue(evaluate_variant("TEMPORAL-V1", valid_start=1, valid_end=9,
+                                         record_start=2, record_end=10, valid_time=5, known_at=5))
+        with self.assertRaises(ValueError):
+            evaluate_variant("UNKNOWN-VARIANT", speed=0.0, c=.25)
         with self.assertRaises(ValueError):
             evaluate_kernel("missing")
 
