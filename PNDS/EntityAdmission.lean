@@ -17,9 +17,9 @@ def valueWrite {n : ℕ} (previous : Fin n → ℝ)
     else previous j
 
 theorem unrelated_slot_unchanged {n : ℕ} (prev : Fin n → ℝ)
-    (selected other : Fin n) (match : Bool) (beta observed : ℝ)
+    (selected other : Fin n) (sameEntity : Bool) (beta observed : ℝ)
     (hdiff : other ≠ selected) :
-    valueWrite prev selected match beta observed other = prev other := by
+    valueWrite prev selected sameEntity beta observed other = prev other := by
   simp [valueWrite, ne_comm.mp hdiff]
 
 theorem replacement_does_not_copy_evicted_content {n : ℕ}
