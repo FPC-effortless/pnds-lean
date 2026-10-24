@@ -137,3 +137,6 @@ import PNDS.ConstraintAdapter
 
 #check @PNDS.NativeInvariant.projectedMagnitude_bounds
 #print axioms PNDS.NativeInvariant.projectedMagnitude_bounds
+
+#check @PNDS.NativeInvariant.saturated_budget_forbids_nonzero_orthogonal_write
+#print axioms PNDS.NativeInvariant.saturated_budget_forbids_nonzero_orthogonal_write
