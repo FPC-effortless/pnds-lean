@@ -18,6 +18,7 @@ jobs:
           python3 scripts/validate_variant_math.py
           python3 -m unittest discover -s tests -p 'test_native_memory_math.py' -v
           python3 -m unittest discover -s tests -p 'test_planar_constraint_math.py' -v
+          python3 scripts/validate_dual_mode_math_link.py
           python3 scripts/validate_engineering_coverage.py
           python3 -m unittest discover -s tests -p 'test_engineering_coverage.py' -v
           python3 scripts/check_reciprocal_links.py
