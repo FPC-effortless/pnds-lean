@@ -98,3 +98,8 @@ import PNDS.NativeMemory
 #print axioms PNDS.NativeMemory.shared_key_exact_collision_impossible
 #print axioms PNDS.NativeMemory.projected_exact_write_counterexample
 #print axioms PNDS.NativeMemory.fixed_gate_incremental_sensitivity
+
+#check @PNDS.NativeMemory.row_query_decomposition
+#check @PNDS.NativeMemory.row_unit_key_residual
+#print axioms PNDS.NativeMemory.row_query_decomposition
+#print axioms PNDS.NativeMemory.row_unit_key_residual
