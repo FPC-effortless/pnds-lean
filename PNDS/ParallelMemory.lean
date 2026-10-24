@@ -135,7 +135,6 @@ theorem bounded_projection_free_budget
       (rawRetention * (1 - beta / R)) * R =
         rawRetention * (R - beta) := by
     field_simp
-    ring
   have hd : 0 ≤ R - beta := by linarith
   have hgap : 0 ≤ (1 - rawRetention) * (R - beta) :=
     mul_nonneg (by linarith) hd
