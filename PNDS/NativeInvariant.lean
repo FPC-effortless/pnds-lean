@@ -164,4 +164,16 @@ theorem projectedMagnitude_bounds (radius originalNorm : ℝ)
     nlinarith
 
 
+
+/-- No finite-radius Euclidean budget can preserve one already-saturated
+    orthogonal component and also accommodate a nonzero independent
+    component without a reduction elsewhere. This is a capacity obstruction,
+    not an optimizer failure or a reason to erase historical information. -/
+theorem saturated_budget_forbids_nonzero_orthogonal_write
+    (radius newComponent : ℝ)
+    (hbudget : radius^2 + newComponent^2 ≤ radius^2) :
+    newComponent = 0 := by
+  have hsq : newComponent^2 ≤ 0 := by linarith
+  nlinarith [sq_nonneg newComponent]
+
 end PNDS.NativeInvariant
