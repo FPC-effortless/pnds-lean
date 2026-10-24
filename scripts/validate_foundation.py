@@ -28,6 +28,7 @@ REQUIRED_PATHS = [
     "README.md", "ARCHITECTURE.md", "PROOF_OBLIGATIONS.md",
     "prior-math.json", "archive-gaps.json",
     "registry.json", "evidence-ledger.jsonl", "original-pr-snapshot.jsonl",
+    "operator-contracts.json",
 ]
 
 
@@ -111,6 +112,28 @@ def validate(root: Path = FOUNDATION):
         ensure(ident not in set(row["parent_versions"]),
                f"{ident} has self-referential version ancestry")
 
+    operator_catalog = read_json(root / "operator-contracts.json")
+    ensure(operator_catalog.get("schema") == "pnds.tac_osm.operator_contracts.v1",
+           "invalid operator-contract schema")
+    operators = operator_catalog.get("operators", [])
+    ensure(len(operators) >= 10, "lost operator contracts for a research lane")
+    ops = [op.get("id") for op in operators]
+    ensure(len(set(ops)) == len(ops), "duplicate mathematical operator contract")
+    for op in operators:
+        ensure(op.get("implementation_versions") and
+               set(op["implementation_versions"]) <= recorded,
+               f"source research version missing for operator {op.get('id')}")
+        ensure(isinstance(op.get("assumptions"), list) and op["assumptions"]
+               and isinstance(op.get("limitations"), list) and op["limitations"],
+               f"operator {op.get('id')} lacks explicit proof assumptions/limits")
+        status = op.get("formal_status", "")
+        if status.startswith("LEAN_PROVED"):
+            ensure(op.get("lean_module") == "PNDS.UnifiedTACOSM"
+                   and op.get("theorems"), "unbacked proof-status claim")
+        else:
+            ensure(not op.get("theorems") and op.get("lean_module") is None,
+                   "unverified mathematical contract presents Lean theorem names")
+
     seen = {}
     source_path = root / "evidence-ledger.jsonl"
     for lineno, raw in enumerate(source_path.read_text(encoding="utf-8").splitlines(), 1):
@@ -171,6 +194,7 @@ def validate(root: Path = FOUNDATION):
     return {"foundation_version": registry["foundation_version"],
             "indexed_versions": len(records), "evidence_records": len(seen),
             "negative_sentinels": len(SENTINEL_FAILURES),
+            "indexed_exact_and_open_operator_contracts": len(operators),
             "unindexed_ranges": len(gaps["explicitly_unindexed_ranges"]),
             "indexed_original_Tac_OSM_PRs": len(pr_snapshot),
             "external_source_files_fetched_by_this_check": 0,
