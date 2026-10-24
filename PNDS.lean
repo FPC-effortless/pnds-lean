@@ -4,6 +4,7 @@ import PNDS.Softmax
 import PNDS.PathVerification
 import PNDS.Registration
 import PNDS.Scaling
+import PNDS.Representation
 import PNDS.Statistics
 import PNDS.Causal
 
