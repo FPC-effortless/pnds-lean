@@ -76,6 +76,21 @@ class FoundationContractTests(unittest.TestCase):
         with self.assertRaises(FoundationError):
             validate(self.root)
 
+    def test_math_proved_label_requires_actual_theorem_mapping(self):
+        path = self.root / "operator-contracts.json"
+        data = json.loads(path.read_text())
+        data["operators"][0]["theorems"] = []
+        path.write_text(json.dumps(data))
+        with self.assertRaises(FoundationError):
+            validate(self.root)
+
+    def test_original_375_PR_provenance_cannot_be_truncated(self):
+        path = self.root / "original-pr-snapshot.jsonl"
+        items = path.read_text(encoding="utf-8").splitlines()
+        path.write_text("\\n".join(items[:-1]) + "\\n", encoding="utf-8")
+        with self.assertRaises(FoundationError):
+            validate(self.root)
+
     def test_historical_gaps_cannot_be_silently_erased(self):
         path = self.root / "archive-gaps.json"
         data = json.loads(path.read_text())
