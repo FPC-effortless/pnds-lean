@@ -35,3 +35,10 @@ Mathematically proved ≠ compiled implementation ≠ synthetic mechanism diagno
 This first release explicitly indexes the active lines and named negative/results milestones as of October 24, 2026. **It is not a claim that every historical DEV/ME/DIAGKEY/ES-WAM experiment has already been enumerated individually.** `archive-gaps.json` keeps their uncovered historical ranges as open migration obligations rather than silently dropping them. All original branches, PRs, scores, model weights and prior PNDS definitions stay untouched. A new research version must **append** a record with a new stable ID and parent IDs; never edit or delete a negative result to make a gate appear successful.
 
 A source-implementation-to-theorem equivalence is **unverified until source code, tensor shapes, normalization and finite-precision behavior are matched and externally replayed**. A Lean theorem about real arithmetic does not prove PyTorch FP32/FP64 behavior.
+
+
+## Mandatory paired Lean + Python research rule (2026-10-24)
+
+The binding [mathematical-engineering rule](MATHEMATICAL_ENGINEERING_RULE.md) now requires a typed per-variant complete-graph specification and **both** Lean 4 and Python mathematical formulations, with explicit source/code/evidence mappings in [variant-math-links.json](variant-math-links.json). The identical reciprocal TAC-OSM manifest is `research/pnds-variant-math-links.json`; `scripts/validate_variant_math.py` and `tests/test_variant_math.py` protect all currently indexed source pins, reference equations and unfinished full-model proof status.
+
+`PNDS/TACOSMVariantContracts.lean` and `variant_math.py` add machine-auditable reference properties and executable finite-size operator kernels for all **17 linked historical versions**, but **not** full neural-model/source equivalence. All are explicitly PARTIAL; complete Lean/Python source correspondence and unindexed historical migrations remain OPEN.
