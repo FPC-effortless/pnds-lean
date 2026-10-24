@@ -11,7 +11,7 @@ States: **proved-in-Lean**, **proved-on-paper/assumption-dependent**, **software
 | MATH-005 | Physical ME094 | translated base CDF has required median | Paper equation conditional on true base median | Finite precision inversion, implicit backward, intervals, calibration |
 | MATH-006 | ES-WAM motion | \(\gamma(0)=0\) at nonzero denominator | Simple exact identity | Small nonzero speeds, noisy velocity and observed stationarity no-regression; ESWAM014 FAILED |
 | MATH-007 | Nonlinear native | joint Jacobian spectral/energy growth under all allowed inputs | OPEN | Finite-time stability, controlled forgetting, disturbance propagation, nonvanishing selective retention |
-| MATH-008 | Core/ES-WAM memory | bounded keys/capacity/interference after arbitrary distractors | OPEN | Counterexamples and then conditional constructive error bounds; authentic entity traces |
+| MATH-008 | Core/ES-WAM memory | bounded keys/capacity/interference after arbitrary distractors | OPEN for useful capacity; PNDS v1.1 gives exact generic unprojected row-query interference and unit-key residual, NOT projected long-term retention | Counterexamples and then conditional constructive error bounds; authentic entity traces |
 | MATH-009 | Temporal | valid-time and known-at-time information cut | Specific adapter software tests only | Compositional noninterference proof and actual source time validation |
 | MATH-010 | Counterfactual | identified \(do(a)\) response for real actions | OPEN, no SCM or randomized/propensity identification | Valid observed action support, interventions and nonconfounding proof |
 | MATH-011 | Full source-to-proof | Lean graph == exact full PyTorch tensor program with defined error budget | OPEN (some ESWAM shape/role results only) | Operator map, semantic refinement, bounded floating-point differences and full backward checks |
@@ -23,3 +23,7 @@ States: **proved-in-Lean**, **proved-on-paper/assumption-dependent**, **software
 **Formal proof coverage:** All PNDS v0.2 modules remain intact. PR #1 dynamic-representation proof has failing historical CI, PR #2 finite budget is a separate passing branch, and PR #4 memory-state theorem is a separate passing draft; do not assert they are merged into this new root. Lean full graph/source equivalence remains open.
 
 **No information loss policy:** original Git branches/commits/checkpoints/results are the source of truth. New entries append to `evidence-ledger.jsonl` with parent versions and original provenance; never rewrite an older outcome as if it disappeared. `archive-gaps.json` lists unindexed historical ranges instead of falsely declaring complete archival coverage.
+
+### Native memory derivations (v1.1)
+
+See [NATIVE_MATHEMATICAL_ENGINEERING_V1_1.md](NATIVE_MATHEMATICAL_ENGINEERING_V1_1.md) and [PNDS/NativeMemory.lean](../../PNDS/NativeMemory.lean). Exact read/interference and collision results apply only with the stated address/projection assumptions; whole-model MATH-007/008/011 remain OPEN. Python reference tests and original pinned Torch operator correspondence must be reported separately. No original numerical or empirical failure is reclassified.
