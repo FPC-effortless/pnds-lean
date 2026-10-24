@@ -87,7 +87,7 @@ class FoundationContractTests(unittest.TestCase):
     def test_original_375_PR_provenance_cannot_be_truncated(self):
         path = self.root / "original-pr-snapshot.jsonl"
         items = path.read_text(encoding="utf-8").splitlines()
-        path.write_text("\\n".join(items[:-1]) + "\\n", encoding="utf-8")
+        path.write_text("\n".join(items[:-1]) + "\n", encoding="utf-8")
         with self.assertRaises(FoundationError):
             validate(self.root)
 
