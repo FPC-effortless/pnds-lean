@@ -51,7 +51,8 @@ def check(base: Path = ROOT) -> dict:
         require(pnds.get("repository") == "FPC-effortless/pnds-lean" and
                 pnds.get("pull_request") == 5, f"{name} mathematical authority missing")
         require(pnds.get("lean_path") == "PNDS/TACOSMVariantContracts.lean" and
-                pnds.get("python_path") == "foundation/v1/variant_math.py",
+                pnds.get("python_path") == "foundation/v1/variant_math.py" and
+                pnds.get("python_symbol") == "evaluate_variant",
                 f"{name} missing exact paired Lean and Python paths")
         require(v.get("formalization_status") == "PARTIAL_SHARED_KERNEL_NOT_WHOLE_MODEL" and
                 v.get("lean_full_graph_proved") is False and
@@ -64,7 +65,8 @@ def check(base: Path = ROOT) -> dict:
                 (base / pnds["python_path"]).is_file(), f"{name} missing math source")
     lean = (base / "PNDS/TACOSMVariantContracts.lean").read_text(encoding="utf-8")
     py = (base / "foundation/v1/variant_math.py").read_text(encoding="utf-8")
-    require("def indexedVariants" in lean and "def evaluate_kernel" in py,
+    require("def indexedVariants" in lean and "def evaluate_kernel" in py and
+            "def evaluate_variant" in py,
             "Lean/Python entrypoints removed")
     for v in links:
         needle = f'⟨"{v["id"]}", "{v["tac"]["commit"]}", .{v["kernel"]}⟩'
