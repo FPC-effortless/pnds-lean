@@ -17,6 +17,8 @@ jobs:
           python3 scripts/validate_foundation.py --strict
           python3 scripts/validate_variant_math.py
           python3 -m unittest discover -s tests -p 'test_native_memory_math.py' -v
+          python3 scripts/validate_engineering_coverage.py
+          python3 -m unittest discover -s tests -p 'test_engineering_coverage.py' -v
           python3 scripts/check_reciprocal_links.py
           python3 -m unittest discover -s tests -p 'test_foundation.py' -v
           python3 -m unittest discover -s tests -p 'test_variant_math.py' -v
