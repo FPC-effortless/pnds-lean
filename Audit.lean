@@ -8,6 +8,7 @@ import PNDS.Statistics
 import PNDS.Causal
 import PNDS.UnifiedTACOSM
 import PNDS.TACOSMVariantContracts
+import PNDS.NativeMemory
 
 /- Axiom audit. CI fails if any proof in the PNDS tree depends on an admitted
    goal, and prints the axioms of each top-level theorem so that hidden
@@ -78,3 +79,22 @@ import PNDS.TACOSMVariantContracts
 #print axioms PNDS.VariantContracts.bitemporal_known_after_record_start
 #print axioms PNDS.VariantContracts.weightedWindow_zero
 #print axioms PNDS.VariantContracts.edgeDiscrepancy_nonnegative
+
+
+/-! Native memory exact-real source-algebra audit, not full PyTorch source proof. -/
+#check @PNDS.NativeMemory.arbitrary_query_decomposition
+#check @PNDS.NativeMemory.orthogonal_query_retains_only_decay
+#check @PNDS.NativeMemory.unit_address_self_read
+#check @PNDS.NativeMemory.unit_address_residual
+#check @PNDS.NativeMemory.read_only_no_mutation
+#check @PNDS.NativeMemory.shared_key_exact_collision_impossible
+#check @PNDS.NativeMemory.projected_exact_write_counterexample
+#check @PNDS.NativeMemory.fixed_gate_incremental_sensitivity
+#print axioms PNDS.NativeMemory.arbitrary_query_decomposition
+#print axioms PNDS.NativeMemory.orthogonal_query_retains_only_decay
+#print axioms PNDS.NativeMemory.unit_address_self_read
+#print axioms PNDS.NativeMemory.unit_address_residual
+#print axioms PNDS.NativeMemory.read_only_no_mutation
+#print axioms PNDS.NativeMemory.shared_key_exact_collision_impossible
+#print axioms PNDS.NativeMemory.projected_exact_write_counterexample
+#print axioms PNDS.NativeMemory.fixed_gate_incremental_sensitivity
