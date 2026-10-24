@@ -21,9 +21,9 @@ checked separately, not proved here.
 -/
 namespace PNDS.RetentionBudget
 
-def keep (a : ℝ) : ℝ := 1 - (1-a)/50
-def written (b : ℝ) : ℝ := b/4
-def alpha (a b : ℝ) : ℝ := keep a * (1-b/16)
+noncomputable def keep (a : ℝ) : ℝ := 1 - (1-a)/50
+noncomputable def written (b : ℝ) : ℝ := b/4
+noncomputable def alpha (a b : ℝ) : ℝ := keep a * (1-b/16)
 
 theorem keep_range (a : ℝ) (ha0 : 0 ≤ a) (ha1 : a ≤ 1) :
     49/50 ≤ keep a ∧ keep a ≤ 1 := by
