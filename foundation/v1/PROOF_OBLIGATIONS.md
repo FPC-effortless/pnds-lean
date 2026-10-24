@@ -10,7 +10,7 @@ States: **proved-in-Lean**, **proved-on-paper/assumption-dependent**, **software
 | MATH-004 | Enterprise event | source EOR and normalized conditional activity probabilities total one | Lean scalar mass formula **if** activity mass=1 | Check positive time laws, censored endpoints, numeric stability, actual EOR semantics |
 | MATH-005 | Physical ME094 | translated base CDF has required median | Paper equation conditional on true base median | Finite precision inversion, implicit backward, intervals, calibration |
 | MATH-006 | ES-WAM motion | \(\gamma(0)=0\) at nonzero denominator | Simple exact identity | Small nonzero speeds, noisy velocity and observed stationarity no-regression; ESWAM014 FAILED |
-| MATH-007 | Nonlinear native | joint Jacobian spectral/energy growth under all allowed inputs | OPEN | Finite-time stability, controlled forgetting, disturbance propagation, nonvanishing selective retention |
+| MATH-007 | Nonlinear native | joint Jacobian spectral/energy growth under all allowed inputs | OPEN for contraction/ISS; PNDS v1.3 conditionally proves forward-state boundedness for source-shaped fast/slow/memory, and disproves blanket strict contraction of preserved read-only memory | Finite-time stability, controlled forgetting, disturbance propagation, nonvanishing selective retention |
 | MATH-008 | Core/ES-WAM memory | bounded keys/capacity/interference after arbitrary distractors | OPEN for useful capacity; PNDS v1.1 gives exact generic unprojected row-query interference and unit-key residual, NOT projected long-term retention | Counterexamples and then conditional constructive error bounds; authentic entity traces |
 | MATH-009 | Temporal | valid-time and known-at-time information cut | Specific adapter software tests only | Compositional noninterference proof and actual source time validation |
 | MATH-010 | Counterfactual | identified \(do(a)\) response for real actions | OPEN, no SCM or randomized/propensity identification | Valid observed action support, interventions and nonconfounding proof |
@@ -27,3 +27,7 @@ States: **proved-in-Lean**, **proved-on-paper/assumption-dependent**, **software
 ### Native memory derivations (v1.1)
 
 See [NATIVE_MATHEMATICAL_ENGINEERING_V1_1.md](NATIVE_MATHEMATICAL_ENGINEERING_V1_1.md) and [PNDS/NativeMemory.lean](../../PNDS/NativeMemory.lean). Exact read/interference and collision results apply only with the stated address/projection assumptions; whole-model MATH-007/008/011 remain OPEN. Python reference tests and original pinned Torch operator correspondence must be reported separately. No original numerical or empirical failure is reclassified.
+
+### Native forward boundedness, not information stability (v1.3)
+
+The [conditional state-envelope certificate](NATIVE_STABILITY_CERTIFICATE_V1_3.md) distinguishes mathematical boundedness from retention, causal predictability and Jacobian stability. Its source-shaped Lean proof assumes bounded neural candidates/gates and Frobenius projection; original Torch source tests cover finite precision and read-only preservation separately. Since read-only events keep M exactly, a universal whole-state strict contraction is impossible in norms that distinguish retained memory states. The real-world qualification and MATH-008/011 obligations remain OPEN.
