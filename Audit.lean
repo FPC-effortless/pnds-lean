@@ -134,3 +134,6 @@ import PNDS.ConstraintAdapter
 #print axioms PNDS.NativeInvariant.step_preserves_envelope
 #print axioms PNDS.NativeInvariant.repeated_forward_envelope
 #print axioms PNDS.NativeInvariant.no_strict_contraction_of_read_only_memory
+
+#check @PNDS.NativeInvariant.projectedMagnitude_bounds
+#print axioms PNDS.NativeInvariant.projectedMagnitude_bounds
