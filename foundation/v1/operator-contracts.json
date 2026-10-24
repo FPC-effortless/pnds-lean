@@ -1,0 +1,215 @@
+{
+  "schema": "pnds.tac_osm.operator_contracts.v1",
+  "foundation_version": "1.0.0",
+  "note": "Proved properties are exact real algebra under premises, not entire trained neural model or floating-point implementation guarantees. No claim type can automatically upgrade empirical evidence.",
+  "operators": [
+    {
+      "id": "OP-GATE",
+      "kind": "exact_real_scalar",
+      "expression": "h_next=(1-g)h+g*v",
+      "assumptions": [
+        "0<=g<=1",
+        "h,v in [-1,1]"
+      ],
+      "property": "output in [-1,1] and target residual=(1-g)*(target-h)",
+      "formal_status": "LEAN_PROVED_EXACT_REAL",
+      "lean_module": "PNDS.UnifiedTACOSM",
+      "theorems": [
+        "gated_interval",
+        "gated_error"
+      ],
+      "implementation_versions": [
+        "CORE-DIAGKEY004",
+        "SYSTEM1-ME076",
+        "PHYSICAL-ME094"
+      ],
+      "limitations": [
+        "does not imply full nonlinear source semantics or long memory"
+      ]
+    },
+    {
+      "id": "OP-AFFINE",
+      "kind": "exact_real_affine_subgraph",
+      "expression": "k_next=A*k+B ; (A2,B2)o(A1,B1)=(A2*A1,A2*B1+B2)",
+      "assumptions": [
+        "affine steps fixed before state scan",
+        "exact real arithmetic"
+      ],
+      "property": "two-step application and associative composition permit prefix scan",
+      "formal_status": "LEAN_PROVED_EXACT_REAL",
+      "lean_module": "PNDS.UnifiedTACOSM",
+      "theorems": [
+        "run_compose",
+        "compose_assoc"
+      ],
+      "implementation_versions": [
+        "PHYSICAL-ME095"
+      ],
+      "limitations": [
+        "not the nonlinear full-native recurrence; floating point rounding may differ"
+      ]
+    },
+    {
+      "id": "OP-EOR",
+      "kind": "categorical_and_duration_mass",
+      "expression": "P(EOR)=1-s; P(activity)=s*p(activity)",
+      "assumptions": [
+        "sum_activity p=1",
+        "0<=s<=1"
+      ],
+      "property": "total categorical/EOR mass one and both coarse masses nonnegative",
+      "formal_status": "LEAN_PROVED_EXACT_REAL_UNDER_PREMISES",
+      "lean_module": "PNDS.UnifiedTACOSM",
+      "theorems": [
+        "source_end_mass_normalized",
+        "source_end_mass_nonnegative"
+      ],
+      "implementation_versions": [
+        "ENTERPRISE-ME073"
+      ],
+      "limitations": [
+        "time density/event legality/calibration not proved; source EOR != process completion"
+      ]
+    },
+    {
+      "id": "OP-MOTION",
+      "kind": "quadratic_motion_relevance",
+      "expression": "gamma(v)=v^2/(v^2+c)",
+      "assumptions": [
+        "c>0",
+        "v is measured speed"
+      ],
+      "property": "gamma(0)=0",
+      "formal_status": "LEAN_PROVED_EXACT_REAL",
+      "lean_module": "PNDS.UnifiedTACOSM",
+      "theorems": [
+        "quadratic_zero"
+      ],
+      "implementation_versions": [
+        "ESWAM-ESWAM014"
+      ],
+      "limitations": [
+        "no near-zero no-regression guarantee; real original stationary gate failed"
+      ]
+    },
+    {
+      "id": "OP-DELTA",
+      "kind": "matrix_gated_delta",
+      "expression": "D=alpha*M ; Mnext=projection_radius4(D+beta*(value-D*key)*key^T)",
+      "assumptions": [
+        "normalized address",
+        "0<=alpha,beta<=1",
+        "projection correctly implemented"
+      ],
+      "property": "postprojection Frobenius norm <= radius by construction",
+      "formal_status": "ANALYTIC_SPEC_ONLY_NO_LEAN_MATRIX_PROOF",
+      "lean_module": null,
+      "theorems": [],
+      "implementation_versions": [
+        "CORE-DIAGKEY004"
+      ],
+      "limitations": [
+        "no useful long-delay retrieval guarantee; no full tensor backward/FP proof"
+      ]
+    },
+    {
+      "id": "OP-MEDIAN",
+      "kind": "translated_forecast_CDF",
+      "expression": "F(y)=B(y-m+q) with B(q)=1/2",
+      "assumptions": [
+        "B valid base CDF",
+        "q is base median",
+        "translation in exact real arithmetic"
+      ],
+      "property": "F(m)=1/2 conditional on base median",
+      "formal_status": "PAPER_CONDITIONAL_NOT_LEAN_PROVED",
+      "lean_module": null,
+      "theorems": [],
+      "implementation_versions": [
+        "PHYSICAL-ME094"
+      ],
+      "limitations": [
+        "PyTorch iterative root numerical and backward equivalence unverified in PNDS"
+      ]
+    },
+    {
+      "id": "OP-MULTIAGENT",
+      "kind": "observed_windowed_selective_memory",
+      "expression": "slow=sum_i softmax(w_i)*source_event_i ; relevance=gate(fast,slow)",
+      "assumptions": [
+        "only known-at-time observed actor histories",
+        "actor IDs source verified"
+      ],
+      "property": "weighted observed window aggregation in a finite frame window",
+      "formal_status": "SOURCE_IMPLEMENTED_PARTIAL_LEAN_SHAPE_ROLE",
+      "lean_module": null,
+      "theorems": [],
+      "implementation_versions": [
+        "ESWAM-ESWAM010",
+        "ESWAM-ESWAM013"
+      ],
+      "limitations": [
+        "not memory persisted indefinitely; no semantic full source proof"
+      ]
+    },
+    {
+      "id": "OP-TEMPORAL",
+      "kind": "bitemporal_lookup",
+      "expression": "valid_start<=v<valid_end AND record_start<=k<record_end",
+      "assumptions": [
+        "valid/record timestamps authentic and ordered",
+        "no future known-at-time data"
+      ],
+      "property": "as-known-at admissibility",
+      "formal_status": "SOFTWARE_TESTED_ADAPTER_NO_WHOLE_LEAN_PROOF",
+      "lean_module": null,
+      "theorems": [],
+      "implementation_versions": [
+        "TEMPORAL-V1"
+      ],
+      "limitations": [
+        "timestamps source integrity and full temporal noninterference open"
+      ]
+    },
+    {
+      "id": "OP-CAUSAL",
+      "kind": "observational_vs_interventional",
+      "expression": "P(y|s,a) != P(y|s,do(a)) unless identified",
+      "assumptions": [
+        "valid SCM and intervention definitions required"
+      ],
+      "property": "no causal effect should be inferred from observational conditioning alone",
+      "formal_status": "OPEN_CAUSAL_IDENTIFICATION",
+      "lean_module": null,
+      "theorems": [],
+      "implementation_versions": [
+        "COUNTERFACTUAL-V1"
+      ],
+      "limitations": [
+        "no identified SCM or action policy value demonstrated"
+      ]
+    },
+    {
+      "id": "OP-COMPLETE",
+      "kind": "whole_neural_computational_graph",
+      "expression": "S_next=F_theta(S,observation,past_action,delta_t); predictive_readout=P_theta(y_future|S,context)",
+      "assumptions": [
+        "lane-specific actual state shape and known-at-time inputs"
+      ],
+      "property": "source-to-theorem complete tensor semantics and verified gradients",
+      "formal_status": "OPEN",
+      "lean_module": null,
+      "theorems": [],
+      "implementation_versions": [
+        "CORE-DIAGKEY004",
+        "SYSTEM1-ME079",
+        "PHYSICAL-ME094",
+        "ENTERPRISE-ME073",
+        "ESWAM-ESWAM013"
+      ],
+      "limitations": [
+        "no integrated exact tensor+FP+parameter gradient proof, spectral stability bound, or causal valid source transfer"
+      ]
+    }
+  ]
+}
