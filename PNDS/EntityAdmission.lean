@@ -20,7 +20,7 @@ theorem unrelated_slot_unchanged {n : ℕ} (prev : Fin n → ℝ)
     (selected other : Fin n) (sameEntity : Bool) (beta observed : ℝ)
     (hdiff : other ≠ selected) :
     valueWrite prev selected sameEntity beta observed other = prev other := by
-  simp [valueWrite, ne_comm.mp hdiff]
+  simp [valueWrite, hdiff]
 
 theorem replacement_does_not_copy_evicted_content {n : ℕ}
     (prev : Fin n → ℝ) (chosen : Fin n) (beta observed : ℝ) :
