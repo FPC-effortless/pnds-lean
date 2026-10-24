@@ -13,6 +13,7 @@ import PNDS.NativeInvariant
 import PNDS.ParallelMemory
 import PNDS.DualModeMemory
 import PNDS.EntityAdmission
+import PNDS.TimescaleEvidence
 import PNDS.ConstraintAdapter
 
 /- Axiom audit. CI fails if any proof in the PNDS tree depends on an admitted
@@ -185,3 +186,14 @@ import PNDS.ConstraintAdapter
 #print axioms PNDS.EntityAdmission.replacement_does_not_copy_evicted_content
 #print axioms PNDS.EntityAdmission.existing_slot_interpolation
 #print axioms PNDS.EntityAdmission.capacity_full_no_new_slot
+
+#check @PNDS.TimescaleEvidence.bound_unit_interval
+#check @PNDS.TimescaleEvidence.state_difference_linear
+#check @PNDS.TimescaleEvidence.same_observation_nonexpansive
+#check @PNDS.TimescaleEvidence.then_assoc
+#check @PNDS.TimescaleEvidence.update_is_affine
+#check @PNDS.TimescaleEvidence.one_step_perturbation_bound
+#print axioms PNDS.TimescaleEvidence.bound_unit_interval
+#print axioms PNDS.TimescaleEvidence.same_observation_nonexpansive
+#print axioms PNDS.TimescaleEvidence.then_assoc
+#print axioms PNDS.TimescaleEvidence.one_step_perturbation_bound
