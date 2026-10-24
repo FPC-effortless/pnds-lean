@@ -45,7 +45,7 @@ def thenPair {n : ℕ} (a b : AffinePair n) : AffinePair n :=
 theorem apply_then {n : ℕ} (a b : AffinePair n)
     (m : Matrix (Fin n) (Fin n) ℝ) :
     applyPair (thenPair a b) m = applyPair b (applyPair a m) := by
-  simp [applyPair, thenPair, add_mul, mul_assoc]
+  simp [applyPair, thenPair, add_mul, mul_assoc, add_assoc]
 
 /-- Grouping a chronological triple does not change its mathematical
     operator, even though swapping order generally does. -/
