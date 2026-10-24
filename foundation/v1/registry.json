@@ -287,9 +287,9 @@
       "params": 80296,
       "source": {
         "repository": "FPC-effortless/TAC-OSM",
-        "pull_request": 353,
-        "commit_sha": "166d60d8d897f1f8be5f48410e7d90b8af46048c",
-        "evidence_path": null
+        "pull_request": 348,
+        "commit_sha": "65a41dd9b8aa34bc29a570e72c9c7117abcbf74d",
+        "evidence_path": "research/mathematical-engineering/me069/RESULTS.md"
       },
       "supported": [
         "Historical authentic BPI2012 next-activity evaluation"
