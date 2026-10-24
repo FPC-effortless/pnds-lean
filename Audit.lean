@@ -207,3 +207,6 @@ import PNDS.ConstraintAdapter
 #print axioms PNDS.JointAffineTAC.then_assoc
 #print axioms PNDS.JointAffineTAC.fold_matches_stream
 #print axioms PNDS.JointAffineTAC.stream_resume
+
+#check @PNDS.JointAffineTAC.same_decoder_after_joint_parallel_or_stream
+#print axioms PNDS.JointAffineTAC.same_decoder_after_joint_parallel_or_stream
