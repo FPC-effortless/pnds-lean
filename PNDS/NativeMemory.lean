@@ -99,4 +99,42 @@ theorem fixed_gate_incremental_sensitivity
   unfold PNDS.UnifiedTACOSM.gated
   ring
 
+
+/-- Fully dimension-generic row definition; used on each of the eight
+    value rows independently. This includes the genuine 8D key dimensions,
+    but deliberately excludes nonlinear projection and learned gate gradients. -/
+def rowRead {n : ℕ} (m k : Fin n → ℝ) : ℝ :=
+  ∑ i, m i * k i
+
+def rowWrite {n : ℕ} (m k : Fin n → ℝ)
+    (v alpha beta : ℝ) (i : Fin n) : ℝ :=
+  alpha * m i + beta * (v - alpha * rowRead m k) * k i
+
+theorem row_query_decomposition {n : ℕ}
+    (m k q : Fin n → ℝ) (v alpha beta : ℝ) :
+    rowRead (rowWrite m k v alpha beta) q =
+      alpha * rowRead m q +
+      beta * (v - alpha * rowRead m k) * rowRead k q := by
+  calc
+    rowRead (rowWrite m k v alpha beta) q =
+        ∑ i : Fin n, (alpha * (m i * q i) +
+          (beta * (v - alpha * rowRead m k)) * (k i * q i)) := by
+      unfold rowRead
+      apply Finset.sum_congr rfl
+      intro i _
+      dsimp [rowWrite]
+      ring
+    _ = alpha * rowRead m q +
+        beta * (v - alpha * rowRead m k) * rowRead k q := by
+      rw [Finset.sum_add_distrib]
+      simp only [← Finset.mul_sum, rowRead]
+
+theorem row_unit_key_residual {n : ℕ}
+    (m k : Fin n → ℝ) (v alpha beta : ℝ)
+    (hunit : rowRead k k = 1) :
+    v - rowRead (rowWrite m k v alpha beta) k =
+      (1 - beta) * (v - alpha * rowRead m k) := by
+  rw [row_query_decomposition, hunit]
+  ring
+
 end PNDS.NativeMemory
