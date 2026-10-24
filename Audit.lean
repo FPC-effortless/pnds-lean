@@ -159,3 +159,6 @@ import PNDS.ConstraintAdapter
 #print axioms PNDS.ParallelMemory.chronological_chunks
 #print axioms PNDS.ParallelMemory.zero_apply
 #print axioms PNDS.ParallelMemory.read_only_no_mutation
+
+#check @PNDS.ParallelMemory.bounded_projection_free_budget
+#print axioms PNDS.ParallelMemory.bounded_projection_free_budget
