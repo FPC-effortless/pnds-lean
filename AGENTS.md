@@ -1,3 +1,10 @@
 # Repository agent guidance
 
 For substantive technical, product, and research work, read `.agents/skills/fpc-universal/SKILL.md` when available and select specialized local skills only when relevant. This universal guidance is subordinate to the repository's README, project specifications, existing nested agent rules, architecture/security constraints, and current task. Use isolated branches, runnable verification, and explicit review before integration; never assume permission for external effects, secrets, deployment, or costly compute.
+
+
+## Compulsory TAC-OSM mathematical-engineering research rule — 2026-10-24
+
+Before any TAC-OSM architecture, variant, mathematical proof, numerical rewrite or new training claim, read [foundation/v1/MATHEMATICAL_ENGINEERING_RULE.md](foundation/v1/MATHEMATICAL_ENGINEERING_RULE.md). PNDS owns the **versioned mathematical representation, exact assumptions, Lean 4 formulation/proof obligations and executable Python reference**; [TAC-OSM](https://github.com/FPC-effortless/TAC-OSM) owns original trained source, experiment receipts, checkpoints, genuine-data scores and failures. Register every variant on both sides using **foundation/v1/variant-math-links.json** and TAC's **research/pnds-variant-math-links.json**, preserving its original source commit SHA and research lineage.
+
+**Two formulations are mandatory:** typed observation-to-output architecture, Lean declarations/proofs/OPEN premises **and** Python executable equations/tests for the same variant. Full-model mathematical completion requires Lean kernel/axiom audit, Python forward/backward/numerical verification against actual source, finite-precision error analysis and explicitly legal parallelism. A shared Lean scalar theorem or Python toy kernel alone is only **PARTIAL**. No proof or synthetic diagnostic upgrades independently observed capability; historical negative gates and original replay failures remain intact. Match parameter/data/training compute for fair architecture comparisons; matching CPU wall time is not required.
