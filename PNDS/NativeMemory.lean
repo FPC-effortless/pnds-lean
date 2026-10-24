@@ -6,7 +6,7 @@ import PNDS.UnifiedTACOSM
 
 Source anchor: TAC-OSM 081e534a074001c6a3b2251b3ff31ad20ec4fca8,
   src/tac_osm/aligned_associative_tac.py, gated_write().
-Actual runtime uses B×8×8 stores, normalized addresses, input-/state-dependent
+Actual runtime uses B×8×8 stores, normalized addresses, input-dependent and state-dependent
 retention/strength, write-role mask and Frobenius projection. Here we prove the
 unprojected, one-row/two-key-coordinate algebra only, under explicit premises.
 The same algebra is componentwise for an m×n store before projection.
@@ -34,7 +34,7 @@ theorem arbitrary_query_decomposition
       (unprojected1 m0 m1 k0 k1 v alpha beta) q0 q1 =
       alpha * read2 m0 m1 q0 q1 +
         beta * (v - alpha * read2 m0 m1 k0 k1) * read2 k0 k1 q0 q1 := by
-  unfold read2 unprojected0 unprojected1
+  dsimp [read2, unprojected0, unprojected1]
   ring
 
 theorem orthogonal_query_retains_only_decay
@@ -80,7 +80,7 @@ theorem shared_key_exact_collision_impossible
   calc first = readValue := hfirst.symm
        _ = second := hsecond
 
-def positiveRadiusClip (radius x : ℝ) : ℝ :=
+noncomputable def positiveRadiusClip (radius x : ℝ) : ℝ :=
   if x > radius then radius else x
 
 theorem projected_exact_write_counterexample :
