@@ -82,7 +82,7 @@ theorem source_end_mass_nonnegative (survival : ℝ)
 
 /-- Exact zero measured speed suppresses the quadratic residual gate.
     This makes no no-regression promise at small nonzero noisy speeds. -/
-def quadraticMotionGate (v c : ℝ) : ℝ := v ^ 2 / (v ^ 2 + c)
+noncomputable def quadraticMotionGate (v c : ℝ) : ℝ := v ^ 2 / (v ^ 2 + c)
 
 theorem quadratic_zero (c : ℝ) :
     quadraticMotionGate 0 c = 0 := by
