@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """CI cross-repository exact manifest parity: fetch only the peer JSON file.
 
-This verifies equality of public draft-branch snapshots, NOT source/model
+This verifies equality of current main/master snapshots, NOT source/model
 correspondence nor full Lean mathematical proof. Network/API failures fail
 closed instead of silently weakening the two-repository invariant.
 """
@@ -11,7 +11,7 @@ from pathlib import Path
 
 LOCAL = Path(__file__).resolve().parents[1] / "foundation/v1/variant-math-links.json"
 REMOTE = ("https://raw.githubusercontent.com/FPC-effortless/TAC-OSM/"
-          "research/pnds-unified-mathematical-foundation-bridge-2026-10-24/"
+          "master/"
           "research/pnds-variant-math-links.json")
 
 
