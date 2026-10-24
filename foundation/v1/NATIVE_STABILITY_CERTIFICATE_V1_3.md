@@ -70,3 +70,21 @@ For any actual prospective training study use original authentic observations wi
 | Trained real-world predictive advantage | Not established by this mathematics |
 
 This certificate must remain separate from the 17-variant original experimental ledger, cannot certify a different physical or enterprise architecture by inheritance, and cannot be used to upgrade a synthetic mechanism to real-world capability.
+
+
+## Finite-memory capacity imposes a real tradeoff
+
+The source-memory example is not fixed simply by renaming the global clip to
+"per-entity projection". A norm-bounded store with two orthogonal components
+already carrying old squared norm R² cannot preserve that old component and
+admit additional nonzero orthogonal squared norm b² while retaining the *same*
+total radius: R²+b²<=R² forces b=0. The PNDS Lean theorem
+NativeInvariant.saturated_budget_forbids_nonzero_orthogonal_write proves this
+exact statement. Protecting old verified memories therefore requires a
+falsifiable **admission/replacement policy, reserved capacity, controlled
+compression or explicit budget reallocation**, not a free no-interference
+guarantee at fixed saturated storage. An 8D address space also cannot store
+65 mutually orthogonal nonzero key vectors; useful capacity is empirically
+conditional on learned key structure and temporal task demands.
+
+No architecture is changed or fit by this mathematical observation.
