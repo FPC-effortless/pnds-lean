@@ -27,7 +27,7 @@ SENTINEL_FAILURES = {"MEM-002", "SYS-001", "PHY-003", "ENT-001", "ESW-004"}
 REQUIRED_PATHS = [
     "README.md", "ARCHITECTURE.md", "PROOF_OBLIGATIONS.md",
     "prior-math.json", "archive-gaps.json",
-    "registry.json", "evidence-ledger.jsonl",
+    "registry.json", "evidence-ledger.jsonl", "original-pr-snapshot.jsonl",
 ]
 
 
@@ -149,12 +149,30 @@ def validate(root: Path = FOUNDATION):
     ensure(len(prior.get("unmerged_pnds_research", [])) >= 3,
            "original PNDS formal research branches omitted")
 
+    pr_snapshot = []
+    for line_no, raw in enumerate(
+            (root / "original-pr-snapshot.jsonl").read_text(encoding="utf-8").splitlines(), 1):
+        row = json.loads(raw)
+        ensure(isinstance(row.get("pr_number"), int)
+               and row["pr_number"] > 0, f"bad source PR number {line_no}")
+        ensure(re.fullmatch(r"[0-9a-f]{40}", row.get("head_commit_sha", "")) is not None,
+               f"un-pinned historical TAC PR {line_no}")
+        ensure(row.get("url") == "https://github.com/FPC-effortless/TAC-OSM/pull/"
+               + str(row["pr_number"]), f"untrusted PR link at {line_no}")
+        pr_snapshot.append(row)
+    ensure(len(pr_snapshot) >= 375, "historical source PR index truncated")
+    pr_ids = [row["pr_number"] for row in pr_snapshot]
+    ensure(len(set(pr_ids)) == len(pr_ids), "duplicate historical PR ID")
+    ensure({v["source"]["pull_request"] for v in records} <= set(pr_ids),
+           "a mathematically indexed variant has no historical PR provenance")
+
     # No network: the external commit's actual content may still be missing or
     # altered after source transfer. Independent source-replay is separate.
     return {"foundation_version": registry["foundation_version"],
             "indexed_versions": len(records), "evidence_records": len(seen),
             "negative_sentinels": len(SENTINEL_FAILURES),
             "unindexed_ranges": len(gaps["explicitly_unindexed_ranges"]),
+            "indexed_original_Tac_OSM_PRs": len(pr_snapshot),
             "external_source_files_fetched_by_this_check": 0,
             "real_world_superiority_established_by_this_check": False}
 
