@@ -145,7 +145,7 @@ theorem no_strict_contraction_of_read_only_memory (rho : ℝ)
 /-- Exact scalar magnitude mapping induced by the original source's radial
     Frobenius clipping formula, provided radius>0 and norm>=0. The tensor
     identity ||U/c||_F=||U||_F/c is a separate implementation obligation. -/
-def projectedMagnitude (radius originalNorm : ℝ) : ℝ :=
+noncomputable def projectedMagnitude (radius originalNorm : ℝ) : ℝ :=
   originalNorm / max 1 (originalNorm / radius)
 
 theorem projectedMagnitude_bounds (radius originalNorm : ℝ)
