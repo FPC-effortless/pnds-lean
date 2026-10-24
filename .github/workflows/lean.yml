@@ -34,7 +34,7 @@ jobs:
           # `lake build ... | tee` would mask lake's exit code behind tee's, which
           # has already produced a false-green run on this repo. Use PIPESTATUS.
           set -o pipefail
-          lake build 'PNDS' 'Audit' 2>&1 | tee build.log
+          lake build 'PNDS' 'Audit' 'PNDS.InformationBounds' 2>&1 | tee build.log
           echo "lake build exit code: ${PIPESTATUS[0]}"
           exit ${PIPESTATUS[0]}
 
@@ -45,7 +45,7 @@ jobs:
           # module (e.g. PNDS.Causal) already produces one, so a tree with five
           # broken modules passed this check. Require every root to be present.
           for root in PNDS/Causal PNDS/PathVerification PNDS/Registration \
-                      PNDS/Scaling PNDS/Statistics PNDS/Softmax Audit; do
+                      PNDS/Scaling PNDS/Statistics PNDS/Softmax PNDS/InformationBounds Audit; do
             if [ ! -f ".lake/build/lib/${root}.olean" ]; then
               echo "::error::Missing .olean for ${root}; that module did not compile"
               exit 1
