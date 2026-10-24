@@ -113,15 +113,20 @@ theorem step_preserves_envelope
 
 /-- The structural bound composes indefinitely when every successive
 transition satisfies the conditional one-step premises. -/
+def iterateSteps (F : NativeState → NativeState) (initial : NativeState) :
+    ℕ → NativeState
+  | 0 => initial
+  | n + 1 => F (iterateSteps F initial n)
+
 theorem repeated_forward_envelope
     (F : NativeState → NativeState) (initial : NativeState)
     (hstep : ∀ s, ForwardEnvelope s → ForwardEnvelope (F s))
     (hinit : ForwardEnvelope initial) (n : ℕ) :
-    ForwardEnvelope ((F^[n]) initial) := by
+    ForwardEnvelope (iterateSteps F initial n) := by
   induction n with
-  | zero => simpa using hinit
+  | zero => simpa [iterateSteps] using hinit
   | succ n ih =>
-    simpa [Function.iterate_succ_apply] using hstep _ ih
+    simpa [iterateSteps] using hstep _ ih
 
 /-- Read-only memory carries the *same* coordinate difference, even if
 fast/slow components change. Thus the full state is not uniformly strictly
