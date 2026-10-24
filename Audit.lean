@@ -11,6 +11,7 @@ import PNDS.TACOSMVariantContracts
 import PNDS.NativeMemory
 import PNDS.NativeInvariant
 import PNDS.ParallelMemory
+import PNDS.DualModeMemory
 import PNDS.ConstraintAdapter
 
 /- Axiom audit. CI fails if any proof in the PNDS tree depends on an admitted
@@ -162,3 +163,14 @@ import PNDS.ConstraintAdapter
 
 #check @PNDS.ParallelMemory.bounded_projection_free_budget
 #print axioms PNDS.ParallelMemory.bounded_projection_free_budget
+
+#check @PNDS.DualModeMemory.scan_matches_stream_from
+#check @PNDS.DualModeMemory.scan_matches_stream
+#check @PNDS.DualModeMemory.stream_resume
+#check @PNDS.DualModeMemory.read_only_stream
+#check @PNDS.DualModeMemory.append_basis_sum
+#check @PNDS.DualModeMemory.context_decomposes_through_statistic
+#print axioms PNDS.DualModeMemory.scan_matches_stream
+#print axioms PNDS.DualModeMemory.stream_resume
+#print axioms PNDS.DualModeMemory.read_only_stream
+#print axioms PNDS.DualModeMemory.append_basis_sum
