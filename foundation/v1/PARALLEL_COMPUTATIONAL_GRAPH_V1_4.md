@@ -66,7 +66,7 @@ The memory update is \(M_t=M_{t-1}P_t+Q_t\), \(M_0=0\). If \(A\) represents an e
  (P_AP_B,\ Q_AP_B+Q_B).
 \]
 
-Associativity is proved as **a matrix operator law**, not assumed. Rebalancing chronological parentheses (never reversing event order) computes all \(M_t\) in O(log T) scan stages using batched 8×8 matrix products; the specific Hillis–Steele implementation has O(T log T) matrix-multiply work and O(T) stored states, not O(T) work. A work-efficient alternative may be engineered separately. A causal prefix-max gather makes read-only entries bitwise equal to the last actual write despite floating-point reassociation in the scanned matrix products.
+Associativity is proved as **a matrix operator law**, not assumed. Rebalancing chronological parentheses (never reversing event order) computes all \(M_t\) in O(log T) scan stages using batched 8×8 matrix products; the candidate now uses a **Blelloch-style balanced upsweep/downsweep** with O(T) small-matrix multiplication work, O(log T) scan depth and O(T) stored states. A separate Hillis–Steele O(T log T)-work implementation remains available for independent validation. A causal prefix-max gather makes read-only entries bitwise equal to the last actual write despite floating-point reassociation in the scanned matrix products.
 
 **Stage P4 — time-parallel read-before-write and refinement**
 
@@ -119,7 +119,7 @@ Thus from zero memory the radius-R budget is invariant WITHOUT the source's glob
 ## Computational complexity and honest parallelism
 
 - Trainable parameters: **exactly the same 101,527 source parameters**, reused in the candidate. No invented padding parameters, no new weights.
-- Work: learned dense projections O(BT·P) for fixed hidden widths (with repeated source fast/slow maps), 8×8 prefix scan O(BT log T·8³) using Hillis–Steele, and full output codebook read O(B·32·8). The original nonlinear recurrent transition remains O(T) serial depth.
+- Work: learned dense projections O(BT·P) for fixed hidden widths (with repeated source fast/slow maps), 8×8 prefix scan O(BT·8³) using a work-efficient balanced tree, and full output codebook read O(B·32·8). The original nonlinear recurrent transition remains O(T) serial depth.
 - Candidate critical path: parallel input GEMMs, O(log T) causal prefix reduction, two provisional learned stages, O(log T) gated-delta affine scan, one read-refinement stage, and the decoder. No Python T-length recurrence loop appears in its forward pass.
 - Memory: O(BT(88+8²)) for training activations and scan intermediates; full scan can cost more compute/memory than sequential on a CPU. Parallelizable does not mean measured faster.
 - Batch, entity and horizon independence are separate from legal chronological grouping. Floating-point grouping changes last-bit results; validate numerically and preserve source read-only identity.
@@ -139,3 +139,5 @@ Original DIAGKEY004 synthetic immediate recall, ME094 stationarity failures, ESW
 - **S4** authentic real-data generalization, state-usefulness, decision consequences against matched baselines: OPEN.
 
 The above is the strongest sound whole-graph parallelization construction currently justified by source and formal mathematics. An exactly output-identical time-parallel replacement for the original nonlinear native recurrence is **not** established.
+
+The measured single-thread CPU forward-cost comparison is produced by TAC-OSM `benchmark_parallel_graph_cpu.py`, and deliberately has no win/fail performance threshold. Algorithmic parallel depth does not imply faster CPU execution. The original source-parity tests and candidate tests must pass independently of timing.
