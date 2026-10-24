@@ -10,6 +10,7 @@ import PNDS.UnifiedTACOSM
 import PNDS.TACOSMVariantContracts
 import PNDS.NativeMemory
 import PNDS.NativeInvariant
+import PNDS.ParallelMemory
 import PNDS.ConstraintAdapter
 
 /- Axiom audit. CI fails if any proof in the PNDS tree depends on an admitted
@@ -140,3 +141,21 @@ import PNDS.ConstraintAdapter
 
 #check @PNDS.NativeInvariant.saturated_budget_forbids_nonzero_orthogonal_write
 #print axioms PNDS.NativeInvariant.saturated_budget_forbids_nonzero_orthogonal_write
+
+/-! Conditional time-parallel 8×8 affine-memory scan; NOT the full native recurrence. -/
+#check @PNDS.ParallelMemory.apply_then
+#check @PNDS.ParallelMemory.then_assoc
+#check @PNDS.ParallelMemory.apply_identity
+#check @PNDS.ParallelMemory.then_identity
+#check @PNDS.ParallelMemory.identity_then
+#check @PNDS.ParallelMemory.chronological_chunks
+#check @PNDS.ParallelMemory.zero_apply
+#check @PNDS.ParallelMemory.read_only_no_mutation
+#print axioms PNDS.ParallelMemory.apply_then
+#print axioms PNDS.ParallelMemory.then_assoc
+#print axioms PNDS.ParallelMemory.apply_identity
+#print axioms PNDS.ParallelMemory.then_identity
+#print axioms PNDS.ParallelMemory.identity_then
+#print axioms PNDS.ParallelMemory.chronological_chunks
+#print axioms PNDS.ParallelMemory.zero_apply
+#print axioms PNDS.ParallelMemory.read_only_no_mutation
