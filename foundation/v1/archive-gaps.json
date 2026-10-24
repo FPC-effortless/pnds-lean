@@ -42,5 +42,10 @@
     }
   ],
   "invariant": "Registry+ledger never represent these gaps as no research. Original commits/PRs are authoritative source of truth and have not been modified.",
-  "next_migration": "Automatically collect each historical study original protocol, source hash, result, trained weights checksum, original CI gate status and falsifiable limitations without opening protected test data or replacing any historical checkpoint."
+  "next_migration": "Automatically collect each historical study original protocol, source hash, result, trained weights checksum, original CI gate status and falsifiable limitations without opening protected test data or replacing any historical checkpoint.",
+  "original_pr_metadata_snapshot": {
+    "file": "original-pr-snapshot.jsonl",
+    "original_pr_count": 375,
+    "notes": "Retrieved through the authenticated source's REST all-PR list on 2026-10-24, preserving numeric id, original commit, title, branch, base, state and merge timestamp. This is source metadata, NOT individually complete original hypothesis/results/weights. Source branch HEAD can change after this snapshot."
+  }
 }
