@@ -141,4 +141,26 @@ theorem no_strict_contraction_of_read_only_memory (rho : ℝ)
   norm_num at hm
   linarith
 
+
+/-- Exact scalar magnitude mapping induced by the original source's radial
+    Frobenius clipping formula, provided radius>0 and norm>=0. The tensor
+    identity ||U/c||_F=||U||_F/c is a separate implementation obligation. -/
+def projectedMagnitude (radius originalNorm : ℝ) : ℝ :=
+  originalNorm / max 1 (originalNorm / radius)
+
+theorem projectedMagnitude_bounds (radius originalNorm : ℝ)
+    (hradius : 0 < radius) (hnorm : 0 ≤ originalNorm) :
+    0 ≤ projectedMagnitude radius originalNorm ∧
+      projectedMagnitude radius originalNorm ≤ radius := by
+  have hd : 0 < max (1 : ℝ) (originalNorm / radius) :=
+    lt_of_lt_of_le (by norm_num) (le_max_left _ _)
+  constructor
+  · exact div_nonneg hnorm (le_of_lt hd)
+  · apply (div_le_iff₀ hd).2
+    have hquot : originalNorm ≤
+        max (1 : ℝ) (originalNorm / radius) * radius :=
+      (div_le_iff₀ hradius).1 (le_max_right _ _)
+    nlinarith
+
+
 end PNDS.NativeInvariant
