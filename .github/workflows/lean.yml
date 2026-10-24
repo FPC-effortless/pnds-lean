@@ -12,6 +12,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Validate unified source-pinned foundation and negative findings
+        run: |
+          python3 scripts/validate_foundation.py --strict
+          python3 scripts/validate_variant_math.py
+          python3 scripts/check_reciprocal_links.py
+          python3 -m unittest discover -s tests -p 'test_foundation.py' -v
+          python3 -m unittest discover -s tests -p 'test_variant_math.py' -v
+
       - name: Install elan
         run: |
           curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain none
@@ -44,7 +52,7 @@ jobs:
           # Counting .olean files is not sufficient: a single successfully-built
           # module (e.g. PNDS.Causal) already produces one, so a tree with five
           # broken modules passed this check. Require every root to be present.
-          for root in PNDS/Causal PNDS/PathVerification PNDS/Registration \
+          for root in PNDS/TACOSMVariantContracts PNDS/UnifiedTACOSM PNDS/Causal PNDS/PathVerification PNDS/Registration \
                       PNDS/Scaling PNDS/Statistics PNDS/Softmax Audit; do
             if [ ! -f ".lake/build/lib/${root}.olean" ]; then
               echo "::error::Missing .olean for ${root}; that module did not compile"

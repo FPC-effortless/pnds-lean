@@ -1,0 +1,51 @@
+{
+  "schema": "pnds.tac_osm.archive_gaps.v1",
+  "foundation_version": "1.0.0",
+  "as_of_date": "2026-10-24",
+  "completeness": "PARTIAL_ACTIVE_AND_SENTINEL_INVENTORY",
+  "explicitly_unindexed_ranges": [
+    {
+      "id": "DEV-HISTORY",
+      "source_repo": "FPC-effortless/TAC-OSM",
+      "versions": "DEV001..DEV061 plus later DEV trials",
+      "why_open": "Individual original experiments, negative results and original source hashes require automatic Git-history enumeration; no silent deletion"
+    },
+    {
+      "id": "ME-HISTORY",
+      "source_repo": "FPC-effortless/TAC-OSM",
+      "versions": "ME001..ME095 (many represented only by branch-level lineage)",
+      "why_open": "17 registry entries are scientific lineage exemplars, NOT 95 fully individually catalogued study snapshots"
+    },
+    {
+      "id": "DIAGKEY-HISTORY",
+      "source_repo": "FPC-effortless/TAC-OSM",
+      "versions": "DIAGKEY001..DIAGKEY003 (and side diagnostics)",
+      "why_open": "Positive and negative original checkpoint/run records remain on source branches; v1 ledger is selective"
+    },
+    {
+      "id": "ESWAM-HISTORY",
+      "source_repo": "FPC-effortless/TAC-OSM",
+      "versions": "ESWAM001..ESWAM014 with source chain ESWAM002..011",
+      "why_open": "Whole actor-input and Lean histories not individually mirrored in PNDS"
+    },
+    {
+      "id": "PNDS-PR-HISTORY",
+      "source_repo": "FPC-effortless/pnds-lean",
+      "versions": "Original v0.2 and PR#1/#2/#4",
+      "why_open": "Independent source modules pinned in prior-math.json, unmerged historical branches remain distinct"
+    },
+    {
+      "id": "OTHER-ACTIVE-STUDIES",
+      "source_repo": "FPC-effortless/TAC-OSM",
+      "versions": "SEQ/DIAG/robot/enterprise/QUAL and later additions",
+      "why_open": "Need automated branch/commit/asset crawler to enumerate full archive, safely preserve all failed study receipts"
+    }
+  ],
+  "invariant": "Registry+ledger never represent these gaps as no research. Original commits/PRs are authoritative source of truth and have not been modified.",
+  "next_migration": "Automatically collect each historical study original protocol, source hash, result, trained weights checksum, original CI gate status and falsifiable limitations without opening protected test data or replacing any historical checkpoint.",
+  "original_pr_metadata_snapshot": {
+    "file": "original-pr-snapshot.jsonl",
+    "original_pr_count": 375,
+    "notes": "Retrieved through the authenticated source's REST all-PR list on 2026-10-24, preserving numeric id, original commit, title, branch, base, state and merge timestamp. This is source metadata, NOT individually complete original hypothesis/results/weights. Source branch HEAD can change after this snapshot."
+  }
+}

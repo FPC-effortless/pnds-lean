@@ -6,6 +6,8 @@ import PNDS.Registration
 import PNDS.Scaling
 import PNDS.Statistics
 import PNDS.Causal
+import PNDS.UnifiedTACOSM
+import PNDS.TACOSMVariantContracts
 
 /- Axiom audit. CI fails if any proof in the PNDS tree depends on an admitted
    goal, and prints the axioms of each top-level theorem so that hidden
@@ -44,3 +46,35 @@ import PNDS.Causal
 #print axioms PNDS.Statistics.six_seeds_reach_0p05
 #print axioms PNDS.Statistics.minP_oneSided_antitone
 #print axioms PNDS.Statistics.minP_twoSided_antitone
+
+/-! New PNDS foundation v1 operator contracts: explicit kernel axiom audit. -/
+#check @PNDS.UnifiedTACOSM.gated_interval
+#check @PNDS.UnifiedTACOSM.gated_error
+#check @PNDS.UnifiedTACOSM.run_compose
+#check @PNDS.UnifiedTACOSM.compose_assoc
+#check @PNDS.UnifiedTACOSM.source_end_mass_normalized
+#check @PNDS.UnifiedTACOSM.source_end_mass_nonnegative
+#check @PNDS.UnifiedTACOSM.quadratic_zero
+#check @PNDS.UnifiedTACOSM.synthetic_not_real_qualification
+#check @PNDS.UnifiedTACOSM.development_not_independent_qualification
+#print axioms PNDS.UnifiedTACOSM.gated_interval
+#print axioms PNDS.UnifiedTACOSM.gated_error
+#print axioms PNDS.UnifiedTACOSM.run_compose
+#print axioms PNDS.UnifiedTACOSM.compose_assoc
+#print axioms PNDS.UnifiedTACOSM.source_end_mass_normalized
+#print axioms PNDS.UnifiedTACOSM.source_end_mass_nonnegative
+#print axioms PNDS.UnifiedTACOSM.quadratic_zero
+#print axioms PNDS.UnifiedTACOSM.synthetic_not_real_qualification
+#print axioms PNDS.UnifiedTACOSM.development_not_independent_qualification
+
+/-! Per-variant dual-formulation exact-real and indexing checks; source parity OPEN. -/
+#check @PNDS.VariantContracts.indexed_count
+#check @PNDS.VariantContracts.translatedCDF_at_median
+#check @PNDS.VariantContracts.bitemporal_known_after_record_start
+#check @PNDS.VariantContracts.weightedWindow_zero
+#check @PNDS.VariantContracts.edgeDiscrepancy_nonnegative
+#print axioms PNDS.VariantContracts.indexed_count
+#print axioms PNDS.VariantContracts.translatedCDF_at_median
+#print axioms PNDS.VariantContracts.bitemporal_known_after_record_start
+#print axioms PNDS.VariantContracts.weightedWindow_zero
+#print axioms PNDS.VariantContracts.edgeDiscrepancy_nonnegative

@@ -73,3 +73,33 @@ docstring of `PNDS/Scaling.lean` states this as well. The measured scaling resul
 project has (a six-point pilot on retrieval top-1 accuracy at 6 / 12 / 24 candidates) are
 recorded in the experiment repository, are explicitly *not* a scaling result, and are
 unchanged by anything proved here.
+
+## Unified TAC-OSM mathematical research foundation (v1.0.0, October 24 2026)
+
+The existing PNDS v0.2 document formalization **remains unchanged**.
+The new [source-commit-pinned unified foundation](foundation/v1/README.md)
+is the mathematical-engineering home for **all TAC-OSM research lanes**:
+Core/DIAGKEY, System 1, full physical, Enterprise, Temporal, Edge-Lite,
+Counterfactual and ES-WAM. It uses a versioned registry, append-only
+positive/negative findings, explicit archival gaps, proof obligations and
+original-source cross-references. **TAC-OSM remains the only source of the
+actual model source files, original data, fitted checkpoint bytes and results.**
+
+- [Versioned architecture/variants](foundation/v1/registry.json)
+- [Mathematical operator graph](foundation/v1/ARCHITECTURE.md)
+- [Proof/qualification obligations](foundation/v1/PROOF_OBLIGATIONS.md)
+- [Append-only original research evidence ledger](foundation/v1/evidence-ledger.jsonl)
+- [Historical gaps rather than false completeness](foundation/v1/archive-gaps.json)
+- [Prior original PNDS math and open formal branches](foundation/v1/prior-math.json)
+- [New exact-real Lean operator proofs](PNDS/UnifiedTACOSM.lean)
+
+```bash
+python3 scripts/validate_foundation.py --strict
+python3 -m unittest discover -s tests -p 'test_foundation.py'
+lake build PNDS Audit
+```
+
+A Lean proof about exact affine scans or scalar convex updates is **not** an
+end-to-end proof of native PyTorch floating-point operation, real-world model
+intelligence or causality. Historical negative outcomes never disappear when
+new improvements are appended.
