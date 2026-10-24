@@ -15,6 +15,7 @@ import PNDS.DualModeMemory
 import PNDS.EntityAdmission
 import PNDS.TimescaleEvidence
 import PNDS.JointAffineTAC
+import PNDS.RetentionBudget
 import PNDS.ConstraintAdapter
 
 /- Axiom audit. CI fails if any proof in the PNDS tree depends on an admitted
@@ -210,3 +211,12 @@ import PNDS.ConstraintAdapter
 
 #check @PNDS.JointAffineTAC.same_decoder_after_joint_parallel_or_stream
 #print axioms PNDS.JointAffineTAC.same_decoder_after_joint_parallel_or_stream
+
+#check @PNDS.RetentionBudget.keep_range
+#check @PNDS.RetentionBudget.written_range
+#check @PNDS.RetentionBudget.alpha_lower
+#check @PNDS.RetentionBudget.alpha_budget
+#check @PNDS.RetentionBudget.radius_four_next_bounded
+#print axioms PNDS.RetentionBudget.alpha_lower
+#print axioms PNDS.RetentionBudget.alpha_budget
+#print axioms PNDS.RetentionBudget.radius_four_next_bounded
