@@ -119,7 +119,7 @@ theorem row_query_decomposition {n : ℕ}
     rowRead (rowWrite m k v alpha beta) q =
         ∑ i : Fin n, (alpha * (m i * q i) +
           (beta * (v - alpha * rowRead m k)) * (k i * q i)) := by
-      unfold rowRead
+      change (∑ i : Fin n, rowWrite m k v alpha beta i * q i) = _
       apply Finset.sum_congr rfl
       intro i _
       dsimp [rowWrite]
