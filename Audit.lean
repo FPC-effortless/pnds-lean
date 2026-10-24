@@ -9,6 +9,7 @@ import PNDS.Causal
 import PNDS.UnifiedTACOSM
 import PNDS.TACOSMVariantContracts
 import PNDS.NativeMemory
+import PNDS.NativeInvariant
 import PNDS.ConstraintAdapter
 
 /- Axiom audit. CI fails if any proof in the PNDS tree depends on an admitted
@@ -123,3 +124,13 @@ import PNDS.ConstraintAdapter
 
 #check @PNDS.ConstraintAdapter.planar_interval_safe
 #print axioms PNDS.ConstraintAdapter.planar_interval_safe
+
+/-! Native full-state conditional bounded forward envelope and read-only noncontraction. -/
+#check @PNDS.NativeInvariant.mixed_unit_box
+#check @PNDS.NativeInvariant.step_preserves_envelope
+#check @PNDS.NativeInvariant.repeated_forward_envelope
+#check @PNDS.NativeInvariant.no_strict_contraction_of_read_only_memory
+#print axioms PNDS.NativeInvariant.mixed_unit_box
+#print axioms PNDS.NativeInvariant.step_preserves_envelope
+#print axioms PNDS.NativeInvariant.repeated_forward_envelope
+#print axioms PNDS.NativeInvariant.no_strict_contraction_of_read_only_memory
