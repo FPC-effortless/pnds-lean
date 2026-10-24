@@ -120,3 +120,6 @@ import PNDS.ConstraintAdapter
 #print axioms PNDS.ConstraintAdapter.kkt_complementary
 #print axioms PNDS.ConstraintAdapter.planar_sample_identity
 #print axioms PNDS.ConstraintAdapter.planar_sample_safe
+
+#check @PNDS.ConstraintAdapter.planar_interval_safe
+#print axioms PNDS.ConstraintAdapter.planar_interval_safe
