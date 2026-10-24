@@ -97,4 +97,24 @@ theorem planar_sample_safe
     mul_nonneg hdt hcbf
   nlinarith [sq_nonneg (dt*v0), sq_nonneg (dt*v1)]
 
+
+/-- Under a held constant relative velocity, the same conditional CBF
+    inequality enforces nonnegative barrier at ALL real times s in [0,dt].
+    This is not a sample-and-hold theorem for an accelerating plant. -/
+theorem planar_interval_safe
+    (r0 r1 v0 v1 dt radius gamma s : ℝ)
+    (hstart : 0 ≤ planarBarrier r0 r1 radius)
+    (hgamma : 0 ≤ gamma)
+    (hs : 0 ≤ s)
+    (hsdt : s ≤ dt)
+    (hperiod : gamma * dt ≤ 1)
+    (hcbf : 0 ≤ 2*(r0*v0 + r1*v1) +
+      gamma*planarBarrier r0 r1 radius) :
+    0 ≤ translatedBarrier r0 r1 v0 v1 s radius := by
+  have hremain : 0 ≤ dt - s := by linarith
+  have hgap : 0 ≤ gamma * (dt-s) := mul_nonneg hgamma hremain
+  have hsperiod : gamma*s ≤ 1 := by nlinarith
+  exact planar_sample_safe r0 r1 v0 v1 s radius gamma
+    hstart hs hsperiod hcbf
+
 end PNDS.ConstraintAdapter
