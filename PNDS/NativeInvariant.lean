@@ -1,4 +1,5 @@
 import Mathlib
+import PNDS.NativeMemory
 
 /-!
 TAC-OSM native fast/slow/associative **forward boundedness envelope**.
@@ -134,11 +135,11 @@ contractive in any product metric that retains this memory difference. -/
 theorem no_strict_contraction_of_read_only_memory (rho : ℝ)
     (hrho : rho < 1) :
     ¬ (∀ a b : ℝ,
-       |(if false then b else a) -
-          (if false then a else b)| ≤ rho * |a - b|) := by
+       |PNDS.NativeMemory.maskedCoordinate false a b -
+        PNDS.NativeMemory.maskedCoordinate false b a| ≤ rho * |a - b|) := by
   intro h
-  have hm := h 1 0
-  norm_num at hm
+  have hle : (1 : ℝ) ≤ rho := by
+    simpa [PNDS.NativeMemory.maskedCoordinate] using h 1 0
   linarith
 
 
