@@ -1,0 +1,582 @@
+{
+  "schema": "pnds.tac_osm.foundation.v1",
+  "foundation_version": "1.0.0",
+  "as_of_date": "2026-10-24",
+  "roles": {
+    "mathematics": "FPC-effortless/pnds-lean",
+    "implementations_and_actual_evidence": "FPC-effortless/TAC-OSM"
+  },
+  "normative_policy": {
+    "real_world_primary": true,
+    "synthetic_promotion_forbidden": true,
+    "live_model_parameters_min": 95000,
+    "live_model_parameters_max": 105000,
+    "within_comparator_parameter_relative_tolerance": 0.01,
+    "match_training_data": true,
+    "match_training_compute": true,
+    "match_CPU_wall_clock": false,
+    "unmatched_historical_exemptions_preserved": true
+  },
+  "research_lanes": [
+    "core",
+    "system1",
+    "physical",
+    "enterprise",
+    "temporal",
+    "edge",
+    "counterfactual",
+    "eswam",
+    "qualification"
+  ],
+  "proof_obligations": [
+    "MATH-001",
+    "MATH-002",
+    "MATH-003",
+    "MATH-004",
+    "MATH-005",
+    "MATH-006",
+    "MATH-007",
+    "MATH-008",
+    "MATH-009",
+    "MATH-010",
+    "MATH-011",
+    "MATH-012",
+    "MATH-013"
+  ],
+  "variants": [
+    {
+      "id": "CORE-DIAGKEY004",
+      "lane": "core",
+      "version": "DIAGKEY004",
+      "parent_versions": [
+        "DIAGKEY001",
+        "DIAGKEY002",
+        "DIAGKEY003"
+      ],
+      "implementation": "native fast88/slow88/one 8x8 aligned gated-delta matrix; query read-only",
+      "state_kind": "nonlinear_persistent",
+      "evidence_tier": "synthetic_diagnostic",
+      "status": "gate_pass_with_numeric_exception",
+      "params": 101527,
+      "source": {
+        "repository": "FPC-effortless/TAC-OSM",
+        "pull_request": 362,
+        "commit_sha": "081e534a074001c6a3b2251b3ff31ad20ec4fca8",
+        "evidence_path": "research/mathematical-engineering/diagkey004/RESULTS.md"
+      },
+      "supported": [
+        "Five-seed immediate synthetic key-value recall mean 99.84% after 4096 updates"
+      ],
+      "limitations": [
+        "No trained long-distractor test or authentic generalization",
+        "Strict external raw-logit tolerance failed 2/819200 values",
+        "Individual new gating effects and total compute matching not isolated"
+      ],
+      "proof_obligations": [
+        "MATH-001",
+        "MATH-002",
+        "MATH-007",
+        "MATH-008",
+        "MATH-011"
+      ]
+    },
+    {
+      "id": "SYSTEM1-ME076",
+      "lane": "system1",
+      "version": "ME076",
+      "parent_versions": [
+        "ME075"
+      ],
+      "implementation": "native fast-only 96D factual robot next-state forecast",
+      "state_kind": "nonlinear_recurrent",
+      "evidence_tier": "trained_exposed_dev",
+      "status": "failed_practical_baseline",
+      "params": 100476,
+      "source": {
+        "repository": "FPC-effortless/TAC-OSM",
+        "pull_request": 360,
+        "commit_sha": "9690bba1e226a8bc0de139dadb6225933e322875",
+        "evidence_path": "research/mathematical-engineering/me076/RESULTS.md"
+      },
+      "supported": [
+        "960 genuine robot transitions; native MAE 0.080158"
+      ],
+      "limitations": [
+        "Persistence MAE 0.068668 better",
+        "No action-policy improvement or independent deployment"
+      ],
+      "proof_obligations": [
+        "MATH-007",
+        "MATH-012",
+        "MATH-013"
+      ]
+    },
+    {
+      "id": "SYSTEM1-ME077A",
+      "lane": "system1",
+      "version": "ME077A",
+      "parent_versions": [
+        "SYSTEM1-ME076",
+        "ME077"
+      ],
+      "implementation": "ME077 recurrent selective physical mixture and no-fit motion discrimination audit",
+      "state_kind": "nonlinear_recurrent",
+      "evidence_tier": "no_fit_audit",
+      "status": "mixed_tradeoff",
+      "params": 102503,
+      "source": {
+        "repository": "FPC-effortless/TAC-OSM",
+        "pull_request": 367,
+        "commit_sha": "971f302f2cfb5d2f43c02884f111ebbacf2bff62",
+        "evidence_path": "research/replay-bundles/ME077A/ORIGINAL_REAL_MOTION_RANKING.json"
+      },
+      "supported": [
+        "Same 960 exposed genuine observations: ME077 MAE 0.066476 vs persistence 0.068668",
+        "Motion-event AUC about 0.644 on exposed real robot DEV"
+      ],
+      "limitations": [
+        "ME077 preregistered 5% and movement-rich gains failed",
+        "Motion-event head low discrimination; source exposed; no verified policy utility"
+      ],
+      "proof_obligations": [
+        "MATH-007",
+        "MATH-011",
+        "MATH-012",
+        "MATH-013"
+      ]
+    },
+    {
+      "id": "SYSTEM1-ME079",
+      "lane": "system1",
+      "version": "ME079",
+      "parent_versions": [
+        "ME077",
+        "ME078"
+      ],
+      "implementation": "real physical movement-conditional/shrunken residual with native recurrence",
+      "state_kind": "nonlinear_recurrent",
+      "evidence_tier": "trained_exposed_dev",
+      "status": "qualified_architecture_superiority_not_shown",
+      "params": null,
+      "source": {
+        "repository": "FPC-effortless/TAC-OSM",
+        "pull_request": 369,
+        "commit_sha": "40433af2493e6c64f254e5ef49d3eedac448c5da",
+        "evidence_path": "research/mathematical-engineering/me079/RESULTS.md"
+      },
+      "supported": [
+        "Authentic physical model development with bounded residual"
+      ],
+      "limitations": [
+        "Matched learned neural alternatives competitive or better; quiet-state gate unresolved"
+      ],
+      "proof_obligations": [
+        "MATH-007",
+        "MATH-012",
+        "MATH-013"
+      ]
+    },
+    {
+      "id": "PHYSICAL-ME080",
+      "lane": "physical",
+      "version": "ME080",
+      "parent_versions": [
+        "ME079"
+      ],
+      "implementation": "native physical state and coherent multihorizon mixture forecast",
+      "state_kind": "nonlinear_recurrent_distributional",
+      "evidence_tier": "trained_exposed_dev",
+      "status": "mixed_tradeoff",
+      "params": null,
+      "source": {
+        "repository": "FPC-effortless/TAC-OSM",
+        "pull_request": 371,
+        "commit_sha": "afea4dd91830e32c3aec8881d5213e52d853dc2d",
+        "evidence_path": "research/mathematical-engineering/me080/RESULTS.md"
+      },
+      "supported": [
+        "Genuine physical trajectory mixture forecasts trained"
+      ],
+      "limitations": [
+        "Original full primary capability gate not established"
+      ],
+      "proof_obligations": [
+        "MATH-005",
+        "MATH-007",
+        "MATH-011",
+        "MATH-012"
+      ]
+    },
+    {
+      "id": "PHYSICAL-ME094",
+      "lane": "physical",
+      "version": "ME094",
+      "parent_versions": [
+        "ME080",
+        "ME081",
+        "ME082",
+        "ME093"
+      ],
+      "implementation": "native fast/slow/associative forecasting with translated multimodal CDF and explicit median",
+      "state_kind": "nonlinear_recurrent_distributional",
+      "evidence_tier": "trained_exposed_dev",
+      "status": "full_predictive_gate_failed",
+      "params": null,
+      "source": {
+        "repository": "FPC-effortless/TAC-OSM",
+        "pull_request": 377,
+        "commit_sha": "f1d5fd08cb89044a1838eddc55315ab11e7085f6",
+        "evidence_path": "research/mathematical-engineering/me094/RESULTS.md"
+      },
+      "supported": [
+        "Original 5-seed H1 exposed real MAE 0.05005783",
+        "Original independent original model replay passed"
+      ],
+      "limitations": [
+        "Stationary H1 MAE 0.02018769 failed registered ME077 no-regression gate",
+        "Not source-independent/test qualified"
+      ],
+      "proof_obligations": [
+        "MATH-005",
+        "MATH-007",
+        "MATH-011",
+        "MATH-012"
+      ]
+    },
+    {
+      "id": "PHYSICAL-ME095",
+      "lane": "physical",
+      "version": "ME095",
+      "parent_versions": [
+        "PHYSICAL-ME094"
+      ],
+      "implementation": "native physical model with adjunct input-conditioned 28D affine scan filter",
+      "state_kind": "nonlinear_plus_affine_filter",
+      "evidence_tier": "math_candidate",
+      "status": "training_result_unverified",
+      "params": 104689,
+      "source": {
+        "repository": "FPC-effortless/TAC-OSM",
+        "pull_request": 377,
+        "commit_sha": "f1d5fd08cb89044a1838eddc55315ab11e7085f6",
+        "evidence_path": null
+      },
+      "supported": [
+        "Affine subfilter law admits associative scan in exact arithmetic"
+      ],
+      "limitations": [
+        "Do not imply the nonlinear whole core is scan parallel",
+        "No independent ME095 capability checkpoint verified in this audit"
+      ],
+      "proof_obligations": [
+        "MATH-003",
+        "MATH-007",
+        "MATH-011",
+        "MATH-012"
+      ]
+    },
+    {
+      "id": "ENTERPRISE-ME069",
+      "lane": "enterprise",
+      "version": "ME069",
+      "parent_versions": [],
+      "implementation": "native observed workflow event/time predictor compared with GRU",
+      "state_kind": "nonlinear_recurrent_event",
+      "evidence_tier": "trained_exposed_dev",
+      "status": "failed_matched_gru",
+      "params": 80296,
+      "source": {
+        "repository": "FPC-effortless/TAC-OSM",
+        "pull_request": 353,
+        "commit_sha": "166d60d8d897f1f8be5f48410e7d90b8af46048c",
+        "evidence_path": null
+      },
+      "supported": [
+        "Historical authentic BPI2012 next-activity evaluation"
+      ],
+      "limitations": [
+        "Native next-activity NLL 0.122626 vs matched GRU 0.119182",
+        "Historical parameter scale predates prospective 100k rule"
+      ],
+      "proof_obligations": [
+        "MATH-004",
+        "MATH-012"
+      ]
+    },
+    {
+      "id": "ENTERPRISE-ME073",
+      "lane": "enterprise",
+      "version": "ME073",
+      "parent_versions": [
+        "ME069",
+        "ME070",
+        "ME071",
+        "ME072"
+      ],
+      "implementation": "native fast64/slow64/8x8, absorbing source EOR, autoregressive activity-duration particle paths",
+      "state_kind": "nonlinear_recurrent_event",
+      "evidence_tier": "trained_exposed_dev",
+      "status": "capability_only_no_matched_neural_comparator",
+      "params": 99781,
+      "source": {
+        "repository": "FPC-effortless/TAC-OSM",
+        "pull_request": 353,
+        "commit_sha": "166d60d8d897f1f8be5f48410e7d90b8af46048c",
+        "evidence_path": "research/mathematical-engineering/me073/RESULTS.md"
+      },
+      "supported": [
+        "Five authentic BPI2012 trained seeds with finite-particle multihorizon forecasts"
+      ],
+      "limitations": [
+        "Early age2 activity forecasting weak",
+        "No equal-input equal-compute trained autoregressive GRU or direct head",
+        "EOR is end of published case record, not verified workflow completion"
+      ],
+      "proof_obligations": [
+        "MATH-004",
+        "MATH-011",
+        "MATH-012",
+        "MATH-013"
+      ]
+    },
+    {
+      "id": "TEMPORAL-V1",
+      "lane": "temporal",
+      "version": "v1 adapter",
+      "parent_versions": [],
+      "implementation": "bitemporal valid-time and record-time factual reconstruction",
+      "state_kind": "deterministic_versioned_evidence",
+      "evidence_tier": "interface_only",
+      "status": "no_trained_model",
+      "params": null,
+      "source": {
+        "repository": "FPC-effortless/TAC-OSM",
+        "pull_request": 358,
+        "commit_sha": "a09b9e21c91cb6c8ed96d5846545aeffe63b3e01",
+        "evidence_path": "research/SIX_VARIANT_ARCHITECTURE_AND_EVIDENCE.md"
+      },
+      "supported": [
+        "Time-cut and source-role adapter contracts"
+      ],
+      "limitations": [
+        "No separately trained 100k temporal model or source-independent superiority"
+      ],
+      "proof_obligations": [
+        "MATH-009",
+        "MATH-011"
+      ]
+    },
+    {
+      "id": "EDGE-V1",
+      "lane": "edge",
+      "version": "v1 adapter",
+      "parent_versions": [],
+      "implementation": "export/payload and computational resource governance",
+      "state_kind": "deployment_contract",
+      "evidence_tier": "interface_only",
+      "status": "unqualified_hardware",
+      "params": null,
+      "source": {
+        "repository": "FPC-effortless/TAC-OSM",
+        "pull_request": 358,
+        "commit_sha": "a09b9e21c91cb6c8ed96d5846545aeffe63b3e01",
+        "evidence_path": "research/SIX_VARIANT_ARCHITECTURE_AND_EVIDENCE.md"
+      },
+      "supported": [
+        "Export and research deployment evidence boundaries"
+      ],
+      "limitations": [
+        "No real hardware p50/p95/p99 or power qualification"
+      ],
+      "proof_obligations": [
+        "MATH-003",
+        "MATH-011",
+        "MATH-012"
+      ]
+    },
+    {
+      "id": "COUNTERFACTUAL-V1",
+      "lane": "counterfactual",
+      "version": "v1 adapter",
+      "parent_versions": [],
+      "implementation": "observational scenario interface; no executable causal action policy",
+      "state_kind": "causal_hypothesis_only",
+      "evidence_tier": "interface_only",
+      "status": "causal_identification_not_shown",
+      "params": null,
+      "source": {
+        "repository": "FPC-effortless/TAC-OSM",
+        "pull_request": 358,
+        "commit_sha": "a09b9e21c91cb6c8ed96d5846545aeffe63b3e01",
+        "evidence_path": "research/SIX_VARIANT_ARCHITECTURE_AND_EVIDENCE.md"
+      },
+      "supported": [
+        "Separates factual and proposed counterfactual roles"
+      ],
+      "limitations": [
+        "No defined identifiable do(action) distribution or verified actual decision-cost benefit"
+      ],
+      "proof_obligations": [
+        "MATH-010",
+        "MATH-011",
+        "MATH-013"
+      ]
+    },
+    {
+      "id": "ESWAM-ESWAM010",
+      "lane": "eswam",
+      "version": "ESWAM010",
+      "parent_versions": [
+        "ESWAM008",
+        "ESWAM009"
+      ],
+      "implementation": "source-traced whole original exchange/entity model and Lean shape-role contracts",
+      "state_kind": "structured_entity_evidence",
+      "evidence_tier": "formal_contract",
+      "status": "partial_formalization",
+      "params": null,
+      "source": {
+        "repository": "FPC-effortless/TAC-OSM",
+        "pull_request": 381,
+        "commit_sha": "14e8686ad78b1081532f2735bb98b31d24a8eb7e",
+        "evidence_path": "research/mathematical-engineering/eswam010/WHOLE_MODEL_SPEC.md"
+      },
+      "supported": [
+        "Typed role and exact algebra structural proofs and source trace"
+      ],
+      "limitations": [
+        "Not a full real-valued nonlinear tensor/gradient software equivalence proof",
+        "Not formal evidence of real predictive accuracy"
+      ],
+      "proof_obligations": [
+        "MATH-007",
+        "MATH-008",
+        "MATH-011"
+      ]
+    },
+    {
+      "id": "ESWAM-ESWAM012",
+      "lane": "eswam",
+      "version": "ESWAM012",
+      "parent_versions": [
+        "ESWAM010",
+        "ESWAM011"
+      ],
+      "implementation": "genuine multiagent actor-keyed finite 256-history selective dynamics",
+      "state_kind": "window_fed_entity_memory",
+      "evidence_tier": "trained_exposed_dev",
+      "status": "mixed_tradeoff",
+      "params": null,
+      "source": {
+        "repository": "FPC-effortless/TAC-OSM",
+        "pull_request": 383,
+        "commit_sha": "d9db3a0ac68d2bbabe3febe6cfe3d40bf322ea1d",
+        "evidence_path": null
+      },
+      "supported": [
+        "Observed real source actor tracks and matched original physical baseline scoring"
+      ],
+      "limitations": [
+        "Window-fed 256 frames is not indefinitely persistent recurrent memory",
+        "Original source only; no independent multi-site qualification"
+      ],
+      "proof_obligations": [
+        "MATH-008",
+        "MATH-011",
+        "MATH-012"
+      ]
+    },
+    {
+      "id": "ESWAM-ESWAM013",
+      "lane": "eswam",
+      "version": "ESWAM013",
+      "parent_versions": [
+        "ESWAM012"
+      ],
+      "implementation": "selective 8-frame recent plus observed 256-frame actor history and speed-gated residual",
+      "state_kind": "window_fed_entity_memory",
+      "evidence_tier": "trained_exposed_dev",
+      "status": "stationarity_gate_failed",
+      "params": 101057,
+      "source": {
+        "repository": "FPC-effortless/TAC-OSM",
+        "pull_request": 384,
+        "commit_sha": "cfb2e25cb87112281243dcc48e5ebd4d52c88d83",
+        "evidence_path": "research/mathematical-engineering/eswam013/RESULTS.md"
+      },
+      "supported": [
+        "Genuine actor physical prediction improves selected moving horizons versus velocity baseline"
+      ],
+      "limitations": [
+        "Stationary no-regression and independent site proof not established"
+      ],
+      "proof_obligations": [
+        "MATH-006",
+        "MATH-008",
+        "MATH-011",
+        "MATH-012"
+      ]
+    },
+    {
+      "id": "ESWAM-ESWAM014",
+      "lane": "eswam",
+      "version": "ESWAM014",
+      "parent_versions": [
+        "ESWAM-ESWAM013"
+      ],
+      "implementation": "quadratic smooth low-speed residual relevance gate gamma(v)=v²/(v²+0.25)",
+      "state_kind": "window_fed_entity_memory",
+      "evidence_tier": "trained_exposed_dev",
+      "status": "low_speed_gate_failed",
+      "params": null,
+      "source": {
+        "repository": "FPC-effortless/TAC-OSM",
+        "pull_request": 385,
+        "commit_sha": "3117a77ee57d3aca4d7cc27c691ac46d6f7fca7c",
+        "evidence_path": "research/mathematical-engineering/eswam014/PAIRED_REAL_CASE_AUDIT.json"
+      },
+      "supported": [
+        "Exact mathematical zero-speed correction suppression; modest real developmental moving-actor change"
+      ],
+      "limitations": [
+        "Low nonzero speeds still regressed; stationary no-regression primary gate failed",
+        "One original source intersection, not independent generalization"
+      ],
+      "proof_obligations": [
+        "MATH-006",
+        "MATH-008",
+        "MATH-011",
+        "MATH-012"
+      ]
+    },
+    {
+      "id": "QUAL-001",
+      "lane": "qualification",
+      "version": "QUAL001",
+      "parent_versions": [
+        "ESWAM-ESWAM012"
+      ],
+      "implementation": "retrospective real-case 8-vs-256 history headroom and evidence quality audit",
+      "state_kind": "evaluation_only",
+      "evidence_tier": "no_fit_audit",
+      "status": "observational_diagnostic_only",
+      "params": null,
+      "source": {
+        "repository": "FPC-effortless/TAC-OSM",
+        "pull_request": 386,
+        "commit_sha": "01735e2929449b949db9c83da53fce51e75fd88b",
+        "evidence_path": null
+      },
+      "supported": [
+        "Prospective limits of what retrospective real-case headroom can establish"
+      ],
+      "limitations": [
+        "Not a fitted model or causal long-memory proof"
+      ],
+      "proof_obligations": [
+        "MATH-008",
+        "MATH-012"
+      ]
+    }
+  ]
+}
