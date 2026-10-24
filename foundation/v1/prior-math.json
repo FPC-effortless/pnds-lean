@@ -1,0 +1,45 @@
+{
+  "schema": "pnds.tac_osm.prior_math.v1",
+  "as_of_date": "2026-10-24",
+  "existing_main_v02": {
+    "source_repo": "FPC-effortless/pnds-lean",
+    "ref": "main",
+    "status": "intact",
+    "files": [
+      "PNDS/Softmax.lean",
+      "PNDS/PathVerification.lean",
+      "PNDS/Registration.lean",
+      "PNDS/Scaling.lean",
+      "PNDS/Statistics.lean",
+      "PNDS/Causal.lean"
+    ],
+    "note": "Original theorem audit remains unchanged. No §18 asymptotic scaling, §9 do() SCM, or learned model utility proof implied."
+  },
+  "unmerged_pnds_research": [
+    {
+      "pr": 1,
+      "commit_sha": "9287e98d0022cc6ba7bfd23f8f7ccbcd6ab48fee",
+      "topic": "dynamic representation/action-congruence and equivalence",
+      "reported_CI": "failed",
+      "formal_status": "UNMERGED_NOT_PROVED_IN_MAIN",
+      "source": "PNDS/Representation.lean"
+    },
+    {
+      "pr": 2,
+      "commit_sha": "c7bc0b3dc340d072d02ff231dca2ddf59eef14f4",
+      "topic": "finite qB/M information-budget ceiling under defined assumptions",
+      "reported_CI": "passed",
+      "formal_status": "UNMERGED_PARTIAL_THEOREM",
+      "source": "PNDS/InformationBounds.lean"
+    },
+    {
+      "pr": 4,
+      "commit_sha": "8e14f2ececf3a7cd617e82d7e6b18f73703cae8c",
+      "topic": "separate proposed TAC state admission and scalar bounded update",
+      "reported_CI": "passed",
+      "formal_status": "UNMERGED_SEPARATE_TRANSITION_SPEC",
+      "source": "PNDS/TACOSM.lean"
+    }
+  ],
+  "policy": "These are pinned previous studies, not silently cherry-picked, merged, or rewritten by foundation v1. Full consolidation requires source-level formal correspondence."
+}
