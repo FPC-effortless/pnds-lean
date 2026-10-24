@@ -12,6 +12,7 @@ import PNDS.NativeMemory
 import PNDS.NativeInvariant
 import PNDS.ParallelMemory
 import PNDS.DualModeMemory
+import PNDS.EntityAdmission
 import PNDS.ConstraintAdapter
 
 /- Axiom audit. CI fails if any proof in the PNDS tree depends on an admitted
@@ -174,3 +175,13 @@ import PNDS.ConstraintAdapter
 #print axioms PNDS.DualModeMemory.stream_resume
 #print axioms PNDS.DualModeMemory.read_only_stream
 #print axioms PNDS.DualModeMemory.append_basis_sum
+
+#check @PNDS.EntityAdmission.unrelated_slot_unchanged
+#check @PNDS.EntityAdmission.replacement_does_not_copy_evicted_content
+#check @PNDS.EntityAdmission.existing_slot_interpolation
+#check @PNDS.EntityAdmission.read_only_unchanged
+#check @PNDS.EntityAdmission.capacity_full_no_new_slot
+#print axioms PNDS.EntityAdmission.unrelated_slot_unchanged
+#print axioms PNDS.EntityAdmission.replacement_does_not_copy_evicted_content
+#print axioms PNDS.EntityAdmission.existing_slot_interpolation
+#print axioms PNDS.EntityAdmission.capacity_full_no_new_slot
