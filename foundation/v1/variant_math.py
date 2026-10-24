@@ -158,3 +158,21 @@ def evaluate_kernel(kernel: str, **kwargs):
     if kernel not in KERNELS:
         raise ValueError(f"unregistered mathematical kernel: {kernel}")
     return KERNELS[kernel](**kwargs)
+
+
+def evaluate_variant(variant_id: str, **kwargs):
+    """Execute the exact PARTIAL kernel mapped to one pinned TAC-OSM version.
+
+    Never substitute this mathematical reference for the original trained
+    graph. Full model equivalence requires a separate original-source trace.
+    """
+    import json
+    from pathlib import Path
+    manifest = json.loads((Path(__file__).with_name("variant-math-links.json")).read_text())
+    matches = [v for v in manifest["variants"] if v["id"] == variant_id]
+    if len(matches) != 1:
+        raise ValueError(f"unknown or duplicated TAC-OSM variant: {variant_id}")
+    v = matches[0]
+    if v["formalization_status"] != "PARTIAL_SHARED_KERNEL_NOT_WHOLE_MODEL":
+        raise ValueError("unqualified mathematical-completion label")
+    return evaluate_kernel(v["kernel"], **kwargs)
