@@ -11,6 +11,7 @@ import PNDS.TACOSMVariantContracts
 import PNDS.NativeMemory
 import PNDS.NativeInvariant
 import PNDS.ParallelMemory
+import PNDS.DualModeMemory
 import PNDS.ConstraintAdapter
 
 /-- The version of the document this formalization targets. -/
