@@ -15,6 +15,7 @@ import PNDS.DualModeMemory
 import PNDS.EntityAdmission
 import PNDS.TimescaleEvidence
 import PNDS.JointAffineTAC
+import PNDS.RetentionBudget
 import PNDS.ConstraintAdapter
 
 /-- The version of the document this formalization targets. -/
