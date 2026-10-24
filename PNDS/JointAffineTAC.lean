@@ -88,4 +88,23 @@ theorem stream_resume {n : ℕ}
       stream (stream initial first) second := by
   simp [stream, List.foldl_append]
 
+
+/-- Full *abstract output* equivalence: ANY pure deterministic nonlinear
+    downstream function of the identical scheduled state (tanh, sigmoid,
+    MLP, codebook routing) has exactly the same result in real arithmetic.
+
+    This theorem is conditional on a fixed input-derived gate schedule and
+    correct tensor realization of the paired algebra; it is NOT a neural
+    tensor source-code or floating-point equivalence proof. -/
+theorem same_decoder_after_joint_parallel_or_stream
+    {n : ℕ} {Output : Type}
+    (events : List (JointPair n)) (acc : JointPair n)
+    (initial : (Fin 88 → ℝ) × Matrix (Fin n) (Fin n) ℝ)
+    (decoder : ((Fin 88 → ℝ) × Matrix (Fin n) (Fin n) ℝ) → Output) :
+    decoder (applyPair (events.foldl thenPair acc) initial) =
+      decoder (events.foldl (fun state event => applyPair event state)
+                       (applyPair acc initial)) := by
+  exact congrArg decoder (fold_matches_stream events acc initial)
+
+
 end PNDS.JointAffineTAC
