@@ -43,9 +43,9 @@ For an unprojected writable update,
 
 When \(k\cdot q=0\), the added innovation cannot directly change the old read at q, but retention still multiplies it by \(\alpha\).
 
-However, the actual source then applies the **same global Frobenius factor to every matrix entry**. An exact admissible boundary example uses \(\|M\|_F=4\), \(M_{00}=4\), a unit write key \(k=e_1\) orthogonal to query \(q=e_0\), unit value \(v=e_0\), \(\beta=1\) and \(\alpha=0.9999\). The unprojected matrix has entries \(U_{00}=3.9996\), \(U_{01}=1\). Its norm \(\sqrt{3.9996^2+1}>4\), so projection rescales **both** columns.
+However, the actual source then applies the **same global Frobenius factor to every matrix entry**. An exact admissible boundary example uses \(\|M\|_F=4\), \(M_{00}=4\), a unit write key \(k=e_1\) orthogonal to query \(q=e_0\), unit value \(v=e_0\), \(\beta=1\) and \(\alpha=0.9999\). The unprojected matrix has entries \(U_{00}=3.9996\), \(U_{01}=0.5\). Its norm \(\sqrt{3.9996^2+0.25}>4\), so projection rescales **both** columns.
 
-The old read is approximately 3.88055 rather than 3.9996. This is a numerical mechanism/counterexample using an actually admissible \(\|v\|_2=\|k\|_2=1\); it is not a measurement of trained recall. The source test reproduces that coupling.
+The old read is approximately 3.96911 rather than 3.9996. This is a numerical mechanism/counterexample using an actually admissible \(\|v\|_2=\|k\|_2=1\); it is not a measurement of trained recall. The source test reproduces that coupling.
 
 Therefore the previous orthogonal-keys-retain-only-decay theorem is **preprojection only**, and cannot be lifted to the implemented global Frobenius projection without an added no-clipping condition or a certified error term.
 
