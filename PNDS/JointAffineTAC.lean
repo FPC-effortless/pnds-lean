@@ -52,11 +52,15 @@ theorem then_assoc {n : ℕ} (a b c : JointPair n) :
     | mk be bm =>
       cases c with
       | mk ce cm =>
-        apply JointPair.mk.injEq.mpr
-        constructor
-        · funext i
+        have he :
+            (fun i => TimescaleEvidence.thenPair
+                (TimescaleEvidence.thenPair (ae i) (be i)) (ce i)) =
+            (fun i => TimescaleEvidence.thenPair
+                (ae i) (TimescaleEvidence.thenPair (be i) (ce i))) := by
+          funext i
           exact TimescaleEvidence.then_assoc (ae i) (be i) (ce i)
-        · exact ParallelMemory.then_assoc am bm cm
+        have hm := ParallelMemory.then_assoc am bm cm
+        simp only [thenPair, he, hm]
 
 def stream {n : ℕ}
     (s : (Fin 88 → ℝ) × Matrix (Fin n) (Fin n) ℝ)
