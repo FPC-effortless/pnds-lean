@@ -6,6 +6,7 @@ import PNDS.Registration
 import PNDS.Scaling
 import PNDS.Statistics
 import PNDS.Causal
+import PNDS.UnifiedTACOSM
 
 /-- The version of the document this formalization targets. -/
 def docVersion : String := "v0.2"
@@ -22,3 +23,6 @@ Sections imported: §5 (`Softmax`), §10 (`PathVerification`), §12/§14
 Sections *not* imported as theorems: §9 (`Causal`) is imported in `Causal.lean` as an
 explicit specification gap, and §24 is theorem-candidates only.
 -/
+
+/-! Foundation v1 is versioned separately from the original v0.2 document. -/
+def unifiedFoundationVersion : String := "1.0.0"
