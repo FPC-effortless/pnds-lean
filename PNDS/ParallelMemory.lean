@@ -101,4 +101,45 @@ theorem read_only_no_mutation {n : ℕ}
     applyPair (identity n) m = m :=
   apply_identity m
 
+
+/-- A conservative retained-norm budget permits a *projection-free* affine
+    memory update while keeping capacity R. If ||M'|| is upper-bounded by
+    alpha_eff*||M|| + beta, choosing
+        alpha_eff = raw_retention*(1-beta/R)
+    keeps the state within R given raw_retention∈[0,1], beta∈[0,1],
+    R≥1, and ||M||≤R.
+
+    The norm recurrence is an **explicit premise**. Its derivation from
+    the spectral norm of I-beta*k*kᵀ and unit k/v is established analytically
+    in the paired report and checked numerically. This exact-real scalar
+    theorem is NOT a proof of all original Torch kernels, output quality or
+    long-term retrieval stability. -/
+theorem bounded_projection_free_budget
+    (R beta rawRetention oldNorm newNorm : ℝ)
+    (hR : 1 ≤ R)
+    (hb0 : 0 ≤ beta) (hb1 : beta ≤ 1)
+    (ha0 : 0 ≤ rawRetention) (ha1 : rawRetention ≤ 1)
+    (ho0 : 0 ≤ oldNorm) (hoR : oldNorm ≤ R)
+    (hn : newNorm ≤
+       (rawRetention * (1 - beta / R)) * oldNorm + beta) :
+    newNorm ≤ R := by
+  have hpos : 0 < R := by linarith
+  have hkeep : 0 ≤ 1 - beta / R := by
+    have hdiv : beta / R ≤ 1 :=
+      (div_le_iff₀ hpos).2 (by linarith)
+    linarith
+  have heff : 0 ≤ rawRetention * (1 - beta / R) :=
+    mul_nonneg ha0 hkeep
+  have hmul := mul_le_mul_of_nonneg_left hoR heff
+  have hformula :
+      (rawRetention * (1 - beta / R)) * R =
+        rawRetention * (R - beta) := by
+    field_simp
+    ring
+  have hd : 0 ≤ R - beta := by linarith
+  have hgap : 0 ≤ (1 - rawRetention) * (R - beta) :=
+    mul_nonneg (by linarith) hd
+  rw [hformula] at hmul
+  nlinarith
+
 end PNDS.ParallelMemory
