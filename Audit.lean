@@ -9,6 +9,7 @@ import PNDS.Causal
 import PNDS.UnifiedTACOSM
 import PNDS.TACOSMVariantContracts
 import PNDS.NativeMemory
+import PNDS.ConstraintAdapter
 
 /- Axiom audit. CI fails if any proof in the PNDS tree depends on an admitted
    goal, and prints the axioms of each top-level theorem so that hidden
@@ -103,3 +104,19 @@ import PNDS.NativeMemory
 #check @PNDS.NativeMemory.row_unit_key_residual
 #print axioms PNDS.NativeMemory.row_query_decomposition
 #print axioms PNDS.NativeMemory.row_unit_key_residual
+
+/-! Optional civilian constraint adapter: exact scalar QP and planar sampled barrier. -/
+#check @PNDS.ConstraintAdapter.projection_feasible
+#check @PNDS.ConstraintAdapter.projection_optimal
+#check @PNDS.ConstraintAdapter.dual_lower_nonnegative
+#check @PNDS.ConstraintAdapter.kkt_stationarity
+#check @PNDS.ConstraintAdapter.kkt_complementary
+#check @PNDS.ConstraintAdapter.planar_sample_identity
+#check @PNDS.ConstraintAdapter.planar_sample_safe
+#print axioms PNDS.ConstraintAdapter.projection_feasible
+#print axioms PNDS.ConstraintAdapter.projection_optimal
+#print axioms PNDS.ConstraintAdapter.dual_lower_nonnegative
+#print axioms PNDS.ConstraintAdapter.kkt_stationarity
+#print axioms PNDS.ConstraintAdapter.kkt_complementary
+#print axioms PNDS.ConstraintAdapter.planar_sample_identity
+#print axioms PNDS.ConstraintAdapter.planar_sample_safe
