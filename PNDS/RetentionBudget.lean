@@ -35,9 +35,10 @@ theorem written_range (b : ℝ) (hb0 : 0 ≤ b) (hb1 : b ≤ 1) :
   unfold written
   constructor <;> linarith
 
-/-- Even the worst admissible 0<=a,b<=1 schedule retains at least 147/160
-    of its old matrix when evaluated as a linear state-difference map.
-    This is operator attenuation, NOT 147/160 correct factual recall. -/
+/-- The *scalar decay multiplier* alpha_eff has a 147/160 floor.
+    This is NOT a lower bound on all singular values of the complete
+    right-affine P=alpha_eff*(I-beta_eff*k*kᵀ), because the delta correction
+    also modifies the addressed direction. It is NOT factual recall. -/
 theorem alpha_lower (a b : ℝ)
     (ha0 : 0 ≤ a) (ha1 : a ≤ 1)
     (hb0 : 0 ≤ b) (hb1 : b ≤ 1) :
