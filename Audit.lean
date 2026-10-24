@@ -14,6 +14,7 @@ import PNDS.ParallelMemory
 import PNDS.DualModeMemory
 import PNDS.EntityAdmission
 import PNDS.TimescaleEvidence
+import PNDS.JointAffineTAC
 import PNDS.ConstraintAdapter
 
 /- Axiom audit. CI fails if any proof in the PNDS tree depends on an admitted
@@ -197,3 +198,12 @@ import PNDS.ConstraintAdapter
 #print axioms PNDS.TimescaleEvidence.same_observation_nonexpansive
 #print axioms PNDS.TimescaleEvidence.then_assoc
 #print axioms PNDS.TimescaleEvidence.one_step_perturbation_bound
+
+#check @PNDS.JointAffineTAC.apply_then
+#check @PNDS.JointAffineTAC.then_assoc
+#check @PNDS.JointAffineTAC.fold_matches_stream
+#check @PNDS.JointAffineTAC.stream_resume
+#print axioms PNDS.JointAffineTAC.apply_then
+#print axioms PNDS.JointAffineTAC.then_assoc
+#print axioms PNDS.JointAffineTAC.fold_matches_stream
+#print axioms PNDS.JointAffineTAC.stream_resume
