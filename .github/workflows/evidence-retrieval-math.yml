@@ -1,0 +1,34 @@
+name: Evidence retrieval source and mathematical checks
+on:
+  pull_request:
+    paths:
+      - 'PNDS/EvidenceRetrieval.lean'
+      - 'foundation/v1/evidence_retrieval/**'
+      - 'tests/test_evidence_retrieval_source.py'
+      - '.github/workflows/evidence-retrieval-math.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-math:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: FPC-effortless/TAC-OSM
+          ref: 3d24a52d7fe8498cfddc90930242392815a80fe5
+          path: tac-source
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install torch==2.14.1+cpu --index-url https://download.pytorch.org/whl/cpu
+      - name: Actual source forward and backward parity
+        run: TAC_SOURCE_ROOT=tac-source python -m unittest tests/test_evidence_retrieval_source.py -v
+      - name: Install pinned Lean and compile graph definitions
+        run: |
+          curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          export PATH="$HOME/.elan/bin:$PATH"
+          lean -o PNDS/EvidenceRetrieval.olean PNDS/EvidenceRetrieval.lean
+          printf '%s\n' 'import PNDS.EvidenceRetrieval' '#print axioms PNDS.EvidenceRetrieval.invalid_identity' '#print axioms PNDS.EvidenceRetrieval.read_before_write' '#print axioms PNDS.EvidenceRetrieval.query_does_not_write' > /tmp/evidence-audit.lean
+          LEAN_PATH=. lean /tmp/evidence-audit.lean
