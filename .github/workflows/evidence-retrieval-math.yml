@@ -22,7 +22,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: pip install torch==2.9.0 --index-url https://download.pytorch.org/whl/cpu
+      - run: pip install torch==2.14.1+cpu --index-url https://download.pytorch.org/whl/cpu
       - name: Actual source forward and backward parity
         run: TAC_SOURCE_ROOT=tac-source python -m unittest tests/test_evidence_retrieval_source.py -v
       - name: Install pinned Lean and compile graph definitions
