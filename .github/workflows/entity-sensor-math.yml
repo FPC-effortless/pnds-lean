@@ -1,0 +1,36 @@
+name: Entity sensor source and mathematical checks
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'PNDS/SourceAlignedTrace.lean'
+      - 'foundation/v1/entity_sensor_reference.py'
+      - 'foundation/v1/ENTITY_SENSOR_TRACE.md'
+      - 'tests/test_entity_sensor_source.py'
+      - '.github/workflows/entity-sensor-math.yml'
+permissions:
+  contents: read
+jobs:
+  entity-math:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: FPC-effortless/TAC-OSM
+          ref: 46af2f1c6be362b6e2e32958cde17d1726736bc7
+          path: tac-source
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install torch==2.14.1+cpu --index-url https://download.pytorch.org/whl/cpu
+      - run: TAC_SOURCE_ROOT=tac-source python -m unittest tests/test_entity_sensor_source.py -v
+      - name: Compile exact kernel and inspect theorem assumptions
+        run: |
+          set -e
+          curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          export PATH="$HOME/.elan/bin:$PATH"
+          lake update
+          lake build PNDS.SourceAlignedTrace
+          printf '%s\n' 'import PNDS.SourceAlignedTrace' '#print axioms PNDS.SourceAlignedTrace.bounded' '#print axioms PNDS.SourceAlignedTrace.composition_associative' > /tmp/entity-audit.lean
+          lake env lean /tmp/entity-audit.lean
