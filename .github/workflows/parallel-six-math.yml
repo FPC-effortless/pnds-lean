@@ -1,0 +1,19 @@
+name: PNDS six parallel portfolio math (no fit)
+on:
+  pull_request:
+    paths:
+      - 'foundation/v1/parallel_six/**'
+      - 'tests/test_parallel_six_math.py'
+      - '.github/workflows/parallel-six-math.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  math-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest discover -s tests -p 'test_parallel_six_math.py' -v
