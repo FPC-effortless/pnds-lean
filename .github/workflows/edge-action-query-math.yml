@@ -1,0 +1,41 @@
+name: Source-action query purity proof and actual TAC source tests
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "PNDS/EdgeActionQuery.lean"
+      - "foundation/v1/EDGE_ACTION_QUERY_001.md"
+      - ".github/workflows/edge-action-query-math.yml"
+  pull_request:
+    paths:
+      - "PNDS/EdgeActionQuery.lean"
+      - "foundation/v1/EDGE_ACTION_QUERY_001.md"
+      - ".github/workflows/edge-action-query-math.yml"
+permissions:
+  contents: read
+jobs:
+  action-query-pure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: FPC-effortless/TAC-OSM
+          ref: 3cec4a41700563e36c3dde16b7f5749a0be665ed
+          path: tac-source
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install torch==2.14.1+cpu --index-url https://download.pytorch.org/whl/cpu
+      - run: pip install numpy pytest
+      - name: Independent pinned source/gradient tests
+        run: PYTHONPATH=tac-source/src:tac-source:. python -m pytest tac-source/tests/test_action_query_edge_world.py -q
+      - name: Install pinned Lean and prove interface contract
+        run: |
+          set -e
+          curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          export PATH="$HOME/.elan/bin:$PATH"
+          lake update
+          lake build PNDS.EdgeActionQuery
+          printf '%s\n' 'import PNDS.EdgeActionQuery' '#print axioms PNDS.EdgeActionQuery.propose_preserves_evidence' '#print axioms PNDS.EdgeActionQuery.candidate_independent_evidence' '#print axioms PNDS.EdgeActionQuery.no_repeated_or_older_observation' '#print axioms PNDS.EdgeActionQuery.no_foreign_observation' '#print axioms PNDS.EdgeActionQuery.consecutive_queries_preserve_evidence' > /tmp/edge-action-axioms.lean
+          lake env lean /tmp/edge-action-axioms.lean
