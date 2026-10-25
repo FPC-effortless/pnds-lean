@@ -18,3 +18,21 @@ for k,v in m["artifact_blobs"].items():
     if actual!=v:raise AssertionError("tracked Lean/math source diverged: "+k)
 print(json.dumps({"status":"PASS_PNDS_UNPROMOTED_DUAL_MODE_PROVENANCE",
   "algebraic_proof_not_equated_to_real_skill":True},sort_keys=True))
+
+# Reciprocal v1.7 negative real evidence and exact source blob guard.
+v17=json.loads((root/"foundation/v1/temporal-retention-link-v1-7.json").read_text())
+assert v17["schema"]=="pnds.tac_osm.temporal_memory_retention_v1.7"
+assert v17["formal"]["full_original_fp32_neural_tensor_proof"] is False
+assert v17["formal"]["all_seventeen_variant_proofs_complete"] is False
+assert v17["authentic_data"]["flop_parity_certified"] is False
+assert v17["authentic_data"]["independent_real_skill_qualified"] is False
+assert v17["caveats"]["prior_negative_ESWAM_QUAL_evidence_unchanged"] is True
+for path,blob in {
+    "PNDS/TimescaleEvidence.lean":v17["formal"]["timescale_source_blob"],
+    "PNDS/JointAffineTAC.lean":v17["formal"]["joint_schedule_source_blob"],
+    "PNDS/RetentionBudget.lean":v17["formal"]["retention_math_source_blob"],
+    "foundation/v1/BOUNDED_TEMPORAL_RETENTION_V1_7.md":v17["evidence"]["pnds_report_blob"]
+}.items():
+    actual=subprocess.check_output(["git","hash-object",str(root/path)],text=True).strip()
+    assert actual==blob, "v1.7 mathematical source drift: "+path
+
