@@ -8,6 +8,15 @@ import PNDS.Statistics
 import PNDS.Causal
 import PNDS.UnifiedTACOSM
 import PNDS.TACOSMVariantContracts
+import PNDS.NativeMemory
+import PNDS.NativeInvariant
+import PNDS.ParallelMemory
+import PNDS.DualModeMemory
+import PNDS.EntityAdmission
+import PNDS.TimescaleEvidence
+import PNDS.JointAffineTAC
+import PNDS.RetentionBudget
+import PNDS.ConstraintAdapter
 
 /- Axiom audit. CI fails if any proof in the PNDS tree depends on an admitted
    goal, and prints the axioms of each top-level theorem so that hidden
@@ -78,3 +87,136 @@ import PNDS.TACOSMVariantContracts
 #print axioms PNDS.VariantContracts.bitemporal_known_after_record_start
 #print axioms PNDS.VariantContracts.weightedWindow_zero
 #print axioms PNDS.VariantContracts.edgeDiscrepancy_nonnegative
+
+
+/-! Native memory exact-real source-algebra audit, not full PyTorch source proof. -/
+#check @PNDS.NativeMemory.arbitrary_query_decomposition
+#check @PNDS.NativeMemory.orthogonal_query_retains_only_decay
+#check @PNDS.NativeMemory.unit_address_self_read
+#check @PNDS.NativeMemory.unit_address_residual
+#check @PNDS.NativeMemory.read_only_no_mutation
+#check @PNDS.NativeMemory.shared_key_exact_collision_impossible
+#check @PNDS.NativeMemory.projected_exact_write_counterexample
+#check @PNDS.NativeMemory.fixed_gate_incremental_sensitivity
+#print axioms PNDS.NativeMemory.arbitrary_query_decomposition
+#print axioms PNDS.NativeMemory.orthogonal_query_retains_only_decay
+#print axioms PNDS.NativeMemory.unit_address_self_read
+#print axioms PNDS.NativeMemory.unit_address_residual
+#print axioms PNDS.NativeMemory.read_only_no_mutation
+#print axioms PNDS.NativeMemory.shared_key_exact_collision_impossible
+#print axioms PNDS.NativeMemory.projected_exact_write_counterexample
+#print axioms PNDS.NativeMemory.fixed_gate_incremental_sensitivity
+
+#check @PNDS.NativeMemory.row_query_decomposition
+#check @PNDS.NativeMemory.row_unit_key_residual
+#print axioms PNDS.NativeMemory.row_query_decomposition
+#print axioms PNDS.NativeMemory.row_unit_key_residual
+
+/-! Optional civilian constraint adapter: exact scalar QP and planar sampled barrier. -/
+#check @PNDS.ConstraintAdapter.projection_feasible
+#check @PNDS.ConstraintAdapter.projection_optimal
+#check @PNDS.ConstraintAdapter.dual_lower_nonnegative
+#check @PNDS.ConstraintAdapter.kkt_stationarity
+#check @PNDS.ConstraintAdapter.kkt_complementary
+#check @PNDS.ConstraintAdapter.planar_sample_identity
+#check @PNDS.ConstraintAdapter.planar_sample_safe
+#print axioms PNDS.ConstraintAdapter.projection_feasible
+#print axioms PNDS.ConstraintAdapter.projection_optimal
+#print axioms PNDS.ConstraintAdapter.dual_lower_nonnegative
+#print axioms PNDS.ConstraintAdapter.kkt_stationarity
+#print axioms PNDS.ConstraintAdapter.kkt_complementary
+#print axioms PNDS.ConstraintAdapter.planar_sample_identity
+#print axioms PNDS.ConstraintAdapter.planar_sample_safe
+
+#check @PNDS.ConstraintAdapter.planar_interval_safe
+#print axioms PNDS.ConstraintAdapter.planar_interval_safe
+
+/-! Native full-state conditional bounded forward envelope and read-only noncontraction. -/
+#check @PNDS.NativeInvariant.mixed_unit_box
+#check @PNDS.NativeInvariant.step_preserves_envelope
+#check @PNDS.NativeInvariant.repeated_forward_envelope
+#check @PNDS.NativeInvariant.no_strict_contraction_of_read_only_memory
+#print axioms PNDS.NativeInvariant.mixed_unit_box
+#print axioms PNDS.NativeInvariant.step_preserves_envelope
+#print axioms PNDS.NativeInvariant.repeated_forward_envelope
+#print axioms PNDS.NativeInvariant.no_strict_contraction_of_read_only_memory
+
+#check @PNDS.NativeInvariant.projectedMagnitude_bounds
+#print axioms PNDS.NativeInvariant.projectedMagnitude_bounds
+
+#check @PNDS.NativeInvariant.saturated_budget_forbids_nonzero_orthogonal_write
+#print axioms PNDS.NativeInvariant.saturated_budget_forbids_nonzero_orthogonal_write
+
+/-! Conditional time-parallel 8×8 affine-memory scan; NOT the full native recurrence. -/
+#check @PNDS.ParallelMemory.apply_then
+#check @PNDS.ParallelMemory.then_assoc
+#check @PNDS.ParallelMemory.apply_identity
+#check @PNDS.ParallelMemory.then_identity
+#check @PNDS.ParallelMemory.identity_then
+#check @PNDS.ParallelMemory.chronological_chunks
+#check @PNDS.ParallelMemory.zero_apply
+#check @PNDS.ParallelMemory.read_only_no_mutation
+#print axioms PNDS.ParallelMemory.apply_then
+#print axioms PNDS.ParallelMemory.then_assoc
+#print axioms PNDS.ParallelMemory.apply_identity
+#print axioms PNDS.ParallelMemory.then_identity
+#print axioms PNDS.ParallelMemory.identity_then
+#print axioms PNDS.ParallelMemory.chronological_chunks
+#print axioms PNDS.ParallelMemory.zero_apply
+#print axioms PNDS.ParallelMemory.read_only_no_mutation
+
+#check @PNDS.ParallelMemory.bounded_projection_free_budget
+#print axioms PNDS.ParallelMemory.bounded_projection_free_budget
+
+#check @PNDS.DualModeMemory.scan_matches_stream_from
+#check @PNDS.DualModeMemory.scan_matches_stream
+#check @PNDS.DualModeMemory.stream_resume
+#check @PNDS.DualModeMemory.read_only_stream
+#check @PNDS.DualModeMemory.append_basis_sum
+#check @PNDS.DualModeMemory.context_decomposes_through_statistic
+#print axioms PNDS.DualModeMemory.scan_matches_stream
+#print axioms PNDS.DualModeMemory.stream_resume
+#print axioms PNDS.DualModeMemory.read_only_stream
+#print axioms PNDS.DualModeMemory.append_basis_sum
+
+#check @PNDS.EntityAdmission.unrelated_slot_unchanged
+#check @PNDS.EntityAdmission.replacement_does_not_copy_evicted_content
+#check @PNDS.EntityAdmission.existing_slot_interpolation
+#check @PNDS.EntityAdmission.read_only_unchanged
+#check @PNDS.EntityAdmission.capacity_full_no_new_slot
+#print axioms PNDS.EntityAdmission.unrelated_slot_unchanged
+#print axioms PNDS.EntityAdmission.replacement_does_not_copy_evicted_content
+#print axioms PNDS.EntityAdmission.existing_slot_interpolation
+#print axioms PNDS.EntityAdmission.capacity_full_no_new_slot
+
+#check @PNDS.TimescaleEvidence.bound_unit_interval
+#check @PNDS.TimescaleEvidence.state_difference_linear
+#check @PNDS.TimescaleEvidence.same_observation_nonexpansive
+#check @PNDS.TimescaleEvidence.then_assoc
+#check @PNDS.TimescaleEvidence.update_is_affine
+#check @PNDS.TimescaleEvidence.one_step_perturbation_bound
+#print axioms PNDS.TimescaleEvidence.bound_unit_interval
+#print axioms PNDS.TimescaleEvidence.same_observation_nonexpansive
+#print axioms PNDS.TimescaleEvidence.then_assoc
+#print axioms PNDS.TimescaleEvidence.one_step_perturbation_bound
+
+#check @PNDS.JointAffineTAC.apply_then
+#check @PNDS.JointAffineTAC.then_assoc
+#check @PNDS.JointAffineTAC.fold_matches_stream
+#check @PNDS.JointAffineTAC.stream_resume
+#print axioms PNDS.JointAffineTAC.apply_then
+#print axioms PNDS.JointAffineTAC.then_assoc
+#print axioms PNDS.JointAffineTAC.fold_matches_stream
+#print axioms PNDS.JointAffineTAC.stream_resume
+
+#check @PNDS.JointAffineTAC.same_decoder_after_joint_parallel_or_stream
+#print axioms PNDS.JointAffineTAC.same_decoder_after_joint_parallel_or_stream
+
+#check @PNDS.RetentionBudget.keep_range
+#check @PNDS.RetentionBudget.written_range
+#check @PNDS.RetentionBudget.alpha_lower
+#check @PNDS.RetentionBudget.alpha_budget
+#check @PNDS.RetentionBudget.radius_four_next_bounded
+#print axioms PNDS.RetentionBudget.alpha_lower
+#print axioms PNDS.RetentionBudget.alpha_budget
+#print axioms PNDS.RetentionBudget.radius_four_next_bounded
