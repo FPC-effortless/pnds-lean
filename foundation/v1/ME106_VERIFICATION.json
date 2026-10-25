@@ -1,0 +1,9 @@
+{
+  "status": "PASS_LIMITED_TRAINING_ROLE_AND_PROJECTION_PROOFS",
+  "source_commit": "adb71873a8ddf9939f9c185b47e24a68927b5122",
+  "actual_source_tests": 13,
+  "theorems": 13,
+  "forward_graph": "UNCHANGED_SENSORGRAPH105",
+  "normal_law_neural_ieee_refinement": "OPEN",
+  "optimizer_loss_descent": "NOT_PROVED"
+}
