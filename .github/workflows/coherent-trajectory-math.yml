@@ -1,0 +1,35 @@
+name: Coherent trajectory source and mathematical checks
+on:
+  pull_request:
+    paths:
+      - 'PNDS/CoherentTrajectory.lean'
+      - 'foundation/v1/coherent_trajectory/**'
+      - 'tests/test_coherent_trajectory_source.py'
+      - '.github/workflows/coherent-trajectory-math.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  coherent-math:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: FPC-effortless/TAC-OSM
+          ref: 933fe7a87d235e6210676f8dde613c37ddf268a6
+          path: tac-source
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install torch==2.14.1+cpu --index-url https://download.pytorch.org/whl/cpu
+      - run: TAC_SOURCE_ROOT=tac-source python -m unittest tests/test_coherent_trajectory_source.py -v
+      - name: Install pinned Lean, build and inspect exact theorem assumptions
+        run: |
+          set -e
+          curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          export PATH="$HOME/.elan/bin:$PATH"
+          lake update
+          lake build PNDS.CoherentTrajectory
+          printf '%s\n' 'import PNDS.CoherentTrajectory' '#print axioms PNDS.CoherentTrajectory.gain_add' '#print axioms PNDS.CoherentTrajectory.advance_compose' '#print axioms PNDS.CoherentTrajectory.noise_nonnegative' '#print axioms PNDS.CoherentTrajectory.retained_delta_bound' '#print axioms PNDS.CoherentTrajectory.future_queries_preserve_evidence' > /tmp/coherent-audit.lean
+          lake env lean /tmp/coherent-audit.lean
