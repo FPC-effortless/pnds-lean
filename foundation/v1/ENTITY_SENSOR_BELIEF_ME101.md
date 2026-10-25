@@ -30,3 +30,15 @@ The uncertainty query is read-only with respect to the inherited source trace: i
 ## Open obligations and evidence boundary
 
 The reciprocal SHARED-BELIEF-SENSOR-ME101 record is appended on both repositories and pinned to the original source. Formal proof of softplus positivity remains open. The Python reference checks the implementation's per-channel response and variance formula against source forward values, inherited state, uncertainty traces, and gradients in FP32 and FP64 on synthetic inputs, but is not an IEEE error proof. Any additional dependence in the learned Jacobian, shared-channel covariance, or feedback/write path must be reflected here before claiming broader correspondence. No training, capability, calibration, causal-effect, or real-world superiority claim follows from these scalar proofs. ME100's historical score failures remain intact.
+
+## Recorded source experiment, distinct from proof
+
+[TAC draft PR397](https://github.com/FPC-effortless/TAC-OSM/pull/397) preserves five
+original 97,259-parameter models, all frozen at3752a98e before exposed2015 scoring.
+Ordinary six-channel point errors improve, but missing-data density/interval scores
+regress and all five full capability gates fail. This is MIXED_TRADEOFF, not
+qualified calibration or intelligence. Original clean replay and GitHub replay
+40178388335 pass; actual fitted-weight source/state/gradient checks pass. Protected
+2016–2017 outcomes remain closed. Full results and original model/checksum paths
+are in TAC research/mathematical-engineering/me101 and research/replay-bundles/ME101.
+These empirical outcomes do not strengthen the scalar Lean theorem scope.
