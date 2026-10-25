@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'PNDS/ProtectedSensor.lean'
+      - 'PNDS/SensorGraph105.lean'
       - 'foundation/v1/PROTECTED_SENSOR_ME105.md'
       - 'foundation/v1/protected_sensor_reference.py'
       - 'scripts/me105_graph_reference.py'
@@ -46,6 +47,6 @@ jobs:
           curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
           export PATH="$HOME/.elan/bin:$PATH"
           lake update
-          lake build PNDS.ProtectedSensor
-          printf '%s\n' 'import PNDS.ProtectedSensor' '#print axioms PNDS.ProtectedSensor.serialFold_append' '#print axioms PNDS.ProtectedSensor.protectedScale_sq_floor' '#print axioms PNDS.ProtectedSensor.forward_left_floor' > /tmp/protected-sensor-audit.lean
+          lake build PNDS.ProtectedSensor PNDS.SensorGraph105
+          printf '%s\n' 'import PNDS.ProtectedSensor' 'import PNDS.SensorGraph105' '#print axioms PNDS.SensorGraph105.trainableParameterCount_exact' '#print axioms PNDS.SensorGraph105.protected_floor_lower_bound' '#print axioms PNDS.ProtectedSensor.serialFold_append' '#print axioms PNDS.ProtectedSensor.protectedScale_sq_floor' '#print axioms PNDS.ProtectedSensor.forward_left_floor' > /tmp/protected-sensor-audit.lean
           lake env lean /tmp/protected-sensor-audit.lean

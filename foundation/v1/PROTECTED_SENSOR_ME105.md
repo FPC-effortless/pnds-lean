@@ -118,3 +118,23 @@ source-SHA registration are required before changing these statuses. This
 source pin is provenance only; source equivalence remains OPEN until its
 independent mathematical reference and actual-source forward/backward/state
 checks are recorded.
+
+## Explicit full neural equations (additive formulation)
+
+`PNDS/SensorGraph105.lean` replaces the opaque parent-network boundary with
+finite matrix/bias parameters and explicit encoder, station embedding, source
+admission, fast/slow proposals, evidence prefixes, controlled delta-rule memory,
+chronological fold, pre-event and inclusive reads, original decoder, current
+belief/reconstruction, FIT floor and protected median/width equations. It defines
+streaming and fresh-history entry points. A shape-arithmetic theorem gives
+100,349 trainable scalars, matching the actual Python model. Normal CDF/inverse
+and log(2pi) are a named `NormalLaw` boundary whose identities remain OPEN;
+raw quantile, zero atom, CDF and NLL formulas use that boundary explicitly.
+
+These are full typed real-arithmetic graph **definitions**, not a proof that the
+actual PyTorch network refines them. Owner/time/parameter-version validation,
+all input domain premises, neural derivative and non-smooth semantics, Gaussian
+measure normalization, floating-point rounding and empirical calibration remain
+OPEN. Python source/reference tests and fitted audits provide numerical evidence
+separately. No random Gaussian-law function is certified to be the standard
+normal by compilation alone.
