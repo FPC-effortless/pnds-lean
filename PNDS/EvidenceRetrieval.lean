@@ -16,13 +16,14 @@ structure Graph (Input Evidence Proposal Key Value Schedule Query Memory Output 
   write : Schedule → Key → Value → Memory → Memory
   query : Input → Proposal → Key → Query
   decode : Input → Proposal → Memory → Query → Output
+  padded_output : Input → Output
 
 def step (g : Graph I E P K V A Q M O) (valid : Bool)
     (s : State E M) (x : I) : State E M × O :=
   let p := g.propose s.evidence x
   let k := g.key x
   let q := g.query x p k
-  let out := g.decode x p s.memory q
+  let out := if valid then g.decode x p s.memory q else g.padded_output x
   let next := if valid then
     { evidence := g.summarize s.evidence x
       memory := g.write (g.schedule x p) k (g.value x) s.memory }
@@ -35,8 +36,8 @@ theorem invalid_identity (g : Graph I E P K V A Q M O) (s : State E M) (x : I) :
 
 /-- Retrieval uses pre-write memory, independent of the current write result. -/
 theorem read_before_write (g : Graph I E P K V A Q M O)
-    (valid : Bool) (s : State E M) (x : I) :
-    (step g valid s x).2 = g.decode x (g.propose s.evidence x) s.memory
+    (s : State E M) (x : I) :
+    (step g true s x).2 = g.decode x (g.propose s.evidence x) s.memory
       (g.query x (g.propose s.evidence x) (g.key x)) := by rfl
 
 /-- Query/decoder cannot change the next stored state for fixed update maps. -/
