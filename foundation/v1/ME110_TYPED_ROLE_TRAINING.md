@@ -5,7 +5,7 @@ dedicated pinned-source workflow; full AD/IEEE and whole-model proof OPEN. No
 training is authorized or represented by this specification.** ME110 keeps
 the native ME109 forward model and its 104663 parameters. The original source
 is pinned to TAC-OSM commit
-[`edb9a3d4f590de386ad985cdc0f8ff5556a25a5d`](https://github.com/FPC-effortless/TAC-OSM/commit/edb9a3d4f590de386ad985cdc0f8ff5556a25a5d),
+[`449a3677998e81c647d518df1ef25a2b0e112b36`](https://github.com/FPC-effortless/TAC-OSM/commit/449a3677998e81c647d518df1ef25a2b0e112b36),
 specifically `src/tac_osm/typed_role_learning.py`; source ownership and all
 training outcomes remain in TAC-OSM.
 

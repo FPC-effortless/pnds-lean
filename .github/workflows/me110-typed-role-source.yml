@@ -22,7 +22,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: FPC-effortless/TAC-OSM
-          ref: edb9a3d4f590de386ad985cdc0f8ff5556a25a5d
+          ref: 449a3677998e81c647d518df1ef25a2b0e112b36
           path: tac-source
       - uses: actions/setup-python@v5
         with:
@@ -37,11 +37,15 @@ jobs:
           ME110_TAC_SOURCE: tac-source
           PYTHONPATH: tac-source/src:.
         run: python -m pytest -q tests/test_typed_role_training_source.py
+      - name: Install elan
+        run: |
+          curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Resolve pinned Lean dependencies
+        run: lake update
       - uses: leanprover/lean-action@v1
         with:
           use-mathlib-cache: true
-      - name: Resolve pinned Lean dependencies
-        run: lake update
       - name: Build the ME110 Lean module
         run: lake build PNDS.TypedRoleTraining
       - name: Audit theorem axioms
