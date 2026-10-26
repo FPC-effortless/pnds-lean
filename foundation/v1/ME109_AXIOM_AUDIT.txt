@@ -1,0 +1,7 @@
+'PNDS.ResidualRoleFFN.residual_zero_output' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PNDS.ResidualRoleFFN.corrected_parent_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PNDS.ResidualRoleFFN.all_raw_parent_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PNDS.ResidualRoleFFN.final_forecast_parent_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PNDS.ResidualRoleFFN.current_role_independent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PNDS.ResidualRoleFFN.residual_coordinate_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PNDS.ResidualRoleFFN.parameter_count_exact' depends on axioms: [propext]

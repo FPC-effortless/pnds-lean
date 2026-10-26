@@ -1,0 +1,41 @@
+name: ME109 retained-parent residual actual-source and exact math
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'PNDS/ResidualRoleFFN.lean'
+      - 'foundation/v1/RESIDUAL_ROLE_ME109.md'
+      - 'foundation/v1/residual_role_reference.py'
+      - 'tests/test_residual_role_source.py'
+      - '.github/workflows/residual-role-ffn.yml'
+permissions:
+  contents: read
+jobs:
+  pinned-source-and-math:
+    runs-on: ubuntu-latest
+    env:
+      TAC_SOURCE_COMMIT: 452a1a977275823d21b3f04265a26ff836518ce6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: FPC-effortless/TAC-OSM
+          ref: 452a1a977275823d21b3f04265a26ff836518ce6
+          path: tac
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install torch==2.14.1+cpu --index-url https://download.pytorch.org/whl/cpu
+      - run: pip install numpy==2.3.5 pytest
+      - run: cmp foundation/v1/residual_role_reference.py tac/scripts/me109_graph_reference.py
+      - run: pytest -q tests/test_residual_role_source.py
+        env:
+          TAC_SOURCE_ROOT: tac
+      - name: Compile typed graph and limited proofs
+        run: |
+          set -e
+          curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          export PATH="$HOME/.elan/bin:$PATH"
+          lake update
+          lake build PNDS.ResidualRoleFFN
+          lake env lean PNDS/ResidualRoleAudit.lean
