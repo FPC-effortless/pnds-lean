@@ -83,4 +83,21 @@ theorem rawLaw_no_negative_mass (μ : Measure ℝ) (p : Parameters)
     simp [Set.mem_preimage, Set.mem_Iio, not_lt.mpr hn]
   simp [hpre]
 
+
+/-- Non-conditional normalization for the actual mathematically defined
+standard normal law N(0,1): Mathlib supplies its genuine probability measure,
+rather than assuming an arbitrary caller-defined cdf or mass axiom. -/
+theorem standard_gaussian_rawLaw_total_mass (p : Parameters)
+    (f : Forecast) (c : Fin 6) :
+    rawLaw (ProbabilityTheory.gaussianReal 0 1) p f c Set.univ = 1 := by
+  exact rawLaw_total_mass (ProbabilityTheory.gaussianReal 0 1) p f c
+
+/-- The corresponding actual standard-normal pushforward has zero probability
+on negative physical sensor values despite asymmetric widths. -/
+theorem standard_gaussian_rawLaw_no_negative_mass (p : Parameters)
+    (f : Forecast) (c : Fin 6) :
+    rawLaw (ProbabilityTheory.gaussianReal 0 1) p f c
+      (Set.Iio (0 : ℝ)) = 0 :=
+  rawLaw_no_negative_mass _ p f c
+
 end PNDS.CensoredMeasureRefinement
