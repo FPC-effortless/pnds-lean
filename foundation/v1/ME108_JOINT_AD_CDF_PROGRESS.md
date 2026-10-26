@@ -1,0 +1,26 @@
+# ME108 follow-on formal refinement: all-parameter adjoint, composed error, latent CDF
+
+Date 2026-10-26. This is incremental **mathematical proof engineering** of the same trained ME108 model, with **no new training, weights, model architecture, empirical skill or scientific qualification claims**. Inherits the prior verified [partial proof ledger](ME108_NEURAL_REFINEMENT_PROOF_BOUNDARY.md). The full source-to-IEEE/AD/probability correctness theorem is **STILL OPEN**.
+
+## Actual new Lean declarations and proof meaning
+
+1. \`PNDS.RoleFFNParameterAD.ffn_parameter_vjp_correct\`: one exact-real theorem covering perturbations and reverse-mode cotangents for both 102→16 and 16→12/6 learned weight matrices and their biases. Applies the mathematically true hidden tanh derivative \`1 - tanh²\`, proved in prior PNDS.NeuralRefinement, rather than arbitrary supplied derivative placeholders.
+2. \`PNDS.RoleFFNParameterAD.ffn_joint_vjp_correct\`: single exact-real joint input + both-weight + both-bias VJP/JVP pairing. Source-output dimensions 12, 12 and 6 inherit the generic theorem. This establishes source-shaped backprop *algebra* for an individual FFN, not its executable floating-point reverse-mode implementation or the whole recurrent backbone.
+3. \`PNDS.FloatErrorBudget.affine_coordinate_error\`, \`first_layer_102_error\`, \`output_layer_16_error\`, \`full_role_ffn_error\`: exact-real worst-case per-output error propagation through all 102 input coordinates, 16 hidden units and outputs. Their **explicit premises** require a bound for each actual source GEMM kernel, source input perturbations, tanh implementation error, and tanh 1-Lipschitz behavior. These estimates are meaningful only after their backend-specific conditions are independently proved; they are not a CPU/CUDA FP32/64 IEEE-754 implementation theorem. In particular, infinity/NaN handling, FMA/reduction re-association and exponential/transcendental rounding remain entirely open.
+4. \`PNDS.CensoredCDFRefinement.physicalDraw_le_iff_latent_le\` and \`rawLaw_cdf_eq_latent_event\`: show the source-shaped *censored physical observation* event \`physicalDraw(u) ≤ y\` for physical \`y ≥ 0\` and positive FIT target normalization scale is exactly the pre-censoring latent event below \`(log(1+y)-targetMean)/targetStd\`; apply this event equality inside the proven mathematical pushforward measure. The new \`rawLaw_zero_atom_eq_cdf\` and \`rawLaw_zero_atom_eq_latent_event\` identify the actual point mass at physical zero with the corresponding latent event. This is stronger than the prior measure-normalization theorem, but **still does not identify the split-affine latent event with numerical Torch \`ndtr\`, \`ndtri\`, \`log_ndtr\`, their exact Gaussian CDF, or NLL density/Jacobian**.
+
+All proofs are required to compile with pinned Lean4.14/mathlib; the CI explicitly builds every new module, checks *.olean, and prints the underlying proof axioms. No \`sorry\` or admitted proof is allowed. Preserve unsuccessful preliminary compiler runs in the native Actions history.
+
+## Source-check evidence distinct from Lean proof
+
+Companion TAC-OSM source branch \`research/me108-full-vjp-refinement-2026-10-26\` adds a read-only, original-checkpoint SHA-verified independent numerical diagnostic. It operates on true FIT2013–2014 UCI501 source events, exactly FIVE original trained ME108 model seeds, and the three real role heads, verifying their **15 joint input/parameter directional derivatives**, independent NumPy forward-and-cotangent values, Torch autograd and FP64 symmetric finite differences with fixed algorithm and finite tolerances. No source-protected 2016–2017 numerical outcomes, optimizer updates, model modifications or new capabilities are involved. Original result archived under its completed GitHub Actions run.
+
+## Still unproved before full user-requested correctness
+
+- Every full original recurrent scan and output transformation/source line as a verified mathematical refinement, including masked input authority, source age/missingness, all 13 optimizer parameter blocks and protected IEEE rounding.
+- Differentiation of the entire masked, nonlinear recurrent model, each of the five loss components, clamp/max/where/stop_gradient branch policies and exact autograd computation graphs.
+- A certified IEEE model for PyTorch CPU/GPU kernel implementations, including tensor layouts, reductions, NaNs/Inf/overflow/underflow, fused arithmetic and transcendental implementation errors; numerical error assumptions in new theorems must be proved, not inferred from passing finite tests.
+- A theorem that the actual torch.special normal CDF, inverse CDF, log CDF and censored lognormal positive density / zero atom / Jacobian compute the Mathlib law with explicit bounded numerical errors and appropriate positive scales.
+- A composed end-to-end Lean theorem for actual trained model output and gradients. Formal correctness will not by itself demonstrate empirical calibration, real robotic decision intelligence or safe control. Original ME108 five-checkpoint complete predictive gate **remains FAIL0/5**.
+
+Do not merge or market as formal verification complete. Six active family research contracts and originally trained negative results remain unchanged.
