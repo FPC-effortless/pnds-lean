@@ -47,8 +47,17 @@ theorem physicalDraw_le_iff_latent_le (p : Parameters) (f : Forecast)
         p.targetStd c * splitAffine f c u) ≤ 1 + y ↔
         p.targetMean c + p.targetStd c * splitAffine f c u ≤
           Real.log (1 + y) := by
-    rw [← Real.exp_log hpos]
-    exact Real.exp_le_exp
+    constructor
+    · intro h
+      have h' :
+          Real.exp (p.targetMean c +
+            p.targetStd c * splitAffine f c u) ≤
+              Real.exp (Real.log (1 + y)) := by
+        simpa only [Real.exp_log hpos] using h
+      exact Real.exp_le_exp.mp h'
+    · intro h
+      have h' := Real.exp_le_exp.mpr h
+      simpa only [Real.exp_log hpos] using h'
   have hlinear :
       p.targetMean c + p.targetStd c * splitAffine f c u ≤
         Real.log (1 + y) ↔
@@ -87,7 +96,7 @@ theorem rawLaw_zero_atom_eq_cdf (μ : Measure ℝ)
     have hn := physicalDraw_nonnegative p f c u
     simp only [Set.mem_preimage, Set.mem_singleton_iff, Set.mem_Iic]
     exact ⟨fun h => le_of_eq h, fun h => le_antisymm h hn⟩
-  rw [rawLaw, rawLaw]
+  simp only [rawLaw]
   rw [Measure.map_apply (physicalDraw_measurable p f c)
         (MeasurableSet.singleton 0),
       Measure.map_apply (physicalDraw_measurable p f c)
