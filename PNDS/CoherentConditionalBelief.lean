@@ -38,7 +38,7 @@ theorem quantile_order (mean left right kl kr : ℝ)
   · linarith [mul_nonneg hkl (le_of_lt hl)]
   · linarith [mul_nonneg hkr (le_of_lt hr)]
 
-def routed (p r : Bool) (gp gr gu : ℝ) : ℝ :=
+noncomputable def routed (p r : Bool) (gp gr gu : ℝ) : ℝ :=
   if p then (if r then gp + (3 / 10 : ℝ) * gr else gp) else gu
 
 theorem mean_supervised (gp gr gu : ℝ) :
