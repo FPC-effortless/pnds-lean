@@ -37,3 +37,9 @@ family is added. No capability claim follows from this mathematical file.
 The full neural/source/AD/IEEE and normal-law refinements remain OPEN. Original
 models, failed gates and source versions are preserved. Real original checkpoints
 and optimizer/RNG/receipts must be Git-frozen before REPORT scoring.
+
+Preflight revision2 sourceeb40cd1c corrects only the station/hour plan geometry
+validator before the first optimizer update. The aborted zero-step launch and
+original registration are preserved in TAC. The original operator/reference
+files from95cfd29e are byte-identical in the corrected source; mathematical
+operators, data plans, budgets and gates are unchanged. CI pins corrected source.

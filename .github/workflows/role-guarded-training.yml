@@ -14,13 +14,13 @@ jobs:
   pinned-step-contract:
     runs-on: ubuntu-latest
     env:
-      TAC_SOURCE_COMMIT: 95cfd29e9adb6f95eb705ad8f89f0a66d94747bc
+      TAC_SOURCE_COMMIT: eb40cd1c010ddd10c538dec38086b3899384bb0b
     steps:
       - uses: actions/checkout@v4
       - uses: actions/checkout@v4
         with:
           repository: FPC-effortless/TAC-OSM
-          ref: 95cfd29e9adb6f95eb705ad8f89f0a66d94747bc
+          ref: eb40cd1c010ddd10c538dec38086b3899384bb0b
           path: tac
       - uses: actions/setup-python@v5
         with:
