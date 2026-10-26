@@ -1,0 +1,3 @@
+'PNDS.RegimeTrajectory.mix_range' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PNDS.RegimeTrajectory.mix_monotone' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PNDS.RegimeTrajectory.variance_not_smaller' depends on axioms: [propext, Classical.choice, Quot.sound]

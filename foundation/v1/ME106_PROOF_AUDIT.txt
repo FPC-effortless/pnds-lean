@@ -1,0 +1,19 @@
+'PNDS.PointPriorityTraining.forwardWorld_eq_inherited' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PNDS.PointPriorityTraining.dot_sub_projection_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PNDS.PointPriorityTraining.normSq_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PNDS.PointPriorityTraining.projected_dot_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PNDS.PointPriorityTraining.total_dot_lower_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PNDS.PointPriorityTraining.zero_priority_gradient' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PNDS.PointPriorityTraining.nonconflicting_gradient_unchanged' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'PNDS.PointPriorityTraining.zero_norm_gradient_unchanged' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PNDS.PointPriorityTraining.width_coordinate_unchanged' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PNDS.PointPriorityTraining.uncertainty_location_snapshot_identity' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'PNDS.PointPriorityTraining.detached_difference_tangent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PNDS.PointPriorityTraining.uncertainty_location_tangent_cancels' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'PNDS.PointPriorityTraining.inherited_parameter_count' depends on axioms: [propext]

@@ -8,6 +8,15 @@ import PNDS.Statistics
 import PNDS.Causal
 import PNDS.UnifiedTACOSM
 import PNDS.TACOSMVariantContracts
+import PNDS.NativeMemory
+import PNDS.NativeInvariant
+import PNDS.ParallelMemory
+import PNDS.DualModeMemory
+import PNDS.EntityAdmission
+import PNDS.TimescaleEvidence
+import PNDS.JointAffineTAC
+import PNDS.RetentionBudget
+import PNDS.ConstraintAdapter
 
 /-- The version of the document this formalization targets. -/
 def docVersion : String := "v0.2"

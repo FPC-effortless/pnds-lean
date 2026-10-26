@@ -42,3 +42,13 @@ A source-implementation-to-theorem equivalence is **unverified until source code
 The binding [mathematical-engineering rule](MATHEMATICAL_ENGINEERING_RULE.md) now requires a typed per-variant complete-graph specification and **both** Lean 4 and Python mathematical formulations, with explicit source/code/evidence mappings in [variant-math-links.json](variant-math-links.json). The identical reciprocal TAC-OSM manifest is `research/pnds-variant-math-links.json`; `scripts/validate_variant_math.py` and `tests/test_variant_math.py` protect all currently indexed source pins, reference equations and unfinished full-model proof status.
 
 `PNDS/TACOSMVariantContracts.lean` and `variant_math.py` add machine-auditable reference properties and executable finite-size operator kernels for all **17 linked historical versions**, but **not** full neural-model/source equivalence. All are explicitly PARTIAL; complete Lean/Python source correspondence and unindexed historical migrations remain OPEN.
+
+## Native finite-dimensional TAC memory engineering v1.1
+
+[New conditional native-memory equations, source graph and limitations](NATIVE_MATHEMATICAL_ENGINEERING_V1_1.md) extend the existing operator-level foundation without replacing or reclassifying original research. [PNDS/NativeMemory.lean](../../PNDS/NativeMemory.lean) provides conditional **arbitrary finite-key-dimensional** unprojected read-interference and unit-key residual theorems, plus explicit read-only/collision/projection limits; [native_memory_math.py](native_memory_math.py) implements the source-shaped 8×8 numerical reference. Core, system-one, physical and ES-WAM full-model stability/gradient verification remain OPEN.
+
+The additional [machine-readable engineering coverage](ENGINEERING_COVERAGE_V1_1.json) keeps the mathematical/source/skill obligations distinct for all 17 indexed variants. The fail-closed coverage validator rejects dropped variants, erased historical negative findings and unsupported declarations of whole-graph stability or proof completion. This is an evidence **index**, not a complete model proof.
+
+## Native full-state boundedness and read-only invariance (v1.3)
+
+[Conditional Lean state-envelope certificate](NATIVE_STABILITY_CERTIFICATE_V1_3.md) establishes one-step and arbitrary-step boundedness of source-shaped 88/88/8×8 registers under explicit gate/target/projection assumptions, proves scalar radius normalization and read-only noncontraction, and records a real clipping-induced orthogonal-memory interference counterexample. It does not claim global nonlinear contraction, full original floating-point refinement or authentic predictive performance.

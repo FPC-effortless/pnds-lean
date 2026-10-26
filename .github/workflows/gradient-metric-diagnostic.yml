@@ -1,0 +1,30 @@
+name: DIAGGRAD001 gradient metric counterexample
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'PNDS/GradientMetricCounterexample.lean'
+      - 'foundation/v1/gradient_metric_reference.py'
+      - 'foundation/v1/DIAGGRAD001_GRADIENT_METRIC.md'
+      - 'tests/test_gradient_metric_reference.py'
+      - '.github/workflows/gradient-metric-diagnostic.yml'
+permissions:
+  contents: read
+jobs:
+  exact-counterexample:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile exact Lean counterexample and print axioms
+        run: |
+          set -e
+          curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          export PATH="$HOME/.elan/bin:$PATH"
+          lake update
+          lake exe cache get
+          lake env lean PNDS/GradientMetricCounterexample.lean
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pytest
+      - run: pytest -q tests/test_gradient_metric_reference.py

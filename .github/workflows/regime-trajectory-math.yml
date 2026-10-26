@@ -1,0 +1,35 @@
+name: Regime trajectory source and mathematical checks
+on:
+  pull_request:
+    paths:
+      - 'PNDS/RegimeTrajectory.lean'
+      - 'foundation/v1/regime_trajectory/**'
+      - 'tests/test_regime_trajectory_source.py'
+      - '.github/workflows/regime-trajectory-math.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  regime-math:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: FPC-effortless/TAC-OSM
+          ref: 87be2c5a855290efaa61a99707f2ec364125d520
+          path: tac-source
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install torch==2.14.1+cpu --index-url https://download.pytorch.org/whl/cpu
+      - run: TAC_SOURCE_ROOT=tac-source python -m unittest tests/test_regime_trajectory_source.py -v
+      - name: Install pinned Lean, build and inspect exact theorem assumptions
+        run: |
+          set -e
+          curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          export PATH="$HOME/.elan/bin:$PATH"
+          lake update
+          lake build PNDS.RegimeTrajectory
+          printf '%s\n' 'import PNDS.RegimeTrajectory' '#print axioms PNDS.RegimeTrajectory.mix_range' '#print axioms PNDS.RegimeTrajectory.mix_monotone' '#print axioms PNDS.RegimeTrajectory.variance_not_smaller' > /tmp/coherent-audit.lean
+          lake env lean /tmp/coherent-audit.lean

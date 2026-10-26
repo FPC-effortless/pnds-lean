@@ -1,0 +1,19 @@
+{
+  "status": "PASS_LIMITED_THEOREMS_AND_EXPLICIT_GRAPH_DEFINITIONS",
+  "source_commit": "573f81cb9f2f421d141ddb722525ecce25972edc",
+  "modules": [
+    "PNDS.ProtectedSensor",
+    "PNDS.SensorGraph105"
+  ],
+  "theorem_count": 26,
+  "axioms_allowed": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "trainable_shape_arithmetic": 100349,
+  "actual_python_forward_backward": "NUMERICALLY_TESTED_NOT_LEAN_REFINEMENT",
+  "gaussian_law_instantiation": "OPEN",
+  "whole_network_ieee": "OPEN",
+  "calibration": "EMPIRICAL_NOT_PROVED"
+}

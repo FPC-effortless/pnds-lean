@@ -1,0 +1,41 @@
+name: ME108 role-guarded optimizer source and mathematics
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'PNDS/RoleGuardedTraining.lean'
+      - 'foundation/v1/ROLE_GUARDED_TRAINING_ME108.md'
+      - 'foundation/v1/role_guarded_training_reference.py'
+      - 'tests/test_role_guarded_training_source.py'
+      - '.github/workflows/role-guarded-training.yml'
+permissions:
+  contents: read
+jobs:
+  pinned-step-contract:
+    runs-on: ubuntu-latest
+    env:
+      TAC_SOURCE_COMMIT: eb40cd1c010ddd10c538dec38086b3899384bb0b
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: FPC-effortless/TAC-OSM
+          ref: eb40cd1c010ddd10c538dec38086b3899384bb0b
+          path: tac
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install torch==2.14.1+cpu --index-url https://download.pytorch.org/whl/cpu
+      - run: pip install numpy==2.3.5 pytest
+      - run: pytest -q tests/test_role_guarded_training_source.py
+        env:
+          TAC_SOURCE_ROOT: tac
+      - name: Compile exact-real training contract
+        run: |
+          set -e
+          curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          export PATH="$HOME/.elan/bin:$PATH"
+          lake update
+          lake build PNDS.RoleGuardedTraining
+          printf '%s\n' 'import PNDS.RoleGuardedTraining' '#print axioms PNDS.RoleGuardedTraining.guardedStep_point_dot_nonpos' '#print axioms PNDS.RoleGuardedTraining.guardedStep_moments_use_clipped_gradient' > /tmp/guarded-step-axioms.lean
+          lake env lean /tmp/guarded-step-axioms.lean
