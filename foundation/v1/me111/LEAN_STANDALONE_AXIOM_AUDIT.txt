@@ -1,0 +1,13 @@
+Local command (Lean 4.14.0):
+lean -o PNDS/CoherentConditionalBeliefStandalone.olean PNDS/CoherentConditionalBeliefStandalone.lean
+LEAN_PATH=. lean /tmp/me111-standalone-audit.lean
+
+'PNDS.CoherentConditionalBelief.variance_positive' does not depend on any axioms
+'PNDS.CoherentConditionalBelief.sigma_positive' does not depend on any axioms
+'PNDS.CoherentConditionalBelief.quantile_order' does not depend on any axioms
+'PNDS.CoherentConditionalBelief.mean_supervised' does not depend on any axioms
+'PNDS.CoherentConditionalBelief.mean_role_is_point' does not depend on any axioms
+
+Scope: conditional primitive-operation law structure, not an instantiated ℝ
+model. All structure hypotheses remain explicit. Actual Mathlib ℝ module build
+and audit OPEN locally: binary-cache download HTTP 403; must pass pinned CI.
