@@ -18,6 +18,7 @@ import PNDS.JointAffineTAC
 import PNDS.RetentionBudget
 import PNDS.ConstraintAdapter
 import PNDS.System1Head
+import PNDS.System1VelocityAnchor
 
 /-- The version of the document this formalization targets. -/
 def docVersion : String := "v0.2"
