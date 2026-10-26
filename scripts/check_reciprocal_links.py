@@ -11,7 +11,7 @@ from pathlib import Path
 
 LOCAL = Path(__file__).resolve().parents[1] / "foundation/v1/variant-math-links.json"
 REMOTE = ("https://raw.githubusercontent.com/FPC-effortless/TAC-OSM/"
-          "0e712a798ce943b9f25c306bec1250e0b1e29031/"
+          "6e01290ddf3f10d298c4bcf463a219c9728c0565/"
           "research/pnds-variant-math-links.json")
 
 
