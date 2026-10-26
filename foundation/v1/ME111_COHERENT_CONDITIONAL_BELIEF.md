@@ -7,7 +7,7 @@ ME109/ME110. ME111 changes conditional forecast scales and explicitly supervises
 ME110 outcomes remain unchanged. This is not a full neural proof or an empirical
 calibration claim.
 
-TAC source is pinned to `b0f6d8ea0ad119e40ba1d503f6f9a01e39b1d477` in `variant-math-links.json`,
+TAC source is pinned to `0e712a798ce943b9f25c306bec1250e0b1e29031` in `variant-math-links.json`,
 with spec `research/mathematical-engineering/me111/MATHEMATICS.md`. Source ownership, training receipts and evaluation remain TAC-OSM.
 
 ## Observation-to-output contract

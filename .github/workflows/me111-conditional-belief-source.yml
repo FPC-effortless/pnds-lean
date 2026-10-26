@@ -23,7 +23,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: FPC-effortless/TAC-OSM
-          ref: b0f6d8ea0ad119e40ba1d503f6f9a01e39b1d477
+          ref: 0e712a798ce943b9f25c306bec1250e0b1e29031
           path: tac-source
       - uses: actions/setup-python@v5
         with:
