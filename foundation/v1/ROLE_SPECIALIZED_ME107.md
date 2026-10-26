@@ -25,7 +25,7 @@ current state12, uncertainty shape12, point innovation6. Values/weights are lear
 There is no attention, new SSM, decoder feedback into the same scan, additional
 recurrent state, or evidence of a new seventh active model family.
 
-Eleven Lean declarations compile. Exact mathematical facts include arithmetic
+Fifteen Lean declarations compile. Exact mathematical facts include arithmetic
 102713parameters; inherited scan/probability wrappers; output shapes; and generic
 finite-real-vector protection of a proposed displacement with nonpositive point
 dot. Standard axioms only, no added axiom/sorry/admit. The FP64 accumulation and
@@ -42,3 +42,8 @@ implementation interface, predictive improvement, useful memory and real-world
 decision utility remain OPEN. Original ME106 failed gates, DIAGGRAD001 FP32
 cross-host exceptions and all older checkpoint evidence are preserved. The
 machine-readable TAC `research/ARCHITECTURE-INVARIANTS.json` tracks these limits.
+
+Four additional exact-real roleProtect theorems enforce both source-scale and
+missing-channel lower bounds on left/right scales. The median tanh absolute bound
+is tested/analytically specified but not separately Lean-proved here. These scale
+bounds do not establish coverage or finite-precision refinement.

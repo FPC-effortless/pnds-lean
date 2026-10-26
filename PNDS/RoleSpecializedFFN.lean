@@ -134,6 +134,36 @@ noncomputable def roleProtect (h : RoleHeads) (phi : Fin 102 → ℝ)
         (baseScale c * Real.exp (Real.log 4 * Real.tanh (widthRaw ⟨6+c.val, by omega⟩))))
     floorVariance := floor, features := phi }
 
+/-- The role-specific split scales retain the inherited source floor. These
+are exact-real lower bounds; they do not assert calibration or coverage. -/
+theorem roleProtect_left_floor_lower_bound (h : RoleHeads) (phi : Fin 102 → ℝ)
+    (loc scale floor : V6) (obs : Fin 6 → Bool) (c : Fin 6) :
+    Real.sqrt (floor c) ≤ (roleProtect h phi loc scale floor obs).leftScale c := by
+  simp only [roleProtect]
+  exact le_max_left _ _
+
+theorem roleProtect_right_floor_lower_bound (h : RoleHeads) (phi : Fin 102 → ℝ)
+    (loc scale floor : V6) (obs : Fin 6 → Bool) (c : Fin 6) :
+    Real.sqrt (floor c) ≤ (roleProtect h phi loc scale floor obs).rightScale c := by
+  simp only [roleProtect]
+  exact le_max_left _ _
+
+/-- When a channel is missing, each protected split scale is also at least the
+inherited 80-percent parent-scale floor. -/
+theorem roleProtect_left_missing_floor_lower_bound (h : RoleHeads) (phi : Fin 102 → ℝ)
+    (loc scale floor : V6) (obs : Fin 6 → Bool) (c : Fin 6) (hc : obs c = false) :
+    (4/5:ℝ) * scale c ≤ (roleProtect h phi loc scale floor obs).leftScale c := by
+  simp only [roleProtect]
+  rw [hc]
+  exact le_trans (le_max_left _ _) (le_max_right _ _)
+
+theorem roleProtect_right_missing_floor_lower_bound (h : RoleHeads) (phi : Fin 102 → ℝ)
+    (loc scale floor : V6) (obs : Fin 6 → Bool) (c : Fin 6) (hc : obs c = false) :
+    (4/5:ℝ) * scale c ≤ (roleProtect h phi loc scale floor obs).rightScale c := by
+  simp only [roleProtect]
+  rw [hc]
+  exact le_trans (le_max_left _ _) (le_max_right _ _)
+
 /-- Complete role-specific graph from the inherited pre-event decoder trace.
 The scan and decodeRaw are inherited unchanged; all three replaced raw roles
 are evaluated from role-owned FFNs. -/
