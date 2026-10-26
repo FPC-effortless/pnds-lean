@@ -32,14 +32,18 @@ jobs:
       - name: Build actual joint-parameter adjoint theorem
         run: |
           set -euo pipefail
-          lake build PNDS.RoleFFNParameterAD 2>&1 | tee /tmp/pnds-role-full-vjp.log
+          lake build PNDS.RoleFFNParameterAD PNDS.FloatErrorBudget 2>&1 | tee /tmp/pnds-role-full-vjp.log
           test -f .lake/build/lib/PNDS/RoleFFNParameterAD.olean
+          test -f .lake/build/lib/PNDS/FloatErrorBudget.olean
           ! grep -q -i 'declaration uses sorry' /tmp/pnds-role-full-vjp.log
       - name: Report actual theorem dependencies
         run: |
           cat >/tmp/role-vjp-axioms.lean <<'EOF'
           import PNDS.RoleFFNParameterAD
+          import PNDS.FloatErrorBudget
           #print axioms PNDS.RoleFFNParameterAD.ffn_parameter_vjp_correct
           #print axioms PNDS.RoleFFNParameterAD.ffn_joint_vjp_correct
+          #print axioms PNDS.FloatErrorBudget.affine_coordinate_error
+          #print axioms PNDS.FloatErrorBudget.full_role_ffn_error
           EOF
           lake env lean /tmp/role-vjp-axioms.lean
