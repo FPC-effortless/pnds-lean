@@ -1,5 +1,6 @@
 import PNDS.RoleSpecializedFFN
-import Mathlib.Data.Real.Sqrt
+import Mathlib
+import Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp
 import Mathlib.Algebra.BigOperators.Group.Finset
 import Mathlib.Tactic.Ring
 import Mathlib.Tactic.Linarith
