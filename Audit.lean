@@ -9,6 +9,7 @@ import PNDS.Causal
 import PNDS.UnifiedTACOSM
 import PNDS.TACOSMVariantContracts
 import PNDS.LatentFusion001
+import PNDS.LatentFusion002
 
 /- Axiom audit. CI fails if any proof in the PNDS tree depends on an admitted
    goal, and prints the axioms of each top-level theorem so that hidden
@@ -94,3 +95,16 @@ import PNDS.LatentFusion001
 #print axioms PNDS.LatentFusion001.delta_full_write
 #print axioms PNDS.LatentFusion001.unaddressed_is_unchanged
 #print axioms PNDS.LatentFusion001.selected_zero_write
+
+
+/-! LATFUSE002 local exact-real operator audits; no IEEE/full neural proof. -/
+#check @PNDS.LatentFusion002.slow_difference
+#check @PNDS.LatentFusion002.slow_identity_at_one
+#check @PNDS.LatentFusion002.slow_no_memory_at_zero
+#check @PNDS.LatentFusion002.deltaErase_zero
+#check @PNDS.LatentFusion002.deltaErase_one
+#check @PNDS.LatentFusion002.belief_zero_preserves_query
+#check @PNDS.LatentFusion002.retained_scalar_count
+#check @PNDS.LatentFusion002.exact_nominal_state_bytes
+#print axioms PNDS.LatentFusion002.slow_difference
+#print axioms PNDS.LatentFusion002.exact_nominal_state_bytes
