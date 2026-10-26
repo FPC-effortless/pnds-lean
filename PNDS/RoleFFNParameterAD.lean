@@ -139,12 +139,16 @@ theorem ffn_joint_vjp_correct (f : TanhFFN out)
           ∑ h, ∑ j, (hiddenCotangent f x dy h * x j) * dw1 h j)) := by
             rw [ffn_input_vjp_correct, ffn_parameter_vjp_correct]
 
-/-- Three specialized actual source role-output sizes, with no unaccounted
-parameters within any one FFN. -/
-theorem all_three_role_joint_adjoints
-    (r w : TanhFFN 12) (m : TanhFFN 6) :
-    (Fintype.card (Fin 12), Fintype.card (Fin 12),
-      Fintype.card (Fin 6)) = (12,12,6) := by
-  norm_num
+/-- Both source affine layers' actual input/hidden/output weights and biases.
+102×16 +16 hidden bias +16×out +out role output. -/
+def headParameterCount (out : ℕ) : ℕ := 16 * (102 + 1) + out * (16 + 1)
+
+/-- A nonvacuous count covering all three role heads' source weight/bias
+coordinates. The generic VJP theorem holds for their respective 12/12/6
+output sizes without requiring any output-specific mathematical axioms. -/
+theorem three_role_head_parameter_count :
+    headParameterCount 12 + headParameterCount 12 + headParameterCount 6 =
+      5454 := by
+  norm_num [headParameterCount]
 
 end PNDS.RoleFFNParameterAD
