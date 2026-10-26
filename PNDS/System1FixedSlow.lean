@@ -20,7 +20,7 @@ namespace PNDS.System1FixedSlow
 def slowUpdate (a prior basis : ℝ) : ℝ :=
   (1-a)*prior+a*basis
 
-def slowRate : ℝ := 1/16
+noncomputable def slowRate : ℝ := 1/16
 
 theorem rate_in_unit_interval : 0 < slowRate ∧ slowRate < 1 := by
   constructor <;> norm_num [slowRate]
