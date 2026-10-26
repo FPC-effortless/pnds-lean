@@ -1,0 +1,45 @@
+name: ME108 Full role joint VJP refinement (Lean)
+on:
+  push:
+    branches:
+      - research/me108-full-vjp-refinement-2026-10-26
+    paths:
+      - 'PNDS/RoleFFNParameterAD.lean'
+      - 'PNDS/FloatErrorBudget.lean'
+      - 'PNDS.lean'
+      - '.github/workflows/me108-full-vjp-refinement.yml'
+  pull_request:
+    paths:
+      - 'PNDS/RoleFFNParameterAD.lean'
+      - 'PNDS/FloatErrorBudget.lean'
+      - 'PNDS.lean'
+      - '.github/workflows/me108-full-vjp-refinement.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  role-full-adjoint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install original exact pinned Lean 4.14
+        run: |
+          curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Resolve pinned Mathlib
+        run: lake update
+      - name: Build actual joint-parameter adjoint theorem
+        run: |
+          set -euo pipefail
+          lake build PNDS.RoleFFNParameterAD 2>&1 | tee /tmp/pnds-role-full-vjp.log
+          test -f .lake/build/lib/PNDS/RoleFFNParameterAD.olean
+          ! grep -q -i 'declaration uses sorry' /tmp/pnds-role-full-vjp.log
+      - name: Report actual theorem dependencies
+        run: |
+          cat >/tmp/role-vjp-axioms.lean <<'EOF'
+          import PNDS.RoleFFNParameterAD
+          #print axioms PNDS.RoleFFNParameterAD.ffn_parameter_vjp_correct
+          #print axioms PNDS.RoleFFNParameterAD.ffn_joint_vjp_correct
+          EOF
+          lake env lean /tmp/role-vjp-axioms.lean
