@@ -92,7 +92,7 @@ theorem output_layer_16_error (f : TanhFFN out)
       ∑ h, |f.output.weight i h| * activationError h := by
   have hb := affine_coordinate_error f.output i (PNDS.RoleFFNParameterAD.hidden f x)
     activationHat outputHat activationError outputKernelError ha ho
-  simpa only [ffnApply, hidden] using hb
+  simpa only [ffnApply, PNDS.RoleFFNParameterAD.hidden] using hb
 
 /-- ME108 full two-layer bounded error composition once the actual tanh
 evaluation/error budget is certified separately by an IEEE backend.
