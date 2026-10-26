@@ -22,6 +22,7 @@ import PNDS.System1VelocityAnchor
 import PNDS.System1GradientStop
 import PNDS.System1ProjectedBudget
 import PNDS.System1FixedSlow
+import PNDS.System1MultiTimescale
 
 /-- The version of the document this formalization targets. -/
 def docVersion : String := "v0.2"
