@@ -1,0 +1,28 @@
+{
+  "study": "ME108",
+  "tac_pr": "https://github.com/FPC-effortless/TAC-OSM/pull/411",
+  "results": "https://github.com/FPC-effortless/TAC-OSM/blob/research/me108-role-trained-2026-10-26/research/mathematical-engineering/me108-role-trained-2026-10-26/RESULTS.md",
+  "model_count": 5,
+  "parameters_each": 102713,
+  "new_updates_each": 4096,
+  "models_frozen_before_report": "5e4b0ad9f056cdfd64ae7f7e5a96c486c959b8ef",
+  "original_scores": "674682f15cb34240f512cd38d10516f243a29bfa",
+  "computed_local_point_contract": {
+    "block_checks": 266240,
+    "max_dot": 0,
+    "status": "PASS"
+  },
+  "complete_predictive_gate": {
+    "seed_passes": 0,
+    "status": "FAIL",
+    "gap_point_passes": 0
+  },
+  "relative_changes_vs_unmatched_parent_means": {
+    "ordinary_pm_mae_percent": -5.481717349703608,
+    "gap_pm_mae_percent": 9.614697982015464,
+    "gap_pm_interval_score_percent": -36.366687934950406
+  },
+  "source_math_status": "Limited exact-real contract and numerical checks do not imply finite-step, population, calibration or complete neural/IEEE guarantees.",
+  "protected_test_scored": false,
+  "models_promoted": false
+}
