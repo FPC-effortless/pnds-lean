@@ -84,13 +84,13 @@ theorem output_layer_16_error (f : TanhFFN out)
     (outputHat : ℝ)
     (activationError : Fin 16 → ℝ) (outputKernelError : ℝ)
     (ha : ∀ h,
-      |activationHat h - hidden f x h| ≤ activationError h)
+      |activationHat h - PNDS.RoleFFNParameterAD.hidden f x h| ≤ activationError h)
     (ho : |outputHat -
       (f.output.bias i + ∑ h, f.output.weight i h * activationHat h)| ≤
         outputKernelError) :
     |outputHat - ffnApply f x i| ≤ outputKernelError +
       ∑ h, |f.output.weight i h| * activationError h := by
-  have hb := affine_coordinate_error f.output i (hidden f x)
+  have hb := affine_coordinate_error f.output i (PNDS.RoleFFNParameterAD.hidden f x)
     activationHat outputHat activationError outputKernelError ha ho
   simpa only [ffnApply, hidden] using hb
 
@@ -108,7 +108,7 @@ theorem full_role_ffn_error (f : TanhFFN out)
       (f.hidden.bias h + ∑ j, f.hidden.weight h j * xHat j)| ≤ firstError h)
     (hactivationEval : ∀ h, |activationHat h - Real.tanh (preHat h)| ≤
       activationError h)
-    (hLipschitz : ∀ h, |Real.tanh (preHat h) - hidden f x h| ≤
+    (hLipschitz : ∀ h, |Real.tanh (preHat h) - PNDS.RoleFFNParameterAD.hidden f x h| ≤
       |preHat h - linearApply f.hidden x h|)
     (hout : |outputHat -
       (f.output.bias i + ∑ h, f.output.weight i h * activationHat h)| ≤
@@ -117,19 +117,19 @@ theorem full_role_ffn_error (f : TanhFFN out)
       ∑ h, |f.output.weight i h| *
         (activationError h + firstError h +
           ∑ j, |f.hidden.weight h j| * inputError j) := by
-  have ha : ∀ h, |activationHat h - hidden f x h| ≤
+  have ha : ∀ h, |activationHat h - PNDS.RoleFFNParameterAD.hidden f x h| ≤
       activationError h + firstError h +
         ∑ j, |f.hidden.weight h j| * inputError j := by
     intro h
     have hpre := first_layer_102_error f h x xHat (preHat h)
       inputError (firstError h) hx (hfirst h)
     have hsum :
-        activationHat h - hidden f x h =
+        activationHat h - PNDS.RoleFFNParameterAD.hidden f x h =
           (activationHat h - Real.tanh (preHat h)) +
-          (Real.tanh (preHat h) - hidden f x h) := by ring
+          (Real.tanh (preHat h) - PNDS.RoleFFNParameterAD.hidden f x h) := by ring
     rw [hsum]
     have ht := abs_add_le (activationHat h - Real.tanh (preHat h))
-      (Real.tanh (preHat h) - hidden f x h)
+      (Real.tanh (preHat h) - PNDS.RoleFFNParameterAD.hidden f x h)
     linarith [hactivationEval h, hLipschitz h]
   exact output_layer_16_error f i x activationHat outputHat
     (fun h => activationError h + firstError h +
