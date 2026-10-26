@@ -33,10 +33,12 @@ jobs:
       - name: Build actual joint-parameter adjoint theorem
         run: |
           set -euo pipefail
-          lake build PNDS.RoleFFNParameterAD PNDS.FloatErrorBudget PNDS.CensoredCDFRefinement 2>&1 | tee /tmp/pnds-role-full-vjp.log
+          lake build PNDS.RoleFFNParameterAD PNDS.FloatErrorBudget PNDS.CensoredCDFRefinement PNDS Audit 2>&1 | tee /tmp/pnds-role-full-vjp.log
           test -f .lake/build/lib/PNDS/RoleFFNParameterAD.olean
           test -f .lake/build/lib/PNDS/FloatErrorBudget.olean
           test -f .lake/build/lib/PNDS/CensoredCDFRefinement.olean
+          test -f .lake/build/lib/PNDS.olean
+          test -f .lake/build/lib/Audit.olean
           ! grep -q -i 'declaration uses sorry' /tmp/pnds-role-full-vjp.log
       - name: Report actual theorem dependencies
         run: |
