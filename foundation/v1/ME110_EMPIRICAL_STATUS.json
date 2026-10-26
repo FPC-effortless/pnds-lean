@@ -1,0 +1,95 @@
+{
+  "tac_original_source": "449a3677998e81c647d518df1ef25a2b0e112b36",
+  "tac_model_freeze": "63895213d6c6ea0f003e9d8a1de984151debfce0",
+  "tac_scores_freeze": "c8e25ccb717ac2abc3307aea8f09a74fe9509f8b",
+  "tac_pr": "https://github.com/FPC-effortless/TAC-OSM/pull/431",
+  "models": 5,
+  "parameters": 104663,
+  "updates": 20480,
+  "status": "POINT_GAINS_COMPLETE_QUALIFICATION_FAIL",
+  "full_gate_seeds": 0,
+  "gate_counts": {
+    "coverage": 4,
+    "gap_point": 4,
+    "daily_point": 5,
+    "gap_nll": 5,
+    "interval_score": 0
+  },
+  "means": {
+    "gap": {
+      "pm_mae": 34.815925979614256,
+      "raw_density_nll": 5.075790977590889,
+      "coverage_by_channel": [
+        0.9664335664335664,
+        0.8867132867132866,
+        0.8368794326241135,
+        0.7507246376811594,
+        0.8214285714285715,
+        0.9085714285714286
+      ],
+      "mae_by_channel": [
+        34.815925979614256,
+        48.43765029907227,
+        6.449710369110107,
+        16.70855579376221,
+        396.7579711914062,
+        25.77032814025879
+      ],
+      "interval_width_by_channel": [
+        396.6496215820313,
+        381.4663330078125,
+        34.316168212890624,
+        86.95024871826172,
+        1961.95400390625,
+        260.3297058105469
+      ],
+      "interval_score_by_channel": [
+        401.85040283203125,
+        466.2338623046875,
+        46.66166763305664,
+        120.45171356201172,
+        3156.96376953125,
+        289.3167724609375
+      ]
+    },
+    "general": {
+      "pm_mae": 30.972969818115235,
+      "raw_density_nll": 4.865349344394825,
+      "coverage_by_channel": [
+        0.8852611940298507,
+        0.9155192532088682,
+        0.9237672353353586,
+        0.9114037150246885,
+        0.8903346594898197,
+        0.8696629213483146
+      ],
+      "mae_by_channel": [
+        30.972969818115235,
+        39.6662712097168,
+        5.853309059143067,
+        14.907457733154297,
+        390.1841979980469,
+        25.325254821777342
+      ],
+      "interval_width_by_channel": [
+        128.96082153320313,
+        177.4106689453125,
+        31.287637329101564,
+        65.75941390991211,
+        1558.9531005859376,
+        111.01289672851563
+      ],
+      "interval_score_by_channel": [
+        174.8968536376953,
+        240.81544189453126,
+        35.76437911987305,
+        82.31571807861329,
+        2658.114501953125,
+        143.81988220214845
+      ]
+    }
+  },
+  "limited_proof_scope": "Routing masks/conditional decoder congruence; no complete neural/AD/IEEE/calibration proof",
+  "protected_scored": false,
+  "independent_qualification": false
+}

@@ -1,0 +1,73 @@
+name: ME110 typed role source and Lean contract
+
+on:
+  pull_request:
+    branches: [research/inward-role-guard-2026-10-26]
+    paths:
+      - 'PNDS/TypedRoleTraining.lean'
+      - 'foundation/v1/typed_role_training_reference.py'
+      - 'foundation/v1/ME110_TYPED_ROLE_TRAINING.md'
+      - 'tests/test_typed_role_training_source.py'
+      - '.github/workflows/me110-typed-role-source.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-parity-and-lean:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: FPC-effortless/TAC-OSM
+          ref: 449a3677998e81c647d518df1ef25a2b0e112b36
+          path: tac-source
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Install pinned source parity dependencies
+        run: |
+          python -m pip install torch==2.14.1+cpu --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install pytest numpy==2.3.5
+      - name: Compare all source masks and routed gradients
+        env:
+          ME110_TAC_SOURCE: tac-source
+          PYTHONPATH: tac-source/src:.
+        run: python -m pytest -q tests/test_typed_role_training_source.py
+      - name: Install elan
+        run: |
+          curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Install pinned Lean toolchain with transient download retries
+        run: |
+          for attempt in 1 2 3 4 5; do
+            elan toolchain install leanprover/lean4:v4.14.0 && exit 0
+            echo "Lean toolchain download attempt ${attempt} failed; retrying"
+            sleep 10
+          done
+          exit 1
+      - name: Resolve pinned Lean dependencies
+        run: lake update
+      - uses: leanprover/lean-action@v1
+        with:
+          use-mathlib-cache: true
+      - name: Build the ME110 Lean module
+        run: lake build PNDS.TypedRoleTraining
+      - name: Audit theorem axioms
+        run: |
+          cat > TypedRoleTrainingAudit.lean <<'EOF'
+          import PNDS.TypedRoleTraining
+          #print axioms PNDS.TypedRoleTraining.point_masked_coordinate
+          #print axioms PNDS.TypedRoleTraining.uncertainty_masked_coordinate
+          #print axioms PNDS.TypedRoleTraining.masks_disjoint
+          #print axioms PNDS.TypedRoleTraining.masks_sum_to_one
+          #print axioms PNDS.TypedRoleTraining.decoder_congruent_under_uncertainty_update
+          EOF
+          lake env lean TypedRoleTrainingAudit.lean 2>&1 | tee typed-role-axioms.log
+          if grep -q 'sorryAx' typed-role-axioms.log; then
+            echo 'Unexpected sorryAx dependency in ME110 theorem audit' >&2
+            exit 1
+          fi
