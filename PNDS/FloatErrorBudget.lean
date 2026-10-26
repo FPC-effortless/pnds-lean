@@ -106,9 +106,10 @@ theorem full_role_ffn_error (f : TanhFFN out)
     (hx : ∀ j, |xHat j - x j| ≤ inputError j)
     (hfirst : ∀ h, |preHat h -
       (f.hidden.bias h + ∑ j, f.hidden.weight h j * xHat j)| ≤ firstError h)
-    (hactivation : ∀ h, |activationHat h - hidden f x h| ≤
-      activationError h + firstError h +
-        ∑ j, |f.hidden.weight h j| * inputError j)
+    (hactivationEval : ∀ h, |activationHat h - Real.tanh (preHat h)| ≤
+      activationError h)
+    (hLipschitz : ∀ h, |Real.tanh (preHat h) - hidden f x h| ≤
+      |preHat h - linearApply f.hidden x h|)
     (hout : |outputHat -
       (f.output.bias i + ∑ h, f.output.weight i h * activationHat h)| ≤
         outputError) :
@@ -116,9 +117,23 @@ theorem full_role_ffn_error (f : TanhFFN out)
       ∑ h, |f.output.weight i h| *
         (activationError h + firstError h +
           ∑ j, |f.hidden.weight h j| * inputError j) := by
+  have ha : ∀ h, |activationHat h - hidden f x h| ≤
+      activationError h + firstError h +
+        ∑ j, |f.hidden.weight h j| * inputError j := by
+    intro h
+    have hpre := first_layer_102_error f h x xHat (preHat h)
+      inputError (firstError h) hx (hfirst h)
+    have hsum :
+        activationHat h - hidden f x h =
+          (activationHat h - Real.tanh (preHat h)) +
+          (Real.tanh (preHat h) - hidden f x h) := by ring
+    rw [hsum]
+    have ht := abs_add_le (activationHat h - Real.tanh (preHat h))
+      (Real.tanh (preHat h) - hidden f x h)
+    linarith [hactivationEval h, hLipschitz h]
   exact output_layer_16_error f i x activationHat outputHat
     (fun h => activationError h + firstError h +
       ∑ j, |f.hidden.weight h j| * inputError j)
-    outputError hactivation hout
+    outputError ha hout
 
 end PNDS.FloatErrorBudget
