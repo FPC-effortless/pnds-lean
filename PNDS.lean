@@ -19,6 +19,9 @@ import PNDS.RetentionBudget
 import PNDS.ConstraintAdapter
 import PNDS.NeuralRefinement
 import PNDS.CensoredMeasureRefinement
+import PNDS.RoleFFNParameterAD
+import PNDS.FloatErrorBudget
+import PNDS.CensoredCDFRefinement
 
 /-- The version of the document this formalization targets. -/
 def docVersion : String := "v0.2"
