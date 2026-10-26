@@ -40,7 +40,8 @@ noncomputable def physicalDraw (p : Parameters) (f : Forecast) (c : Fin 6)
 theorem splitAffine_measurable (f : Forecast) (c : Fin 6) :
     Measurable (splitAffine f c) := by
   unfold splitAffine
-  fun_prop
+  exact Measurable.ite (measurableSet_lt measurable_id measurable_const)
+    (by fun_prop) (by fun_prop)
 
 theorem censorRaw_measurable (p : Parameters) (c : Fin 6) :
     Measurable (fun z : ℝ => censorRaw p z c) := by
