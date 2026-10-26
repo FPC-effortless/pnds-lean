@@ -89,3 +89,9 @@ operators, full distribution normalization, legal whole-model parallelism and
 matched-compute empirical comparisons are inherited/open obligations. Channel
 and batch scalar equations are independent; no new legal time parallelism is
 asserted. Neither an algebra theorem nor synthetic parity upgrades capabilities.
+
+## Executed source/math and empirical status (2026-10-26)
+
+The initial missing-noncomputable real-role definition failed CI; corrected in72461c77a5f8197af08d0ac58404aefa61c7920c. Source-pinned dedicated run40415435779 passed all11Python/source tests, both Lean builds and seven actual-real axiom checks before any new training. Generic Lean40415435880alsoPASS. Local mathlib cache remains unavailable; actual-real checking was performed in GitHub Actions, not inferred from standalone assumptions.
+
+TACdraftPR442 completed five original104663parameter ME111models and7680newupdates. All15originaltrainedstagecheckpoints were frozen26ccea9before REPORT. Original exposed2015results823a60b show gapPMintervalscore401.8504to196.6336, but coverage96.6434to86.4336percent. Full legacy and all-channel joint gates bothFAIL0/5. Posthoc exposedFIT current reconstruction improves3.5573percent; not independent or causally attributed. No more ME111fits, protecteddata access, modelpromotion or controlutility claim. SeeME111_EMPIRICAL_STATUS.json and TACoriginals. Full-neural/AD/IEEE/statisticalcalibration proofs remainOPEN.

@@ -1,0 +1,26 @@
+{
+  "tac_source": "0e712a798ce943b9f25c306bec1250e0b1e29031",
+  "tac_original_fits": "26ccea9fe5cb73ebd940e1bc07d277e017ec17db",
+  "tac_original_scores": "823a60b07eaaff46931e88750e34407c4434c176",
+  "models": 5,
+  "active_parameters_each": 104663,
+  "new_optimizer_updates": 7680,
+  "conditional_update_certificates": 99840,
+  "fallbacks": 0,
+  "gap_PM_intervalscore": {
+    "parent": 401.85040283203125,
+    "candidate": 196.63359375
+  },
+  "gap_PM_coverage": {
+    "parent": 0.9664335664335664,
+    "candidate": 0.8643356643356643
+  },
+  "full_legacy_gate": "FAIL0_OF5",
+  "full_joint_gate": "FAIL0_OF5",
+  "lean_python_ci": {
+    "run": 40415435779,
+    "status": "PASS",
+    "commit": "72461c77a5f8197af08d0ac58404aefa61c7920c"
+  },
+  "scope": "Real exposed2015development; no independent qualification, external control or fullneuralIEEE proof;2016-2017numericalclosed"
+}
