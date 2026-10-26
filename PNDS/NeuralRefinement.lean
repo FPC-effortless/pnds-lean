@@ -67,6 +67,29 @@ theorem linear_parameter_vjp_correct (x : Fin inp → ℝ)
   intro j _
   ring
 
+/-- Exact-real scalar derivative used by all 3 ME108 tanh FFN hidden layers.
+This discharges the local activation derivative rather than merely supplying
+it as an unverified heuristic. IEEE torch.tanh remains a separate problem. -/
+theorem tanh_derivative_real (x : ℝ) :
+    HasDerivAt Real.tanh (1 - (Real.tanh x)^2) x := by
+  have hc : Real.cosh x ≠ 0 := ne_of_gt (Real.cosh_pos x)
+  have hd : HasDerivAt (fun y : ℝ => Real.sinh y / Real.cosh y)
+      ((Real.cosh x * Real.cosh x - Real.sinh x * Real.sinh x) /
+        (Real.cosh x)^2) x :=
+    (Real.hasDerivAt_sinh x).div (Real.hasDerivAt_cosh x) hc
+  have hf : (fun y : ℝ => Real.sinh y / Real.cosh y) = Real.tanh := by
+    funext y
+    exact (Real.tanh_eq_sinh_div_cosh y).symm
+  rw [hf] at hd
+  have hvalue :
+      (Real.cosh x * Real.cosh x - Real.sinh x * Real.sinh x) /
+        (Real.cosh x)^2 = 1 - (Real.tanh x)^2 := by
+    rw [Real.tanh_eq_sinh_div_cosh]
+    field_simp [hc]
+    ring
+  rw [← hvalue]
+  exact hd
+
 /-- JVP of the complete source-shaped two-layer FFN in its feature input.
 The supplied diagonal D is intended to be 1 - tanh(hidden)^2 at that input.
 Proving the transcendental tanh derivative and the source implementation's
@@ -132,7 +155,7 @@ theorem two_stage_affine_roundoff
     (hx : |xhat - x| ≤ epsInput)
     (hm : |productHat - a * xhat| ≤ epsMul)
     (ha : |sumHat - (productHat + b)| ≤ epsAdd)
-    (he0 : 0 ≤ epsInput) (hm0 : 0 ≤ epsMul) (ha0 : 0 ≤ epsAdd) :
+    (_he0 : 0 ≤ epsInput) (_hm0 : 0 ≤ epsMul) (_ha0 : 0 ≤ epsAdd) :
     |sumHat - (a * x + b)| ≤ epsAdd + epsMul + |a| * epsInput := by
   have hid : sumHat - (a * x + b) =
       (sumHat - (productHat + b)) +
