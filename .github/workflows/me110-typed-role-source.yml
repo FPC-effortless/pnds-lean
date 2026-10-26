@@ -41,6 +41,14 @@ jobs:
         run: |
           curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
           echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Install pinned Lean toolchain with transient download retries
+        run: |
+          for attempt in 1 2 3 4 5; do
+            elan toolchain install leanprover/lean4:v4.14.0 && exit 0
+            echo "Lean toolchain download attempt ${attempt} failed; retrying"
+            sleep 10
+          done
+          exit 1
       - name: Resolve pinned Lean dependencies
         run: lake update
       - uses: leanprover/lean-action@v1
