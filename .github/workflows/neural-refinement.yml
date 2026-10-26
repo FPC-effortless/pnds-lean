@@ -43,6 +43,7 @@ jobs:
           #print axioms PNDS.NeuralRefinement.linear_input_vjp_correct
           #print axioms PNDS.NeuralRefinement.linear_parameter_vjp_correct
           #print axioms PNDS.NeuralRefinement.ffn_input_vjp_correct
+          #print axioms PNDS.NeuralRefinement.tanh_derivative_real
           #print axioms PNDS.NeuralRefinement.two_stage_affine_roundoff
           #print axioms PNDS.NeuralRefinement.split_cdf_at_location
           #print axioms PNDS.CensoredMeasureRefinement.rawLaw_total_mass
