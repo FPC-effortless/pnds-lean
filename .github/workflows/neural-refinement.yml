@@ -1,0 +1,52 @@
+name: ME108 Neural AD and probability boundary proof
+on:
+  push:
+    branches:
+      - research/neural-refinement-2026-10-26
+    paths:
+      - 'PNDS/NeuralRefinement.lean'
+      - 'PNDS/CensoredMeasureRefinement.lean'
+      - '.github/workflows/neural-refinement.yml'
+  pull_request:
+    paths:
+      - 'PNDS/NeuralRefinement.lean'
+      - 'PNDS/CensoredMeasureRefinement.lean'
+      - '.github/workflows/neural-refinement.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exact-real-boundary:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Lean 4 / mathlib toolchain
+        run: |
+          set -e
+          curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Resolve pinned mathlib v4.14
+        run: lake update
+      - name: Prove role-gradient/roundoff/probability boundary theorems
+        run: |
+          set -euo pipefail
+          lake build PNDS.NeuralRefinement PNDS.CensoredMeasureRefinement 2>&1 | tee neural-refinement.log
+          test -f .lake/build/lib/PNDS/NeuralRefinement.olean
+          test -f .lake/build/lib/PNDS/CensoredMeasureRefinement.olean
+          ! grep -q -i 'declaration uses sorry' neural-refinement.log
+      - name: Print real proof dependencies
+        run: |
+          cat >/tmp/neural-refinement-axioms.lean <<'EOF'
+          import PNDS.NeuralRefinement
+          import PNDS.CensoredMeasureRefinement
+          #print axioms PNDS.NeuralRefinement.linear_input_vjp_correct
+          #print axioms PNDS.NeuralRefinement.linear_parameter_vjp_correct
+          #print axioms PNDS.NeuralRefinement.ffn_input_vjp_correct
+          #print axioms PNDS.NeuralRefinement.tanh_derivative_real
+          #print axioms PNDS.NeuralRefinement.two_stage_affine_roundoff
+          #print axioms PNDS.NeuralRefinement.split_cdf_at_location
+          #print axioms PNDS.CensoredMeasureRefinement.rawLaw_total_mass
+          #print axioms PNDS.CensoredMeasureRefinement.rawLaw_no_negative_mass
+          EOF
+          lake env lean /tmp/neural-refinement-axioms.lean
