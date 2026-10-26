@@ -86,7 +86,7 @@ theorem tanh_derivative_real (x : ℝ) :
         (Real.cosh x)^2 = 1 - (Real.tanh x)^2 := by
     rw [Real.tanh_eq_sinh_div_cosh]
     field_simp [hc]
-    ring
+    exact Real.cosh_sq_sub_sinh_sq x
   rw [← hvalue]
   exact hd
 
