@@ -68,3 +68,6 @@ import PNDS.LanguageLayerNormAD
 
 #print axioms PNDS.LanguageLayerNormAD.normalized_feature_hasDerivAt
 #print axioms PNDS.LanguageLayerNormAD.mean248_hasDerivAt
+
+#print axioms PNDS.LanguageLayerNormAD.variance248_hasDerivAt
+#print axioms PNDS.LanguageLayerNormAD.norm248_coordinate_hasDerivAt
