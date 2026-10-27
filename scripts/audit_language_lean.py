@@ -14,7 +14,7 @@ ALLOWED = frozenset({"propext", "Quot.sound", "Classical.choice"})
 EXPECTED_RE = re.compile(r"(?m)^#print axioms ([A-Za-z0-9_.]+)\s*$")
 RECORD_RE = re.compile(
     r"(?m)^'([A-Za-z0-9_.]+)' "
-    r"(?:depends on axioms: \[([^\]\r\n]*)\]|does not depend on any axioms)\s*$"
+    r"(?:depends on axioms: \[([A-Za-z0-9_., \t\r\n]*)\]|does not depend on any axioms)[ \t]*$"
 )
 
 def verify_audit(audit_source: str, lean_stdout: str, expected_count: int) -> dict:
