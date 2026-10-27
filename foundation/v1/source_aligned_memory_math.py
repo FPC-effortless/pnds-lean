@@ -67,3 +67,49 @@ class OwnerTimeline:
             requested_owner!=self.owner or ordinal<0 or ordinal>self.last):
             raise ValueError("historical source query unauthorized")
         return True
+
+
+def affine_parameters(key, value, alpha, beta, admit):
+    """Rectangular value-by-key memory: P[K,K], Q[V,K].
+
+    Arithmetic stays generic: Fraction inputs yield exact rational outputs.
+    No key normalization or floating cast is inserted by this reference.
+    """
+    k = len(key)
+    if not admit:
+        return (tuple(tuple(int(i==j) for j in range(k)) for i in range(k)),
+                tuple(tuple(0 for _ in range(k)) for _ in value))
+    return (tuple(tuple(alpha*(int(i==j)-beta*key[i]*key[j])
+                        for j in range(k)) for i in range(k)),
+            tuple(tuple(beta*v*key[j] for j in range(k)) for v in value))
+
+
+def matmul(a, b):
+    return tuple(tuple(sum(x*y for x,y in zip(row,col)) for col in zip(*b))
+                 for row in a)
+
+
+def matadd(a, b):
+    return tuple(tuple(x+y for x,y in zip(ar,br)) for ar,br in zip(a,b))
+
+
+def compose(first, second):
+    """Chronological first THEN second. Order must not be exchanged."""
+    pa,qa = first
+    pb,qb = second
+    return matmul(pa,pb),matadd(matmul(qa,pb),qb)
+
+
+def apply_affine(pair, memory):
+    p,q = pair
+    return matadd(matmul(memory,p),q)
+
+
+def tree_reduce(schedule):
+    """Balanced contiguous reduction, including odd lengths, nonempty input."""
+    if not schedule:
+        raise ValueError("nonempty schedule required")
+    if len(schedule)==1:
+        return schedule[0]
+    middle=len(schedule)//2
+    return compose(tree_reduce(schedule[:middle]),tree_reduce(schedule[middle:]))

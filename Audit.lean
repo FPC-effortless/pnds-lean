@@ -20,6 +20,11 @@ import PNDS.ConstraintAdapter
 import PNDS.ParallelResidualHead
 import PNDS.ParallelTimeAge
 import PNDS.SourceAlignedMemory
+import PNDS.SourceAlignedVerification
+import PNDS.SourceAlignedModel
+import PNDS.SourceAlignedDifferentiation
+import PNDS.SourceAlignedRoundoff
+import PNDS.SourceAlignedPrograms
 
 /- Axiom audit. CI fails if any proof in the PNDS tree depends on an admitted
    goal, and prints the axioms of each top-level theorem so that hidden
@@ -262,3 +267,21 @@ import PNDS.SourceAlignedMemory
 #print axioms PNDS.SourceAlignedMemory.admitted_write_is_corrective
 #print axioms PNDS.SourceAlignedMemory.historical_query_does_not_write
 #print axioms PNDS.SourceAlignedMemory.no_source_admission_preserves_all_heads
+
+/-! Complete default graph specification and expanded exact memory laws. -/
+#check @PNDS.SourceAlignedModel.step
+#print axioms PNDS.SourceAlignedVerification.four_block_write_correspondence
+#print axioms PNDS.SourceAlignedVerification.ordered_tree_matches_stream
+#print axioms PNDS.SourceAlignedVerification.homogeneous_nonexpansive
+#print axioms PNDS.SourceAlignedModel.normalized_key_energy
+#print axioms PNDS.SourceAlignedModel.historicalQuery_periodic
+#print axioms PNDS.SourceAlignedModel.causal_prefix
+#print axioms PNDS.SourceAlignedScan.blelloch_all_prefixes
+#print axioms PNDS.SourceAlignedExecution.full_model_state_after_scan
+#print axioms PNDS.SourceAlignedExecution.full_prediction_after_scan
+#print axioms PNDS.SourceAlignedDifferentiation.forward_ad_correct
+#print axioms PNDS.SourceAlignedDifferentiation.corrective_write_jvp
+#print axioms PNDS.SourceAlignedDifferentiation.full_model_derivative_preserved
+#print axioms PNDS.SourceAlignedRoundoff.rounded_sum_error
+#print axioms PNDS.SourceAlignedPrograms.complete_graph_compiler_correct
+#print axioms PNDS.SourceAlignedPrograms.complete_graph_ad_correct

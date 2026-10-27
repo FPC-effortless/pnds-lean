@@ -1,4 +1,6 @@
-import Mathlib
+import Mathlib.Data.Real.Basic
+import Mathlib.Algebra.BigOperators.Group.Finset
+import Mathlib.Tactic.Linarith
 
 /-!
 PAR-MEM-010: source-identity-aligned **operator-level** TAC memory.

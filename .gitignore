@@ -3,3 +3,4 @@
 *.olean
 *.trace
 *.log
+__pycache__/

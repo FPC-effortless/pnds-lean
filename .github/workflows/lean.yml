@@ -16,15 +16,20 @@ jobs:
         run: |
           python3 scripts/validate_foundation.py --strict
           python3 scripts/validate_variant_math.py
+          python3 scripts/validate_parmem010_math.py
+          python3 -m unittest discover -s tests -p 'test_parmem010_contract.py' -v
           python3 -m unittest discover -s tests -p 'test_parallel_residual_head_math.py' -v
           python3 -m unittest discover -s tests -p 'test_parallel_time_age_math.py' -v
           python3 -m unittest discover -s tests -p 'test_source_aligned_memory_math.py' -v
+          python3 -m unittest discover -s tests -p 'test_source_aligned_verification_math.py' -v
+          python3 -m unittest discover -s tests -p 'test_source_aligned_execution_math.py' -v
+          python3 -m unittest discover -s tests -p 'test_source_aligned_program_math.py' -v
           python3 -m unittest discover -s tests -p 'test_native_memory_math.py' -v
           python3 -m unittest discover -s tests -p 'test_planar_constraint_math.py' -v
           python3 scripts/validate_dual_mode_math_link.py
           python3 scripts/validate_engineering_coverage.py
           python3 -m unittest discover -s tests -p 'test_engineering_coverage.py' -v
-          python3 scripts/check_reciprocal_links.py
+          python3 scripts/check_reciprocal_links.py --peer-ref 6dc7858b5049ad6c9e1fe32ea63409133036c320
           python3 -m unittest discover -s tests -p 'test_foundation.py' -v
           python3 -m unittest discover -s tests -p 'test_variant_math.py' -v
 
@@ -60,7 +65,7 @@ jobs:
           # Counting .olean files is not sufficient: a single successfully-built
           # module (e.g. PNDS.Causal) already produces one, so a tree with five
           # broken modules passed this check. Require every root to be present.
-          for root in PNDS/SourceAlignedMemory PNDS/ParallelTimeAge PNDS/ParallelResidualHead PNDS/RetentionBudget PNDS/JointAffineTAC PNDS/TimescaleEvidence PNDS/EntityAdmission PNDS/DualModeMemory PNDS/ParallelMemory PNDS/NativeInvariant PNDS/ConstraintAdapter PNDS/NativeMemory PNDS/TACOSMVariantContracts PNDS/UnifiedTACOSM PNDS/Causal PNDS/PathVerification PNDS/Registration \
+          for root in PNDS/SourceAlignedPrograms PNDS/SourceAlignedScan PNDS/SourceAlignedExecution PNDS/SourceAlignedDifferentiation PNDS/SourceAlignedRoundoff PNDS/SourceAlignedModel PNDS/SourceAlignedVerification PNDS/SourceAlignedMemory PNDS/ParallelTimeAge PNDS/ParallelResidualHead PNDS/RetentionBudget PNDS/JointAffineTAC PNDS/TimescaleEvidence PNDS/EntityAdmission PNDS/DualModeMemory PNDS/ParallelMemory PNDS/NativeInvariant PNDS/ConstraintAdapter PNDS/NativeMemory PNDS/TACOSMVariantContracts PNDS/UnifiedTACOSM PNDS/Causal PNDS/PathVerification PNDS/Registration \
                       PNDS/Scaling PNDS/Statistics PNDS/Softmax Audit; do
             if [ ! -f ".lake/build/lib/${root}.olean" ]; then
               echo "::error::Missing .olean for ${root}; that module did not compile"
@@ -82,3 +87,13 @@ jobs:
       - name: Print axioms
         run: |
           lake env lean PNDS.lean 2>&1 | grep -E "axioms|sorry" || true
+
+      - name: Fail closed on missing PAR-MEM-010 theorems or unexpected axioms
+        run: python3 scripts/audit_source_aligned.py --output /tmp/parmem010-lean-audit.json
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: parmem010-lean-proof-audit
+          path: |
+            /tmp/parmem010-lean-audit.json
+            build.log
