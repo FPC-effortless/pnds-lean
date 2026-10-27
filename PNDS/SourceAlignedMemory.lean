@@ -85,7 +85,7 @@ theorem admitted_write_is_corrective
 
 /-- Historical read operations return values but no modified state. -/
 def readonlyHistoricalQuery (memory : SourceMatrix)
-    (key : Address) (head row : Fin 2) (valueRow : Fin 16) : ℝ × SourceMatrix :=
+    (key : Address) (head : Fin 2) (valueRow : Fin 16) : ℝ × SourceMatrix :=
   (rowRead (memory head valueRow) key, memory)
 
 theorem historical_query_does_not_write (memory : SourceMatrix)
