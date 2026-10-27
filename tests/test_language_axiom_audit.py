@@ -19,6 +19,15 @@ class LanguageAxiomAuditTests(unittest.TestCase):
         self.assertEqual(a["checked_theorems"],2)
         self.assertEqual(a["zero_axiom_theorems"],1)
 
+    def test_long_lean_declaration_multiline_axiom_list(self):
+        wrapped=GOOD.replace(
+            "[propext, Classical.choice, Quot.sound]",
+            "[propext,\n Classical.choice,\n Quot.sound]")
+        self.assertEqual(verify_audit(SOURCE,wrapped,2)["checked_theorems"],2)
+        injected=wrapped.replace("Quot.sound]", "Quot.sound,\n Dangerous.unproven]")
+        with self.assertRaisesRegex(ValueError,"unexpected axioms"):
+            verify_audit(SOURCE,injected,2)
+
     def test_unknown_axiom_not_hidden_by_standard_axiom(self):
         bad=GOOD.replace("Quot.sound]", "Quot.sound, UserDefined.unsafe]")
         with self.assertRaisesRegex(ValueError,"unexpected axioms"):
