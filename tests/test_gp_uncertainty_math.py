@@ -38,5 +38,24 @@ class GPScalarMath(unittest.TestCase):
             gp.precision_increment(1, 2, -1)
 
 
+    def test_scalar_rankone_agrees_with_fraction_and_is_bounded(self):
+        rng = random.Random(20261028)
+        for _ in range(256):
+            old = rng.uniform(0., 20.)
+            feature = rng.uniform(-5., 5.)
+            noise = rng.uniform(.05, 10.)
+            actual = gp.scalar_rankone_variance(old, feature, noise)
+            expected = old*noise/(noise+old*feature*feature)
+            self.assertAlmostEqual(actual, expected, delta=1e-11)
+            self.assertGreaterEqual(actual, 0.)
+            self.assertLessEqual(actual, old + 1e-12)
+
+    def test_rankone_rejects_invalid_premises(self):
+        for values in ((-1., 1., 1.), (1., 1., 0.),
+                       (1., float('inf'), 1.)):
+            with self.subTest(values=values), self.assertRaises(ValueError):
+                gp.scalar_rankone_variance(*values)
+
+
 if __name__ == "__main__":
     unittest.main()
