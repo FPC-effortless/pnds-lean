@@ -37,22 +37,22 @@ the exact weighted JVP/backward scalar derivative. -/
 theorem paired_objective_hasDerivAt
     (main h64 h96 : ℝ → ℝ) (dm d64 d96 t : ℝ)
     (hm : HasDerivAt main dm t)
-    (h64 : HasDerivAt h64 d64 t)
-    (h96 : HasDerivAt h96 d96 t) :
+    (hh64 : HasDerivAt h64 d64 t)
+    (hh96 : HasDerivAt h96 d96 t) :
     HasDerivAt (fun z => pairedTotal (main z) (h64 z) (h96 z))
       (dm + (3/20 : ℝ) * d64 + (3/20 : ℝ) * d96) t := by
-  convert ((hm.add (h64.const_mul (3/20 : ℝ))).add
-    (h96.const_mul (3/20 : ℝ))) using 1
-  · rfl
-  · ring
+  convert ((hm.add (hh64.const_mul (3/20 : ℝ))).add
+    (hh96.const_mul (3/20 : ℝ))) using 1 <;> ring
 
 /-- The new objective is a nonnegative weighted sum if all source losses
 are nonnegative. This is NOT a guarantee it will optimize well. -/
 theorem paired_objective_nonnegative (main h64 h96 : ℝ)
-    (hm : 0 ≤ main) (h64 : 0 ≤ h64) (h96 : 0 ≤ h96) :
+    (hm : 0 ≤ main) (hh64 : 0 ≤ h64) (hh96 : 0 ≤ h96) :
     0 ≤ pairedTotal main h64 h96 := by
   unfold pairedTotal
-  positivity
+  have hfirst : 0 ≤ (3/20 : ℝ) * h64 := mul_nonneg (by norm_num) hh64
+  have hsecond : 0 ≤ (3/20 : ℝ) * h96 := mul_nonneg (by norm_num) hh96
+  linarith
 
 /-- Both query lags are positive, so queried source ordinal t-lag is
 strictly earlier than current t whenever the query is valid. No
