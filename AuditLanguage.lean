@@ -9,6 +9,7 @@ import PNDS.LanguageTensorFP
 import PNDS.LanguageKeySensitivity
 import PNDS.LanguageRepairCandidates
 import PNDS.LanguageSelectiveRetrieval
+import PNDS.LanguageMultiLagObjective
 
 #print axioms PNDS.LanguageCategorical.Z_pos
 #print axioms PNDS.LanguageCategorical.probability_pos
@@ -100,3 +101,9 @@ import PNDS.LanguageSelectiveRetrieval
 #print axioms PNDS.LanguageSelectiveRetrieval.fallback_normalization
 #print axioms PNDS.LanguageSelectiveRetrieval.convex_history_baseline_floor
 #print axioms PNDS.LanguageSelectiveRetrieval.convex_history_normalization
+
+#print axioms PNDS.LanguageMultiLagObjective.auxiliary_budget_preserved
+#print axioms PNDS.LanguageMultiLagObjective.paired_objective_average
+#print axioms PNDS.LanguageMultiLagObjective.paired_objective_hasDerivAt
+#print axioms PNDS.LanguageMultiLagObjective.paired_objective_nonnegative
+#print axioms PNDS.LanguageMultiLagObjective.paired_historical_queries_are_past
