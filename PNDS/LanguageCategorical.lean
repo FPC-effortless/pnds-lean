@@ -179,5 +179,31 @@ theorem nll_shift (scores : Scores) (i : Fin 128) (c : ℝ) :
     nll (fun j => scores j + c) i = nll scores i := by
   simp [nll, probability_shift]
 
+/-- Exact-real log-softmax NLL: logarithm is applied to the positive
+    sum-of-exponentials rather than the potentially underflowed rounded
+    probability. Torch FP32 correctness is a SEPARATE numerical obligation. -/
+theorem nll_equals_log_partition_minus_logit (scores : Scores)
+    (i : Fin 128) :
+    nll scores i = Real.log (Z scores) - scores i := by
+  unfold nll probability
+  rw [Real.log_div (ne_of_gt (Real.exp_pos _)) (ne_of_gt (Z_pos scores))]
+  rw [Real.log_exp]
+  ring
+
+def shiftedStableNLL (scores : Scores) (i : Fin 128) (c : ℝ) : ℝ :=
+  Real.log (Z (fun j => scores j - c)) - (scores i - c)
+
+/-- Recentring before log-sum-exp preserves the exact NLL at any real shift.
+    A stable implementation commonly chooses c=max(logits). -/
+theorem shifted_stable_nll_correct (scores : Scores) (i : Fin 128)
+    (c : ℝ) : shiftedStableNLL scores i c = nll scores i := by
+  unfold shiftedStableNLL
+  calc
+    Real.log (Z (fun j => scores j - c)) - (scores i - c) =
+      nll (fun j => scores j - c) i :=
+        (nll_equals_log_partition_minus_logit (fun j => scores j-c) i).symm
+    _ = nll scores i := by
+      simpa only [sub_eq_add_neg] using nll_shift scores i (-c)
+
 end
 end PNDS.LanguageCategorical
