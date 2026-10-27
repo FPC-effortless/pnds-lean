@@ -23,7 +23,7 @@ theorem sigmoid_hasDerivAt (x : ℝ) :
     HasDerivAt sig (sigmoidSlope x) x := by
   have h₁ : HasDerivAt (fun z : ℝ => Real.exp (-z))
       (-Real.exp (-x)) x := by
-    convert ((hasDerivAt_id x).neg.exp) using 1 <;> ring
+    convert ((hasDerivAt_id x).neg.exp) using 1 <;> simp only [id_eq] <;> ring
   have h₂ : HasDerivAt (fun z : ℝ => 1 + Real.exp (-z))
       (-Real.exp (-x)) x := by
     convert ((hasDerivAt_const x (1 : ℝ)).add h₁) using 1 <;> ring
@@ -31,21 +31,14 @@ theorem sigmoid_hasDerivAt (x : ℝ) :
     have hp := Real.exp_pos (-x)
     linarith
   have h₃ := h₂.inv hd
-  convert h₃ using 1
-  · rfl
-  · simp only [sigmoidSlope]
-    field_simp
-    ring
+  convert h₃ using 1 <;> simp [sig, sigmoidSlope, one_div, id_eq] <;> ring
 
 def siluSlope (x : ℝ) : ℝ := sig x + x * sigmoidSlope x
 
 theorem silu_hasDerivAt (x : ℝ) :
     HasDerivAt silu (siluSlope x) x := by
   have h := (hasDerivAt_id x).mul (sigmoid_hasDerivAt x)
-  convert h using 1
-  · rfl
-  · simp only [siluSlope]
-    ring
+  convert h using 1 <;> simp [silu, siluSlope, id_eq] <;> ring
 
 /-- The exact source SiLU modulation path applies SiLU to 2x before
     bounded sigmoid; the factor 2 in the chain rule is material. -/
