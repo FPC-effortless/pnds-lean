@@ -58,7 +58,7 @@ def tangent {n : ℕ} : Expr n → (Fin n → ℝ) → (Fin n → ℝ) → ℝ
   | .sqrt a, x, dx => tangent a x dx / (2*Real.sqrt (eval a x))
   | .sin a, x, dx => Real.cos (eval a x) * tangent a x dx
   | .cos a, x, dx => -Real.sin (eval a x) * tangent a x dx
-  | .max a b, x, dx => if eval a x < eval b x then tangent b x dx else tangent a x dx
+  | .max a b, x, dx => if eval a x ≤ eval b x then tangent b x dx else tangent a x dx
 
 def Regular {n : ℕ} : Expr n → (Fin n → ℝ) → Prop
   | .input _, _ => True
@@ -101,12 +101,12 @@ theorem forward_ad_correct {n : ℕ} (e : Expr n)
     by_cases hab : eval a (fun i => curve i t) < eval b (fun i => curve i t)
     · have he := ha.continuousAt.eventually_lt hb.continuousAt hab
       have hd := hb.congr_of_eventuallyEq (he.mono (fun z hz => max_eq_right hz.le))
-      simpa only [eval, tangent, if_pos hab] using hd
+      simpa only [eval, tangent, if_pos hab.le] using hd
     · have hba : eval b (fun i => curve i t) < eval a (fun i => curve i t) :=
         lt_of_le_of_ne (le_of_not_gt hab) (Ne.symm hr.2.2)
       have he := hb.continuousAt.eventually_lt ha.continuousAt hba
       have hd := ha.congr_of_eventuallyEq (he.mono (fun z hz => max_eq_left hz.le))
-      simpa only [eval, tangent, if_neg hab] using hd
+      simpa only [eval, tangent, if_neg (not_le_of_gt hba)] using hd
 
 def rowJVP (row key drow dkey : SourceRow) (value alpha beta dvalue dalpha dbeta : ℝ) :
     SourceRow :=

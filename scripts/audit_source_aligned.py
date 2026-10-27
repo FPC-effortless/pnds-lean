@@ -12,6 +12,7 @@ ALLOWED={'propext','Classical.choice','Quot.sound'}
 MODULES=['SourceAlignedMemory','SourceAlignedVerification','SourceAlignedModel',
          'SourceAlignedScan','SourceAlignedExecution','SourceAlignedDifferentiation',
          'SourceAlignedRoundoff','SourceAlignedPrograms']
+THEOREM_PATTERN=r'^(?:@\[[^\n]*\]\s*)?theorem\s+(\w+)'
 
 
 def main():
@@ -21,7 +22,7 @@ def main():
     expected=[]
     for module in MODULES:
         contents=(ROOT/f'PNDS/{module}.lean').read_text()
-        expected += [f'PNDS.{module}.{name}' for name in re.findall(r'^theorem\s+(\w+)',contents,re.M)]
+        expected += [f'PNDS.{module}.{name}' for name in re.findall(THEOREM_PATTERN,contents,re.M)]
     source=(ROOT/'AuditSourceAligned.lean').read_text()
     listed=re.findall(r'^#print axioms (\S+)',source,re.M)
     assert listed==expected,'audit omits/reorders a theorem; regenerate explicit audit file'

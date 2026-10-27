@@ -23,6 +23,7 @@ jobs:
           python3 -m unittest discover -s tests -p 'test_source_aligned_memory_math.py' -v
           python3 -m unittest discover -s tests -p 'test_source_aligned_verification_math.py' -v
           python3 -m unittest discover -s tests -p 'test_source_aligned_execution_math.py' -v
+          python3 -m unittest discover -s tests -p 'test_source_aligned_program_math.py' -v
           python3 -m unittest discover -s tests -p 'test_native_memory_math.py' -v
           python3 -m unittest discover -s tests -p 'test_planar_constraint_math.py' -v
           python3 scripts/validate_dual_mode_math_link.py
