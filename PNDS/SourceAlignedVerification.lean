@@ -30,8 +30,8 @@ theorem row_affine_correspondence (row key : SourceRow)
       alpha * row j - alpha * beta * rowRead row key * key j := by
     simp only [rowP]
     calc
-      _ = (∑ i : Fin 8, (if i = j then alpha * row i else 0) -
-          alpha * beta * (row i * key i) * key j) := by
+      _ = (∑ i : Fin 8, ((if i = j then alpha * row i else 0) -
+          alpha * beta * (row i * key i) * key j)) := by
         apply Finset.sum_congr rfl
         intro i _
         split_ifs <;> ring
@@ -168,7 +168,7 @@ theorem block_resume (first second : List BlockSchedule) (s : BlockState) :
     (first ++ second).foldl (fun state event => blockApply event state) s =
       second.foldl (fun state event => blockApply event state)
         (first.foldl (fun state event => blockApply event state) s) := by
-  exact List.foldl_append
+  simp only [List.foldl_append]
 
 inductive ScheduleTree where
   | empty : ScheduleTree
@@ -295,7 +295,7 @@ theorem chronology_does_not_prove_observation :
 this theorem does not establish it for any IEEE backend. -/
 theorem perturbation_step (oldError nextError lipschitz localError : ℝ)
     (hstep : nextError ≤ lipschitz * oldError + localError)
-    (hL : lipschitz ≤ 1) (hL0 : 0 ≤ lipschitz) (he : 0 ≤ oldError) :
+    (hL : lipschitz ≤ 1) (_hL0 : 0 ≤ lipschitz) (he : 0 ≤ oldError) :
     nextError ≤ oldError + localError := by nlinarith
 
 /-- Under a nonexpansive per-event map, local error accumulates at most
