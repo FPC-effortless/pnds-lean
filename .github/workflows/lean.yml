@@ -18,6 +18,7 @@ jobs:
           python3 scripts/validate_variant_math.py
           python3 -m unittest discover -s tests -p 'test_parallel_residual_head_math.py' -v
           python3 -m unittest discover -s tests -p 'test_parallel_time_age_math.py' -v
+          python3 -m unittest discover -s tests -p 'test_source_aligned_memory_math.py' -v
           python3 -m unittest discover -s tests -p 'test_native_memory_math.py' -v
           python3 -m unittest discover -s tests -p 'test_planar_constraint_math.py' -v
           python3 scripts/validate_dual_mode_math_link.py
@@ -59,7 +60,7 @@ jobs:
           # Counting .olean files is not sufficient: a single successfully-built
           # module (e.g. PNDS.Causal) already produces one, so a tree with five
           # broken modules passed this check. Require every root to be present.
-          for root in PNDS/ParallelTimeAge PNDS/ParallelResidualHead PNDS/RetentionBudget PNDS/JointAffineTAC PNDS/TimescaleEvidence PNDS/EntityAdmission PNDS/DualModeMemory PNDS/ParallelMemory PNDS/NativeInvariant PNDS/ConstraintAdapter PNDS/NativeMemory PNDS/TACOSMVariantContracts PNDS/UnifiedTACOSM PNDS/Causal PNDS/PathVerification PNDS/Registration \
+          for root in PNDS/SourceAlignedMemory PNDS/ParallelTimeAge PNDS/ParallelResidualHead PNDS/RetentionBudget PNDS/JointAffineTAC PNDS/TimescaleEvidence PNDS/EntityAdmission PNDS/DualModeMemory PNDS/ParallelMemory PNDS/NativeInvariant PNDS/ConstraintAdapter PNDS/NativeMemory PNDS/TACOSMVariantContracts PNDS/UnifiedTACOSM PNDS/Causal PNDS/PathVerification PNDS/Registration \
                       PNDS/Scaling PNDS/Statistics PNDS/Softmax Audit; do
             if [ ! -f ".lake/build/lib/${root}.olean" ]; then
               echo "::error::Missing .olean for ${root}; that module did not compile"
