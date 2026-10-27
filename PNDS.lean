@@ -41,6 +41,7 @@ import PNDS.LanguageKeySensitivity
 import PNDS.LanguageRepairCandidates
 import PNDS.LanguageSelectiveRetrieval
 import PNDS.LanguageMultiLagObjective
+import PNDS.LanguageGradientGuard
 
 /-- The version of the document this formalization targets. -/
 def docVersion : String := "v0.2"
