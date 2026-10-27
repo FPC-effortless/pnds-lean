@@ -5,7 +5,7 @@ import PNDS.LanguageCategorical
 TAC-LANG-REPAIR-018: formally scoped selective historical query.
 
 The original 100680-parameter language model was trained with the lag64
-historical reconstruction objective. A full delay beyond this horizon
+historical reconstruction objective. Any lag other than 64
 returns a POSITIVE, normalized FIT-only categorical prior and marks the
 model's historical memory untrusted. No learned parameter, future label,
 model result, or DEV loss participates in the routing decision.
@@ -18,42 +18,42 @@ namespace PNDS.LanguageSelectiveRetrieval
 noncomputable section
 open PNDS.LanguageCategorical
 
-def trainedHorizon : ℕ := 64
+def trainedLag : ℕ := 64
 
+/-- Exact trained reconstruction delay, not the unsupported assumption
+    that all smaller historical lags are qualified. -/
 def useHistorical (lag : ℕ) : Bool :=
-  decide (0 < lag ∧ lag ≤ trainedHorizon)
+  decide (lag = trainedLag)
 
 def selectiveProb (lag : ℕ) (source fit : Scores) : Scores :=
   if useHistorical lag then source else fit
 
-theorem source_within_horizon (lag : ℕ)
-    (hpos : 0 < lag) (htrained : lag ≤ trainedHorizon)
-    (source fit : Scores) :
-    selectiveProb lag source fit = source := by
-  simp [selectiveProb, useHistorical, hpos, htrained]
+theorem source_at_trained_lag (source fit : Scores) :
+    selectiveProb trainedLag source fit = source := by
+  simp [selectiveProb, useHistorical]
 
-theorem fallback_outside_horizon (lag : ℕ)
-    (huntrained : trainedHorizon < lag) (source fit : Scores) :
+theorem fallback_for_unqualified_lag (lag : ℕ)
+    (huntrained : lag ≠ trainedLag) (source fit : Scores) :
     selectiveProb lag source fit = fit := by
-  simp [selectiveProb, useHistorical, Nat.not_le.mpr huntrained]
+  simp [selectiveProb, useHistorical, huntrained]
 
 theorem fallback_is_strictly_positive (lag : ℕ)
-    (huntrained : trainedHorizon < lag) (source fit : Scores)
+    (huntrained : lag ≠ trainedLag) (source fit : Scores)
     (hfit : ∀ i, 0 < fit i) (i : Fin 128) :
     0 < selectiveProb lag source fit i := by
-  rw [fallback_outside_horizon lag huntrained]
+  rw [fallback_for_unqualified_lag lag huntrained]
   exact hfit i
 
 theorem fallback_normalization (lag : ℕ)
-    (huntrained : trainedHorizon < lag) (source fit : Scores)
+    (huntrained : lag ≠ trainedLag) (source fit : Scores)
     (hfit : (∑ i : Fin 128, fit i) = 1) :
     (∑ i : Fin 128, selectiveProb lag source fit i) = 1 := by
-  rw [fallback_outside_horizon lag huntrained]
+  rw [fallback_for_unqualified_lag lag huntrained]
   exact hfit
 
 /-- Any optional convex mixture has a baseline probability floor. Here the
     source weight is fixed independently of the observed target.
-    The deployed out-of-horizon policy uses weight ZERO instead. -/
+    The deployed out-of-exact-training-lag policy uses weight ZERO instead. -/
 def convexHistory (weight : ℝ) (source fit : Scores) : Scores :=
   fun i => weight*source i + (1-weight)*fit i
 
