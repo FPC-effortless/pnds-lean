@@ -109,5 +109,53 @@ theorem modulo_cycle (t : ℕ) :
     (t+155701)%29=t%29 ∧ (t+155701)%59=t%59 := by
   omega
 
+/-- The two-head softmax router shares a total write budget of at most one. -/
+def routedWrite (router : Vec 2) (base modulation : Vec 2) (h : Fin 2) : ℝ :=
+  sig (base h + silu (2 * modulation h)) * softmax router h
+
+theorem routed_write_budget (router base modulation : Vec 2) :
+    0 ≤ routedWrite router base modulation 0 ∧
+    0 ≤ routedWrite router base modulation 1 ∧
+    routedWrite router base modulation 0 + routedWrite router base modulation 1 ≤ 1 := by
+  have r0 := softmax2_range router 0
+  have r1 := softmax2_range router 1
+  have s0 := sigmoid_range (base 0 + silu (2 * modulation 0))
+  have s1 := sigmoid_range (base 1 + silu (2 * modulation 1))
+  have h0 : 0 ≤ routedWrite router base modulation 0 := mul_nonneg s0.1.le r0.1
+  have h1 : 0 ≤ routedWrite router base modulation 1 := mul_nonneg s1.1.le r1.1
+  have b0 : routedWrite router base modulation 0 ≤ softmax router 0 := by
+    have h : 0 ≤ (1 - sig (base 0 + silu (2 * modulation 0))) * softmax router 0 :=
+      mul_nonneg (sub_nonneg.mpr s0.2.le) r0.1
+    dsimp [routedWrite]
+    nlinarith
+  have b1 : routedWrite router base modulation 1 ≤ softmax router 1 := by
+    have h : 0 ≤ (1 - sig (base 1 + silu (2 * modulation 1))) * softmax router 1 :=
+      mul_nonneg (sub_nonneg.mpr s1.2.le) r1.1
+    dsimp [routedWrite]
+    nlinarith
+  refine ⟨h0,h1,?_⟩
+  calc
+    routedWrite router base modulation 0 + routedWrite router base modulation 1
+        ≤ softmax router 0 + softmax router 1 := add_le_add b0 b1
+    _ = 1 := softmax2_sum router
+
+/-- Exact-real running-mean update preserves the coordinate unit interval. -/
+theorem meanStep_unit_box (n : ℕ) (prior incoming : ℝ)
+    (hp0 : -1 ≤ prior) (hp1 : prior ≤ 1)
+    (hi0 : -1 ≤ incoming) (hi1 : incoming ≤ 1) :
+    -1 ≤ meanStep n prior incoming ∧ meanStep n prior incoming ≤ 1 := by
+  rw [meanStep_equiv]
+  have hn : 0 ≤ (n : ℝ) := Nat.cast_nonneg n
+  have hd : 0 < (n : ℝ) + 1 := by positivity
+  constructor
+  · rw [le_div_iff₀ hd]
+    have h : 0 ≤ (n : ℝ) * (prior + 1) :=
+      mul_nonneg hn (by linarith)
+    nlinarith
+  · rw [div_le_iff₀ hd]
+    have h : 0 ≤ (n : ℝ) * (1 - prior) :=
+      mul_nonneg hn (by linarith)
+    nlinarith
+
 end
 end PNDS.LanguageCategorical
