@@ -29,7 +29,7 @@ jobs:
           python3 scripts/validate_dual_mode_math_link.py
           python3 scripts/validate_engineering_coverage.py
           python3 -m unittest discover -s tests -p 'test_engineering_coverage.py' -v
-          python3 scripts/check_reciprocal_links.py --peer-ref 2710d5f04c9aa854bc4dcd6db66fcc3ea09911a7
+          python3 scripts/check_reciprocal_links.py --peer-ref 6dc7858b5049ad6c9e1fe32ea63409133036c320
           python3 -m unittest discover -s tests -p 'test_foundation.py' -v
           python3 -m unittest discover -s tests -p 'test_variant_math.py' -v
 

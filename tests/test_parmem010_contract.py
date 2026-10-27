@@ -20,7 +20,7 @@ class FormalContractGates(unittest.TestCase):
     def test_record_is_explicitly_incomplete_and_source_pinned(self):
         result=gate.check()
         self.assertFalse(result['complete_formal_verification'])
-        self.assertGreaterEqual(result['declared_theorems'],47)
+        self.assertGreaterEqual(result['declared_theorems'],178)
 
     def test_changed_independent_equations_fail_hash_gate(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -42,6 +42,21 @@ class FormalContractGates(unittest.TestCase):
             base=Path(tmp); self.copy(base)
             with (base/'PNDS/SourceAlignedVerification.lean').open('a') as f:
                 f.write('\ntheorem fake : False := by sorry\n')
+            with patch.object(gate,'ROOT',base),self.assertRaises(AssertionError):
+                gate.check()
+
+    def test_missing_full_neural_compiler_is_not_replaced_by_scalar_kernel(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            base=Path(tmp); self.copy(base)
+            (base/'PNDS/SourceAlignedPrograms.lean').unlink()
+            with patch.object(gate,'ROOT',base),self.assertRaises(AssertionError):
+                gate.check()
+
+    def test_modified_full_execution_reference_fails(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            base=Path(tmp); self.copy(base)
+            with (base/'foundation/v1/source_aligned_execution_math.py').open('a') as f:
+                f.write('\n# changed after source receipt\n')
             with patch.object(gate,'ROOT',base),self.assertRaises(AssertionError):
                 gate.check()
 

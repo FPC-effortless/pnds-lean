@@ -1,5 +1,10 @@
 # PAR-MEM-010: formal specification and verification record
 
+This is the initial proof-stage record. The subsequent complete real-graph,
+all-prefix execution and full-history JVP/VJP proofs are documented in
+[PAR-MEM-010-FULL-MODEL-PROOFS.md](PAR-MEM-010-FULL-MODEL-PROOFS.md).
+The deployed Torch/IEEE implementation trust boundary remains open.
+
 This work specifies the complete default **point-prediction** graph and verifies
 its associative-memory mathematics. It does **not** certify the complete Torch
 program, its automatic-differentiation implementation, or an IEEE deployment.
