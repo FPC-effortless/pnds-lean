@@ -31,7 +31,11 @@ theorem sigmoid_hasDerivAt (x : ℝ) :
     have hp := Real.exp_pos (-x)
     linarith
   have h₃ := h₂.inv hd
-  convert h₃ using 1 <;> simp [sig, sigmoidSlope, one_div, id_eq] <;> ring
+  have heq : sig = (fun y : ℝ => (1 + Real.exp (-y))⁻¹) := by
+    funext z
+    simp [sig, one_div]
+  rw [heq]
+  simpa only [sigmoidSlope, neg_neg] using h₃
 
 def siluSlope (x : ℝ) : ℝ := sig x + x * sigmoidSlope x
 
