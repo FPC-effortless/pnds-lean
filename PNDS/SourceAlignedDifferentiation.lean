@@ -137,7 +137,7 @@ theorem corrective_write_jvp (row key : ℝ → SourceRow) (drow dkey : SourceRo
         dvalue dalpha dbeta j) t := by
   have hr := row_read_derivative row key drow dkey t hm hk
   have h := (ha.mul (hm j)).add ((hb.mul (hv.sub (ha.mul hr))).mul (hk j))
-  simpa only [rowJVP, writeRow, Bool.true_eq, ↓reduceIte, mul_assoc] using h
+  simpa only [rowJVP, writeRow, Bool.true_eq, ↓reduceIte, mul_assoc, add_assoc] using h
 
 theorem rejected_write_jvp (row key : ℝ → SourceRow) (drow : SourceRow)
     (value alpha beta : ℝ → ℝ) (t : ℝ)
@@ -151,6 +151,7 @@ theorem clamp_not_differentiable_at_zero :
     ¬ DifferentiableAt ℝ (fun x : ℝ => max x 0) 0 := by
   intro h
   have hd := (h.const_mul 2).sub differentiableAt_id
+  change DifferentiableAt ℝ (fun x : ℝ => 2*max x 0-x) 0 at hd
   have heq : (fun x : ℝ => 2*max x 0-x) = abs := by
     funext x
     rcases le_total 0 x with hx | hx
@@ -163,7 +164,7 @@ theorem clamp_not_differentiable_at_zero :
 
 theorem clamp_right_derivative :
     HasDerivWithinAt (fun x : ℝ => max x 0) 1 (Ici 0) 0 := by
-  apply (hasDerivWithinAt_id (Ici 0) (0 : ℝ)).congr_of_mem
+  apply (hasDerivWithinAt_id (0 : ℝ) (Ici 0)).congr_of_mem
   · intro x hx
     exact max_eq_left hx
   · exact Set.left_mem_Ici
