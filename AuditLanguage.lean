@@ -3,6 +3,7 @@ import PNDS.LanguageLayerNorm
 import PNDS.LanguageLossAD
 import PNDS.LanguageMemoryAD
 import PNDS.LanguageMemoryStability
+import PNDS.LanguageActivationAD
 
 #print axioms PNDS.LanguageCategorical.Z_pos
 #print axioms PNDS.LanguageCategorical.probability_pos
@@ -58,3 +59,8 @@ import PNDS.LanguageMemoryStability
 #print axioms PNDS.LanguageMemoryStability.source_retention_range
 #print axioms PNDS.LanguageMemoryStability.source_beta_range
 #print axioms PNDS.LanguageMemoryStability.source_aligned_write_nonexpansive
+
+#print axioms PNDS.LanguageActivationAD.sigmoid_hasDerivAt
+#print axioms PNDS.LanguageActivationAD.silu_hasDerivAt
+#print axioms PNDS.LanguageActivationAD.scaled_silu_hasDerivAt
+#print axioms PNDS.LanguageActivationAD.gated_silu_modulation_hasDerivAt
