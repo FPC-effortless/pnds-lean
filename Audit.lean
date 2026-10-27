@@ -12,6 +12,7 @@ import PNDS.LatentFusion001
 import PNDS.LatentFusion002
 import PNDS.LatentFusion003
 import PNDS.LatentFusion004
+import PNDS.LatentFusion007
 
 /- Axiom audit. CI fails if any proof in the PNDS tree depends on an admitted
    goal, and prints the axioms of each top-level theorem so that hidden
@@ -142,3 +143,13 @@ import PNDS.LatentFusion004
 #print axioms PNDS.LatentFusion004.original_carried_fp32_nominal_bytes
 #print axioms PNDS.LatentFusion004.untouched_when_unselected
 #print axioms PNDS.LatentFusion004.softBlend_difference
+
+
+/-! LATFUSE007 source-only historic event QUERY abstract interface; finite precision/AD still OPEN. -/
+#check @PNDS.LatentFusion007.original_memory_still_256_cells
+#check @PNDS.LatentFusion007.original_recurrent_bytes
+#check @PNDS.LatentFusion007.original_parameter_budget
+#check @PNDS.LatentFusion007.abstract_truth_label_does_not_enter_query
+#print axioms PNDS.LatentFusion007.original_recurrent_bytes
+#print axioms PNDS.LatentFusion007.original_parameter_budget
+#print axioms PNDS.LatentFusion007.abstract_truth_label_does_not_enter_query
