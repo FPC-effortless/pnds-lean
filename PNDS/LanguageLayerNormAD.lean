@@ -46,7 +46,7 @@ theorem mean248_hasDerivAt (path : ℝ → V 248) (velocity : V 248)
     HasDerivAt (fun z => mean248 (path z)) (mean248 velocity) t := by
   have hs := HasDerivAt.sum (u := Finset.univ) (fun i _ => h i)
   have hscaled := hs.const_mul (1/248 : ℝ)
-  convert hscaled using 1 <;> simp [mean248, div_eq_mul_inv]
+  convert hscaled using 1 <;> simp only [mean248, div_eq_mul_inv] <;> ring
 
 /-- This is the exact mean-centered 248-scalar LayerNorm variance JVP:
     all input-coordinate perturbations and mean coupling are retained. -/
@@ -68,10 +68,14 @@ theorem variance248_hasDerivAt
       HasDerivAt (fun z => (path z i - mean248 (path z))^2)
         (2 * (path t i - mean248 (path t)) *
           (velocity i - mean248 velocity)) t := by
-    convert ((hc i).mul (hc i)) using 1 <;> ring
+    have hmultiplication := (hc i).mul (hc i)
+    convert hmultiplication using 1
+    · funext z
+      ring
+    · ring
   have hs := HasDerivAt.sum (u := Finset.univ) (fun i _ => hsq i)
   have scaled := hs.const_mul (1 / 248 : ℝ)
-  convert scaled using 1 <;> simp [variance248, variance248Slope, div_eq_mul_inv]
+  convert scaled using 1 <;> simp only [variance248, variance248Slope, div_eq_mul_inv] <;> ring
 
 /-- The FULL source LayerNorm output-channel JVP now explicitly incorporates
     input, all 248 mean channels, all 248 variance channels, scale, epsilon
@@ -99,8 +103,7 @@ theorem norm248_coordinate_hasDerivAt
     (variance248Slope (path t) velocity)
     t (p.normScale i) (p.normShift i) p.normEps
     (h i) hm hv hvar heps
-  convert core using 1 <;>
-    simp [LanguageFullGraph.norm248, mean248, variance248]
+  exact core
 
 end
 end PNDS.LanguageLayerNormAD
