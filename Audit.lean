@@ -17,6 +17,7 @@ import PNDS.TimescaleEvidence
 import PNDS.JointAffineTAC
 import PNDS.RetentionBudget
 import PNDS.ConstraintAdapter
+import PNDS.ParallelResidualHead
 
 /- Axiom audit. CI fails if any proof in the PNDS tree depends on an admitted
    goal, and prints the axioms of each top-level theorem so that hidden
@@ -220,3 +221,13 @@ import PNDS.ConstraintAdapter
 #print axioms PNDS.RetentionBudget.alpha_lower
 #print axioms PNDS.RetentionBudget.alpha_budget
 #print axioms PNDS.RetentionBudget.radius_four_next_bounded
+
+/-! Exact-real scalar post-scan residual readout; NOT full neural/IEEE proof. -/
+#check @PNDS.ParallelResidualHead.zero_gate
+#check @PNDS.ParallelResidualHead.zero_innovation
+#check @PNDS.ParallelResidualHead.postscan_state_unchanged
+#check @PNDS.ParallelResidualHead.additive_difference
+#check @PNDS.ParallelResidualHead.bounded_prediction
+#print axioms PNDS.ParallelResidualHead.zero_gate
+#print axioms PNDS.ParallelResidualHead.postscan_state_unchanged
+#print axioms PNDS.ParallelResidualHead.bounded_prediction
