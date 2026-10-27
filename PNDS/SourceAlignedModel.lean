@@ -3,7 +3,6 @@ import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
 import Mathlib.Data.Real.Sqrt
 import Mathlib.Data.Fin.Tuple.Basic
-import Mathlib.Tactic.IntervalCases
 
 /-!
 Typed exact-real observation-to-output specification of default PAR-MEM-010.
@@ -67,7 +66,11 @@ theorem softmax2_range (x : Vec 2) (h : Fin 2) :
   constructor
   · exact le_of_lt (div_pos (Real.exp_pos _) hd)
   · apply (div_le_one hd).2
-    fin_cases h <;> linarith
+    fin_cases h
+    · change Real.exp (x 0) ≤ Real.exp (x 0)+Real.exp (x 1)
+      linarith
+    · change Real.exp (x 1) ≤ Real.exp (x 0)+Real.exp (x 1)
+      linarith
 
 theorem routed_strength_range (logit : ℝ) (router : Vec 2) (h : Fin 2) :
     0 ≤ sig logit * softmax router h ∧ sig logit * softmax router h ≤ 1 := by
@@ -92,7 +95,7 @@ theorem normalized_key_energy (x : Vec 8) :
   have hsq := Real.sq_sqrt hs
   have hroot0 := Real.sqrt_nonneg ss
   have heq : SourceAlignedVerification.squaredNorm (normalize x) = ss/(d*d) := by
-    change (∑ j : Fin 8, (x j/d)*(x j/d)) = ss/(d*d)
+    change (∑ j : Fin 8, (x j/d)*(x j/d)) = (∑ j : Fin 8, x j*x j)/(d*d)
     rw [Finset.sum_div]
     apply Finset.sum_congr rfl
     intro j _
@@ -254,12 +257,11 @@ theorem prepare_memory_independent (w : Parameters) (s : State) (x : Input)
 /-- Every ordinal collision in the residue code survives the complete
 learned key and read-router graph. -/
 theorem ordinalCode_periodic (n : ℕ) : ordinalCode (n+155701) = ordinalCode n := by
+  have hp : ∀ i : Fin 4, (n+155701) % periods i = n % periods i := by
+    intro i
+    fin_cases i <;> simp [periods, Nat.add_mod]
   funext j
-  have hres : (n+155701) % periods ⟨j.val/2, by omega⟩ =
-      n % periods ⟨j.val/2, by omega⟩ := by
-    have hj : j.val/2 < 4 := by omega
-    interval_cases h : j.val/2 <;> simp [periods, h, Nat.add_mod]
-  simp only [ordinalCode, hres]
+  simp only [ordinalCode, hp]
 
 theorem memoryRead_periodic (w : Parameters) (m : SourceMatrix) (n : ℕ) :
     memoryRead w m (n+155701) = memoryRead w m n := by
@@ -364,4 +366,5 @@ theorem causal_prefix (w : Parameters) (s : State) (past future : List Input) :
   | nil => simp [predictions]
   | cons x xs ih => simpa [predictions] using ih (step w s x).2
 
+end
 end PNDS.SourceAlignedModel
