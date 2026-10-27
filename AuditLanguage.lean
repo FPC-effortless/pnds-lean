@@ -1,5 +1,6 @@
 import PNDS.LanguageFPContracts
 import PNDS.LanguageLayerNorm
+import PNDS.LanguageLossAD
 
 #print axioms PNDS.LanguageCategorical.Z_pos
 #print axioms PNDS.LanguageCategorical.probability_pos
@@ -40,3 +41,8 @@ import PNDS.LanguageLayerNorm
 
 #print axioms PNDS.LanguageCategorical.nll_equals_log_partition_minus_logit
 #print axioms PNDS.LanguageCategorical.shifted_stable_nll_correct
+
+#print axioms PNDS.LanguageLossAD.partition_hasDerivAt
+#print axioms PNDS.LanguageLossAD.log_partition_hasDerivAt
+#print axioms PNDS.LanguageLossAD.logitVelocity_as_fraction
+#print axioms PNDS.LanguageLossAD.nll_hasDerivAt
