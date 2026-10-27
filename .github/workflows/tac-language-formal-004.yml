@@ -25,7 +25,7 @@ jobs:
           set -euo pipefail
           lake env lean AuditLanguage.lean 2>&1 | tee /tmp/tac-language-axioms.log
           if grep -E 'sorryAx|error:' /tmp/tac-language-axioms.log; then exit 1; fi
-          count=$(grep -c "depends on axioms" /tmp/tac-language-axioms.log || true)
+          count=$(grep -Ec "depends on axioms|does not depend on any axioms" /tmp/tac-language-axioms.log || true)
           echo "23 theorem axiom statements expected; found $count"
           test "$count" -eq 23
           if grep -E 'axioms:|depends on axioms' /tmp/tac-language-axioms.log | grep -Ev 'propext|Quot.sound|Classical.choice|depends on axioms'; then exit 1; fi
