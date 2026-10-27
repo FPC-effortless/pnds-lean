@@ -1,0 +1,38 @@
+name: Language TAC source-specific Lean contracts
+on:
+  push:
+    branches: [research/tac-lang-formal-004-2026-10-27]
+  pull_request:
+  workflow_dispatch:
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install elan
+        run: |
+          curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Compile exact-real language theorems (fail on errors)
+        run: |
+          set -euo pipefail
+          lake update
+          lake build PNDS.LanguageCategorical 2>&1 | tee /tmp/tac-language-lean.log
+          test -f .lake/build/lib/PNDS/LanguageCategorical.olean
+          if grep -q "sorry" /tmp/tac-language-lean.log; then exit 1; fi
+      - name: Inspect axioms and reject sorry
+        run: |
+          set -euo pipefail
+          lake env lean AuditLanguage.lean 2>&1 | tee /tmp/tac-language-axioms.log
+          if grep -E 'sorryAx|error:' /tmp/tac-language-axioms.log; then exit 1; fi
+          count=$(grep -c "depends on axioms" /tmp/tac-language-axioms.log || true)
+          echo "10 theorem axiom statements expected; found $count"
+          test "$count" -eq 10
+          if grep -E 'axioms:|depends on axioms' /tmp/tac-language-axioms.log | grep -Ev 'propext|Quot.sound|Classical.choice|depends on axioms'; then exit 1; fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tac-language-formal-004
+          path: |
+            /tmp/tac-language-lean.log
+            /tmp/tac-language-axioms.log
