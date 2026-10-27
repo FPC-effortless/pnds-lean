@@ -10,3 +10,6 @@ import PNDS.LanguageCategorical
 #print axioms PNDS.LanguageCategorical.scalar_delta_difference
 #print axioms PNDS.LanguageCategorical.meanStep_equiv
 #print axioms PNDS.LanguageCategorical.modulo_cycle
+
+#print axioms PNDS.LanguageCategorical.routed_write_budget
+#print axioms PNDS.LanguageCategorical.meanStep_unit_box
