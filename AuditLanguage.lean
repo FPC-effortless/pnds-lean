@@ -8,6 +8,7 @@ import PNDS.LanguageLayerNormAD
 import PNDS.LanguageTensorFP
 import PNDS.LanguageKeySensitivity
 import PNDS.LanguageRepairCandidates
+import PNDS.LanguageSelectiveRetrieval
 
 #print axioms PNDS.LanguageCategorical.Z_pos
 #print axioms PNDS.LanguageCategorical.probability_pos
@@ -92,3 +93,10 @@ import PNDS.LanguageRepairCandidates
 #print axioms PNDS.LanguageRepairCandidates.next_cycle_increments_era
 #print axioms PNDS.LanguageRepairCandidates.first_era_untouched
 #print axioms PNDS.LanguageRepairCandidates.era_fraction_strict_cycle
+
+#print axioms PNDS.LanguageSelectiveRetrieval.source_within_horizon
+#print axioms PNDS.LanguageSelectiveRetrieval.fallback_outside_horizon
+#print axioms PNDS.LanguageSelectiveRetrieval.fallback_is_strictly_positive
+#print axioms PNDS.LanguageSelectiveRetrieval.fallback_normalization
+#print axioms PNDS.LanguageSelectiveRetrieval.convex_history_baseline_floor
+#print axioms PNDS.LanguageSelectiveRetrieval.convex_history_normalization
