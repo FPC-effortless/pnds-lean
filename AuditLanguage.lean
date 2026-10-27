@@ -10,6 +10,7 @@ import PNDS.LanguageKeySensitivity
 import PNDS.LanguageRepairCandidates
 import PNDS.LanguageSelectiveRetrieval
 import PNDS.LanguageMultiLagObjective
+import PNDS.LanguageGradientGuard
 
 #print axioms PNDS.LanguageCategorical.Z_pos
 #print axioms PNDS.LanguageCategorical.probability_pos
@@ -107,3 +108,8 @@ import PNDS.LanguageMultiLagObjective
 #print axioms PNDS.LanguageMultiLagObjective.paired_objective_hasDerivAt
 #print axioms PNDS.LanguageMultiLagObjective.paired_objective_nonnegative
 #print axioms PNDS.LanguageMultiLagObjective.paired_historical_queries_are_past
+
+#print axioms PNDS.LanguageGradientGuard.conflict_overlap_becomes_zero
+#print axioms PNDS.LanguageGradientGuard.nonconflicting_overlap_is_unchanged
+#print axioms PNDS.LanguageGradientGuard.guarded_overlap_nonnegative
+#print axioms PNDS.LanguageGradientGuard.guarded_total_alignment
