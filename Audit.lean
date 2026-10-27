@@ -18,6 +18,7 @@ import PNDS.JointAffineTAC
 import PNDS.RetentionBudget
 import PNDS.ConstraintAdapter
 import PNDS.ParallelResidualHead
+import PNDS.ParallelTimeAge
 
 /- Axiom audit. CI fails if any proof in the PNDS tree depends on an admitted
    goal, and prints the axioms of each top-level theorem so that hidden
@@ -231,3 +232,16 @@ import PNDS.ParallelResidualHead
 #print axioms PNDS.ParallelResidualHead.zero_gate
 #print axioms PNDS.ParallelResidualHead.postscan_state_unchanged
 #print axioms PNDS.ParallelResidualHead.bounded_prediction
+
+/-! PAR-TIME-001: narrowly scoped exact-real clock and prior-write-age contracts. -/
+#check @PNDS.ParallelTimeAge.monotone_clock
+#check @PNDS.ParallelTimeAge.refusal_keeps_timestamp
+#check @PNDS.ParallelTimeAge.admission_updates_timestamp
+#check @PNDS.ParallelTimeAge.no_write_age_advances
+#check @PNDS.ParallelTimeAge.admitted_write_resets_next_age
+#check @PNDS.ParallelTimeAge.age_nonnegative
+#check @PNDS.ParallelTimeAge.index_strictly_increases
+#print axioms PNDS.ParallelTimeAge.monotone_clock
+#print axioms PNDS.ParallelTimeAge.no_write_age_advances
+#print axioms PNDS.ParallelTimeAge.age_nonnegative
+#print axioms PNDS.ParallelTimeAge.index_strictly_increases
