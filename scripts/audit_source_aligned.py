@@ -11,7 +11,7 @@ ROOT=Path(__file__).resolve().parents[1]
 ALLOWED={'propext','Classical.choice','Quot.sound'}
 MODULES=['SourceAlignedMemory','SourceAlignedVerification','SourceAlignedModel',
          'SourceAlignedScan','SourceAlignedExecution','SourceAlignedDifferentiation',
-         'SourceAlignedRoundoff']
+         'SourceAlignedRoundoff','SourceAlignedPrograms']
 
 
 def main():

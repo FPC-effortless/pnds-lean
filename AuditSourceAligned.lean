@@ -1,4 +1,4 @@
-import PNDS.SourceAlignedDifferentiation
+import PNDS.SourceAlignedPrograms
 import PNDS.SourceAlignedRoundoff
 
 -- Every PAR-MEM-010 theorem is included.
@@ -101,3 +101,8 @@ import PNDS.SourceAlignedRoundoff
 #print axioms PNDS.SourceAlignedRoundoff.multiply_error
 #print axioms PNDS.SourceAlignedRoundoff.max_error
 #print axioms PNDS.SourceAlignedRoundoff.rounded_sum_error
+#print axioms PNDS.SourceAlignedPrograms.interp_prepare
+#print axioms PNDS.SourceAlignedPrograms.interp_decode
+#print axioms PNDS.SourceAlignedPrograms.interp_advance
+#print axioms PNDS.SourceAlignedPrograms.complete_graph_compiler_correct
+#print axioms PNDS.SourceAlignedPrograms.complete_graph_ad_correct

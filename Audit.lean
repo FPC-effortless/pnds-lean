@@ -24,6 +24,7 @@ import PNDS.SourceAlignedVerification
 import PNDS.SourceAlignedModel
 import PNDS.SourceAlignedDifferentiation
 import PNDS.SourceAlignedRoundoff
+import PNDS.SourceAlignedPrograms
 
 /- Axiom audit. CI fails if any proof in the PNDS tree depends on an admitted
    goal, and prints the axioms of each top-level theorem so that hidden
@@ -282,3 +283,5 @@ import PNDS.SourceAlignedRoundoff
 #print axioms PNDS.SourceAlignedDifferentiation.corrective_write_jvp
 #print axioms PNDS.SourceAlignedDifferentiation.full_model_derivative_preserved
 #print axioms PNDS.SourceAlignedRoundoff.rounded_sum_error
+#print axioms PNDS.SourceAlignedPrograms.complete_graph_compiler_correct
+#print axioms PNDS.SourceAlignedPrograms.complete_graph_ad_correct

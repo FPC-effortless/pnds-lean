@@ -26,6 +26,7 @@ import PNDS.SourceAlignedScan
 import PNDS.SourceAlignedExecution
 import PNDS.SourceAlignedDifferentiation
 import PNDS.SourceAlignedRoundoff
+import PNDS.SourceAlignedPrograms
 
 /-- The version of the document this formalization targets. -/
 def docVersion : String := "v0.2"
