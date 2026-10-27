@@ -34,6 +34,7 @@ import PNDS.LanguageLayerNorm
 import PNDS.LanguageLossAD
 import PNDS.LanguageMemoryAD
 import PNDS.LanguageMemoryStability
+import PNDS.LanguageActivationAD
 
 /-- The version of the document this formalization targets. -/
 def docVersion : String := "v0.2"
