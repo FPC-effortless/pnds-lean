@@ -14,6 +14,7 @@ import PNDS.LatentFusion003
 import PNDS.LatentFusion004
 import PNDS.LatentFusion007
 import PNDS.LatentFusion008
+import PNDS.LatentFusion010
 
 /- Axiom audit. CI fails if any proof in the PNDS tree depends on an admitted
    goal, and prints the axioms of each top-level theorem so that hidden
@@ -164,3 +165,13 @@ import PNDS.LatentFusion008
 #print axioms PNDS.LatentFusion008.identical_live_params
 #print axioms PNDS.LatentFusion008.identical_original_state_bytes
 #print axioms PNDS.LatentFusion008.abstract_nonassociative_reader_ignores_past_matrix
+
+
+/-! LATFUSE010 only abstract original exact-real scalar source-write and difference. -/
+#check @PNDS.LatentFusion010.single_step_write_bypass_difference
+#check @PNDS.LatentFusion010.common_source_suffix_difference
+#check @PNDS.LatentFusion010.source_write_common_value_cancels
+#check @PNDS.LatentFusion010.original_state_budget_unchanged
+#print axioms PNDS.LatentFusion010.single_step_write_bypass_difference
+#print axioms PNDS.LatentFusion010.common_source_suffix_difference
+#print axioms PNDS.LatentFusion010.original_state_budget_unchanged

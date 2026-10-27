@@ -14,6 +14,7 @@ import PNDS.LatentFusion003
 import PNDS.LatentFusion004
 import PNDS.LatentFusion007
 import PNDS.LatentFusion008
+import PNDS.LatentFusion010
 
 /-- The version of the document this formalization targets. -/
 def docVersion : String := "v0.2"
