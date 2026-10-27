@@ -1,4 +1,4 @@
-import PNDS.LanguageFullGraph
+import PNDS.LanguageFPContracts
 
 #print axioms PNDS.LanguageCategorical.Z_pos
 #print axioms PNDS.LanguageCategorical.probability_pos
