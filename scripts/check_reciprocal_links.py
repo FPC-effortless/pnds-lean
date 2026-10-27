@@ -5,7 +5,9 @@ This verifies equality of current main/master snapshots, NOT source/model
 correspondence nor full Lean mathematical proof. Network/API failures fail
 closed instead of silently weakening the two-repository invariant.
 """
+import argparse
 import json
+import re
 import urllib.request
 from pathlib import Path
 
@@ -15,9 +17,11 @@ REMOTE = ("https://raw.githubusercontent.com/FPC-effortless/TAC-OSM/"
           "research/pnds-variant-math-links.json")
 
 
-def verify():
+def verify(peer_ref="master"):
+    if peer_ref != "master" and not re.fullmatch(r"[0-9a-f]{40}",peer_ref):
+        raise SystemExit("draft peer-ref must be an immutable commit")
     local = json.loads(LOCAL.read_text(encoding="utf-8"))
-    with urllib.request.urlopen(REMOTE, timeout=30) as response:
+    with urllib.request.urlopen(REMOTE.replace("/master/", "/"+peer_ref+"/"), timeout=30) as response:
         remote = json.loads(response.read().decode("utf-8"))
     if local != remote:
         raise SystemExit("Reciprocal TAC-OSM version/math manifest does NOT match PNDS")
@@ -27,4 +31,6 @@ def verify():
 
 
 if __name__ == "__main__":
-    verify()
+    p=argparse.ArgumentParser()
+    p.add_argument("--peer-ref",default="master")
+    verify(p.parse_args().peer_ref)

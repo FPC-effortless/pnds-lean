@@ -1,3 +1,4 @@
+import PNDS.HistoryQuery016
 import Mathlib
 
 import PNDS.Softmax
@@ -78,3 +79,8 @@ import PNDS.TACOSMVariantContracts
 #print axioms PNDS.VariantContracts.bitemporal_known_after_record_start
 #print axioms PNDS.VariantContracts.weightedWindow_zero
 #print axioms PNDS.VariantContracts.edgeDiscrepancy_nonnegative
+
+#check PNDS.HistoryQuery016.historicalLoss
+#check PNDS.HistoryQuery016.forecastLoss
+#print axioms PNDS.HistoryQuery016.historicalLoss
+#print axioms PNDS.HistoryQuery016.forecastLoss
