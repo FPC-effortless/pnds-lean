@@ -4,6 +4,7 @@ import PNDS.LanguageLossAD
 import PNDS.LanguageMemoryAD
 import PNDS.LanguageMemoryStability
 import PNDS.LanguageActivationAD
+import PNDS.LanguageLayerNormAD
 
 #print axioms PNDS.LanguageCategorical.Z_pos
 #print axioms PNDS.LanguageCategorical.probability_pos
@@ -64,3 +65,6 @@ import PNDS.LanguageActivationAD
 #print axioms PNDS.LanguageActivationAD.silu_hasDerivAt
 #print axioms PNDS.LanguageActivationAD.scaled_silu_hasDerivAt
 #print axioms PNDS.LanguageActivationAD.gated_silu_modulation_hasDerivAt
+
+#print axioms PNDS.LanguageLayerNormAD.normalized_feature_hasDerivAt
+#print axioms PNDS.LanguageLayerNormAD.mean248_hasDerivAt
