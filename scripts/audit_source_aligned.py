@@ -9,6 +9,9 @@ import subprocess
 
 ROOT=Path(__file__).resolve().parents[1]
 ALLOWED={'propext','Classical.choice','Quot.sound'}
+MODULES=['SourceAlignedMemory','SourceAlignedVerification','SourceAlignedModel',
+         'SourceAlignedScan','SourceAlignedExecution','SourceAlignedDifferentiation',
+         'SourceAlignedRoundoff']
 
 
 def main():
@@ -16,7 +19,7 @@ def main():
     parser.add_argument('--output',type=Path)
     args=parser.parse_args()
     expected=[]
-    for module in ['SourceAlignedMemory','SourceAlignedVerification','SourceAlignedModel']:
+    for module in MODULES:
         contents=(ROOT/f'PNDS/{module}.lean').read_text()
         expected += [f'PNDS.{module}.{name}' for name in re.findall(r'^theorem\s+(\w+)',contents,re.M)]
     source=(ROOT/'AuditSourceAligned.lean').read_text()
@@ -41,8 +44,8 @@ def main():
                 declarations=found,ieee_or_torch_refinement_proved=False,
                 toolchain=(ROOT/'lean-toolchain').read_text().strip(),
                 proof_sources_sha256={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest()
-                    for p in ['PNDS/SourceAlignedMemory.lean','PNDS/SourceAlignedVerification.lean',
-                              'PNDS/SourceAlignedModel.lean','AuditSourceAligned.lean','lake-manifest.json']})
+                    for p in [*[f'PNDS/{m}.lean' for m in MODULES],
+                              'AuditSourceAligned.lean','lake-manifest.json']})
     if args.output:
         args.output.parent.mkdir(parents=True,exist_ok=True)
         args.output.write_text(json.dumps(report,indent=2)+'\n')

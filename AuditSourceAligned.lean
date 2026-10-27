@@ -1,6 +1,7 @@
-import PNDS.SourceAlignedModel
+import PNDS.SourceAlignedDifferentiation
+import PNDS.SourceAlignedRoundoff
 
--- Every theorem introduced by the PAR-MEM-010 modules is audited.
+-- Every PAR-MEM-010 theorem is included.
 #print axioms PNDS.SourceAlignedMemory.shared_source_event_address
 #print axioms PNDS.SourceAlignedMemory.reject_wrong_source_owner
 #print axioms PNDS.SourceAlignedMemory.reject_future_source_ordinal
@@ -55,3 +56,48 @@ import PNDS.SourceAlignedModel
 #print axioms PNDS.SourceAlignedModel.declined_native_memory_unchanged
 #print axioms PNDS.SourceAlignedModel.stream_resume
 #print axioms PNDS.SourceAlignedModel.causal_prefix
+#print axioms PNDS.SourceAlignedScan.prefixes_length
+#print axioms PNDS.SourceAlignedScan.prefixes_append
+#print axioms PNDS.SourceAlignedScan.leaves_length
+#print axioms PNDS.SourceAlignedScan.upsweep_fold
+#print axioms PNDS.SourceAlignedScan.blelloch_all_prefixes
+#print axioms PNDS.SourceAlignedScan.crop_padding
+#print axioms PNDS.SourceAlignedScan.padded_blelloch
+#print axioms PNDS.SourceAlignedScan.nonwrite_prefix_identity
+#print axioms PNDS.SourceAlignedScan.source_blocks_blelloch
+#print axioms PNDS.SourceAlignedScan.schedule_batch_index
+#print axioms PNDS.SourceAlignedScan.reassembly_value_row
+#print axioms PNDS.SourceAlignedScan.reassembly_offset
+#print axioms PNDS.SourceAlignedExecution.join_split
+#print axioms PNDS.SourceAlignedExecution.split_join
+#print axioms PNDS.SourceAlignedExecution.restore_erase
+#print axioms PNDS.SourceAlignedExecution.prepare_from_context
+#print axioms PNDS.SourceAlignedExecution.prepare_context_congr
+#print axioms PNDS.SourceAlignedExecution.erase_advance
+#print axioms PNDS.SourceAlignedExecution.context_step_correspondence
+#print axioms PNDS.SourceAlignedExecution.context_step_congr
+#print axioms PNDS.SourceAlignedExecution.context_run_correspondence
+#print axioms PNDS.SourceAlignedExecution.prepass_matches_full_run
+#print axioms PNDS.SourceAlignedExecution.joint_apply_then
+#print axioms PNDS.SourceAlignedExecution.joint_then_assoc
+#print axioms PNDS.SourceAlignedExecution.joint_identity_apply
+#print axioms PNDS.SourceAlignedExecution.advance_memory_correspondence
+#print axioms PNDS.SourceAlignedExecution.scheduled_memory_fold
+#print axioms PNDS.SourceAlignedExecution.joint_fold_matches_stream
+#print axioms PNDS.SourceAlignedExecution.full_model_state_after_scan
+#print axioms PNDS.SourceAlignedExecution.full_prediction_after_scan
+#print axioms PNDS.SourceAlignedExecution.full_model_blelloch_prefixes
+#print axioms PNDS.SourceAlignedDifferentiation.forward_ad_correct
+#print axioms PNDS.SourceAlignedDifferentiation.row_read_derivative
+#print axioms PNDS.SourceAlignedDifferentiation.corrective_write_jvp
+#print axioms PNDS.SourceAlignedDifferentiation.rejected_write_jvp
+#print axioms PNDS.SourceAlignedDifferentiation.clamp_not_differentiable_at_zero
+#print axioms PNDS.SourceAlignedDifferentiation.clamp_right_derivative
+#print axioms PNDS.SourceAlignedDifferentiation.clamp_left_derivative
+#print axioms PNDS.SourceAlignedDifferentiation.full_model_derivative_preserved
+#print axioms PNDS.SourceAlignedRoundoff.close_refl
+#print axioms PNDS.SourceAlignedRoundoff.add_error
+#print axioms PNDS.SourceAlignedRoundoff.neg_error
+#print axioms PNDS.SourceAlignedRoundoff.multiply_error
+#print axioms PNDS.SourceAlignedRoundoff.max_error
+#print axioms PNDS.SourceAlignedRoundoff.rounded_sum_error
