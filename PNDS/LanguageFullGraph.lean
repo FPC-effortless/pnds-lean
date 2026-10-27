@@ -187,8 +187,14 @@ def step (p : Parameters) (s : State) (token : Token) : Logits × State :=
   let afterAligned := writeAligned p s.aligned s.count value α β
   let past := relativeRead p s nk
   let logits := emit p (cat (cat (cat (cat fast slow) priorNative) e) past)
-  (logits, { sum := vadd s.sum basis, native := afterNative,
-    aligned := afterAligned, count := s.count+1, owner := s.owner })
+  let next : State := {
+    sum := vadd s.sum basis
+    native := afterNative
+    aligned := afterAligned
+    count := s.count + 1
+    owner := s.owner
+  }
+  (logits, next)
 
 /-- The historical head looks up only the existing prior state.
     The observed historical target is NOT an argument to this function. -/
