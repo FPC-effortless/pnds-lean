@@ -45,15 +45,9 @@ theorem mean248_hasDerivAt (path : ℝ → V 248) (velocity : V 248)
     (h : ∀ i, HasDerivAt (fun z => path z i) (velocity i) t) :
     HasDerivAt (fun z => mean248 (path z)) (mean248 velocity) t := by
   have hs := HasDerivAt.sum (u := Finset.univ) (fun i _ => h i)
-  have hscaled := hs.const_mul (1/248 : ℝ)
-  convert hscaled using 1
-  · funext z
-    change (∑ i : Fin 248, path z i) / (248:ℝ) =
-      (1/(248:ℝ)) * (∑ i : Fin 248, path z i)
-    ring
-  · change (∑ i : Fin 248, velocity i) / (248:ℝ) =
-      (1/(248:ℝ)) * (∑ i : Fin 248, velocity i)
-    ring
+  change HasDerivAt (fun z => (∑ i : Fin 248, path z i)/(248:ℝ))
+    ((∑ i : Fin 248, velocity i)/(248:ℝ)) t
+  exact hs.div_const (248:ℝ)
 
 /-- This is the exact mean-centered 248-scalar LayerNorm variance JVP:
     all input-coordinate perturbations and mean coupling are retained. -/
@@ -81,17 +75,11 @@ theorem variance248_hasDerivAt
       ring
     · ring
   have hs := HasDerivAt.sum (u := Finset.univ) (fun i _ => hsq i)
-  have scaled := hs.const_mul (1 / 248 : ℝ)
-  convert scaled using 1
-  · funext z
-    change (∑ i : Fin 248, (path z i - mean248 (path z))^2) / (248:ℝ) =
-      (1/(248:ℝ)) * (∑ i : Fin 248, (path z i - mean248 (path z))^2)
-    ring
-  · change (∑ i : Fin 248, 2 * (path t i - mean248 (path t)) *
-          (velocity i - mean248 velocity)) / (248:ℝ) =
-      (1/(248:ℝ)) * (∑ i : Fin 248, 2 * (path t i - mean248 (path t)) *
-          (velocity i - mean248 velocity))
-    ring
+  change HasDerivAt
+    (fun z => (∑ i : Fin 248, (path z i - mean248 (path z))^2)/(248:ℝ))
+    ((∑ i : Fin 248, 2 * (path t i - mean248 (path t)) *
+          (velocity i - mean248 velocity))/(248:ℝ)) t
+  exact hs.div_const (248:ℝ)
 
 /-- The FULL source LayerNorm output-channel JVP now explicitly incorporates
     input, all 248 mean channels, all 248 variance channels, scale, epsilon
