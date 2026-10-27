@@ -10,6 +10,7 @@ import PNDS.UnifiedTACOSM
 import PNDS.TACOSMVariantContracts
 import PNDS.LatentFusion001
 import PNDS.LatentFusion002
+import PNDS.LatentFusion003
 
 /- Axiom audit. CI fails if any proof in the PNDS tree depends on an admitted
    goal, and prints the axioms of each top-level theorem so that hidden
@@ -108,3 +109,18 @@ import PNDS.LatentFusion002
 #check @PNDS.LatentFusion002.exact_nominal_state_bytes
 #print axioms PNDS.LatentFusion002.slow_difference
 #print axioms PNDS.LatentFusion002.exact_nominal_state_bytes
+
+
+/-! LATFUSE003 source-pinned operator-only proof audit; whole-graph FP32, AD and calibration OPEN. -/
+#check @PNDS.LatentFusion003.partition_uses_all_256_matrix_values
+#check @PNDS.LatentFusion003.exact_original_state_floats
+#check @PNDS.LatentFusion003.exact_original_state_bytes
+#check @PNDS.LatentFusion003.zero_write_retains_only_alpha
+#check @PNDS.LatentFusion003.unselected_head_preserves_old
+#check @PNDS.LatentFusion003.headDelta_affine_in_old
+#check @PNDS.LatentFusion003.difference_transport
+#check @PNDS.LatentFusion003.unselected_index_isolation
+#print axioms PNDS.LatentFusion003.headDelta_affine_in_old
+#print axioms PNDS.LatentFusion003.difference_transport
+#print axioms PNDS.LatentFusion003.unselected_index_isolation
+#print axioms PNDS.LatentFusion003.exact_original_state_bytes
