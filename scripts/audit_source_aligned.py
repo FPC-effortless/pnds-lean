@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Execute Lean's axiom printer for every PAR-MEM-010 theorem; fail closed."""
+import argparse
+import hashlib
 import json
 from pathlib import Path
 import re
@@ -10,6 +12,9 @@ ALLOWED={'propext','Classical.choice','Quot.sound'}
 
 
 def main():
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output',type=Path)
+    args=parser.parse_args()
     expected=[]
     for module in ['SourceAlignedMemory','SourceAlignedVerification','SourceAlignedModel']:
         contents=(ROOT/f'PNDS/{module}.lean').read_text()
@@ -33,7 +38,14 @@ def main():
     assert set(found)==set(expected),('incomplete axiom output',set(expected)-set(found))
     report=dict(schema='parmem010.lean_axiom_audit.v1',status='PASS',
                 theorem_count=len(expected),allowed_foundational_axioms=sorted(ALLOWED),
-                declarations=found,ieee_or_torch_refinement_proved=False)
+                declarations=found,ieee_or_torch_refinement_proved=False,
+                toolchain=(ROOT/'lean-toolchain').read_text().strip(),
+                proof_sources_sha256={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest()
+                    for p in ['PNDS/SourceAlignedMemory.lean','PNDS/SourceAlignedVerification.lean',
+                              'PNDS/SourceAlignedModel.lean','AuditSourceAligned.lean','lake-manifest.json']})
+    if args.output:
+        args.output.parent.mkdir(parents=True,exist_ok=True)
+        args.output.write_text(json.dumps(report,indent=2)+'\n')
     print(json.dumps(report,sort_keys=True))
 
 

@@ -13,7 +13,7 @@ def check(tac_root=None):
     contract=json.loads((ROOT/'foundation/v1/PAR-MEM-010-FORMAL-CONTRACT.json').read_text())
     links=json.loads((ROOT/'foundation/v1/variant-math-links.json').read_text())
     assert contract in links['prospective_studies'], 'missing reciprocal study registration'
-    assert contract['source']['commit']=='3b278acc9daf587fd20892e470c857bfc933248e'
+    assert contract['source']['commit']=='63ea0aa67904fa946b9baa69d2e4b0cc23dc1c9a'
     assert contract['complete_formal_verification'] is False
     assert contract['training_done'] is False and contract['real_world_capability_inferred'] is False
     assert len(contract['open_obligations'])>=6

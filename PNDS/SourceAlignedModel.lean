@@ -6,7 +6,7 @@ import Mathlib.Data.Fin.Tuple.Basic
 
 /-!
 Typed exact-real observation-to-output specification of default PAR-MEM-010.
-TAC source: 3b278acc9daf587fd20892e470c857bfc933248e.
+TAC source: 63ea0aa67904fa946b9baa69d2e4b0cc23dc1c9a.
 All default learned maps are explicit, including the inherited backbone and
 post-scan FFN. This is a specification, not a verified Python/Torch compiler.
 Units of dt and normalization of observations/actions are caller contracts.

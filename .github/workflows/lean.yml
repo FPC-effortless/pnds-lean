@@ -27,7 +27,7 @@ jobs:
           python3 scripts/validate_dual_mode_math_link.py
           python3 scripts/validate_engineering_coverage.py
           python3 -m unittest discover -s tests -p 'test_engineering_coverage.py' -v
-          python3 scripts/check_reciprocal_links.py --peer-ref 0376fa40e62d6102f3aa72d418fbd02f30da54c0
+          python3 scripts/check_reciprocal_links.py --peer-ref 2710d5f04c9aa854bc4dcd6db66fcc3ea09911a7
           python3 -m unittest discover -s tests -p 'test_foundation.py' -v
           python3 -m unittest discover -s tests -p 'test_variant_math.py' -v
 
@@ -87,4 +87,11 @@ jobs:
           lake env lean PNDS.lean 2>&1 | grep -E "axioms|sorry" || true
 
       - name: Fail closed on missing PAR-MEM-010 theorems or unexpected axioms
-        run: python3 scripts/audit_source_aligned.py
+        run: python3 scripts/audit_source_aligned.py --output /tmp/parmem010-lean-audit.json
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: parmem010-lean-proof-audit
+          path: |
+            /tmp/parmem010-lean-audit.json
+            build.log

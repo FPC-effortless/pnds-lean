@@ -1,6 +1,6 @@
 """Independent NumPy equations for the complete PAR-MEM-010 forward graph.
 
-Source pin: TAC-OSM 3b278acc9daf587fd20892e470c857bfc933248e.
+Source pin: TAC-OSM 63ea0aa67904fa946b9baa69d2e4b0cc23dc1c9a.
 No imports from Torch or TAC. No optimizer, dataset or forecasting claims.
 The sequential reference intentionally does not reproduce the source scan.
 NumPy execution is numerical evidence, not an IEEE refinement proof.
@@ -10,7 +10,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 import numpy as np
 
-SOURCE_COMMIT = "3b278acc9daf587fd20892e470c857bfc933248e"
+SOURCE_COMMIT = "63ea0aa67904fa946b9baa69d2e4b0cc23dc1c9a"
 PERIODS = (7, 13, 29, 59)
 
 
