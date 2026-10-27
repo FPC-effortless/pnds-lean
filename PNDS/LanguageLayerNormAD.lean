@@ -48,5 +48,59 @@ theorem mean248_hasDerivAt (path : ℝ → V 248) (velocity : V 248)
   have hscaled := hs.const_mul (1/248 : ℝ)
   convert hscaled using 1 <;> simp [mean248, div_eq_mul_inv]
 
+/-- This is the exact mean-centered 248-scalar LayerNorm variance JVP:
+    all input-coordinate perturbations and mean coupling are retained. -/
+def variance248Slope (x dx : V 248) : ℝ :=
+  (∑ i : Fin 248, 2 * (x i - mean248 x) *
+      (dx i - mean248 dx)) / 248
+
+theorem variance248_hasDerivAt
+    (path : ℝ → V 248) (velocity : V 248) (t : ℝ)
+    (h : ∀ i, HasDerivAt (fun z => path z i) (velocity i) t) :
+    HasDerivAt (fun z => variance248 (path z))
+      (variance248Slope (path t) velocity) t := by
+  have hm := mean248_hasDerivAt path velocity t h
+  have hc (i : Fin 248) :
+      HasDerivAt (fun z => path z i - mean248 (path z))
+        (velocity i - mean248 velocity) t :=
+    (h i).sub hm
+  have hsq (i : Fin 248) :
+      HasDerivAt (fun z => (path z i - mean248 (path z))^2)
+        (2 * (path t i - mean248 (path t)) *
+          (velocity i - mean248 velocity)) t := by
+    convert ((hc i).mul (hc i)) using 1 <;> ring
+  have hs := HasDerivAt.sum (u := Finset.univ) (fun i _ => hsq i)
+  have scaled := hs.const_mul (1 / 248 : ℝ)
+  convert scaled using 1 <;> simp [variance248, variance248Slope, div_eq_mul_inv]
+
+/-- The FULL source LayerNorm output-channel JVP now explicitly incorporates
+    input, all 248 mean channels, all 248 variance channels, scale, epsilon
+    and affine shift. No detached normalization statistics are permitted. -/
+theorem norm248_coordinate_hasDerivAt
+    (p : Parameters) (path : ℝ → V 248) (velocity : V 248)
+    (t : ℝ) (i : Fin 248)
+    (h : ∀ j, HasDerivAt (fun z => path z j) (velocity j) t)
+    (heps : 0 < p.normEps) :
+    HasDerivAt (fun z => norm248 p (path z) i)
+      (p.normScale i * (((velocity i - mean248 velocity) *
+        Real.sqrt (variance248 (path t) + p.normEps) -
+       (path t i - mean248 (path t)) *
+         (variance248Slope (path t) velocity /
+           (2*Real.sqrt (variance248 (path t) + p.normEps)))) /
+       (Real.sqrt (variance248 (path t) + p.normEps))^2)) t := by
+  have hm := mean248_hasDerivAt path velocity t h
+  have hv := variance248_hasDerivAt path velocity t h
+  have hvar := variance248_nonnegative (path t)
+  have core := normalized_feature_hasDerivAt
+    (fun z => path z i)
+    (fun z => mean248 (path z))
+    (fun z => variance248 (path z))
+    (velocity i) (mean248 velocity)
+    (variance248Slope (path t) velocity)
+    t (p.normScale i) (p.normShift i) p.normEps
+    (h i) hm hv hvar heps
+  convert core using 1 <;>
+    simp [LanguageFullGraph.norm248, mean248, variance248]
+
 end
 end PNDS.LanguageLayerNormAD
