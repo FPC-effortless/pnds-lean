@@ -1,0 +1,27 @@
+{
+  "study": "PAR-MEM-010-SOURCE-ALIGNED-MATH",
+  "source_repo": "FPC-effortless/TAC-OSM",
+  "source_branch": "research/parmem010-source-aligned-parallel-memory-2026-10-27",
+  "source_path": "src/tac_osm/variants/source_aligned_parallel_world.py",
+  "source_ci": "https://github.com/FPC-effortless/TAC-OSM/actions/runs/40517395840",
+  "source_implementation_features": [
+    "two 16x8 separate source-aware soft heads",
+    "four original 8x8 associative affine monoid scans",
+    "identical source known event ordinal address on both write/read",
+    "source identity and chronological query admissibility",
+    "no-write identity",
+    "read-only historical query"
+  ],
+  "lean": "PNDS/SourceAlignedMemory.lean",
+  "python_reference": "foundation/v1/source_aligned_memory_math.py",
+  "scope": "Lean proves only abstract exact-real source key equality, source-owner query refusal, scalar gated-delta update and read-only invariants, not actual neural graph/tensor numerical equivalence.",
+  "missing_proofs": [
+    "8x8 joint affine tensor scan correspondence for this 2x16x8 layout",
+    "IEEE FP32/FP64 Fourier and gradient refinement",
+    "whole model automatic differentiation",
+    "real-data historical content retrieval and uncertainty-law correctness",
+    "source record existence/permission verifiable from independent data"
+  ],
+  "synthetic_unit_tests_not_real_skill": true,
+  "training_done": false
+}
