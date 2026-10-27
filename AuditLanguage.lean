@@ -2,6 +2,7 @@ import PNDS.LanguageFPContracts
 import PNDS.LanguageLayerNorm
 import PNDS.LanguageLossAD
 import PNDS.LanguageMemoryAD
+import PNDS.LanguageMemoryStability
 
 #print axioms PNDS.LanguageCategorical.Z_pos
 #print axioms PNDS.LanguageCategorical.probability_pos
@@ -52,3 +53,8 @@ import PNDS.LanguageMemoryAD
 #print axioms PNDS.LanguageMemoryAD.native_write_refines_kernel
 #print axioms PNDS.LanguageMemoryAD.source_kernel_coordinate_jvp
 #print axioms PNDS.LanguageMemoryAD.native_kernel_coordinate_jvp
+
+#print axioms PNDS.LanguageMemoryStability.aligned_key_energy
+#print axioms PNDS.LanguageMemoryStability.source_retention_range
+#print axioms PNDS.LanguageMemoryStability.source_beta_range
+#print axioms PNDS.LanguageMemoryStability.source_aligned_write_nonexpansive
