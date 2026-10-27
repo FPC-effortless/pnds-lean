@@ -2,7 +2,9 @@ from fractions import Fraction as F
 import math
 import struct
 import unittest
-from foundation.v1.source_aligned_program_math import Expr,normalize_program,sum_error_budget
+from foundation.v1.source_aligned_program_math import (
+    Expr,normalize_program,sum_error_budget,pullback,primitive_error_bound,
+)
 
 
 class ScalarProgramChecks(unittest.TestCase):
@@ -52,6 +54,31 @@ class ScalarProgramChecks(unittest.TestCase):
     def test_singular_expression_is_explicitly_rejected_by_regularity(self):
         e=Expr('inv',(Expr.variable(0),))
         self.assertFalse(e.regular((0.,)))
+
+    def test_full_vjp_pairing_and_shared_input_uses(self):
+        x,y=Expr.variable(0),Expr.variable(1)
+        outputs=[Expr('mul',(x,Expr('add',(x,y)))),Expr('sin',(y,))]
+        point=(.7,1.2);direction=(.3,-.2);upstream=(.4,.9)
+        gradient=pullback(outputs,point,upstream)
+        self.assertAlmostEqual(sum(g*d for g,d in zip(gradient,direction)),
+                               sum(u*e.tangent(point,direction) for u,e in zip(upstream,outputs)))
+        self.assertAlmostEqual(gradient[0],.4*(2*.7+1.2))
+
+    def test_nonlinear_forward_bounds_include_clamp_ties_and_domain_margins(self):
+        import random
+        rng=random.Random(11010)
+        for _ in range(100):
+            a,b=rng.uniform(.2,2),rng.uniform(.2,2)
+            ea,eb=.001,.002
+            x,y=a+rng.uniform(-ea,ea),b+rng.uniform(-eb,eb)
+            for op,fn in [('sin',math.sin),('cos',math.cos),('exp',math.exp),
+                          ('sqrt',math.sqrt),('log',math.log),('inv',lambda z:1/z)]:
+                bound=primitive_error_bound(op,(a,),(ea,),margin=min(a,x))
+                self.assertLessEqual(abs(fn(a)-fn(x)),bound+1e-15)
+            self.assertLessEqual(abs(a*b-x*y),primitive_error_bound('mul',(a,b),(ea,eb)))
+            self.assertLessEqual(abs(max(a,b)-max(x,y)),primitive_error_bound('max',(a,b),(ea,eb)))
+        with self.assertRaises(ValueError):primitive_error_bound('inv',(1.,),(.1,))
+        with self.assertRaises(ValueError):primitive_error_bound('exp',(1.,),(1.1,))
 
 
 if __name__=='__main__':unittest.main()

@@ -30,6 +30,7 @@ instance (k : ℕ) : OfNat (Expr n) k := ⟨.constant k⟩
 @[simp] theorem eval_two (rho : Fin n → ℝ) : eval (2 : Expr n) rho = 2 := by norm_num [eval]
 @[simp] theorem eval_four (rho : Fin n → ℝ) : eval (4 : Expr n) rho = 4 := by norm_num [eval]
 @[simp] theorem eval_constant (c : ℝ) (rho : Fin n → ℝ) : eval (.constant c) rho = c := rfl
+@[simp] theorem eval_input (i : Fin n) (rho : Fin n → ℝ) : eval (.input i) rho = rho i := rfl
 @[simp] theorem eval_exp (a : Expr n) (rho) : eval (.exp a) rho = Real.exp (eval a rho) := rfl
 @[simp] theorem eval_log (a : Expr n) (rho) : eval (.log a) rho = Real.log (eval a rho) := rfl
 @[simp] theorem eval_sqrt (a : Expr n) (rho) : eval (.sqrt a) rho = Real.sqrt (eval a rho) := rfl
@@ -42,7 +43,7 @@ def im {m k : ℕ} (v : EM n m k) (rho : Fin n → ℝ) : Mat m k := fun i j => 
 
 def sumE : {k : ℕ} → EV n k → Expr n
   | 0, _ => 0
-  | k+1, v => v 0 + sumE (fun i => v i.succ)
+  | _k+1, v => v 0 + sumE (fun i => v i.succ)
 
 @[simp] theorem eval_sumE {k : ℕ} (v : EV n k) (rho : Fin n → ℝ) :
     eval (sumE v) rho = ∑ i, eval (v i) rho := by
@@ -224,6 +225,16 @@ def interpPrepared (s : SPrepared n) (rho : Fin n → ℝ) : Prepared :=
     iv (ss x) rho = second (iv x rho) := rfl
 @[simp] theorem interp_vadd {k : ℕ} (x y : EV n k) (rho) :
     iv (x+y) rho = iv x rho+iv y rho := rfl
+@[simp] theorem interp_vmul {k : ℕ} (x y : EV n k) (rho) :
+    iv (x*y) rho = iv x rho*iv y rho := rfl
+@[simp] theorem interp_lambda_add {k : ℕ} (x y : EV n k) (rho) :
+    iv (fun j => x j+y j) rho = (fun j => iv x rho j+iv y rho j) := rfl
+@[simp] theorem interp_lambda_mul {k : ℕ} (x y : EV n k) (rho) :
+    iv (fun j => x j*y j) rho = (fun j => iv x rho j*iv y rho j) := rfl
+@[simp] theorem interp_broadcast {k : ℕ} (x : Expr n) (rho) :
+    iv (fun _ : Fin k => x) rho = (fun _ => eval x rho) := rfl
+@[simp] theorem interp_rows {m k : ℕ} (x : EM n m k) (rho) :
+    im x rho = fun v => iv (x v) rho := rfl
 @[simp] theorem interp_zero {k : ℕ} (rho : Fin n → ℝ) :
     iv (0 : EV n k) rho = 0 := by
   funext i
@@ -396,11 +407,11 @@ theorem interp_prepare (w : SParameters n) (s : SState n) (x : SInput n) (rho) :
       prepare (interpParameters w rho) (interpState s rho) (interpInput x rho) := by
   simp only [prepareE,prepare,Id.run,pure,interpPrepared,interp_den,interp_lin,interp_cat,
     interp_tanhmap,interp_sigmap,interp_quartermap,interp_first,interp_second,
-    interp_vadd,interp_zero,interp_mix,interp_norm,interp_soft,interp_known_div,
+    interp_vadd,interp_vmul,interp_lambda_add,interp_lambda_mul,
+    interp_zero,interp_mix,interp_norm,interp_soft,interp_known_div,
     interp_time,interp_keys,eval_mul,eval_add,eval_sub,eval_div,eval_nat,
     eval_zero,eval_one,eval_two,eval_four,
     interp_sigmap_at,interp_soft_at,interpParameters,interpState,interpInput]
-  congr 1 <;> try rfl
 
 set_option maxRecDepth 4096 in
 set_option maxHeartbeats 600000 in
@@ -411,21 +422,16 @@ theorem interp_decode (w : SParameters n) (s : SState n) (x : SInput n) (p : SPr
     simp only [decodeE,decode,Id.run,pure,interpPrepared,interpParameters,interpState,interpInput,
       hq,ho,↓reduceIte,interp_den,interp_lin,interp_cat,interp_tanhmap,interp_silumap,
       interp_first,interp_second,interp_sigmap,interp_quartermap,interp_mix,
-      interp_vadd,interp_matrix_read,interp_read,interp_zero]
-  all_goals
-    funext j
-    simp only [iv,eval_add,eval_mul,interp_sig,interp_tanhmap_at,interp_lin,interp_den,
-      interp_cat,interp_silumap,interp_mix,interp_first,interp_second,interp_sigmap,
-      interp_quartermap,interp_vadd,interp_matrix_read,interp_read,interp_zero]
-    try rfl
+      interp_vadd,interp_vmul,interp_lambda_add,interp_lambda_mul,
+      interp_broadcast,interp_sig,interp_matrix_read,interp_read,interp_zero]
 
 theorem interp_advance (s : SState n) (x : SInput n) (p : SPrepared n) (rho) :
     interpState (advanceE s x p) rho =
       advance (interpState s rho) (interpInput x rho) (interpPrepared p rho) := by
   cases ha : x.admitted <;>
-    simp only [advanceE,advance,interpState,interpInput,interpPrepared,iv,im,rowE,
-      writeRow,rowRead,PNDS.SourceAlignedVerification.writeMatrix,ha,Bool.false_eq_true,↓reduceIte,
-      eval_add,eval_mul,eval_sub,eval_sumE]
+    simp only [advanceE,advance,interpState,interpInput,interpPrepared,interp_rows,
+      interp_vadd,interp_row,PNDS.SourceAlignedVerification.writeMatrix,ha,
+      Bool.false_eq_true,↓reduceIte,eval_add]
   all_goals rfl
 
 theorem complete_graph_compiler_correct (w : SParameters n) (s : SState n)
@@ -468,8 +474,9 @@ theorem all_history_compiler_correct (w : SParameters n) (s : SState n)
   | cons x xs ih =>
     simp only [runE,List.map_cons,runState,List.foldl_cons]
     rw [← runState,ih]
-    congr 1
-    exact congrArg Prod.snd (complete_graph_compiler_correct w s x rho)
+    exact congrArg (fun st => runState (interpParameters w rho) st
+      (xs.map (fun x => interpInput x rho)))
+        (congrArg Prod.snd (complete_graph_compiler_correct w s x rho))
 
 /-- AD correctness includes every parameter reuse and every earlier source
 event, not only a one-step memory kernel or a fixed learned embedding. -/
@@ -487,6 +494,23 @@ theorem all_history_ad_correct (w : SParameters n) (s : SState n)
   have h := complete_graph_ad_correct w (runE w s past) current curve dx t j hc hr
   simpa only [all_history_compiler_correct] using h
 
+theorem all_history_vjp_correct (w : SParameters n) (s : SState n)
+    (past : List (SInput n)) (current : SInput n) (upstream : Fin 14 → ℝ)
+    (curve : Fin n → ℝ → ℝ) (dx : Fin n → ℝ) (t : ℝ)
+    (hc : ∀ i, HasDerivAt (curve i) (dx i) t)
+    (hr : ∀ j, Regular ((stepE w (runE w s past) current).1 j) (fun i => curve i t)) :
+    HasDerivAt (fun z => ∑ j, upstream j *
+      (step (interpParameters w (fun i => curve i z))
+        (runState (interpParameters w (fun i => curve i z))
+          (interpState s (fun i => curve i z))
+          (past.map (fun x => interpInput x (fun i => curve i z))))
+        (interpInput current (fun i => curve i z))).1 j)
+      (∑ i, pullback ((stepE w (runE w s past) current).1)
+        (fun i => curve i t) upstream i * dx i) t := by
+  have h := HasDerivAt.sum (u := Finset.univ) (fun j _ =>
+    (all_history_ad_correct w s past current curve dx t j hc (hr j)).const_mul (upstream j))
+  simpa only [vjp_pairing] using h
+
 /-- Epsilon normalization is differentiable at the zero key. The compiler
 places the positive floor INSIDE sqrt, avoiding a spurious sqrt(0) AD premise. -/
 theorem normalized_zero_regular (j : Fin 8) :
@@ -496,12 +520,27 @@ theorem normalized_zero_regular (j : Fin 8) :
 theorem normalized_zero_tangent (j : Fin 8) (dx : Fin 8 → ℝ) :
     tangent ((normE (fun i : Fin 8 => Expr.input i)) j) (fun _ => 0) dx =
       dx j/(1/1000000) := by
-  norm_num [normE,tangent,eval,sumE]
+  have hroot : Real.sqrt (1000000000000 : ℝ) = 1000000 := by
+    apply (Real.sqrt_eq_iff_mul_self_eq (by norm_num) (by norm_num)).2
+    norm_num
+  norm_num [normE,tangent,eval,sumE,hroot]
+  field_simp
 
 theorem normalized_epsilon_boundary_not_regular (j : Fin 8) :
     ¬ Regular ((normE (fun i : Fin 8 => Expr.input i)) j)
       (fun i => if i=0 then 1/1000000 else 0) := by
-  norm_num [normE,Regular,eval,sumE]
+  have hs : eval (sumE (fun i : Fin 8 => Expr.input i*Expr.input i))
+      (fun i => if i=0 then 1/1000000 else 0) = (1/1000000 : ℝ)^2 := by
+    rw [eval_sumE]
+    simp only [eval_mul,eval_input]
+    calc
+      _ = ∑ i : Fin 8, if i=0 then (1/1000000 : ℝ)^2 else 0 := by
+        apply Finset.sum_congr rfl
+        intro i _
+        split_ifs <;> simp_all [pow_two]
+      _ = _ := by simp
+  simp only [normE,Regular,hs,eval_constant,ne_eq,not_true_eq_false,
+    and_false,false_and,true_and,not_false_eq_true]
 
 end
 end PNDS.SourceAlignedPrograms

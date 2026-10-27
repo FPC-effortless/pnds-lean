@@ -108,6 +108,69 @@ theorem forward_ad_correct {n : ℕ} (e : Expr n)
       have hd := ha.congr_of_eventuallyEq (he.mono (fun z hz => max_eq_left hz.le))
       simpa only [eval, tangent, if_neg (not_le_of_gt hba)] using hd
 
+theorem tangent_add {n : ℕ} (e : Expr n) (x dx dy : Fin n → ℝ) :
+    tangent e x (fun i => dx i+dy i) = tangent e x dx+tangent e x dy := by
+  induction e <;> simp only [tangent, *]
+  all_goals try split_ifs
+  all_goals try simp_all only [div_eq_mul_inv]
+  all_goals ring
+
+theorem tangent_scale {n : ℕ} (e : Expr n) (x dx : Fin n → ℝ) (c : ℝ) :
+    tangent e x (fun i => c*dx i) = c*tangent e x dx := by
+  induction e <;> simp only [tangent, *]
+  all_goals try split_ifs
+  all_goals try simp_all only [div_eq_mul_inv]
+  all_goals ring
+
+theorem tangent_zero {n : ℕ} (e : Expr n) (x : Fin n → ℝ) :
+    tangent e x (fun _ => 0) = 0 := by
+  simpa using tangent_scale e x (fun _ => 0) 0
+
+theorem tangent_sum {n m : ℕ} (e : Expr n) (x : Fin n → ℝ)
+    (directions : Fin m → Fin n → ℝ) :
+    tangent e x (fun i => ∑ j, directions j i) = ∑ j, tangent e x (directions j) := by
+  classical
+  have aux (s : Finset (Fin m)) :
+      tangent e x (fun i => ∑ j ∈ s, directions j i) =
+        ∑ j ∈ s, tangent e x (directions j) := by
+    induction s using Finset.induction_on with
+    | empty => simp [tangent_zero]
+    | @insert a s ha ih => simp only [Finset.sum_insert ha,tangent_add,ih]
+  exact aux Finset.univ
+
+def basis {n : ℕ} (i : Fin n) : Fin n → ℝ := fun j => if i=j then 1 else 0
+def gradient {n : ℕ} (e : Expr n) (x : Fin n → ℝ) : Fin n → ℝ :=
+  fun i => tangent e x (basis i)
+
+theorem tangent_is_gradient_dot {n : ℕ} (e : Expr n) (x dx : Fin n → ℝ) :
+    tangent e x dx = ∑ i, gradient e x i*dx i := by
+  have hseed : (fun j => ∑ i, dx i*basis i j) = dx := by
+    funext j
+    simp [basis,mul_ite]
+  conv_lhs => rw [← hseed,tangent_sum]
+  simp only [tangent_scale,gradient]
+  apply Finset.sum_congr rfl
+  intro i _
+  ring
+
+def pullback {n m : ℕ} (outputs : Fin m → Expr n) (x : Fin n → ℝ)
+    (upstream : Fin m → ℝ) : Fin n → ℝ :=
+  fun i => ∑ j, upstream j*gradient (outputs j) x i
+
+/-- The transpose derivative satisfies the defining VJP/JVP pairing for
+every graph size and upstream loss direction. No learned tensor is omitted. -/
+theorem vjp_pairing {n m : ℕ} (outputs : Fin m → Expr n) (x dx : Fin n → ℝ)
+    (upstream : Fin m → ℝ) :
+    (∑ j, upstream j*tangent (outputs j) x dx) =
+      ∑ i, pullback outputs x upstream i*dx i := by
+  simp only [tangent_is_gradient_dot,pullback,Finset.mul_sum,Finset.sum_mul]
+  rw [Finset.sum_comm]
+  apply Finset.sum_congr rfl
+  intro i _
+  apply Finset.sum_congr rfl
+  intro j _
+  ring
+
 def rowJVP (row key drow dkey : SourceRow) (value alpha beta dvalue dalpha dbeta : ℝ) :
     SourceRow :=
   let old := rowRead row key

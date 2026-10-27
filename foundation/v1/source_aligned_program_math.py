@@ -81,3 +81,33 @@ def sum_error_budget(values,ideal=Fraction(0),initial_error=Fraction(0),
         ideal+=x
         error=(1+u)*error+u*abs(ideal)+eta
     return error
+
+
+def pullback(outputs,point,upstream):
+    result=[]
+    for i in range(len(point)):
+        basis=tuple(float(j==i) for j in range(len(point)))
+        result.append(sum(g*e.tangent(point,basis) for e,g in zip(outputs,upstream)))
+    return tuple(result)
+
+
+def primitive_error_bound(op,centers,radii,local=0.,margin=None):
+    """Conditional bounds paired with SourceAlignedRoundoff, not ULP claims.
+
+    The caller must establish local backend error and the stated domain
+    margins. Passing numerical fixtures does not establish those universally.
+    """
+    if local<0 or any(e<0 for e in radii):raise ValueError('negative error radius')
+    a,e=centers[0],radii[0]
+    if op in ('neg','sin','cos'):return e+local
+    if op=='add':return sum(radii)+local
+    if op=='mul':return abs(a)*radii[1]+abs(centers[1])*e+e*radii[1]+local
+    if op=='max':return max(radii)+local
+    if op=='sqrt':return math.sqrt(e)+local
+    if op=='exp':
+        if e>1:raise ValueError('exp local perturbation exceeds theorem domain')
+        return 2*math.exp(a)*e+local
+    if op in ('inv','log'):
+        if margin is None or margin<=0:raise ValueError('positive separation margin required')
+        return e/(margin*margin if op=='inv' else margin)+local
+    raise ValueError(op)

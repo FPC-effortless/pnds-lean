@@ -88,6 +88,12 @@ import PNDS.SourceAlignedRoundoff
 #print axioms PNDS.SourceAlignedExecution.full_prediction_after_scan
 #print axioms PNDS.SourceAlignedExecution.full_model_blelloch_prefixes
 #print axioms PNDS.SourceAlignedDifferentiation.forward_ad_correct
+#print axioms PNDS.SourceAlignedDifferentiation.tangent_add
+#print axioms PNDS.SourceAlignedDifferentiation.tangent_scale
+#print axioms PNDS.SourceAlignedDifferentiation.tangent_zero
+#print axioms PNDS.SourceAlignedDifferentiation.tangent_sum
+#print axioms PNDS.SourceAlignedDifferentiation.tangent_is_gradient_dot
+#print axioms PNDS.SourceAlignedDifferentiation.vjp_pairing
 #print axioms PNDS.SourceAlignedDifferentiation.row_read_derivative
 #print axioms PNDS.SourceAlignedDifferentiation.corrective_write_jvp
 #print axioms PNDS.SourceAlignedDifferentiation.rejected_write_jvp
@@ -121,6 +127,7 @@ import PNDS.SourceAlignedRoundoff
 #print axioms PNDS.SourceAlignedPrograms.eval_two
 #print axioms PNDS.SourceAlignedPrograms.eval_four
 #print axioms PNDS.SourceAlignedPrograms.eval_constant
+#print axioms PNDS.SourceAlignedPrograms.eval_input
 #print axioms PNDS.SourceAlignedPrograms.eval_exp
 #print axioms PNDS.SourceAlignedPrograms.eval_log
 #print axioms PNDS.SourceAlignedPrograms.eval_sqrt
@@ -136,6 +143,11 @@ import PNDS.SourceAlignedRoundoff
 #print axioms PNDS.SourceAlignedPrograms.interp_first
 #print axioms PNDS.SourceAlignedPrograms.interp_second
 #print axioms PNDS.SourceAlignedPrograms.interp_vadd
+#print axioms PNDS.SourceAlignedPrograms.interp_vmul
+#print axioms PNDS.SourceAlignedPrograms.interp_lambda_add
+#print axioms PNDS.SourceAlignedPrograms.interp_lambda_mul
+#print axioms PNDS.SourceAlignedPrograms.interp_broadcast
+#print axioms PNDS.SourceAlignedPrograms.interp_rows
 #print axioms PNDS.SourceAlignedPrograms.interp_zero
 #print axioms PNDS.SourceAlignedPrograms.interp_mix
 #print axioms PNDS.SourceAlignedPrograms.interp_sigmap
@@ -164,6 +176,7 @@ import PNDS.SourceAlignedRoundoff
 #print axioms PNDS.SourceAlignedPrograms.complete_graph_ad_correct
 #print axioms PNDS.SourceAlignedPrograms.all_history_compiler_correct
 #print axioms PNDS.SourceAlignedPrograms.all_history_ad_correct
+#print axioms PNDS.SourceAlignedPrograms.all_history_vjp_correct
 #print axioms PNDS.SourceAlignedPrograms.normalized_zero_regular
 #print axioms PNDS.SourceAlignedPrograms.normalized_zero_tangent
 #print axioms PNDS.SourceAlignedPrograms.normalized_epsilon_boundary_not_regular

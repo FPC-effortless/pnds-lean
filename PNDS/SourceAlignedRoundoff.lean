@@ -87,11 +87,11 @@ theorem inverse_error (a x ea rounded roundingError margin : ℝ)
     Close rounded x⁻¹ (ea/(margin*margin)+roundingError) := by
   have han : a ≠ 0 := abs_pos.1 (hm.trans_le hax)
   have hxn : x ≠ 0 := abs_pos.1 (hm.trans_le hxx)
-  have habs : |a⁻¹-x⁻¹| = |a-x|/(|a|*|x|) := by
-    have heq : a⁻¹-x⁻¹ = (x-a)/(a*x) := by field_simp; ring
+  have habs : |a⁻¹-x⁻¹| = |a-x|/(|a| * |x|) := by
+    have heq : a⁻¹-x⁻¹ = (x-a)/(a*x) := by field_simp <;> ring
     rw [heq,abs_div,abs_mul,abs_sub_comm]
   have he : 0 ≤ ea := (abs_nonneg _).trans ha
-  have hden : margin*margin ≤ |a|*|x| :=
+  have hden : margin*margin ≤ |a| * |x| :=
     mul_le_mul hax hxx (le_of_lt hm) ((le_of_lt hm).trans hax)
   have hbound : Close a⁻¹ x⁻¹ (ea/(margin*margin)) := by
     unfold Close
@@ -129,8 +129,9 @@ theorem sin_difference_bound (a x : ℝ) : |Real.sin a-Real.sin x| ≤ |a-x| := 
   rw [Real.sin_sub_sin,abs_mul,abs_mul,abs_of_nonneg (by norm_num : (0:ℝ) ≤ 2)]
   have hs := Real.abs_sin_le_abs (x := (a-x)/2)
   have hc := Real.abs_cos_le_one ((a+x)/2)
-  have ht := mul_le_mul_of_nonneg_left hc (mul_nonneg (by norm_num) (abs_nonneg _))
-  have hhalf : 2*|(a-x)/2| = |a-x| := by rw [abs_div]; norm_num
+  have ht := mul_le_mul_of_nonneg_left hc
+    (mul_nonneg (by norm_num : (0:ℝ) ≤ 2) (abs_nonneg (Real.sin ((a-x)/2))))
+  have hhalf : 2*|(a-x)/2| = |a-x| := by rw [abs_div]; norm_num <;> ring
   nlinarith
 
 theorem cos_difference_bound (a x : ℝ) : |Real.cos a-Real.cos x| ≤ |a-x| := by
@@ -140,7 +141,7 @@ theorem cos_difference_bound (a x : ℝ) : |Real.cos a-Real.cos x| ≤ |a-x| := 
   have hs := Real.abs_sin_le_abs (x := (a-x)/2)
   have hc := Real.abs_sin_le_one ((a+x)/2)
   have ht := mul_le_mul_of_nonneg_right hc (abs_nonneg (Real.sin ((a-x)/2)))
-  have hhalf : 2*|(a-x)/2| = |a-x| := by rw [abs_div]; norm_num
+  have hhalf : 2*|(a-x)/2| = |a-x| := by rw [abs_div]; norm_num <;> ring
   nlinarith
 
 theorem sin_error (a x ea rounded roundingError : ℝ) (ha : Close a x ea)
@@ -161,7 +162,6 @@ theorem exp_error (a x ea rounded roundingError : ℝ) (ha : Close a x ea) (he1 
   have heq : Real.exp x-Real.exp a = Real.exp a*(Real.exp (x-a)-1) := by
     rw [Real.exp_sub]
     field_simp [Real.exp_ne_zero]
-    ring
   have hbound : Close (Real.exp a) (Real.exp x) (2*Real.exp a*ea) := by
     unfold Close
     rw [abs_sub_comm,heq,abs_mul,abs_of_pos (Real.exp_pos a)]
@@ -180,7 +180,7 @@ theorem log_error (a x ea rounded roundingError margin : ℝ)
       (hclose : |a-x| ≤ ea) : Real.log a-Real.log x ≤ ea/margin := by
     have hl := Real.log_le_sub_one_of_pos (div_pos hap hxp)
     rw [Real.log_div (ne_of_gt hap) (ne_of_gt hxp)] at hl
-    have heq : a/x-1 = (a-x)/x := by field_simp; ring
+    have heq : a/x-1 = (a-x)/x := by field_simp
     rw [heq] at hl
     apply hl.trans
     apply (div_le_div_iff₀ hxp hm).2
