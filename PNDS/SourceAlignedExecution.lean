@@ -34,7 +34,7 @@ theorem split_join (s : BlockState) : splitMemory (joinMemory s) = s := by
   have hb : (8*b.val+r.val)/8 = b.val := by omega
   have hr : (8*b.val+r.val)%8 = r.val := by omega
   simp only [splitMemory, joinMemory, rowIndex]
-  congr 2 <;> apply Fin.ext <;> assumption
+  congr 2
 
 abbrev Memories := Matrix (Fin 8) (Fin 8) ℝ × BlockState
 abbrev JointSchedule := AffinePair 8 × BlockSchedule
@@ -156,8 +156,10 @@ theorem advance_memory_correspondence (s : State) (x : Input) (p : Prepared) :
     | false => simp [memories, advance, jointApply, eventSchedule, nativeSchedule, hx,
         writeRow, applyPair, identity]
     | true =>
-      exact (row_affine_correspondence (s.memory r) p.nativeKey
-        (p.nativeValue r) p.nativeAlpha p.nativeBeta j).symm
+      simpa only [memories, advance, jointApply, eventSchedule, nativeSchedule, hx,
+          Bool.true_eq, ↓reduceIte, applyPair, Matrix.add_apply, Matrix.mul_apply] using
+        (row_affine_correspondence (s.memory r) p.nativeKey
+          (p.nativeValue r) p.nativeAlpha p.nativeBeta j).symm
   · exact (four_block_write_correspondence s.aligned p.sourceKey p.sourceValue
         p.sourceAlpha p.sourceBeta x.admitted).symm
 
