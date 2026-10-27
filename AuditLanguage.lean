@@ -20,3 +20,7 @@ import PNDS.LanguageFullGraph
 #print axioms PNDS.LanguageFullGraph.token_probability_sum_one
 #print axioms PNDS.LanguageFullGraph.prefix_causal
 #print axioms PNDS.LanguageFullGraph.advance_owner
+
+#print axioms PNDS.LanguageCategorical.partition_shift
+#print axioms PNDS.LanguageCategorical.probability_shift
+#print axioms PNDS.LanguageCategorical.nll_shift
