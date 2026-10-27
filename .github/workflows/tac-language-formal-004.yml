@@ -1,0 +1,47 @@
+name: Language TAC source-specific Lean contracts
+on:
+  push:
+    branches: [research/tac-lang-formal-004-2026-10-27]
+  pull_request:
+  workflow_dispatch:
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install elan
+        run: |
+          curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Compile exact-real language theorems (fail on errors)
+        run: |
+          set -euo pipefail
+          lake update
+          lake build PNDS.LanguageGradientGuard PNDS.LanguageMultiLagObjective PNDS.LanguageSelectiveRetrieval PNDS.LanguageRepairCandidates PNDS.LanguageKeySensitivity PNDS.LanguageTensorFP PNDS.LanguageLayerNormAD PNDS.LanguageActivationAD PNDS.LanguageMemoryStability PNDS.LanguageMemoryAD PNDS.LanguageLossAD PNDS.LanguageLayerNorm PNDS.LanguageFPContracts 2>&1 | tee /tmp/tac-language-lean.log
+          test -f .lake/build/lib/PNDS/LanguageFPContracts.olean
+          test -f .lake/build/lib/PNDS/LanguageLayerNorm.olean
+          test -f .lake/build/lib/PNDS/LanguageLossAD.olean
+          test -f .lake/build/lib/PNDS/LanguageMemoryAD.olean
+          test -f .lake/build/lib/PNDS/LanguageMemoryStability.olean
+          test -f .lake/build/lib/PNDS/LanguageActivationAD.olean
+          test -f .lake/build/lib/PNDS/LanguageLayerNormAD.olean
+          test -f .lake/build/lib/PNDS/LanguageTensorFP.olean
+          test -f .lake/build/lib/PNDS/LanguageKeySensitivity.olean
+          test -f .lake/build/lib/PNDS/LanguageRepairCandidates.olean
+          test -f .lake/build/lib/PNDS/LanguageSelectiveRetrieval.olean
+          test -f .lake/build/lib/PNDS/LanguageMultiLagObjective.olean
+          test -f .lake/build/lib/PNDS/LanguageGradientGuard.olean
+          if grep -q "sorry" /tmp/tac-language-lean.log; then exit 1; fi
+      - name: Inspect axioms and reject sorry
+        run: |
+          set -euo pipefail
+          lake env lean AuditLanguage.lean 2>&1 | tee /tmp/tac-language-axioms.log
+          python3 scripts/audit_language_lean.py --audit AuditLanguage.lean --lean-log /tmp/tac-language-axioms.log --expected 82
+          python3 -m unittest discover -s tests -p 'test_language_axiom_audit.py' -v
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tac-language-formal-004
+          path: |
+            /tmp/tac-language-lean.log
+            /tmp/tac-language-axioms.log

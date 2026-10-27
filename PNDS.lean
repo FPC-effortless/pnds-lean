@@ -27,6 +27,21 @@ import PNDS.SourceAlignedExecution
 import PNDS.SourceAlignedDifferentiation
 import PNDS.SourceAlignedRoundoff
 import PNDS.SourceAlignedPrograms
+import PNDS.LanguageCategorical
+import PNDS.LanguageFullGraph
+import PNDS.LanguageFPContracts
+import PNDS.LanguageLayerNorm
+import PNDS.LanguageLossAD
+import PNDS.LanguageMemoryAD
+import PNDS.LanguageMemoryStability
+import PNDS.LanguageActivationAD
+import PNDS.LanguageLayerNormAD
+import PNDS.LanguageTensorFP
+import PNDS.LanguageKeySensitivity
+import PNDS.LanguageRepairCandidates
+import PNDS.LanguageSelectiveRetrieval
+import PNDS.LanguageMultiLagObjective
+import PNDS.LanguageGradientGuard
 
 /-- The version of the document this formalization targets. -/
 def docVersion : String := "v0.2"
