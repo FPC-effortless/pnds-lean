@@ -258,6 +258,20 @@ theorem difference_write (row other key : SourceRow) (value alpha beta : ℝ) :
   simp only [Pi.sub_apply, writeRow, Bool.true_eq, ↓reduceIte, hread]
   ring
 
+theorem write_nonexpansive (row other key : SourceRow) (value alpha beta : ℝ)
+    (hk : squaredNorm key ≤ 1) (ha0 : 0 ≤ alpha) (ha1 : alpha ≤ 1)
+    (hb0 : 0 ≤ beta) (hb1 : beta ≤ 1) :
+    squaredNorm (writeRow row key value alpha beta true -
+                 writeRow other key value alpha beta true) ≤ squaredNorm (row-other) := by
+  rw [difference_write]
+  have hb := homogeneous_nonexpansive (row-other) key alpha beta hk hb0 hb1
+  have hd : 0 ≤ squaredNorm (row-other) := by
+    apply Finset.sum_nonneg
+    intro j _
+    exact mul_self_nonneg _
+  have ha2 : alpha^2 ≤ 1 := by nlinarith
+  nlinarith [mul_le_mul_of_nonneg_right ha2 hd]
+
 /-- The actual integer-residue code has a finite period, independently of
 the learned rotations, normalization and floating Fourier evaluation. -/
 def ordinalResidues (n : ℕ) : Fin 4 → ℕ :=

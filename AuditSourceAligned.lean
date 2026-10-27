@@ -25,6 +25,7 @@ import PNDS.SourceAlignedModel
 #print axioms PNDS.SourceAlignedVerification.homogeneous_energy
 #print axioms PNDS.SourceAlignedVerification.homogeneous_nonexpansive
 #print axioms PNDS.SourceAlignedVerification.difference_write
+#print axioms PNDS.SourceAlignedVerification.write_nonexpansive
 #print axioms PNDS.SourceAlignedVerification.ordinal_encoding_periodic
 #print axioms PNDS.SourceAlignedVerification.deterministic_encoding_collision
 #print axioms PNDS.SourceAlignedVerification.period_events_distinct
@@ -35,9 +36,12 @@ import PNDS.SourceAlignedModel
 #print axioms PNDS.SourceAlignedModel.sigmoid_range
 #print axioms PNDS.SourceAlignedModel.softmax2_sum
 #print axioms PNDS.SourceAlignedModel.softmax2_range
+#print axioms PNDS.SourceAlignedModel.routed_strength_range
 #print axioms PNDS.SourceAlignedModel.normalized_key_energy
 #print axioms PNDS.SourceAlignedModel.exact_parameter_count
 #print axioms PNDS.SourceAlignedModel.exact_persistent_float_count
+#print axioms PNDS.SourceAlignedModel.source_key_energy
+#print axioms PNDS.SourceAlignedModel.source_write_nonexpansive
 #print axioms PNDS.SourceAlignedModel.prepare_memory_independent
 #print axioms PNDS.SourceAlignedModel.ordinalCode_periodic
 #print axioms PNDS.SourceAlignedModel.memoryRead_periodic

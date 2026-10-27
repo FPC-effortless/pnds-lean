@@ -69,6 +69,14 @@ theorem softmax2_range (x : Vec 2) (h : Fin 2) :
   · apply (div_le_one hd).2
     fin_cases h <;> linarith
 
+theorem routed_strength_range (logit : ℝ) (router : Vec 2) (h : Fin 2) :
+    0 ≤ sig logit * softmax router h ∧ sig logit * softmax router h ≤ 1 := by
+  have hs := sigmoid_range logit
+  have hr := softmax2_range router h
+  constructor
+  · exact mul_nonneg (le_of_lt hs.1) hr.1
+  · nlinarith [mul_nonneg (le_of_lt (sub_pos.2 hs.2)) hr.1]
+
 /-- Epsilon normalization never requires a nonzero key. In exact reals it
 produces a key of norm at most one, not necessarily exactly one. -/
 theorem normalized_key_energy (x : Vec 8) :
@@ -163,6 +171,27 @@ def ordinalCode (n : ℕ) : Vec 8 := fun j =>
 
 def keys (w : Parameters) (n : ℕ) : Fin 2 → Address := fun h =>
   normalize (fun j => ∑ i, ordinalCode n i * w.rotations h i j)
+
+theorem source_key_energy (w : Parameters) (n : ℕ) (h : Fin 2) :
+    SourceAlignedVerification.squaredNorm (keys w n h) ≤ 1 :=
+  normalized_key_energy _
+
+/-- The actual source normalization, sigmoid retention and softly routed
+write strength discharge the exact-real state-stability hypotheses. -/
+theorem source_write_nonexpansive (w : Parameters) (e : Vec 48) (n : ℕ)
+    (h : Fin 2) (row other : SourceRow) (value : ℝ) :
+    let key := keys w n h
+    let alpha := sig (dense w.retention e h)
+    let beta := sig (dense w.writeStrength e h) * softmax (dense w.writeRouter e) h
+    SourceAlignedVerification.squaredNorm
+      (writeRow row key value alpha beta true - writeRow other key value alpha beta true) ≤
+        SourceAlignedVerification.squaredNorm (row-other) := by
+  have ha := sigmoid_range (dense w.retention e h)
+  have hb := routed_strength_range (dense w.writeStrength e h) (dense w.writeRouter e) h
+  exact SourceAlignedVerification.write_nonexpansive row other (keys w n h) value
+    (sig (dense w.retention e h))
+    (sig (dense w.writeStrength e h)*softmax (dense w.writeRouter e) h)
+    (source_key_energy w n h) (le_of_lt ha.1) (le_of_lt ha.2) hb.1 hb.2
 
 def memoryRead (w : Parameters) (m : SourceMatrix) (n : ℕ) : Vec 16 :=
   let k := keys w n
