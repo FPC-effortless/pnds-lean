@@ -44,7 +44,9 @@ theorem key_amplification_witness :
   constructor
   · norm_num
   · rw [small_key_exact (1/1000000) (1/2000000)
-      (by norm_num), small_key_exact (1/1000000) 0
+      (by
+        rw [abs_of_nonneg (by norm_num : (0:ℝ) ≤ 1/2000000)]
+        norm_num), small_key_exact (1/1000000) 0
       (by norm_num)]
     norm_num
 
