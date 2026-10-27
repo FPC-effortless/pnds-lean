@@ -17,15 +17,16 @@ jobs:
         run: |
           set -euo pipefail
           lake update
-          lake build PNDS.LanguageLayerNorm PNDS.LanguageFPContracts 2>&1 | tee /tmp/tac-language-lean.log
+          lake build PNDS.LanguageLossAD PNDS.LanguageLayerNorm PNDS.LanguageFPContracts 2>&1 | tee /tmp/tac-language-lean.log
           test -f .lake/build/lib/PNDS/LanguageFPContracts.olean
           test -f .lake/build/lib/PNDS/LanguageLayerNorm.olean
+          test -f .lake/build/lib/PNDS/LanguageLossAD.olean
           if grep -q "sorry" /tmp/tac-language-lean.log; then exit 1; fi
       - name: Inspect axioms and reject sorry
         run: |
           set -euo pipefail
           lake env lean AuditLanguage.lean 2>&1 | tee /tmp/tac-language-axioms.log
-          python3 scripts/audit_language_lean.py --audit AuditLanguage.lean --lean-log /tmp/tac-language-axioms.log --expected 32
+          python3 scripts/audit_language_lean.py --audit AuditLanguage.lean --lean-log /tmp/tac-language-axioms.log --expected 36
           python3 -m unittest discover -s tests -p 'test_language_axiom_audit.py' -v
       - uses: actions/upload-artifact@v4
         if: always()
