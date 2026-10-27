@@ -8,6 +8,7 @@ import PNDS.Statistics
 import PNDS.Causal
 import PNDS.UnifiedTACOSM
 import PNDS.TACOSMVariantContracts
+import PNDS.GPUncertainty
 
 /- Axiom audit. CI fails if any proof in the PNDS tree depends on an admitted
    goal, and prints the axioms of each top-level theorem so that hidden
@@ -78,3 +79,25 @@ import PNDS.TACOSMVariantContracts
 #print axioms PNDS.VariantContracts.bitemporal_known_after_record_start
 #print axioms PNDS.VariantContracts.weightedWindow_zero
 #print axioms PNDS.VariantContracts.edgeDiscrepancy_nonnegative
+
+/-! GP-UNC-001 scalar Gaussian-conditioning proof obligations, not full neural source. -/
+#check @PNDS.GPUncertainty.conditioned_le_prior
+#check @PNDS.GPUncertainty.conditioned_nonneg
+#check @PNDS.GPUncertainty.disconnected_prior_unchanged
+#check @PNDS.GPUncertainty.precision_nondecreasing
+#check @PNDS.GPUncertainty.zero_feature_no_information
+#print axioms PNDS.GPUncertainty.conditioned_le_prior
+#print axioms PNDS.GPUncertainty.conditioned_nonneg
+#print axioms PNDS.GPUncertainty.disconnected_prior_unchanged
+#print axioms PNDS.GPUncertainty.precision_nondecreasing
+#print axioms PNDS.GPUncertainty.zero_feature_no_information
+
+
+#check @PNDS.GPUncertainty.rankone_denom_positive
+#check @PNDS.GPUncertainty.rankone_eq_precision_form
+#check @PNDS.GPUncertainty.rankone_variance_nonnegative
+#check @PNDS.GPUncertainty.rankone_variance_le_old
+#print axioms PNDS.GPUncertainty.rankone_denom_positive
+#print axioms PNDS.GPUncertainty.rankone_eq_precision_form
+#print axioms PNDS.GPUncertainty.rankone_variance_nonnegative
+#print axioms PNDS.GPUncertainty.rankone_variance_le_old
