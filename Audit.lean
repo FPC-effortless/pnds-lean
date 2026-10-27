@@ -91,3 +91,13 @@ import PNDS.GPUncertainty
 #print axioms PNDS.GPUncertainty.disconnected_prior_unchanged
 #print axioms PNDS.GPUncertainty.precision_nondecreasing
 #print axioms PNDS.GPUncertainty.zero_feature_no_information
+
+
+#check @PNDS.GPUncertainty.rankone_denom_positive
+#check @PNDS.GPUncertainty.rankone_eq_precision_form
+#check @PNDS.GPUncertainty.rankone_variance_nonnegative
+#check @PNDS.GPUncertainty.rankone_variance_le_old
+#print axioms PNDS.GPUncertainty.rankone_denom_positive
+#print axioms PNDS.GPUncertainty.rankone_eq_precision_form
+#print axioms PNDS.GPUncertainty.rankone_variance_nonnegative
+#print axioms PNDS.GPUncertainty.rankone_variance_le_old
