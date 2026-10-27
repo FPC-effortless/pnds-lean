@@ -24,6 +24,7 @@ jobs:
           python3 -m unittest discover -s tests -p 'test_latent_fusion_003_math.py' -v
           python3 -m unittest discover -s tests -p 'test_latent_fusion_004_math.py' -v
           python3 -m unittest discover -s tests -p 'test_latent_fusion_007_math.py' -v
+          python3 -m unittest discover -s tests -p 'test_latent_fusion_008_math.py' -v
 
       - name: Install elan
         run: |
