@@ -1,4 +1,7 @@
-import Mathlib
+import Mathlib.Data.Real.Basic
+import Mathlib.Data.Matrix.Basic
+import Mathlib.Tactic.Linarith
+import Mathlib.Tactic.FieldSimp
 
 /-!
 # Native TAC-OSM conditional parallel affine associative-memory operator

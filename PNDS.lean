@@ -20,6 +20,8 @@ import PNDS.ConstraintAdapter
 import PNDS.ParallelResidualHead
 import PNDS.ParallelTimeAge
 import PNDS.SourceAlignedMemory
+import PNDS.SourceAlignedVerification
+import PNDS.SourceAlignedModel
 
 /-- The version of the document this formalization targets. -/
 def docVersion : String := "v0.2"
