@@ -1,6 +1,7 @@
 import PNDS.LanguageFPContracts
 import PNDS.LanguageLayerNorm
 import PNDS.LanguageLossAD
+import PNDS.LanguageMemoryAD
 
 #print axioms PNDS.LanguageCategorical.Z_pos
 #print axioms PNDS.LanguageCategorical.probability_pos
@@ -46,3 +47,8 @@ import PNDS.LanguageLossAD
 #print axioms PNDS.LanguageLossAD.log_partition_hasDerivAt
 #print axioms PNDS.LanguageLossAD.logitVelocity_as_fraction
 #print axioms PNDS.LanguageLossAD.nll_hasDerivAt
+
+#print axioms PNDS.LanguageMemoryAD.aligned_write_refines_kernel
+#print axioms PNDS.LanguageMemoryAD.native_write_refines_kernel
+#print axioms PNDS.LanguageMemoryAD.source_kernel_coordinate_jvp
+#print axioms PNDS.LanguageMemoryAD.native_kernel_coordinate_jvp
