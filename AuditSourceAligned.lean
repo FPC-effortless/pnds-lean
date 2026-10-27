@@ -42,6 +42,9 @@ import PNDS.SourceAlignedModel
 #print axioms PNDS.SourceAlignedModel.ordinalCode_periodic
 #print axioms PNDS.SourceAlignedModel.memoryRead_periodic
 #print axioms PNDS.SourceAlignedModel.historicalQuery_periodic
+#print axioms PNDS.SourceAlignedModel.rejected_step_keeps_state
+#print axioms PNDS.SourceAlignedModel.accepted_step_matches_graph
+#print axioms PNDS.SourceAlignedModel.checked_historical_query_preserves_state
 #print axioms PNDS.SourceAlignedModel.owner_preserved
 #print axioms PNDS.SourceAlignedModel.count_advances
 #print axioms PNDS.SourceAlignedModel.declined_aligned_memory_unchanged

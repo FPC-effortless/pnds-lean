@@ -15,6 +15,8 @@ Actions are observed covariates; outputs are point predictions, not laws.
 -/
 namespace PNDS.SourceAlignedModel
 
+noncomputable section
+
 open PNDS.SourceAlignedMemory
 
 abbrev Vec (n : ℕ) := Fin n → ℝ
@@ -273,6 +275,30 @@ def advance (s : State) (x : Input) (p : Prepared) : State :=
 def step (w : Parameters) (s : State) (x : Input) : Vec 14 × State :=
   let p := prepare w s x
   (decode w s x p, advance s x p)
+
+def checkedStep (w : Parameters) (s : State) (x : Input) : Option (Vec 14) × State := by
+  classical
+  exact if validStep s x then (some (step w s x).1, (step w s x).2) else (none,s)
+
+theorem rejected_step_keeps_state (w : Parameters) (s : State) (x : Input)
+    (h : ¬ validStep s x) : checkedStep w s x = (none,s) := by
+  classical
+  simp [checkedStep,h]
+
+theorem accepted_step_matches_graph (w : Parameters) (s : State) (x : Input)
+    (h : validStep s x) :
+    checkedStep w s x = (some (step w s x).1,(step w s x).2) := by
+  classical
+  simp [checkedStep,h]
+
+def checkedHistoricalQuery (w : Parameters) (s : State) (owner n : ℕ) :
+    Option (Vec 14) × State := by
+  classical
+  exact (if validHistoricalQuery s owner n then some (historicalQuery w s n) else none,s)
+
+theorem checked_historical_query_preserves_state
+    (w : Parameters) (s : State) (owner n : ℕ) :
+    (checkedHistoricalQuery w s owner n).2 = s := by rfl
 
 theorem owner_preserved (w : Parameters) (s : State) (x : Input) :
     (step w s x).2.owner = s.owner := by rfl
