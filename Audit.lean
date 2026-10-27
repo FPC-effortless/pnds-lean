@@ -19,6 +19,7 @@ import PNDS.RetentionBudget
 import PNDS.ConstraintAdapter
 import PNDS.ParallelResidualHead
 import PNDS.ParallelTimeAge
+import PNDS.SourceAlignedMemory
 
 /- Axiom audit. CI fails if any proof in the PNDS tree depends on an admitted
    goal, and prints the axioms of each top-level theorem so that hidden
@@ -245,3 +246,19 @@ import PNDS.ParallelTimeAge
 #print axioms PNDS.ParallelTimeAge.no_write_age_advances
 #print axioms PNDS.ParallelTimeAge.age_nonnegative
 #print axioms PNDS.ParallelTimeAge.index_strictly_increases
+
+/-! PAR-MEM-010: exact-real local operator contracts only; no IEEE/AD/history skill. -/
+#check @PNDS.SourceAlignedMemory.shared_source_event_address
+#check @PNDS.SourceAlignedMemory.reject_wrong_source_owner
+#check @PNDS.SourceAlignedMemory.reject_future_source_ordinal
+#check @PNDS.SourceAlignedMemory.declined_write_is_identity
+#check @PNDS.SourceAlignedMemory.admitted_write_is_corrective
+#check @PNDS.SourceAlignedMemory.historical_query_does_not_write
+#check @PNDS.SourceAlignedMemory.no_source_admission_preserves_all_heads
+#print axioms PNDS.SourceAlignedMemory.shared_source_event_address
+#print axioms PNDS.SourceAlignedMemory.reject_wrong_source_owner
+#print axioms PNDS.SourceAlignedMemory.reject_future_source_ordinal
+#print axioms PNDS.SourceAlignedMemory.declined_write_is_identity
+#print axioms PNDS.SourceAlignedMemory.admitted_write_is_corrective
+#print axioms PNDS.SourceAlignedMemory.historical_query_does_not_write
+#print axioms PNDS.SourceAlignedMemory.no_source_admission_preserves_all_heads
