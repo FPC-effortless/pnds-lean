@@ -157,5 +157,27 @@ theorem meanStep_unit_box (n : ℕ) (prior incoming : ℝ)
       mul_nonneg hn (by linarith)
     nlinarith
 
+/-- Recentring all 128 logits changes the partition function by a positive
+    factor. Useful for stable log-sum-exp implementations. -/
+theorem partition_shift (scores : Scores) (c : ℝ) :
+    Z (fun i => scores i + c) = Z scores * Real.exp c := by
+  simp [Z, Real.exp_add, Finset.sum_mul]
+
+/-- Adding any shared finite logit offset leaves the categorical law unchanged.
+    This is an exact-real identity; finite-precision kernels need separate tests. -/
+theorem probability_shift (scores : Scores) (i : Fin 128) (c : ℝ) :
+    probability (fun j => scores j + c) i = probability scores i := by
+  have hExp : Real.exp c ≠ 0 := ne_of_gt (Real.exp_pos c)
+  have hZ : Z scores ≠ 0 := ne_of_gt (Z_pos scores)
+  unfold probability
+  rw [partition_shift, Real.exp_add]
+  field_simp [hExp,hZ]
+  ring
+
+/-- Shift-invariant negative log likelihood under the same exact-real law. -/
+theorem nll_shift (scores : Scores) (i : Fin 128) (c : ℝ) :
+    nll (fun j => scores j + c) i = nll scores i := by
+  simp [nll, probability_shift]
+
 end
 end PNDS.LanguageCategorical
