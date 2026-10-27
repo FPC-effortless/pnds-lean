@@ -11,6 +11,7 @@ import PNDS.TACOSMVariantContracts
 import PNDS.LatentFusion001
 import PNDS.LatentFusion002
 import PNDS.LatentFusion003
+import PNDS.LatentFusion004
 
 /- Axiom audit. CI fails if any proof in the PNDS tree depends on an admitted
    goal, and prints the axioms of each top-level theorem so that hidden
@@ -124,3 +125,20 @@ import PNDS.LatentFusion003
 #print axioms PNDS.LatentFusion003.difference_transport
 #print axioms PNDS.LatentFusion003.unselected_index_isolation
 #print axioms PNDS.LatentFusion003.exact_original_state_bytes
+
+
+/-! LATFUSE004 local two/four-head FP32 capacity and soft/hard exact-real edits. -/
+#check @PNDS.LatentFusion004.two_head_preserves_matrix
+#check @PNDS.LatentFusion004.four_head_preserves_matrix
+#check @PNDS.LatentFusion004.equal_matrix_capacities
+#check @PNDS.LatentFusion004.original_carried_values
+#check @PNDS.LatentFusion004.original_carried_fp32_nominal_bytes
+#check @PNDS.LatentFusion004.untouched_when_unselected
+#check @PNDS.LatentFusion004.updates_when_selected
+#check @PNDS.LatentFusion004.softBlend_zero
+#check @PNDS.LatentFusion004.softBlend_one
+#check @PNDS.LatentFusion004.softBlend_difference
+#print axioms PNDS.LatentFusion004.two_head_preserves_matrix
+#print axioms PNDS.LatentFusion004.original_carried_fp32_nominal_bytes
+#print axioms PNDS.LatentFusion004.untouched_when_unselected
+#print axioms PNDS.LatentFusion004.softBlend_difference
