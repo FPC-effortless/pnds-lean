@@ -46,7 +46,14 @@ theorem mean248_hasDerivAt (path : ℝ → V 248) (velocity : V 248)
     HasDerivAt (fun z => mean248 (path z)) (mean248 velocity) t := by
   have hs := HasDerivAt.sum (u := Finset.univ) (fun i _ => h i)
   have hscaled := hs.const_mul (1/248 : ℝ)
-  convert hscaled using 1 <;> simp only [mean248, div_eq_mul_inv] <;> ring
+  convert hscaled using 1
+  · funext z
+    change (∑ i : Fin 248, path z i) / (248:ℝ) =
+      (1/(248:ℝ)) * (∑ i : Fin 248, path z i)
+    ring
+  · change (∑ i : Fin 248, velocity i) / (248:ℝ) =
+      (1/(248:ℝ)) * (∑ i : Fin 248, velocity i)
+    ring
 
 /-- This is the exact mean-centered 248-scalar LayerNorm variance JVP:
     all input-coordinate perturbations and mean coupling are retained. -/
@@ -75,7 +82,16 @@ theorem variance248_hasDerivAt
     · ring
   have hs := HasDerivAt.sum (u := Finset.univ) (fun i _ => hsq i)
   have scaled := hs.const_mul (1 / 248 : ℝ)
-  convert scaled using 1 <;> simp only [variance248, variance248Slope, div_eq_mul_inv] <;> ring
+  convert scaled using 1
+  · funext z
+    change (∑ i : Fin 248, (path z i - mean248 (path z))^2) / (248:ℝ) =
+      (1/(248:ℝ)) * (∑ i : Fin 248, (path z i - mean248 (path z))^2)
+    ring
+  · change (∑ i : Fin 248, 2 * (path t i - mean248 (path t)) *
+          (velocity i - mean248 velocity)) / (248:ℝ) =
+      (1/(248:ℝ)) * (∑ i : Fin 248, 2 * (path t i - mean248 (path t)) *
+          (velocity i - mean248 velocity))
+    ring
 
 /-- The FULL source LayerNorm output-channel JVP now explicitly incorporates
     input, all 248 mean channels, all 248 variance channels, scale, epsilon
@@ -103,6 +119,18 @@ theorem norm248_coordinate_hasDerivAt
     (variance248Slope (path t) velocity)
     t (p.normScale i) (p.normShift i) p.normEps
     (h i) hm hv hvar heps
+  have hfunction :
+      (fun z => norm248 p (path z) i) =
+      (fun z => p.normScale i * ((path z i - mean248 (path z)) /
+        Real.sqrt (variance248 (path z)+p.normEps)) + p.normShift i) := by
+    funext z
+    change ((path z i - mean248 (path z)) /
+      Real.sqrt (variance248 (path z)+p.normEps)) * p.normScale i +
+        p.normShift i =
+      p.normScale i * ((path z i - mean248 (path z)) /
+        Real.sqrt (variance248 (path z)+p.normEps)) + p.normShift i
+    ring
+  rw [hfunction]
   exact core
 
 end
