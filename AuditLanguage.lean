@@ -24,3 +24,6 @@ import PNDS.LanguageFullGraph
 #print axioms PNDS.LanguageCategorical.partition_shift
 #print axioms PNDS.LanguageCategorical.probability_shift
 #print axioms PNDS.LanguageCategorical.nll_shift
+
+#print axioms PNDS.LanguageFullGraph.source_parameter_count_exact
+#print axioms PNDS.LanguageFullGraph.streaming_float_count_exact
