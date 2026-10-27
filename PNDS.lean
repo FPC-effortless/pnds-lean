@@ -10,6 +10,7 @@ import PNDS.UnifiedTACOSM
 import PNDS.TACOSMVariantContracts
 import PNDS.LatentFusion001
 import PNDS.LatentFusion002
+import PNDS.LatentFusion003
 
 /-- The version of the document this formalization targets. -/
 def docVersion : String := "v0.2"
