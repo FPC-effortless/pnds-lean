@@ -37,3 +37,6 @@ import PNDS.LanguageLayerNorm
 #print axioms PNDS.LanguageLayerNorm.variance248_nonnegative
 #print axioms PNDS.LanguageLayerNorm.layernorm_denominator_positive
 #print axioms PNDS.LanguageLayerNorm.deployed_epsilon_denominator_positive
+
+#print axioms PNDS.LanguageCategorical.nll_equals_log_partition_minus_logit
+#print axioms PNDS.LanguageCategorical.shifted_stable_nll_correct
