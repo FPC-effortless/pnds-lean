@@ -30,12 +30,12 @@ theorem source_beta_range (p : Parameters) (e : V 48) (h : Fin 2) :
     0 ≤ sourceBeta p e h ∧ sourceBeta p e h ≤ 1 := by
   cases hm : p.gateMode with
   | linear =>
-    simpa only [sourceBeta, hm, GateMode.linear, dif_pos, ↓reduceIte] using
+    simpa [sourceBeta, hm] using
       (routed_strength_range
         (dense p.sourceStrength e h + linear p.sourceMod e h)
         (dense p.sourceRouter e) h)
   | silu =>
-    simpa only [sourceBeta, hm, GateMode.silu, dif_pos, ↓reduceIte] using
+    simpa [sourceBeta, hm] using
       (routed_strength_range
         (dense p.sourceStrength e h + silu (2 * linear p.sourceMod e h))
         (dense p.sourceRouter e) h)
