@@ -47,7 +47,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--audit", type=pathlib.Path, default=pathlib.Path("AuditLanguage.lean"))
     ap.add_argument("--lean-log", type=pathlib.Path, required=True)
-    ap.add_argument("--expected", type=int, default=30)
+    ap.add_argument("--expected", type=int, default=32)
     args=ap.parse_args()
     print(verify_audit(args.audit.read_text(),args.lean_log.read_text(),args.expected))
 
