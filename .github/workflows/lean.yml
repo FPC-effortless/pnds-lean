@@ -19,6 +19,7 @@ jobs:
           python3 scripts/check_reciprocal_links.py
           python3 -m unittest discover -s tests -p 'test_foundation.py' -v
           python3 -m unittest discover -s tests -p 'test_variant_math.py' -v
+          python3 -m unittest discover -s tests -p 'test_gp_uncertainty_math.py' -v
 
       - name: Install elan
         run: |
@@ -53,7 +54,7 @@ jobs:
           # module (e.g. PNDS.Causal) already produces one, so a tree with five
           # broken modules passed this check. Require every root to be present.
           for root in PNDS/TACOSMVariantContracts PNDS/UnifiedTACOSM PNDS/Causal PNDS/PathVerification PNDS/Registration \
-                      PNDS/Scaling PNDS/Statistics PNDS/Softmax Audit; do
+                      PNDS/Scaling PNDS/Statistics PNDS/Softmax PNDS/GPUncertainty Audit; do
             if [ ! -f ".lake/build/lib/${root}.olean" ]; then
               echo "::error::Missing .olean for ${root}; that module did not compile"
               exit 1
