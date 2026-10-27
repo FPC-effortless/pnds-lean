@@ -7,6 +7,7 @@ import PNDS.LanguageActivationAD
 import PNDS.LanguageLayerNormAD
 import PNDS.LanguageTensorFP
 import PNDS.LanguageKeySensitivity
+import PNDS.LanguageRepairCandidates
 
 #print axioms PNDS.LanguageCategorical.Z_pos
 #print axioms PNDS.LanguageCategorical.probability_pos
@@ -81,3 +82,13 @@ import PNDS.LanguageKeySensitivity
 #print axioms PNDS.LanguageKeySensitivity.small_key_exact
 #print axioms PNDS.LanguageKeySensitivity.small_key_error
 #print axioms PNDS.LanguageKeySensitivity.key_amplification_witness
+
+#print axioms PNDS.LanguageRepairCandidates.smooth_denom_pos
+#print axioms PNDS.LanguageRepairCandidates.smooth_key_zero
+#print axioms PNDS.LanguageRepairCandidates.smooth_denom_ge_tau
+#print axioms PNDS.LanguageRepairCandidates.smooth_key_amplitude_bound
+#print axioms PNDS.LanguageRepairCandidates.ordinal_reconstructed
+#print axioms PNDS.LanguageRepairCandidates.era_residue_injective
+#print axioms PNDS.LanguageRepairCandidates.next_cycle_increments_era
+#print axioms PNDS.LanguageRepairCandidates.first_era_untouched
+#print axioms PNDS.LanguageRepairCandidates.era_fraction_strict_cycle
