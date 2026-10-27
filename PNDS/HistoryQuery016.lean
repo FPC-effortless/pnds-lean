@@ -11,18 +11,18 @@ abbrev HistoryMask (b : Nat) := Fin b → Fin 88 → Fin 13 → Bool
 abbrev PastPrediction (b : Nat) := Fin b → Fin 8 → ℝ
 
 /-- beta=1 SmoothL1, exact-real definition only. -/
-def smoothL1 (e : ℝ) : ℝ :=
+noncomputable def smoothL1 (e : ℝ) : ℝ :=
   if |e| < 1 then e^2 / 2 else |e| - 1/2
 
 /-- Missing targets contribute exactly zero; denominator includes actual observed slots. -/
-def historicalLoss {b : Nat} (pred target : PastPrediction b)
+noncomputable def historicalLoss {b : Nat} (pred target : PastPrediction b)
     (observed : Fin b → Fin 8 → Bool) : ℝ :=
   let count : ℝ := ∑ i, ∑ j, if observed i j then (1 : ℝ) else 0
   (∑ i, ∑ j, if observed i j then smoothL1 (pred i j - target i j) else 0) /
     max 1 count
 
 /-- Same source forecast objective, requiring positive sd at the model boundary. -/
-def forecastLoss {b : Nat} (mu sd target : Fin b → Fin 13 → ℝ)
+noncomputable def forecastLoss {b : Nat} (mu sd target : Fin b → Fin 13 → ℝ)
     (observed : Fin b → Fin 13 → Bool) : ℝ :=
   let count : ℝ := ∑ i, ∑ j, if observed i j then (1 : ℝ) else 0
   (∑ i, ∑ j, if observed i j then
