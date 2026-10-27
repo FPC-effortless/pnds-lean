@@ -94,8 +94,8 @@ import PNDS.LanguageSelectiveRetrieval
 #print axioms PNDS.LanguageRepairCandidates.first_era_untouched
 #print axioms PNDS.LanguageRepairCandidates.era_fraction_strict_cycle
 
-#print axioms PNDS.LanguageSelectiveRetrieval.source_within_horizon
-#print axioms PNDS.LanguageSelectiveRetrieval.fallback_outside_horizon
+#print axioms PNDS.LanguageSelectiveRetrieval.source_at_trained_lag
+#print axioms PNDS.LanguageSelectiveRetrieval.fallback_for_unqualified_lag
 #print axioms PNDS.LanguageSelectiveRetrieval.fallback_is_strictly_positive
 #print axioms PNDS.LanguageSelectiveRetrieval.fallback_normalization
 #print axioms PNDS.LanguageSelectiveRetrieval.convex_history_baseline_floor
