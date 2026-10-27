@@ -43,7 +43,7 @@ when choosing tau=1e-2, at the cost of nonunit keys for small inputs. -/
 theorem smooth_denom_ge_tau (tau x : ℝ) (htau : 0 < tau) :
     tau ≤ smoothDenom tau x := by
   have hz := smooth_denom_pos tau x htau
-  have harg : 0 ≤ x*x+tau*tau := by positivity
+  have harg : 0 ≤ x*x+tau*tau := by nlinarith [sq_nonneg x, sq_nonneg tau]
   have hsq : (smoothDenom tau x)^2 = x*x+tau*tau := by
     simpa [smoothDenom] using Real.sq_sqrt harg
   nlinarith [mul_self_nonneg x]
@@ -99,6 +99,8 @@ theorem era_fraction_strict_cycle (t : ℕ) :
   push_cast
   have h1 : (0:ℝ) < (ordinalEra t : ℝ)+1 := by positivity
   have h2 : (0:ℝ) < (ordinalEra t : ℝ)+2 := by positivity
+  have heq : (ordinalEra t : ℝ)+1+1 = (ordinalEra t : ℝ)+2 := by ring
+  rw [heq]
   apply (div_lt_div_iff₀ h1 h2).2
   nlinarith
 
