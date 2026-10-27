@@ -28,3 +28,16 @@ TAC reference `src/tac_osm/gp_sparse_nofit.py` is a finite inducing-point projec
 - Counterfactual predictive uncertainty is not identified causal/interventional uncertainty without an explicit SCM, action support, real outcomes and valid identification assumptions.
 
 Cross-repo science rules apply before all new empirical fits or promotion. Both PRs remain draft and unmerged until separately reviewed.
+
+
+## GP-UNC-002/003 paired source update — 2026-10-27
+
+Additional source-pinned numerical candidate (not changing the earlier source pin):
+[TAC-OSM code snapshot 7d8426ad60f6981850de935a3809842f90f9db54](https://github.com/FPC-effortless/TAC-OSM/commit/7d8426ad60f6981850de935a3809842f90f9db54).
+This snapshot adds `src/tac_osm/gp_rankone_nofit.py`, the offline constructed timing harness, and `src/tac_osm/gp_prequential_nofit.py`.
+
+The scalar rank-one covariance identity is now specified in Lean:
+`P' = P - (P φ)²/(ν + P φ²) = Pν/(ν+Pφ²)`, for scalar `P≥0`, `ν>0`.
+The associated conditional nonnegativity and nonincrease results are in `PNDS/GPUncertainty.lean` with axiom audit in `Audit.lean`. The Python numerical reference in `foundation/v1/gp_uncertainty_math.py` checks 256 constructed scalar samples in addition to the original Gaussian-conditioning properties.
+
+The multivariate Sherman–Morrison covariance update, any online nonstationary law, finite-precision PSD preservation, adjoints and derivative correspondence to PyTorch, and all six full neural variants remain **OPEN**. Experimental note: the TAC branch reports only constructed CPU benchmarks (4/8/16/32 inducing points) and no new original-real-data forecasting gain. The chronological delayed-label interface is a software fixture, not proof of authenticated outcome-time validity.
