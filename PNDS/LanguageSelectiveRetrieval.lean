@@ -75,7 +75,7 @@ theorem convex_history_normalization
     (∑ i : Fin 128, (weight*source i + (1-weight)*fit i)) =
       weight*(∑ i : Fin 128, source i) +
         (1-weight)*(∑ i : Fin 128, fit i) := by
-          rw [← Finset.mul_sum, ← Finset.mul_sum, ← Finset.sum_add_distrib]
+          simp only [Finset.sum_add_distrib, Finset.mul_sum]
     _ = 1 := by rw [hs,hf]; ring
 
 end
