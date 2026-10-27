@@ -72,12 +72,13 @@ theorem source_row_read_error
       (exactKey j) (errRow j) (errKey j)
       (roundedProducts j) (productRound j)
       (hr j) (hk j) (hp j)
-  exact rounded_sum_error roundedProducts
-    (fun j => exactRow j * exactKey j)
-    (fun j => |approxRow j| * errKey j +
-      |approxKey j| * errRow j +
-      errRow j * errKey j + productRound j)
-    roundedRead reductionRound hterm hs
+  simpa only [rowRead] using
+    (rounded_sum_error roundedProducts
+      (fun j => exactRow j * exactKey j)
+      (fun j => |approxRow j| * errKey j +
+        |approxKey j| * errRow j +
+        errRow j * errKey j + productRound j)
+      roundedRead reductionRound hterm hs)
 
 end
 end PNDS.LanguageTensorFP
