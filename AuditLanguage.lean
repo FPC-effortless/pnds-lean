@@ -1,4 +1,5 @@
 import PNDS.LanguageFPContracts
+import PNDS.LanguageLayerNorm
 
 #print axioms PNDS.LanguageCategorical.Z_pos
 #print axioms PNDS.LanguageCategorical.probability_pos
@@ -32,3 +33,7 @@ import PNDS.LanguageFPContracts
 #print axioms PNDS.LanguageFPContracts.sum_with_basis_input_error
 #print axioms PNDS.LanguageFPContracts.normalized_sum_error
 #print axioms PNDS.LanguageFPContracts.ideal_sum_l1_bound
+
+#print axioms PNDS.LanguageLayerNorm.variance248_nonnegative
+#print axioms PNDS.LanguageLayerNorm.layernorm_denominator_positive
+#print axioms PNDS.LanguageLayerNorm.deployed_epsilon_denominator_positive
