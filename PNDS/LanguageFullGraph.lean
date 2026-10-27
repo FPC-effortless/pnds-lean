@@ -55,6 +55,26 @@ structure Parameters where
   positionMode : PositionMode
   gateMode : GateMode
 
+
+/-- Count of the source's complete deployed 75/10 language graph, including
+    tied output embedding (counted ONCE), position and source gates. -/
+def actualSourceParameterCount : ℕ :=
+  128*48 + 48*7 + 2*(48*8+8) + (144*176+176) +
+  (184*176+176) + (224*2+2) + 2*8*8 +
+  (48*16+16) + 3*(48*2+2) + 48*2 + 16*48 +
+  (8*2+2) + 2*248 + (248*75+75) + (75*128+128) +
+  (248*10+10) + (10*128+128) + 1
+
+theorem source_parameter_count_exact :
+    actualSourceParameterCount = 100680 := by decide
+
+/-- No growing key-value sidecar, no stored logits, and no model weights
+    included in the 408-scalar FP32 recurrent state. -/
+def streamingFloatCount : ℕ := 88 + 8*8 + 2*16*8
+
+theorem streaming_float_count_exact :
+    streamingFloatCount = 408 := by decide
+
 structure State where
   sum : V 88
   native : M 8 8
