@@ -18,6 +18,7 @@ import PNDS.JointAffineTAC
 import PNDS.RetentionBudget
 import PNDS.ConstraintAdapter
 import PNDS.ParallelResidualHead
+import PNDS.ParallelTimeAge
 
 /-- The version of the document this formalization targets. -/
 def docVersion : String := "v0.2"
