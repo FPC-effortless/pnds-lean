@@ -38,6 +38,7 @@ import PNDS.LanguageActivationAD
 import PNDS.LanguageLayerNormAD
 import PNDS.LanguageTensorFP
 import PNDS.LanguageKeySensitivity
+import PNDS.LanguageRepairCandidates
 
 /-- The version of the document this formalization targets. -/
 def docVersion : String := "v0.2"
