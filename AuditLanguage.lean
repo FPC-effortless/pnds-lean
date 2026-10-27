@@ -6,6 +6,7 @@ import PNDS.LanguageMemoryStability
 import PNDS.LanguageActivationAD
 import PNDS.LanguageLayerNormAD
 import PNDS.LanguageTensorFP
+import PNDS.LanguageKeySensitivity
 
 #print axioms PNDS.LanguageCategorical.Z_pos
 #print axioms PNDS.LanguageCategorical.probability_pos
@@ -76,3 +77,7 @@ import PNDS.LanguageTensorFP
 #print axioms PNDS.LanguageTensorFP.vector_sum_error
 #print axioms PNDS.LanguageTensorFP.rounded_sum_error
 #print axioms PNDS.LanguageTensorFP.source_row_read_error
+
+#print axioms PNDS.LanguageKeySensitivity.small_key_exact
+#print axioms PNDS.LanguageKeySensitivity.small_key_error
+#print axioms PNDS.LanguageKeySensitivity.key_amplification_witness
