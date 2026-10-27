@@ -5,6 +5,7 @@ import PNDS.LanguageMemoryAD
 import PNDS.LanguageMemoryStability
 import PNDS.LanguageActivationAD
 import PNDS.LanguageLayerNormAD
+import PNDS.LanguageTensorFP
 
 #print axioms PNDS.LanguageCategorical.Z_pos
 #print axioms PNDS.LanguageCategorical.probability_pos
@@ -71,3 +72,7 @@ import PNDS.LanguageLayerNormAD
 
 #print axioms PNDS.LanguageLayerNormAD.variance248_hasDerivAt
 #print axioms PNDS.LanguageLayerNormAD.norm248_coordinate_hasDerivAt
+
+#print axioms PNDS.LanguageTensorFP.vector_sum_error
+#print axioms PNDS.LanguageTensorFP.rounded_sum_error
+#print axioms PNDS.LanguageTensorFP.source_row_read_error
