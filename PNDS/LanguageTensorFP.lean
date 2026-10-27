@@ -57,11 +57,11 @@ theorem source_row_read_error
     (hs : Close roundedRead (∑ j : Fin 8, roundedProducts j)
       reductionRound) :
     Close roundedRead (rowRead exactRow exactKey)
-      ((∑ j : Fin 8,
+      ((Finset.univ.sum (fun j : Fin 8 =>
          |approxRow j| * errKey j +
          |approxKey j| * errRow j +
          errRow j * errKey j +
-         productRound j) + reductionRound) := by
+         productRound j)) + reductionRound) := by
   have hterm (j : Fin 8) :
       Close (roundedProducts j) (exactRow j * exactKey j)
         (|approxRow j| * errKey j +
