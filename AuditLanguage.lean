@@ -27,3 +27,8 @@ import PNDS.LanguageFullGraph
 
 #print axioms PNDS.LanguageFullGraph.source_parameter_count_exact
 #print axioms PNDS.LanguageFullGraph.streaming_float_count_exact
+
+#print axioms PNDS.LanguageFPContracts.rounded_source_sum_error
+#print axioms PNDS.LanguageFPContracts.sum_with_basis_input_error
+#print axioms PNDS.LanguageFPContracts.normalized_sum_error
+#print axioms PNDS.LanguageFPContracts.ideal_sum_l1_bound
