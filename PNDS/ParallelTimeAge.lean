@@ -32,12 +32,18 @@ theorem monotone_clock (oldClock delta : ℝ) (hdelta : 0 ≤ delta) :
   dsimp [advanceClock]
   linarith
 
-/-- Current observation cannot change the previous-write timestamp used to
-    form its own query-age feature. Only the POST-observation clock is written. -/
+/-- Age used by the current query is computed BEFORE applying today's
+    admitted-write flag to the next persistent timestamp. -/
+def currentReadAge (oldClock delta oldWrite : ℝ)
+    (_admitCurrent : Bool) : ℝ :=
+  previousWriteAge (advanceClock oldClock delta) oldWrite
+
+/-- A change to the current write mask cannot alter the current query age;
+    the admitted flag only changes the timestamp AFTER the current read. -/
 theorem prior_age_independent_of_current_admission
-    (oldClock delta oldWrite : ℝ) (admit : Bool) :
-    previousWriteAge (advanceClock oldClock delta) oldWrite =
-      previousWriteAge (advanceClock oldClock delta) oldWrite := by
+    (oldClock delta oldWrite : ℝ) :
+    currentReadAge oldClock delta oldWrite true =
+      currentReadAge oldClock delta oldWrite false := by
   rfl
 
 /-- When a source observation does not write, the last-write timestamp is exact. -/
