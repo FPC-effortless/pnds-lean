@@ -3,6 +3,7 @@ import PNDS.LanguageHistory500K
 import PNDS.LanguageWaveGraphRepair
 import PNDS.LanguageMemory007
 import PNDS.LanguageSourceSlots008
+import PNDS.LanguageRetrieval009
 import PNDS.LanguageFPContracts
 import PNDS.LanguageLayerNorm
 import PNDS.LanguageLossAD
@@ -174,3 +175,13 @@ import PNDS.LanguageGradientGuard
 
 #print axioms PNDS.LanguageSourceSlots008.retrieval_mixture_nonnegative
 #print axioms PNDS.LanguageSourceSlots008.retrieval_mixture_normalized
+
+/-! GRAPH009 scoped probability/affine algebra; not full Torch refinement. -/
+#print axioms PNDS.LanguageRetrieval009.posterior_denom_pos
+#print axioms PNDS.LanguageRetrieval009.posterior_numerator_nonneg
+#print axioms PNDS.LanguageRetrieval009.posterior_nonnegative
+#print axioms PNDS.LanguageRetrieval009.posterior_total_mass
+#print axioms PNDS.LanguageRetrieval009.no_hit_returns_base
+#print axioms PNDS.LanguageRetrieval009.fusion_nonnegative
+#print axioms PNDS.LanguageRetrieval009.fusion_total_mass
+#print axioms PNDS.LanguageRetrieval009.right_affine_associative
