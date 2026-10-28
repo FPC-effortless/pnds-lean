@@ -55,6 +55,7 @@ theorem checkpoint_before_target
   have hdiv := Nat.mod_add_div (t-1) block
   have hrem := Nat.mod_lt (t-1) hb
   unfold checkpointBefore
+  rw [Nat.mul_comm ((t - 1) / block) block]
   omega
 
 /-- The real computation replayed is at most one block (and nonzero). -/
@@ -65,6 +66,7 @@ theorem replay_steps_in_block
   have hdiv := Nat.mod_add_div (t-1) block
   have hrem := Nat.mod_lt (t-1) hb
   unfold checkpointBefore
+  rw [Nat.mul_comm ((t - 1) / block) block]
   omega
 
 /-- Retaining original input bytes is not optional: saving checkpoints
