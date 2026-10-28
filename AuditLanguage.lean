@@ -121,3 +121,12 @@ import PNDS.LanguageGradientGuard
 #check @PNDS.LanguageWave500K.right_affine_associative
 #check @PNDS.LanguageWave500K.count_strictly_advances
 #print axioms PNDS.LanguageWave500K.right_affine_associative
+
+#check @PNDS.LanguageWave500K.wave_rotation_norm_sq
+#check @PNDS.LanguageWave500K.damped_wave_nonexpansive
+#check @PNDS.LanguageWave500K.pair_concept_sum_preserved
+#check @PNDS.LanguageWave500K.pair_concept_difference
+#check @PNDS.LanguageWave500K.pair_concept_energy_nonincrease
+#print axioms PNDS.LanguageWave500K.wave_rotation_norm_sq
+#print axioms PNDS.LanguageWave500K.damped_wave_nonexpansive
+#print axioms PNDS.LanguageWave500K.pair_concept_energy_nonincrease
