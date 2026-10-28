@@ -1,7 +1,7 @@
 name: Language TAC source-specific Lean contracts
 on:
   push:
-    branches: [research/tac-lang-formal-004-2026-10-27, research/500k-graph-stream-math-fix-2026-10-28, research/500k-dual-timescale-memory-007-2026-10-28, research/500k-source-slot-008-2026-10-28, research/500k-calibrated-retrieval-009-2026-10-28, research/graph010-learned-source-query-2026-10-28]
+    branches: [research/tac-lang-formal-004-2026-10-27, research/500k-graph-stream-math-fix-2026-10-28, research/500k-dual-timescale-memory-007-2026-10-28, research/500k-source-slot-008-2026-10-28, research/500k-calibrated-retrieval-009-2026-10-28, research/graph010-learned-source-query-2026-10-28, research/graph011-source-replay-space-time-2026-10-28]
   pull_request:
   workflow_dispatch:
 jobs:
@@ -17,7 +17,8 @@ jobs:
         run: |
           set -euo pipefail
           lake update
-          lake build PNDS.LanguageQuery010 PNDS.LanguageRetrieval009 PNDS.LanguageSourceSlots008 PNDS.LanguageMemory007 PNDS.LanguageWaveGraphRepair PNDS.LanguageWave500K PNDS.LanguageHistory500K PNDS.LanguageGradientGuard PNDS.LanguageMultiLagObjective PNDS.LanguageSelectiveRetrieval PNDS.LanguageRepairCandidates PNDS.LanguageKeySensitivity PNDS.LanguageTensorFP PNDS.LanguageLayerNormAD PNDS.LanguageActivationAD PNDS.LanguageMemoryStability PNDS.LanguageMemoryAD PNDS.LanguageLossAD PNDS.LanguageLayerNorm PNDS.LanguageFPContracts 2>&1 | tee /tmp/tac-language-lean.log
+          lake build PNDS.LanguageReplay011 PNDS.LanguageQuery010 PNDS.LanguageRetrieval009 PNDS.LanguageSourceSlots008 PNDS.LanguageMemory007 PNDS.LanguageWaveGraphRepair PNDS.LanguageWave500K PNDS.LanguageHistory500K PNDS.LanguageGradientGuard PNDS.LanguageMultiLagObjective PNDS.LanguageSelectiveRetrieval PNDS.LanguageRepairCandidates PNDS.LanguageKeySensitivity PNDS.LanguageTensorFP PNDS.LanguageLayerNormAD PNDS.LanguageActivationAD PNDS.LanguageMemoryStability PNDS.LanguageMemoryAD PNDS.LanguageLossAD PNDS.LanguageLayerNorm PNDS.LanguageFPContracts 2>&1 | tee /tmp/tac-language-lean.log
+          test -f .lake/build/lib/PNDS/LanguageReplay011.olean
           test -f .lake/build/lib/PNDS/LanguageQuery010.olean
           test -f .lake/build/lib/PNDS/LanguageRetrieval009.olean
           test -f .lake/build/lib/PNDS/LanguageSourceSlots008.olean
@@ -43,7 +44,7 @@ jobs:
         run: |
           set -euo pipefail
           lake env lean AuditLanguage.lean 2>&1 | tee /tmp/tac-language-axioms.log
-          python3 scripts/audit_language_lean.py --audit AuditLanguage.lean --lean-log /tmp/tac-language-axioms.log --expected 129
+          python3 scripts/audit_language_lean.py --audit AuditLanguage.lean --lean-log /tmp/tac-language-axioms.log --expected 138
           python3 -m unittest discover -s tests -p 'test_language_axiom_audit.py' -v
       - uses: actions/upload-artifact@v4
         if: always()

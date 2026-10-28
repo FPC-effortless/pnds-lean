@@ -5,6 +5,7 @@ import PNDS.LanguageMemory007
 import PNDS.LanguageSourceSlots008
 import PNDS.LanguageRetrieval009
 import PNDS.LanguageQuery010
+import PNDS.LanguageReplay011
 import PNDS.LanguageFPContracts
 import PNDS.LanguageLayerNorm
 import PNDS.LanguageLossAD
@@ -197,3 +198,14 @@ import PNDS.LanguageGradientGuard
 #print axioms PNDS.LanguageQuery010.selective_query_normalized
 #print axioms PNDS.LanguageQuery010.learned_count_posterior_normalization
 #print axioms PNDS.LanguageQuery010.learned_posterior_strict_positive
+
+/-! GRAPH011 scoped deterministic source replay; not a Williams theorem proof. -/
+#print axioms PNDS.LanguageReplay011.replay_composition
+#print axioms PNDS.LanguageReplay011.replay_at_any_checkpoint
+#print axioms PNDS.LanguageReplay011.replay_after_single_event
+#print axioms PNDS.LanguageReplay011.checkpoint_before_target
+#print axioms PNDS.LanguageReplay011.replay_steps_in_block
+#print axioms PNDS.LanguageReplay011.source_bytes_remain_accounted
+#print axioms PNDS.LanguageReplay011.wrong_owner_not_replayable
+#print axioms PNDS.LanguageReplay011.wrong_hash_not_replayable
+#print axioms PNDS.LanguageReplay011.erasing_transition_loses_old_state
