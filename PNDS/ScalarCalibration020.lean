@@ -23,7 +23,7 @@ theorem maximizers {n : Nat} (z : Fin n → ℝ) (a : ℝ) (ha : 0 < a) (i : Fin
     exact (positive_order a (z j) (z i) ha).mpr (h j)
 
 /-- A class-specific bias has no corresponding mode-preservation guarantee. -/
-theorem bias_mode_counterexample : (1 : ℝ) > 0 ∧ 1 + 0 < 0 + 2 := by
+theorem bias_mode_counterexample : (1 : ℝ) > 0 ∧ (1 : ℝ) + 0 < 0 + 2 := by
   norm_num
 
 noncomputable def law {n : Nat} (z : Fin n → ℝ) (a : ℝ) (i : Fin n) : ℝ :=
