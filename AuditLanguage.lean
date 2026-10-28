@@ -143,6 +143,7 @@ import PNDS.LanguageGradientGuard
 #print axioms PNDS.LanguageHistory500K.old_state_collision
 
 /-! Separate 500K graph invisibility and versioned fix proof audit. -/
+#print axioms PNDS.LanguageWaveGraphRepair.symmetric_laplacian6_zero_total
 #print axioms PNDS.LanguageWaveGraphRepair.unweighted_equilibrium_cancels_graph
 #print axioms PNDS.LanguageWaveGraphRepair.two_slot_graph_solution
 #print axioms PNDS.LanguageWaveGraphRepair.two_slot_old_mean_cancellation
