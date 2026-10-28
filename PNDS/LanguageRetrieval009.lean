@@ -62,7 +62,6 @@ theorem fusion_total_mass (baseMass retrievalMass weight : ℝ)
     fusion baseMass retrievalMass weight = 1 := by
   rw [hb, hr]
   simp [fusion]
-  ring
 
 /-- Exact-real right-affine transition composition used by structured
     scan algebra: (P_a,Q_a) ⊗ (P_b,Q_b) = (P_a P_b,Q_a P_b+Q_b).
