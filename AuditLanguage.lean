@@ -113,3 +113,10 @@ import PNDS.LanguageGradientGuard
 #print axioms PNDS.LanguageGradientGuard.nonconflicting_overlap_is_unchanged
 #print axioms PNDS.LanguageGradientGuard.guarded_overlap_nonnegative
 #print axioms PNDS.LanguageGradientGuard.guarded_total_alignment
+
+/-! Prospective 500K wave/CED typed and scalar contract, partial only. -/
+#check @PNDS.LanguageWave500K.candidate_within_new_band
+#check @PNDS.LanguageWave500K.persistent_state_520
+#check @PNDS.LanguageWave500K.right_affine_associative
+#check @PNDS.LanguageWave500K.count_strictly_advances
+#print axioms PNDS.LanguageWave500K.right_affine_associative
