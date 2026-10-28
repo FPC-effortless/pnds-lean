@@ -171,3 +171,6 @@ import PNDS.LanguageGradientGuard
 #print axioms PNDS.LanguageSourceSlots008.owner_mismatch_rejected
 #print axioms PNDS.LanguageSourceSlots008.strict_past_is_not_future
 #print axioms PNDS.LanguageSourceSlots008.live_window_has_no_address_collision
+
+#print axioms PNDS.LanguageSourceSlots008.retrieval_mixture_nonnegative
+#print axioms PNDS.LanguageSourceSlots008.retrieval_mixture_normalized
