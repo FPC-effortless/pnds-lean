@@ -24,6 +24,44 @@ def slotMean (c : Concepts) : ℝ := slotSum c / 6
 
 def graphRead (weights c : Concepts) : ℝ := ∑ i : Fin 6, weights i * c i
 
+/-- The source six-slot graph is symmetric after pairwise averaging.
+This explicit source-shaped Laplacian uses weighted node degrees minus
+cross-slot weighted messages, at each latent coordinate. -/
+def symmetricLaplacian6
+    (edge : Fin 6 → Fin 6 → ℝ) (concept : Concepts) (i : Fin 6) : ℝ :=
+  (∑ j : Fin 6, edge i j) * concept i -
+      ∑ j : Fin 6, edge i j * concept j
+
+/-- A symmetric edge matrix implies exact zero-total graph diffusion.
+Unlike a free zero-sum premise, this discharges the cancellation from
+the actual six-node *symmetric* graph construction. -/
+theorem symmetric_laplacian6_zero_total
+    (edge : Fin 6 → Fin 6 → ℝ) (concept : Concepts)
+    (hsym : ∀ i j : Fin 6, edge i j = edge j i) :
+    (∑ i : Fin 6, symmetricLaplacian6 edge concept i) = 0 := by
+  have hs :
+      (∑ i : Fin 6, ∑ j : Fin 6, edge i j * concept i) =
+      (∑ i : Fin 6, ∑ j : Fin 6, edge i j * concept j) := by
+    calc
+      _ = ∑ i : Fin 6, ∑ j : Fin 6, edge j i * concept j := by
+        rw [Finset.sum_comm]
+      _ = _ := by
+        apply Finset.sum_congr rfl
+        intro i _
+        apply Finset.sum_congr rfl
+        intro j _
+        rw [hsym j i]
+  unfold symmetricLaplacian6
+  rw [Finset.sum_sub_distrib]
+  have hfirst :
+      (∑ i : Fin 6, (∑ j : Fin 6, edge i j) * concept i) =
+      (∑ i : Fin 6, ∑ j : Fin 6, edge i j * concept i) := by
+    apply Finset.sum_congr rfl
+    intro i _
+    rw [Finset.sum_mul]
+  rw [hfirst, hs]
+  ring
+
 /-- Aggregating the equilibrium removes a zero-sum graph interaction.
 The total-zero condition follows from a true symmetric graph Laplacian,
 but no equivalence to the whole Torch implementation is claimed. -/
