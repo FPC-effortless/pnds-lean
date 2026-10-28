@@ -1,3 +1,5 @@
+import PNDS.LanguageWave500K
+import PNDS.LanguageHistory500K
 import PNDS.LanguageFPContracts
 import PNDS.LanguageLayerNorm
 import PNDS.LanguageLossAD
@@ -113,3 +115,28 @@ import PNDS.LanguageGradientGuard
 #print axioms PNDS.LanguageGradientGuard.nonconflicting_overlap_is_unchanged
 #print axioms PNDS.LanguageGradientGuard.guarded_overlap_nonnegative
 #print axioms PNDS.LanguageGradientGuard.guarded_total_alignment
+
+/-! Prospective 500K wave/CED typed and scalar contract, partial only. -/
+#check @PNDS.LanguageWave500K.candidate_within_new_band
+#check @PNDS.LanguageWave500K.persistent_state_520
+#check @PNDS.LanguageWave500K.right_affine_associative
+#check @PNDS.LanguageWave500K.count_strictly_advances
+#print axioms PNDS.LanguageWave500K.right_affine_associative
+
+#check @PNDS.LanguageWave500K.wave_rotation_norm_sq
+#check @PNDS.LanguageWave500K.damped_wave_nonexpansive
+#check @PNDS.LanguageWave500K.pair_concept_sum_preserved
+#check @PNDS.LanguageWave500K.pair_concept_difference
+#check @PNDS.LanguageWave500K.pair_concept_energy_nonincrease
+#print axioms PNDS.LanguageWave500K.wave_rotation_norm_sq
+#print axioms PNDS.LanguageWave500K.damped_wave_nonexpansive
+#print axioms PNDS.LanguageWave500K.pair_concept_energy_nonincrease
+
+/-! 500K historical-source old-state contraction and overwrite limits. -/
+#check @PNDS.LanguageHistory500K.known_past_ordinal_correct
+#check @PNDS.LanguageHistory500K.old_state_difference_one_step
+#check @PNDS.LanguageHistory500K.old_state_difference_nonexpansive
+#check @PNDS.LanguageHistory500K.full_corrective_write_erases_old
+#check @PNDS.LanguageHistory500K.old_state_collision
+#print axioms PNDS.LanguageHistory500K.old_state_difference_nonexpansive
+#print axioms PNDS.LanguageHistory500K.old_state_collision
