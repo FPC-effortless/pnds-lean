@@ -1,0 +1,41 @@
+{
+  "id": "CONTEXT026-PREDICTIVE-NATIVE-MEMORY",
+  "audit_id": "CONTEXT028-EXACT-REAL-FULL-GRAPH-CAUSALITY",
+  "tac_commit": "7e40b72b2b1d60c3e131db8767fc75e26c823b00",
+  "tac_source_path": "research/mathematical-engineering/context026/context_transition.py",
+  "tac_source_sha256": "c88f3f7c1b628cb733a4a58dcd168a75411d8bb3d80e382068593713e887510a",
+  "tac_pr": 556,
+  "pnds_pr": 62,
+  "lean_path": "PNDS/ContextGraph028.lean",
+  "python_path": "foundation/v1/context026_graph.py",
+  "python_sha256": "addbbe4e6ad6fd5ff60dd3320f573c9909418a9826a3fe60e557284ed64c2359",
+  "status": "FULL_EXACT_REAL_GRAPH_DEFINED_SOURCE_EQUIVALENCE_AND_IEEE_AD_OPEN",
+  "claims": [
+    "prefix state noninterference of defined full graph",
+    "next-byte logits prefix noninterference of defined full graph",
+    "native nonwrite identity of full step",
+    "absent first native write of full step"
+  ],
+  "open": [
+    "Lean-to-source/extracted numerical correspondence",
+    "nonsingular inverse/unique CED solve proof",
+    "IEEE error bounds",
+    "formal AD correctness",
+    "trained information survival",
+    "matched future training gates",
+    "safety/reward/independent qualification"
+  ],
+  "precision": "Lean real numbers; PyTorch finite-precision/kernel/AD connection remains OPEN; CONTEXT027 records separate bounded numerical evidence",
+  "candidate_trained": false,
+  "parameters": 500122,
+  "source_semantics": [
+    "reset source windows only",
+    "per-owner local state; no source labels accepted",
+    "current native postwrite read; aligned prewrite read",
+    "mask affects associative writes only; other observed-state updates continue",
+    "complete42 learned tensor fields; no opaque decoder function",
+    "softmax mathematically unshifted; stable floating-point implementation equivalence OPEN",
+    "totalized Matrix inverse; agreement with torch.linalg.solve requires nonsingularity"
+  ],
+  "original_negative": "Original025 NLL2.099349221 vs practical P3 1.877306112,0/5; immutable Git8e3e004; H64 preserved"
+}
