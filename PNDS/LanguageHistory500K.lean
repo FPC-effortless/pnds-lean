@@ -32,6 +32,8 @@ theorem old_state_difference_nonexpansive (s₁ s₂ p q : ℝ)
     |(s₁*p+q)-(s₂*p+q)| ≤ |s₁-s₂| := by
   rw [old_state_difference_one_step, abs_mul]
   have h : 0 ≤ |s₁-s₂| := abs_nonneg _
+  have hp1 : 0 ≤ 1-|p| := sub_nonneg.mpr hp
+  have hh := mul_nonneg h hp1
   nlinarith
 
 /-- A valid bounded corrective write can overwrite an earlier scalar value
