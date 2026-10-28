@@ -29,14 +29,14 @@ def softmax {n : Nat} (x : Vec n) : Vec n :=
   fun i => Real.exp (x i) / ∑ j, Real.exp (x j)
 
 def clockFeatures (t : Nat) : Vec 7 :=
-  ![Real.log (1+t), Real.sin (t/16 : ℝ), Real.cos (t/16 : ℝ),
-    Real.sin (t/64 : ℝ), Real.cos (t/64 : ℝ),
-    Real.sin (t/256 : ℝ), Real.cos (t/256 : ℝ)]
+  ![Real.log (1+(t : ℝ)), Real.sin ((t : ℝ)/16), Real.cos ((t : ℝ)/16),
+    Real.sin ((t : ℝ)/64), Real.cos ((t : ℝ)/64),
+    Real.sin ((t : ℝ)/256), Real.cos ((t : ℝ)/256)]
 
 def periods : Fin 4 → Nat := ![7,13,29,59]
 def ordinal (t : Nat) : Vec 8 := fun i =>
   let period := periods ⟨i.val/2,by have := i.isLt; omega⟩
-  let angle := (t % period : ℕ) * (2*Real.pi/(period : ℝ))
+  let angle := ((t % period : ℕ) : ℝ) * (2*Real.pi/(period : ℝ))
   if i.val % 2 = 0 then Real.cos angle else Real.sin angle
 
 structure Weights where
@@ -124,8 +124,8 @@ def step (w : Weights) (s : State) (token : Fin 256) (admit : Bool) : State × V
   let lexical : Vec 48 := fun c => Real.tanh (w.embedding token c)
   let pos := linear w.pos 0 (clockFeatures t)
   let e : Vec 48 := fun c => Real.tanh (w.embedding token c+pos c)
-  let local : Vec 48 := fun c => Real.tanh (lexical c + ∑ lag, Real.tanh (w.lags lag c)*s.lexicalPast lag c)
-  let key := unit (linear w.keyW w.keyB local)
+  let contextual : Vec 48 := fun c => Real.tanh (lexical c + ∑ lag, Real.tanh (w.lags lag c)*s.lexicalPast lag c)
+  let key := unit (linear w.keyW w.keyB contextual)
   let value : Vec 8 := fun i => Real.tanh (linear w.valueW w.valueB e i)
   let ng := linear w.nativeGateW w.nativeGateB e
   let a := (199/200 : ℝ)*sigmoid (ng 0)
@@ -138,7 +138,7 @@ def step (w : Weights) (s : State) (token : Fin 256) (admit : Bool) : State × V
   let ag := unflatten (n:=2) (m:=3) (fun i => sigmoid (linear w.alignedGateW w.alignedGateB e i))
   let av : Vec 16 := fun i => Real.tanh (linear w.alignedValueW w.alignedValueB e i)
   let aligned : Fin 2 → Mat 16 8 := fun h => edit (s.aligned h) (ak h) av (ag h 0) (ag h 1) (ag h 2) admit
-  let ctx : Vec 88 := fun i => s.basisSum i / (max 1 t : ℕ)
+  let ctx : Vec 88 := fun i => s.basisSum i / ((max 1 t : ℕ) : ℝ)
   let oldwave := waveFlat s.wave
   let fast : Vec 88 := fun i => Real.tanh (linear w.fastW w.fastB (append (append (append e ctx) oldwave) nativeRead) i)
   let slow : Vec 88 := fun i => Real.tanh (linear w.slowW w.slowB (append (append fast ctx) nativeRead) i)
