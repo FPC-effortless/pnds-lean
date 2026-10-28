@@ -1,0 +1,37 @@
+name: CONTEXT026 exact-real native memory scope
+on:
+  pull_request:
+    paths:
+      - 'PNDS/ContextTransition026.lean'
+      - 'foundation/v1/context026*'
+      - 'tests/test_context026.py'
+      - '.github/workflows/context026.yml'
+permissions:
+  contents: read
+jobs:
+  scoped-native-math:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - run: python3 -m unittest discover -s tests -p test_context026.py -v
+      - name: Pinned Lean and mathlib
+        run: |
+          curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - run: |
+          lake update
+          lake exe cache get
+      - name: Compile actual scope and inspect all six theorem axioms
+        run: |
+          set -o pipefail
+          lake env lean PNDS/ContextTransition026.lean 2>&1 | tee context026-axioms.log
+          test "$(grep -c 'PNDS.ContextTransition026.' context026-axioms.log)" -eq 6
+          if grep -E 'sorryAx|declaration uses.*sorry|error:' context026-axioms.log; then exit 1; fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: context026-scoped-exact-real-math
+          path: context026-axioms.log

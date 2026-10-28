@@ -1,0 +1,29 @@
+{
+  "id": "CONTEXT026-PREDICTIVE-NATIVE-MEMORY",
+  "lean_path": "PNDS/ContextTransition026.lean",
+  "legacy_global_index": "unchanged partial historical index; dedicated reciprocal study record",
+  "open": [
+    "full parent computational graph formulation and independent reference",
+    "full source-to-reference forward/backward IEEE correspondence",
+    "formal complete key-to-logit causality",
+    "state information survival",
+    "training-compute parity",
+    "new model training and predictive superiority",
+    "safety and reward certification"
+  ],
+  "parameters_untrained": 500122,
+  "parent_commit": "2b99b2c0ae6a07f83acfc102eadefd055b724518",
+  "proved_scope": [
+    "first native write absent",
+    "predecessor index strictly past",
+    "nonwrite identity",
+    "conditional scalar envelope",
+    "native199/200 envelope",
+    "interior oblique erase can amplify Euclidean norm"
+  ],
+  "python_path": "foundation/v1/context026.py",
+  "status": "PARTIAL_CHANGED_KEY_AND_NATIVE_UPDATE_NOT_WHOLE_MODEL",
+  "tac_commit": "d077a9125813f28b1c6efeb7951141bc67f2a764",
+  "tac_source_path": "research/mathematical-engineering/context026/context_transition.py",
+  "tac_source_sha256": "c88f3f7c1b628cb733a4a58dcd168a75411d8bb3d80e382068593713e887510a"
+}
