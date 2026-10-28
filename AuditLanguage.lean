@@ -5,6 +5,7 @@ import PNDS.LanguageMemory007
 import PNDS.LanguageSourceSlots008
 import PNDS.LanguageRetrieval009
 import PNDS.LanguageQuery010
+import PNDS.LanguageFusionRisk011
 import PNDS.LanguageFPContracts
 import PNDS.LanguageLayerNorm
 import PNDS.LanguageLossAD
@@ -197,3 +198,9 @@ import PNDS.LanguageGradientGuard
 #print axioms PNDS.LanguageQuery010.selective_query_normalized
 #print axioms PNDS.LanguageQuery010.learned_count_posterior_normalization
 #print axioms PNDS.LanguageQuery010.learned_posterior_strict_positive
+
+#print axioms PNDS.LanguageFusionRisk011.fusion_true_label_delta
+#print axioms PNDS.LanguageFusionRisk011.wrong_continuation_fusion_harms
+#print axioms PNDS.LanguageFusionRisk011.correct_continuation_fusion_helps
+#print axioms PNDS.LanguageFusionRisk011.fusion_deviation_bound
+#print axioms PNDS.LanguageFusionRisk011.wrong_continuation_increases_nll
