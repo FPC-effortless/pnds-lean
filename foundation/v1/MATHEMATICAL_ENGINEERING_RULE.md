@@ -1,3 +1,5 @@
+**LATEST PROSPECTIVE SCALE OVERRIDE — 2026-10-28:** For NEW TAC-OSM trained models, parameter target 500,000 learned trainable/deployed active weights (allowed 475,000–525,000), architecture comparator active counts within 1%, equal authentic data, training compute, objective and evaluation for superiority. Older 100K experiment contracts remain immutable. See [PARAMETER_SCALE_500K_PROSPECTIVE.md](PARAMETER_SCALE_500K_PROSPECTIVE.md). All Lean, Python, source-pinning, finite-precision and replay obligations below still apply.
+
 # Compulsory TAC-OSM mathematical engineering, representation and formulation rule
 
 **Scope:** every historical or prospective TAC-OSM architecture, variant, training candidate, decoder, memory upgrade and evaluation-only adapter. **Effective:** 2026-10-24. This is an additive research gate, not retroactive certification. It preserves every original failure and checkpoint.
