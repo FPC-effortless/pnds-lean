@@ -2,6 +2,7 @@ import PNDS.LanguageWave500K
 import PNDS.LanguageHistory500K
 import PNDS.LanguageWaveGraphRepair
 import PNDS.LanguageMemory007
+import PNDS.LanguageSourceSlots008
 import PNDS.LanguageFPContracts
 import PNDS.LanguageLayerNorm
 import PNDS.LanguageLossAD
@@ -161,3 +162,15 @@ import PNDS.LanguageGradientGuard
 #print axioms PNDS.LanguageMemory007.slow_write_nonnegative
 #print axioms PNDS.LanguageMemory007.slow_write_bounded
 #print axioms PNDS.LanguageMemory007.wrong_owner_not_authorized
+
+/-! GRAPH008 scoped 512-slot exact-real model only. -/
+#print axioms PNDS.LanguageSourceSlots008.source_write_exact
+#print axioms PNDS.LanguageSourceSlots008.source_write_no_cross_slot_interference
+#print axioms PNDS.LanguageSourceSlots008.source_read_survives_different_write
+#print axioms PNDS.LanguageSourceSlots008.source_write_bound
+#print axioms PNDS.LanguageSourceSlots008.owner_mismatch_rejected
+#print axioms PNDS.LanguageSourceSlots008.strict_past_is_not_future
+#print axioms PNDS.LanguageSourceSlots008.live_window_has_no_address_collision
+
+#print axioms PNDS.LanguageSourceSlots008.retrieval_mixture_nonnegative
+#print axioms PNDS.LanguageSourceSlots008.retrieval_mixture_normalized
