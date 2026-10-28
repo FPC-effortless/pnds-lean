@@ -1,0 +1,59 @@
+name: LANGLAYER034 math and source-pinned no-fit correspondence
+on:
+  pull_request:
+    paths:
+      - 'PNDS/LangLayer034.lean'
+      - 'foundation/v1/langlayer034.py'
+      - 'foundation/v1/langlayer034.json'
+      - 'tests/test_langlayer034.py'
+      - '.github/workflows/langlayer034.yml'
+permissions:
+  contents: read
+jobs:
+  scoped-lean-and-source-python:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Pin Lean/mathlib
+        run: |
+          curl --fail --location --silent --show-error https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - run: |
+          lake update
+          lake exe cache get
+      - name: Compile scoped exact-real operator and inspect axiom output
+        run: |
+          set -o pipefail
+          lake env lean PNDS/LangLayer034.lean | tee langlayer034-lean.log
+          test "$(grep -c 'PNDS.LangLayer034.' langlayer034-lean.log)" -eq 3
+          if grep -E 'sorryAx|error:' langlayer034-lean.log; then exit 1; fi
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: CPU PyTorch test runtime
+        run: |
+          python -m pip install pytest
+          python -m pip install torch==2.10.0 --index-url https://download.pytorch.org/whl/cpu
+      - name: Download exact TAC source commit, verify Git blob identities
+        run: |
+          mkdir -p "$RUNNER_TEMP/tac034/research/mathematical-engineering/context026"
+          mkdir -p "$RUNNER_TEMP/tac034/research/mathematical-engineering/langlayer034"
+          SRC=https://raw.githubusercontent.com/FPC-effortless/TAC-OSM/b912b632a19ba06fed3a7b8f1b73def18e618c4f
+          curl -fLsS "$SRC/research/mathematical-engineering/context026/context_transition.py" -o "$RUNNER_TEMP/tac034/research/mathematical-engineering/context026/context_transition.py"
+          curl -fLsS "$SRC/research/mathematical-engineering/langlayer034/layered_transition.py" -o "$RUNNER_TEMP/tac034/research/mathematical-engineering/langlayer034/layered_transition.py"
+          test "$(git hash-object "$RUNNER_TEMP/tac034/research/mathematical-engineering/context026/context_transition.py")" = cfdfa1ef07fc8af0d011c9727d629200025d6652
+          test "$(git hash-object "$RUNNER_TEMP/tac034/research/mathematical-engineering/langlayer034/layered_transition.py")" = 0de36915feb969f423cc1ed9760cb08a9cd03c9b
+      - name: Independent serial residual forward/trace/VJP and full prefix tests, no training
+        run: |
+          set -o pipefail
+          TAC_LAYER034_ROOT="$RUNNER_TEMP/tac034/research/mathematical-engineering/langlayer034" OMP_NUM_THREADS=2 python -m pytest -q tests/test_langlayer034.py | tee langlayer034-python.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: LANGLAYER034-scoped-math-no-fit
+          path: |
+            langlayer034-lean.log
+            langlayer034-python.log
