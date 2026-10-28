@@ -76,9 +76,9 @@ theorem carried_one_token_old_query
   omega
 
 theorem resumed_query_eligible
-    (start local lag : ℕ)
-    (h : lag ≤ start+local) :
-    (start+local)-lag+lag=start+local := by
+    (start offset lag : ℕ)
+    (h : lag ≤ start+offset) :
+    (start+offset)-lag+lag=start+offset := by
   omega
 
 /-- A normalized key and bounded value are required separately. With
