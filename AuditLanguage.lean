@@ -130,3 +130,12 @@ import PNDS.LanguageGradientGuard
 #print axioms PNDS.LanguageWave500K.wave_rotation_norm_sq
 #print axioms PNDS.LanguageWave500K.damped_wave_nonexpansive
 #print axioms PNDS.LanguageWave500K.pair_concept_energy_nonincrease
+
+/-! 500K historical-source old-state contraction and overwrite limits. -/
+#check @PNDS.LanguageHistory500K.known_past_ordinal_correct
+#check @PNDS.LanguageHistory500K.old_state_difference_one_step
+#check @PNDS.LanguageHistory500K.old_state_difference_nonexpansive
+#check @PNDS.LanguageHistory500K.full_corrective_write_erases_old
+#check @PNDS.LanguageHistory500K.old_state_collision
+#print axioms PNDS.LanguageHistory500K.old_state_difference_nonexpansive
+#print axioms PNDS.LanguageHistory500K.old_state_collision
