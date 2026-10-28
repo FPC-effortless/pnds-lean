@@ -1,0 +1,25 @@
+{
+  "graph": "frozen source-verified causal logits [cases,vocab] -> positive scalar a -> categorical probabilities; targets are fit-only on disjoint calibration documents; prediction never takes target labels",
+  "id": "TEMP020-SCALAR-POSTHOC",
+  "lean_path": "PNDS/ScalarCalibration020.lean",
+  "legacy_global_index": "unchanged partial 17-version index; dedicated reciprocal study record, not a completed global archive migration",
+  "no_real_data_measurements": true,
+  "open": [
+    "logsumexp convexity formal theorem",
+    "optimizer convergence",
+    "FP64 and full Torch IEEE/AD correspondence",
+    "source/checkpoint replay",
+    "independent generalization"
+  ],
+  "original_graph_commit": "2aeb631300f1465b5b62e7ffc966f8add8566f81",
+  "proved_scope": [
+    "positive exact-real logit ordering and maximizer set",
+    "class-bias mode counterexample",
+    "identity-candidate loss guard only"
+  ],
+  "python_path": "foundation/v1/temperature020.py",
+  "status": "PARTIAL_POSTHOC_LAYER_NOT_WHOLE_MODEL",
+  "tac_commit": "4f3e7d2b1f154e8376f95c16cfe3e54bfe20f5eb",
+  "tac_source_path": "src/tac_osm/scalar_calibration.py",
+  "tac_source_sha256": "8057e94d43d02d9d7aa6db38462aa47c189d561d0a2dd94c25802ae89221f80f"
+}
