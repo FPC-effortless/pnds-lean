@@ -1,0 +1,39 @@
+{
+  "variant_id": "LANGLAYER034-CAUSAL-RESIDUAL-DEPTH",
+  "status": "SCOPED_RESIDUAL_FORMULATION_NOT_WHOLE_MODEL",
+  "source_repo": "FPC-effortless/TAC-OSM",
+  "source_pr": 562,
+  "source_commit": "b912b632a19ba06fed3a7b8f1b73def18e618c4f",
+  "source_path": "research/mathematical-engineering/langlayer034/layered_transition.py",
+  "source_git_blob_sha": "0de36915feb969f423cc1ed9760cb08a9cd03c9b",
+  "parent_source_path": "research/mathematical-engineering/context026/context_transition.py",
+  "parent_git_blob_sha": "cfdfa1ef07fc8af0d011c9727d629200025d6652",
+  "original_math_pr": 62,
+  "original_exact_graph": "PNDS/ContextGraph028.lean",
+  "lean": "PNDS/LangLayer034.lean",
+  "reference": "foundation/v1/langlayer034.py",
+  "reference_git_blob_sha": "83be4e91379556664fc44a8e1827ed95aaab1e0e",
+  "parent_exact_graph_full_forward_original_source_correspondence": "INHERITED_EVIDENCE_CONTEXTO27_NOT_LAYER034_COMPLETE",
+  "layer_actual_source_serial_reference_correspondence": "UNIT_CHECKS_ONLY",
+  "covered": [
+    "independent residual affine state",
+    "six concept seeds",
+    "graph solve",
+    "no-fit actual-source forward VJP and prefix controls"
+  ],
+  "outstanding": [
+    "composed independent whole-model graph including base latent z before decoder",
+    "Lean total model and CED uniqueness proof",
+    "source-to-Lean executable correspondence",
+    "global IEEE and AD guarantees",
+    "trained prediction and retrieval",
+    "scale-policy exception and matched compute"
+  ],
+  "trained": false,
+  "evaluation_dataset": "constructed_no_fit_only",
+  "active_parameters": {
+    "depth_2": 499725,
+    "depth_3": 499934
+  },
+  "preserving": "Original LANGTRAIN025 and LANGCOMPARE031 source/checkpoints/results left unchanged"
+}
