@@ -4,6 +4,7 @@ on:
     paths:
       - 'PNDS/ContextTransition026.lean'
       - 'foundation/v1/context026*'
+      - 'foundation/v1/context027.json'
       - 'tests/test_context026.py'
       - '.github/workflows/context026.yml'
 permissions:
@@ -17,6 +18,7 @@ jobs:
         with:
           persist-credentials: false
       - run: python3 -m unittest discover -s tests -p test_context026.py -v
+      - run: python3 -m py_compile foundation/v1/context026_graph.py
       - name: Pinned Lean and mathlib
         run: |
           curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain none

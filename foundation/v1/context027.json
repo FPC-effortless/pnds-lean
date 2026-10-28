@@ -1,0 +1,54 @@
+{
+  "id": "CONTEXT026-PREDICTIVE-NATIVE-MEMORY",
+  "audit_id": "CONTEXT027-FULL-GRAPH-SERIAL-CORRESPONDENCE",
+  "tac_commit": "8e3e0040052eea6c99c69b240e1623b2681ebf79",
+  "tac_source_path": "research/mathematical-engineering/context026/context_transition.py",
+  "tac_source_sha256": "c88f3f7c1b628cb733a4a58dcd168a75411d8bb3d80e382068593713e887510a",
+  "tac_pr": 556,
+  "pnds_pr": 62,
+  "python_path": "foundation/v1/context026_graph.py",
+  "python_sha256": "addbbe4e6ad6fd5ff60dd3320f573c9909418a9826a3fe60e557284ed64c2359",
+  "lean_path": "PNDS/ContextTransition026.lean",
+  "lean_scope": "unchanged exact-real keys/native operator definitions and six scoped propositions; full graph Lean definitions and AD/IEEE proofs OPEN",
+  "status": "FULL_SERIAL_PYTHON_GRAPH_PARTIAL_LEAN_NOT_QUALIFIED",
+  "state_shapes": {
+    "native": [
+      8,
+      8
+    ],
+    "aligned": [
+      2,
+      16,
+      8
+    ],
+    "wave": [
+      8,
+      2
+    ],
+    "concept_seed": [
+      6,
+      16
+    ],
+    "basis_sum": [
+      88
+    ],
+    "lexical_context": [
+      3,
+      48
+    ]
+  },
+  "trace_contract": "every actual return_trace field including all three bank write-gates, prewrite states, postwrite native query, CED graph/solve and context mean",
+  "decoder": "280 layernorm -> 501 SwiGLU -> 256 plus weighted concept output",
+  "precision": "FP32/FP64 CPU correspondence is measured on bounded cases, not universal theorem",
+  "shared_runtime": "PyTorch tensor primitives, linalg.solve and autograd; independent graph/operator composition, not independent AD implementation",
+  "candidate_trained": false,
+  "open": [
+    "full Lean graph",
+    "formal AD correctness",
+    "IEEE error bounds",
+    "trained information utility",
+    "matched SSM/full training budget gates",
+    "safety/reward qualification"
+  ],
+  "preserved_negative": "LANGTRAIN025 original5seeds TAC2.099349221 vs P3 1.877306112; binaries preserved in TAC8e3e004"
+}
