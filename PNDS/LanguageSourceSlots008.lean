@@ -72,5 +72,24 @@ theorem live_window_has_no_address_collision (i j : ℕ)
     i % 512 ≠ j % 512 := by
   omega
 
+
+/-- The probability-level retrieval mixture cannot create negative mass
+    when the base and copy distributions have nonnegative coordinates. -/
+theorem retrieval_mixture_nonnegative
+    (p q lam : ℝ)
+    (hp : 0 ≤ p) (hq : 0 ≤ q) (hl0 : 0 ≤ lam) (hl1 : lam ≤ 1) :
+    0 ≤ (1-lam)*p+lam*q := by
+  exact add_nonneg (mul_nonneg (sub_nonneg.mpr hl1) hp) (mul_nonneg hl0 hq)
+
+/-- Mixing two complete normalized categorical distributions preserves
+    their total probability mass at one; this is a scalar total-mass
+    contract, not a full network softmax/source equivalence theorem. -/
+theorem retrieval_mixture_normalized
+    (totalBase totalCopy lam : ℝ)
+    (hb : totalBase = 1) (hc : totalCopy = 1) :
+    (1-lam)*totalBase+lam*totalCopy = 1 := by
+  rw [hb,hc]
+  ring
+
 end
 end PNDS.LanguageSourceSlots008
