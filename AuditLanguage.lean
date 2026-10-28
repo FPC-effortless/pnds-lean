@@ -1,6 +1,7 @@
 import PNDS.LanguageWave500K
 import PNDS.LanguageHistory500K
 import PNDS.LanguageWaveGraphRepair
+import PNDS.LanguageMemory007
 import PNDS.LanguageFPContracts
 import PNDS.LanguageLayerNorm
 import PNDS.LanguageLossAD
@@ -153,3 +154,10 @@ import PNDS.LanguageGradientGuard
 #print axioms PNDS.LanguageWaveGraphRepair.resumed_query_eligible
 #print axioms PNDS.LanguageWaveGraphRepair.coupled_scalar_preserves_bound
 #print axioms PNDS.LanguageWaveGraphRepair.coupled_scalar_can_erase_all_old_states
+
+/-! GRAPH007 new exact-real gate/owner contracts only; not whole-Torch proof. -/
+#print axioms PNDS.LanguageMemory007.slow_retention_range
+#print axioms PNDS.LanguageMemory007.slow_erasure_range
+#print axioms PNDS.LanguageMemory007.slow_write_nonnegative
+#print axioms PNDS.LanguageMemory007.slow_write_bounded
+#print axioms PNDS.LanguageMemory007.wrong_owner_not_authorized
