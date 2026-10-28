@@ -4,6 +4,7 @@ import PNDS.LanguageWaveGraphRepair
 import PNDS.LanguageMemory007
 import PNDS.LanguageSourceSlots008
 import PNDS.LanguageRetrieval009
+import PNDS.LanguageQuery010
 import PNDS.LanguageFPContracts
 import PNDS.LanguageLayerNorm
 import PNDS.LanguageLossAD
@@ -185,3 +186,14 @@ import PNDS.LanguageGradientGuard
 #print axioms PNDS.LanguageRetrieval009.fusion_nonnegative
 #print axioms PNDS.LanguageRetrieval009.fusion_total_mass
 #print axioms PNDS.LanguageRetrieval009.right_affine_associative
+
+/-! GRAPH010 strict-past learned approximate query fallbacks; not semantic proof. -/
+#print axioms PNDS.LanguageQuery010.candidate_is_strictly_past
+#print axioms PNDS.LanguageQuery010.candidate_within_retention
+#print axioms PNDS.LanguageQuery010.source_continuation_causes_no_target_leak
+#print axioms PNDS.LanguageQuery010.exact_match_has_priority
+#print axioms PNDS.LanguageQuery010.no_match_abstains
+#print axioms PNDS.LanguageQuery010.approximate_only_on_exact_miss
+#print axioms PNDS.LanguageQuery010.selective_query_normalized
+#print axioms PNDS.LanguageQuery010.learned_count_posterior_normalization
+#print axioms PNDS.LanguageQuery010.learned_posterior_strict_positive
