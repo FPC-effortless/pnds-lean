@@ -1,5 +1,6 @@
 import PNDS.LanguageWave500K
 import PNDS.LanguageHistory500K
+import PNDS.LanguageWaveGraphRepair
 import PNDS.LanguageFPContracts
 import PNDS.LanguageLayerNorm
 import PNDS.LanguageLossAD
@@ -140,3 +141,14 @@ import PNDS.LanguageGradientGuard
 #check @PNDS.LanguageHistory500K.old_state_collision
 #print axioms PNDS.LanguageHistory500K.old_state_difference_nonexpansive
 #print axioms PNDS.LanguageHistory500K.old_state_collision
+
+/-! Separate 500K graph invisibility and versioned fix proof audit. -/
+#print axioms PNDS.LanguageWaveGraphRepair.unweighted_equilibrium_cancels_graph
+#print axioms PNDS.LanguageWaveGraphRepair.two_slot_graph_solution
+#print axioms PNDS.LanguageWaveGraphRepair.two_slot_old_mean_cancellation
+#print axioms PNDS.LanguageWaveGraphRepair.two_slot_weighted_graph_is_observable
+#print axioms PNDS.LanguageWaveGraphRepair.read_from_constant_slots_is_invariant
+#print axioms PNDS.LanguageWaveGraphRepair.carried_one_token_old_query
+#print axioms PNDS.LanguageWaveGraphRepair.resumed_query_eligible
+#print axioms PNDS.LanguageWaveGraphRepair.coupled_scalar_preserves_bound
+#print axioms PNDS.LanguageWaveGraphRepair.coupled_scalar_can_erase_all_old_states
