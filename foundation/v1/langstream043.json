@@ -1,0 +1,23 @@
+{
+  "variant_id": "LANGSTREAM043-INCREMENTAL-GRAPHFREE48",
+  "tac_commit": "77440a30c594187440cd45ce41c5ca3f2fd40c02",
+  "tac_source_path": "research/mathematical-engineering/langstream043/incremental.py",
+  "tac_source_sha256": "18b814fc1061ae7b6477e6707b5a39dae6824fab430f2d5be3aec2e11107351b",
+  "parent": "Original040 graph-free48D499623p, FFN455; original028/038 operator lineage",
+  "lean_path": "PNDS/LangStream043.lean",
+  "python_path": "foundation/v1/langstream043.py",
+  "scope": "full exact-real single-owner token step, optional capped position, upper48D and decoder455; functional Python independent of TAC source/scans/traces",
+  "state_float_coordinates": 976,
+  "split": "720 carried recurrent/cache +256 cached output logits; metadata/runtime/weights/workspace excluded",
+  "precision": "FP32/FP64 comparisons are bounded numerical checks, not universal IEEE proof",
+  "open": [
+    "source-extracted Lean/Python equivalence",
+    "formal IEEE/AD correctness",
+    "CED nonsingularity bridge",
+    "unbounded/rolling-window equivalence",
+    "trained historical retrieval or safety qualification"
+  ],
+  "original_checkpoints_unchanged": true,
+  "training_updates": 0,
+  "scientific_claim": "same predictor execution engineering, not improved neural intelligence"
+}
