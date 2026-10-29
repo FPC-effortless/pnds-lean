@@ -40,12 +40,12 @@ def ageOnehotWidth : Nat := 4
 theorem three_feature_components :
     readWidth + writerWidth + ageOnehotWidth = probeInputWidth := by decide
 
-theorem future_target_not_in_observed_prefix (prefix : List Nat) (future : Nat) :
-    (prefix ++ [future]).take prefix.length = prefix := by
+theorem future_target_not_in_observed_prefix (observed : List Nat) (future : Nat) :
+    (observed ++ [future]).take observed.length = observed := by
   simp
 
-theorem same_prefix_for_any_future_target (prefix : List Nat) (a b : Nat) :
-    (prefix ++ [a]).take prefix.length = (prefix ++ [b]).take prefix.length := by
+theorem same_prefix_for_any_future_target (observed : List Nat) (a b : Nat) :
+    (observed ++ [a]).take observed.length = (observed ++ [b]).take observed.length := by
   simp
 
 def permittedAges : List Nat := [8,32,128,256]
