@@ -13,7 +13,7 @@ trained PyTorch k8 matrix/gradients, source IEEE/AD or serial/scan parity.
 -/
 namespace PNDS.LangMem078
 
-def slowRetention (rate : ℝ) : ℝ := Real.exp (-rate)
+noncomputable def slowRetention (rate : ℝ) : ℝ := Real.exp (-rate)
 
 theorem slowRetention_pos (rate : ℝ) :
     0 < slowRetention rate := by
