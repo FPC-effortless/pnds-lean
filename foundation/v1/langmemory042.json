@@ -1,0 +1,14 @@
+{
+  "variant_id": "LANGMEMORY042-POSITION-CONTROLS",
+  "tac_commit": "d3890d100b24a45a796267e010b49e6c2fac8cf4",
+  "tac_source_path": "research/mathematical-engineering/langmemory042/candidate.py",
+  "tac_source_sha256": "16c29799d8428cc4331c8d4018ae16736653d16e571104bb5f84a5ea4449dd34",
+  "lean_path": "PNDS/LangMemory042.lean",
+  "python_path": "foundation/v1/langmemory042.py",
+  "scope": "only two position-feature maps, full frozen model graph and IEEE/AD equivalence OPEN",
+  "learned_parameters_added": 0,
+  "training_updates": 0,
+  "protected_TEST": false,
+  "operator": "cap first log feature or all seven features to phi127; original ordinal keys and source-time identities untouched",
+  "history": "Original040/041 source checkpoint/long-history results preserved"
+}
