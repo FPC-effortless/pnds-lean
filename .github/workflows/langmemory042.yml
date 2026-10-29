@@ -1,0 +1,32 @@
+name: LANGMEMORY042 fixed position feature maps
+on:
+  pull_request:
+    paths:
+      - 'PNDS/LangMemory042.lean'
+      - 'foundation/v1/langmemory042*'
+      - '.github/workflows/langmemory042.yml'
+permissions:
+  contents: read
+jobs:
+  scoped-maps:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          curl -fLsS https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - run: |
+          lake update
+          lake exe cache get
+      - run: |
+          set -o pipefail
+          lake env lean PNDS/LangMemory042.lean 2>&1 | tee langmemory042-axioms.log
+          test "$(grep -c 'PNDS.LangMemory042.' langmemory042-axioms.log)" -eq 5
+          if grep -E 'sorryAx|error:|declaration uses.*sorry' langmemory042-axioms.log; then exit 1; fi
+      - run: python3 -m py_compile foundation/v1/langmemory042.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: LANGMEMORY042-scoped-maps
+          path: langmemory042-axioms.log
