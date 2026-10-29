@@ -1,0 +1,24 @@
+{
+  "variant_id": "LANGSTREAM043-INCREMENTAL-GRAPHFREE48",
+  "tac_commit": "6dd04d7d11d3ae6769bab294448ca9dcf4d9b33b",
+  "tac_source_path": "research/mathematical-engineering/langstream043/incremental.py",
+  "tac_source_sha256": "5f0856b61d3a5ed8e8a360c76cf8c7384287c84dc9d1f9bff859e81c5cd64f73",
+  "parent": "Original040 graph-free48D499623p, FFN455; original028/038 operator lineage",
+  "lean_path": "PNDS/LangStream043.lean",
+  "python_path": "foundation/v1/langstream043.py",
+  "scope": "full exact-real single-owner token step, optional capped position, upper48D and decoder455; functional Python independent of TAC source/scans/traces",
+  "state_float_coordinates": 976,
+  "split": "720 carried recurrent/cache +256 cached output logits; metadata/runtime/weights/workspace excluded",
+  "precision": "FP32/FP64 comparisons are bounded numerical checks, not universal IEEE proof",
+  "open": [
+    "source-extracted Lean/Python equivalence",
+    "formal IEEE/AD correctness",
+    "CED nonsingularity bridge",
+    "unbounded/rolling-window equivalence",
+    "trained historical retrieval or safety qualification"
+  ],
+  "original_checkpoints_unchanged": true,
+  "training_updates": 0,
+  "scientific_claim": "same predictor execution engineering, not improved neural intelligence",
+  "snapshot_binding": "weights, exact engine/parent source and torch runtime hash, owner/mode/clock/schema/dtype/shape; digest detects corruption, not external qualification"
+}

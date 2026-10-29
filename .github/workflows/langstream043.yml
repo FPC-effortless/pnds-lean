@@ -1,0 +1,35 @@
+name: LANGSTREAM043 full token graph and exact-real serial composition
+on:
+  pull_request:
+    paths:
+      - 'PNDS/LangStream043.lean'
+      - 'foundation/v1/langstream043*'
+      - '.github/workflows/langstream043.yml'
+permissions:
+  contents: read
+jobs:
+  exact-real-graph:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - run: |
+          curl -fLsS https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - run: |
+          lake update
+          lake exe cache get
+      - name: Complete exact-real step and six axiom inspections
+        run: |
+          set -o pipefail
+          lake env lean PNDS/LangStream043.lean 2>&1 | tee langstream043-axioms.log
+          test "$(grep -c 'PNDS.LangStream043.' langstream043-axioms.log)" -eq 6
+          if grep -E 'sorryAx|declaration uses.*sorry|error:' langstream043-axioms.log; then exit 1; fi
+      - run: python3 -m py_compile foundation/v1/langstream043.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: LANGSTREAM043-full-exact-real-graph
+          path: langstream043-axioms.log
