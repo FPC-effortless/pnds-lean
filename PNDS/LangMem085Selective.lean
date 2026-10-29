@@ -33,7 +33,7 @@ theorem delta_aligned_error (rho eta prior value : ℝ) :
   unfold deltaAligned
   ring
 
-def selectiveEta (residualNorm : ℝ) : ℝ :=
+noncomputable def selectiveEta (residualNorm : ℝ) : ℝ :=
   if residualNorm <= (3:ℝ)/4 then 1 else 1/4
 
 theorem selective_eta_bounded (z : ℝ) :
@@ -49,6 +49,7 @@ theorem full_delta_writes_latest (rho old value : ℝ) :
 theorem quarter_delta_residual (rho old value : ℝ) :
     deltaAligned rho (1/4) old value - value =
     (3/4)*(rho*old-value) := by
+  unfold deltaAligned
   ring
 
 def frozenMemoryBankBytes : Nat := 8*8*4
