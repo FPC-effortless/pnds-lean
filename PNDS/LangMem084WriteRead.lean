@@ -40,7 +40,7 @@ theorem signed_identity_injective : Function.Injective encodeBits := by
   intro a b h
   funext i
   have hi := congrFun h i
-  cases ha : a i <;> cases hb : b i <;> simp_all [encodeBits]
+  cases ha : a i <;> cases hb : b i <;> simp_all [encodeBits] <;> norm_num at hi
 
 def sourceUpdate (m : Memory) (k v : Key) (rho beta epsilon : ℝ) : Memory :=
   fun i j => rho * m i j - rho * beta * read m k i * k j + epsilon * v i * k j
