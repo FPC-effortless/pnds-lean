@@ -1,8 +1,8 @@
 {
   "variant_id": "LANGSTREAM043-INCREMENTAL-GRAPHFREE48",
-  "tac_commit": "77440a30c594187440cd45ce41c5ca3f2fd40c02",
+  "tac_commit": "6dd04d7d11d3ae6769bab294448ca9dcf4d9b33b",
   "tac_source_path": "research/mathematical-engineering/langstream043/incremental.py",
-  "tac_source_sha256": "18b814fc1061ae7b6477e6707b5a39dae6824fab430f2d5be3aec2e11107351b",
+  "tac_source_sha256": "5f0856b61d3a5ed8e8a360c76cf8c7384287c84dc9d1f9bff859e81c5cd64f73",
   "parent": "Original040 graph-free48D499623p, FFN455; original028/038 operator lineage",
   "lean_path": "PNDS/LangStream043.lean",
   "python_path": "foundation/v1/langstream043.py",
@@ -19,5 +19,6 @@
   ],
   "original_checkpoints_unchanged": true,
   "training_updates": 0,
-  "scientific_claim": "same predictor execution engineering, not improved neural intelligence"
+  "scientific_claim": "same predictor execution engineering, not improved neural intelligence",
+  "snapshot_binding": "weights, exact engine/parent source and torch runtime hash, owner/mode/clock/schema/dtype/shape; digest detects corruption, not external qualification"
 }
