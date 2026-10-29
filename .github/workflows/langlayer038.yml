@@ -1,0 +1,35 @@
+name: LANGLAYER038 recurrence-only exact-real upper block
+on:
+  pull_request:
+    paths:
+      - 'PNDS/LangLayer038.lean'
+      - 'foundation/v1/langlayer038*'
+      - '.github/workflows/langlayer038.yml'
+permissions:
+  contents: read
+jobs:
+  scoped-upper-proof:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - run: |
+          curl -fLsS https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - run: |
+          lake update
+          lake exe cache get
+      - name: Compile actual upper graph and inspect six theorem axioms
+        run: |
+          set -o pipefail
+          lake env lean PNDS/LangLayer038.lean 2>&1 | tee langlayer038-axioms.log
+          test "$(grep -c 'PNDS.LangLayer038.' langlayer038-axioms.log)" -eq 6
+          if grep -E 'sorryAx|error:|declaration uses.*sorry' langlayer038-axioms.log; then exit 1; fi
+      - run: python3 -m py_compile foundation/v1/langlayer038.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: LANGLAYER038-scoped-upper-exact-real
+          path: langlayer038-axioms.log

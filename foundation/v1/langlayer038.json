@@ -1,0 +1,26 @@
+{
+  "variant_id": "LANGLAYER038-RECURRENCE-ONLY-DEPTH2",
+  "tac_commit": "bbb0c6eae857b7a054ca5ecc3ddc785e932e5bff",
+  "tac_source_path": "research/mathematical-engineering/langlayer038/recurrence_only.py",
+  "tac_source_sha256": "e1b52fca3e06b1440d1080924b847aa9649d04cf70ae033287cde37a6dad56f3",
+  "parent_source_commit": "e07556d99b8493a1a514edebf1183c8423ad8a1a",
+  "parent_context026_sha256": "c88f3f7c1b628cb733a4a58dcd168a75411d8bb3d80e382068593713e887510a",
+  "python_path": "foundation/v1/langlayer038.py",
+  "lean_path": "PNDS/LangLayer038.lean",
+  "scope": "complete extra upper graph, not independently composed full parent+upper",
+  "parameters": 499901,
+  "upper_state_width": 59,
+  "ffn_width": 442,
+  "upper_concept_state": false,
+  "original_base_concepts_preserved": true,
+  "status": "UNTRAINED_SCOPED_UPPER_SOURCE_CORRESPONDENCE",
+  "open": [
+    "full composed model Lean/Python/source bridge",
+    "IEEE and formal AD",
+    "training-size/scientific preflight for any future fit",
+    "matched training compute",
+    "long-history learned utility",
+    "independent qualification"
+  ],
+  "original_results_preserved": "035/036/037 upper recurrence vs FFN, weak upper concept graph, no net win over parent/P3; no original checkpoint modified"
+}
