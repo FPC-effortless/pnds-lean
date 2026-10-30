@@ -14,5 +14,9 @@
   "whole_model_IEEE_AD": "OPEN",
   "scientific_superiority": false,
   "old_utility_gate": "FAILED_PRESERVED_NOT_A_THEOREM",
-  "canonical_registry_append": "OPEN_COORDINATED_MERGE_LEGACY17_UNCHANGED"
+  "canonical_registry_append": "OPEN_COORDINATED_MERGE_LEGACY17_UNCHANGED",
+  "pnds_pull_request": 88,
+  "successful_scoped_ci": 40998663258,
+  "tac_results": "research/evidence/lacuna_survival001/RESULTS.md",
+  "source_summary_recomputation": "PASS_NO_NEW_MODEL_EXECUTIONS"
 }
