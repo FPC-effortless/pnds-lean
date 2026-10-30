@@ -16,5 +16,14 @@
   "full_IEEE_AD": "OPEN",
   "canonical_legacy17_registry_merge": "OPEN_PER_STUDY_RECIPROCAL_BRIDGE_REGISTERED",
   "scientific_superiority": false,
-  "prior_failed_gates": "UNCHANGED"
+  "prior_failed_gates": "UNCHANGED",
+  "execution_commit": "a74627fc1d8d1eaf209ff6eb5be828fdbf326768",
+  "original_run": 41007483485,
+  "original_artifact": 12956147521,
+  "scoped_ci": 41007194178,
+  "scoped_ci_status": "PASS",
+  "empirical_results": "research/evidence/lacuna_retrieval003/RESULTS.md",
+  "empirical_outcome": "NO_CONSISTENT_NEXT_BYTE_UTILITY_ARMS",
+  "new_model_fits": 0,
+  "prior_utility_gate_reopened": false
 }

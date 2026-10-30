@@ -40,3 +40,16 @@ softmax formal normalization/exponentials, source document authenticity theorem,
 cohort selection proof, learned addressing efficacy, causal field utility,
 independent qualification, production cost and canonical registry merge.
 Original failed gates stayfailed; these partial proofs never authorize training.
+
+## Original diagnostic evidence (not a theorem)
+
+Original TAC execution a74627fc1d8d1eaf209ff6eb5be828fdbf326768,
+run41007483485/artifact12956147521.678measurements repeat226source/query/bin
+cells across3frozen models, with154current source positions. Two registered
+publisher documents, now exposed DEV. Supplied-key/raw-history historical-byte
+accuracy34.52%/21.31%/21.45% exceeds supplied-key/matrix5.95%/5.15%/6.27%,
+but no condition passes the preregistered next-byte utility gate. Short-age
+favorable averages and unfavorable seed/document strata are preserved. In
+particular, supplied-key raw D improves short-age mean NLL in all3seeds but
+worsens weakref. No training gate reopens. See TAC original saved report for
+all controls, memory/workspace costs, integrity checks and inference limits.
