@@ -46,7 +46,7 @@ jobs:
           # `lake build ... | tee` would mask lake's exit code behind tee's, which
           # has already produced a false-green run on this repo. Use PIPESTATUS.
           set -o pipefail
-          lake build 'PNDS' 'Audit' 'PNDS.LangMem085Selective' 'PNDS.LangMem086Autonomous' 'PNDS.LangMem087Historical' 2>&1 | tee build.log
+          lake build 'PNDS' 'Audit' 'PNDS.LangMem085Selective' 'PNDS.LangMem086Autonomous' 'PNDS.LangMem087Historical' 'PNDS.ArchFuse089' 2>&1 | tee build.log
           echo "lake build exit code: ${PIPESTATUS[0]}"
           exit ${PIPESTATUS[0]}
 
@@ -57,7 +57,7 @@ jobs:
           # module (e.g. PNDS.Causal) already produces one, so a tree with five
           # broken modules passed this check. Require every root to be present.
           for root in PNDS/TACOSMVariantContracts PNDS/UnifiedTACOSM PNDS/Causal PNDS/PathVerification PNDS/Registration \
-                      PNDS/Scaling PNDS/Statistics PNDS/Softmax PNDS/LangMem085Selective PNDS/LangMem086Autonomous PNDS/LangMem087Historical Audit; do
+                      PNDS/Scaling PNDS/Statistics PNDS/Softmax PNDS/LangMem085Selective PNDS/LangMem086Autonomous PNDS/LangMem087Historical PNDS/ArchFuse089 Audit; do
             if [ ! -f ".lake/build/lib/${root}.olean" ]; then
               echo "::error::Missing .olean for ${root}; that module did not compile"
               exit 1
@@ -91,3 +91,10 @@ jobs:
           set -o pipefail
           lake env lean PNDS/LangMem087Historical.lean 2>&1 | tee langmem087-axioms.log
           if grep -E "sorryAx|declaration uses .sorry." langmem087-axioms.log; then exit 1; fi
+
+      - name: ARCHFUSE089 actual new Lean module and Python reference tests
+        run: |
+          python3 -m unittest discover -s foundation/v1 -p test_archfuse089_channel.py -v
+          set -o pipefail
+          lake env lean PNDS/ArchFuse089.lean 2>&1 | tee archfuse089-axioms.log
+          if grep -E "sorryAx|declaration uses .sorry." archfuse089-axioms.log; then exit 1; fi
