@@ -46,7 +46,7 @@ jobs:
           # `lake build ... | tee` would mask lake's exit code behind tee's, which
           # has already produced a false-green run on this repo. Use PIPESTATUS.
           set -o pipefail
-          lake build 'PNDS' 'Audit' 'PNDS.LangMem085Selective' 'PNDS.LangMem086Autonomous' 'PNDS.LangMem087Historical' 'PNDS.LacunaSurvival001' 2>&1 | tee build.log
+          lake build 'PNDS' 'Audit' 'PNDS.LangMem085Selective' 'PNDS.LangMem086Autonomous' 'PNDS.LangMem087Historical' 'PNDS.LacunaSurvival001' 'PNDS.LacunaRetrieval003' 2>&1 | tee build.log
           echo "lake build exit code: ${PIPESTATUS[0]}"
           exit ${PIPESTATUS[0]}
 
@@ -57,7 +57,7 @@ jobs:
           # module (e.g. PNDS.Causal) already produces one, so a tree with five
           # broken modules passed this check. Require every root to be present.
           for root in PNDS/TACOSMVariantContracts PNDS/UnifiedTACOSM PNDS/Causal PNDS/PathVerification PNDS/Registration \
-                      PNDS/Scaling PNDS/Statistics PNDS/Softmax PNDS/LangMem085Selective PNDS/LangMem086Autonomous PNDS/LangMem087Historical PNDS/LacunaSurvival001 Audit; do
+                      PNDS/Scaling PNDS/Statistics PNDS/Softmax PNDS/LangMem085Selective PNDS/LangMem086Autonomous PNDS/LangMem087Historical PNDS/LacunaSurvival001 PNDS/LacunaRetrieval003 Audit; do
             if [ ! -f ".lake/build/lib/${root}.olean" ]; then
               echo "::error::Missing .olean for ${root}; that module did not compile"
               exit 1
@@ -98,3 +98,10 @@ jobs:
           set -o pipefail
           lake env lean PNDS/LacunaSurvival001.lean 2>&1 | tee lacuna-survival-axioms.log
           if grep -E "sorryAx|declaration uses .sorry." lacuna-survival-axioms.log; then exit 1; fi
+
+      - name: Retrieval003 partial formulation and axiom audit
+        run: |
+          python3 -m unittest discover -s tests -p test_lacuna_retrieval003.py -v
+          set -o pipefail
+          lake env lean PNDS/LacunaRetrieval003.lean 2>&1 | tee lacuna-retrieval-axioms.log
+          if grep -E "sorryAx|declaration uses .sorry." lacuna-retrieval-axioms.log; then exit 1; fi
