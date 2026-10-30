@@ -12,8 +12,8 @@
   },
   "pnds": {
     "repository": "FPC-effortless/pnds-lean",
-    "commit": null,
-    "pull_request": null,
+    "commit": "1573f5e103bfa490c30173a900cb820d57be576f",
+    "pull_request": 96,
     "lean_path": "PNDS/LANGACQUIRE097.lean",
     "lean_symbol": "PNDS.LANGACQUIRE097.maskedObjective",
     "python_path": "foundation/v1/langacquire097_reference.py",

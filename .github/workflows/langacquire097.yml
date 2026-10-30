@@ -23,6 +23,43 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Check source-pinned draft reciprocal snapshots
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          import urllib.request
+          tac_metadata = '6e751c3e6f79039dff62b7aecb99803a8accbd6e'
+          source = '21c388a5077eeb4d065624838019253276029f0b'
+          proof = '1573f5e103bfa490c30173a900cb820d57be576f'
+          url = ('https://raw.githubusercontent.com/FPC-effortless/TAC-OSM/'
+                 + tac_metadata + '/research/pnds-variant-math-links.json')
+          local = json.loads(Path('foundation/v1/variant-math-links.json').read_text())
+          with urllib.request.urlopen(url, timeout=30) as response:
+              remote = json.loads(response.read().decode('utf-8'))
+          assert local == remote, 'Pinned draft reciprocal manifests differ'
+          rows = [row for row in local.get('prospective_training_candidates', [])
+                  if row.get('id') == 'LANGACQUIRE097']
+          assert len(rows) == 1, 'Missing or duplicate prospective source record'
+          row = rows[0]
+          assert row['tac']['commit'] == source, 'Wrong experiment code source'
+          assert row['pnds']['commit'] == proof, 'Wrong mathematical source'
+          assert row['lean_full_graph_proved'] is False
+          assert row['python_source_equivalence_verified'] is False
+          assert row['real_world_capability_inferred'] is False
+          receipt = {
+              'status': 'DRAFT_PINNED_RECIPROCAL_EQUAL',
+              'tac_metadata_commit': tac_metadata,
+              'tac_implementation_commit': source,
+              'pnds_operator_source_commit': proof,
+              'canonical_main_master_reciprocal_parity': 'OPEN_UNMERGED',
+              'whole_model_source_equivalence_established': False,
+              'mathematical_release_established': False,
+          }
+          Path('langacquire097-draft-reciprocal.json').write_text(
+              json.dumps(receipt, indent=2) + '\n')
+          print(json.dumps(receipt, sort_keys=True))
+          PY
       - name: Check independent objective reference
         run: |
           python -m pip install numpy==2.3.5
@@ -71,5 +108,7 @@ jobs:
         if: always()
         with:
           name: langacquire097-lean-axiom-log
-          path: langacquire097-lean.log
+          path: |
+            langacquire097-lean.log
+            langacquire097-draft-reciprocal.json
           if-no-files-found: warn
