@@ -18,5 +18,12 @@
   "pnds_pull_request": 88,
   "successful_scoped_ci": 40998663258,
   "tac_results": "research/evidence/lacuna_survival001/RESULTS.md",
-  "source_summary_recomputation": "PASS_NO_NEW_MODEL_EXECUTIONS"
+  "source_summary_recomputation": "PASS_NO_NEW_MODEL_EXECUTIONS",
+  "additional_context_matched_study": {
+    "id": "LACUNA-MATCHED002",
+    "source_commit": "d20ece0828367bedcda0564025e8a3ab2dd323ec",
+    "run": 41000661247,
+    "operator_graph_unchanged": true,
+    "outcome": "NO_POSITIVE_UTILITY_BINS_EARLY_BIN_LOW_SUPPORT"
+  }
 }

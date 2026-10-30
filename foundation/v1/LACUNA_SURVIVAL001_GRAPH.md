@@ -49,3 +49,13 @@ learned gate/slot policy, global budget qualification and independent science
 remain OPEN. Outcomes show retained numerical traces but no preregistered
 consistent positive old-event NLL utility. No theorem upgrades that negative
 FIT mechanism result or stops future redesigned architectures in general.
+
+Additional002source d20ece0828367bedcda0564025e8a3ab2dd323ec, run41000661247,
+uses the SAME transport/model operators on a prospectively context-matched
+FIT cohort. Historical continuations are selected only by observed context and
+age, never futurelabel agreement.570measurements/190source-query-bin cells;
+no provisionalpositiveutilitybin, earlybin insufficientsupport. Source writer
+parity0is structural consistency, not autonomous fact retrieval. The source
+cohort and saved rows were independently checked without model inference.
+No new mathematical/semantic completion inferred. Existing088bias outcomes
+were separately recovered read-only and do not alter these FIT-cohort results.
