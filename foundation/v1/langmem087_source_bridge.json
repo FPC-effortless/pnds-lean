@@ -25,5 +25,11 @@
   "pnds_pull_request": 84,
   "successful_proof_commit": "5cefe03434af0248b0cce483518d4e89bb3a5217",
   "successful_lean_python_ci": 40984197814,
-  "preserved_initial_failed_proof_run": 40983914975
+  "preserved_initial_failed_proof_run": 40983914975,
+  "original_empirical_run_status": "ALL6_CONTINUATIONS_9_CHECKPOINT_EVALUATIONS_AND_AGGREGATE_PASS",
+  "original_aggregate_artifact": 12948075104,
+  "tac_report": "research/results/LANGMEM087_RESULTS.md",
+  "old_slow_consistent_usefulness_established": false,
+  "empirical_scope": "Mean NLL160/640/1280=2.823832/2.696131/2.717111; oldslow removal deltas all negative onaverage, some favorable owner/clock strata retained. No efficacy theorem inferred.",
+  "workspace_read_only_original_artifact_reaggregation": "EXACT_JSON_EQUALITY_CHECKPOINT_SHA_AND_PARENT_CHAINS_PASS"
 }
