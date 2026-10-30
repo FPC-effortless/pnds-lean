@@ -16,7 +16,7 @@ Lean module `PNDS/ArchFuse089.lean` defines channel retention and update, and st
 
 ## Explicit limits
 
-- **Local independent Python tests: 3 PASS**. Lean compilation/axiom audit: **NOT RUN** at commit time.
+- **Local independent Python tests: 3 PASS**. Lean compilation, explicit ArchFuse089.olean verification, no-sorry check, scoped axiom audit and CI Python reference tests: **PASS**, original GitHub Actions run #40992954959 (2026-10-30). Earlier import-order compilation failure remains preserved in Actions history.
 - The entire graph's learned gates, temporal recurrent recurrence, softmax decoding, CPU finite precision, PyTorch AD gradients, causal actual-source stream, and streaming/chunk equivalence are **OPEN**.
 - The unmodified original TAC remains 100,521 parameters; the candidate operators are standalone reference functions, not a 100,521-parameter replacement.
 - No original dataset, optimizer, checkpoint, reward, evaluator or real next-byte label is used here.
