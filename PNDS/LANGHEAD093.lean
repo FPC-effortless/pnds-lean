@@ -10,7 +10,7 @@ and source research/mathematical-engineering/langhead093/model093.py.
 THIS IS ONLY A SCALAR DECODER FACT. The complete original 100k TAC recurrent
 graph, 32D finite-precision PyTorch AD, embedding training, source-to-implementation
 equivalence, actual model dynamics and empirical language generalization remain OPEN.
--/-
+-/
 namespace PNDS.LANGHEAD093
 
 /-- Direct Euclidean distance contribution for a single embedding coordinate. -/
