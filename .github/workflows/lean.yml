@@ -21,6 +21,9 @@ jobs:
           python3 -m unittest discover -s tests -p 'test_variant_math.py' -v
           python3 -m unittest discover -s tests -p 'test_langmem085_selective_delta.py' -v
 
+      - name: LANGMEM086 independent mathematical reference
+        run: python3 -m unittest discover -s tests -p test_langmem086_autonomous.py -v
+
       - name: Install elan
         run: |
           curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain none
@@ -43,7 +46,7 @@ jobs:
           # `lake build ... | tee` would mask lake's exit code behind tee's, which
           # has already produced a false-green run on this repo. Use PIPESTATUS.
           set -o pipefail
-          lake build 'PNDS' 'Audit' 'PNDS.LangMem085Selective' 2>&1 | tee build.log
+          lake build 'PNDS' 'Audit' 'PNDS.LangMem085Selective' 'PNDS.LangMem086Autonomous' 2>&1 | tee build.log
           echo "lake build exit code: ${PIPESTATUS[0]}"
           exit ${PIPESTATUS[0]}
 
@@ -54,7 +57,7 @@ jobs:
           # module (e.g. PNDS.Causal) already produces one, so a tree with five
           # broken modules passed this check. Require every root to be present.
           for root in PNDS/TACOSMVariantContracts PNDS/UnifiedTACOSM PNDS/Causal PNDS/PathVerification PNDS/Registration \
-                      PNDS/Scaling PNDS/Statistics PNDS/Softmax PNDS/LangMem085Selective Audit; do
+                      PNDS/Scaling PNDS/Statistics PNDS/Softmax PNDS/LangMem085Selective PNDS/LangMem086Autonomous Audit; do
             if [ ! -f ".lake/build/lib/${root}.olean" ]; then
               echo "::error::Missing .olean for ${root}; that module did not compile"
               exit 1
@@ -75,3 +78,9 @@ jobs:
       - name: Print axioms
         run: |
           lake env lean PNDS.lean 2>&1 | grep -E "axioms|sorry" || true
+
+      - name: LANGMEM086 scoped axiom audit
+        run: |
+          set -o pipefail
+          lake env lean PNDS/LangMem086Autonomous.lean 2>&1 | tee langmem086-axioms.log
+          if grep -E "sorryAx|declaration uses .sorry." langmem086-axioms.log; then exit 1; fi
