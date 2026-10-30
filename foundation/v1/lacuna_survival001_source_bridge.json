@@ -1,0 +1,29 @@
+{
+  "study": "LACUNA-SURVIVAL001",
+  "tac_repository": "FPC-effortless/TAC-OSM",
+  "tac_source_commit": "c5df300cf0d565ba7f9c9622a31821ba812333df",
+  "tac_pull_request": 637,
+  "source_path": "scripts/lacuna_survival001.py",
+  "original_science_run": 40997601362,
+  "original_result_artifact": 12952152198,
+  "original_native_model_sha256": "7179908fa3672879f3c2046ec4521f0b9f783d5c696aaba82c4c2cd0b6ebc9b1",
+  "lean": "PNDS/LacunaSurvival001.lean",
+  "python": "foundation/v1/lacuna_survival001.py",
+  "graph": "foundation/v1/LACUNA_SURVIVAL001_GRAPH.md",
+  "status": "PARTIAL_OPERATOR_FORMULATION_NOT_FULL_NEURAL_EQUIVALENCE",
+  "whole_model_IEEE_AD": "OPEN",
+  "scientific_superiority": false,
+  "old_utility_gate": "FAILED_PRESERVED_NOT_A_THEOREM",
+  "canonical_registry_append": "OPEN_COORDINATED_MERGE_LEGACY17_UNCHANGED",
+  "pnds_pull_request": 88,
+  "successful_scoped_ci": 40998663258,
+  "tac_results": "research/evidence/lacuna_survival001/RESULTS.md",
+  "source_summary_recomputation": "PASS_NO_NEW_MODEL_EXECUTIONS",
+  "additional_context_matched_study": {
+    "id": "LACUNA-MATCHED002",
+    "source_commit": "d20ece0828367bedcda0564025e8a3ab2dd323ec",
+    "run": 41000661247,
+    "operator_graph_unchanged": true,
+    "outcome": "NO_POSITIVE_UTILITY_BINS_EARLY_BIN_LOW_SUPPORT"
+  }
+}
