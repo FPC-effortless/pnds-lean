@@ -1,0 +1,21 @@
+{
+  "study": "LACUNA-ADDRESS005",
+  "tac_repository": "FPC-effortless/TAC-OSM",
+  "tac_pull_request": 650,
+  "tac_source_commit": "10a32f0f556c101e1b50062cf33a604190ac20ef",
+  "tac_source_path": "scripts/lacuna_address005.py",
+  "tac_source_sha256": "afb687ac171acbbc8e00404b679ef892c5cc84c258844e3e895cb7bb9963fe36",
+  "registration_commit": "d43ae53a104c520d27e67c27a0bd021f8760562e",
+  "pnds_pull_request": 93,
+  "pnds_proof_commit": "d46cd64ea683740e25052cb24d2574cfcd3f1d5e",
+  "lean": "PNDS/LacunaAddress005.lean",
+  "python": "foundation/v1/lacuna_address005.py",
+  "reference_sha256": "f8fdd5893d09e71a54ed345a62605a1fe22eb02215916afa3954cc8d8e5a9620",
+  "graph": "foundation/v1/LACUNA_ADDRESS005_GRAPH.md",
+  "scoped_ci": 41014601686,
+  "scoped_ci_status": "PASS",
+  "scope": "PARTIAL_MIXED_READ_ALGEBRA_NOT_FULL_NEURAL_IEEE_AD",
+  "full_neural_IEEE_AD": "OPEN",
+  "canonical_legacy_registry_migration": "OPEN_PER_STUDY_RECIPROCAL_BRIDGE_REGISTERED",
+  "no_training_authorized": true
+}
