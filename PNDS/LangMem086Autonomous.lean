@@ -16,7 +16,7 @@ def residualUpdate (m : Memory) (k v : Key) (rho eta : ℝ) : Memory :=
 def mixRead (a b : Memory) (q : Key) (w : ℝ) : Key :=
   fun i => w*read a q i+(1-w)*read b q i
 
-theorem mixRead_no_external_address (a b : Memory) (q : Key) (w : ℝ) :
+theorem mixRead_equation (a b : Memory) (q : Key) (w : ℝ) :
     mixRead a b q w = fun i => w*read a q i+(1-w)*read b q i := rfl
 
 theorem update_read_unit (m : Memory) (k v : Key) (rho eta : ℝ)
