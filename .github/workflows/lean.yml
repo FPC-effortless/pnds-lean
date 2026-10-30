@@ -19,6 +19,7 @@ jobs:
           python3 scripts/check_reciprocal_links.py
           python3 -m unittest discover -s tests -p 'test_foundation.py' -v
           python3 -m unittest discover -s tests -p 'test_variant_math.py' -v
+          python3 -m unittest discover -s tests -p 'test_langhead093_math.py' -v
 
       - name: Install elan
         run: |
