@@ -533,5 +533,65 @@
       "python_source_equivalence_verified": false,
       "real_world_capability_inferred": false
     }
+  ],
+  "prospective_training_candidates": [
+    {
+      "id": "HISTORY-QUERY016-DIVERSE-CONTENT-TRAINING",
+      "inference_graph_changed": false,
+      "pnds": {
+        "lean_path": "PNDS/HistoryQuery016.lean",
+        "lean_symbol": "PNDS.HistoryQuery016.historicalLoss",
+        "python_path": "foundation/v1/history_query016.py",
+        "python_symbol": "historical_loss",
+        "repository": "FPC-effortless/pnds-lean"
+      },
+      "real_world_capability_inferred": false,
+      "status": "PARTIAL_REVISED_LOSS_NOT_WHOLE_MODEL",
+      "tac": {
+        "commit": "3d7946a3e46233fc0c09e86f60ad2c24c27a1674",
+        "inference_commit": "fd201207cb76b30470f64e1fc1baecf9de44560d",
+        "pull_request": 505,
+        "repository": "FPC-effortless/TAC-OSM",
+        "source_path": "scripts/train_history_query_diverse.py",
+        "source_symbol": "full_loss"
+      },
+      "whole_graph_IEEE_AD_equivalence": "OPEN"
+    },
+    {
+      "id": "LANGACQUIRE097",
+      "lane": "language",
+      "version": "LANGACQUIRE097",
+      "state_kind": "four_source_reviewed_causal_byte_architectures",
+      "tac": {
+        "repository": "FPC-effortless/TAC-OSM",
+        "commit": "21c388a5077eeb4d065624838019253276029f0b",
+        "pull_request": 665,
+        "evidence_path": "research/mathematical-engineering/langacquire097",
+        "bridge_path": "research/mathematical-engineering/langacquire097/PNDS_SOURCE_BRIDGE.json"
+      },
+      "pnds": {
+        "repository": "FPC-effortless/pnds-lean",
+        "commit": "1573f5e103bfa490c30173a900cb820d57be576f",
+        "pull_request": 96,
+        "lean_path": "PNDS/LANGACQUIRE097.lean",
+        "lean_symbol": "PNDS.LANGACQUIRE097.maskedObjective",
+        "python_path": "foundation/v1/langacquire097_reference.py",
+        "python_symbol": "masked_cross_entropy",
+        "policy_path": "foundation/v1/MATHEMATICAL_ENGINEERING_RULE.md"
+      },
+      "kernel": "masked_objective_and_causal_unroll",
+      "formula": "S_A=F_theta(A);L=sum(m_t*CE(z_t,y_t))/sum(m_t);dL/dtheta includes the acquired-state path",
+      "operator_contracts": [
+        "SERIAL_CHUNK",
+        "MASK_SELECTION",
+        "LOCAL_DERIVATIVE_CHAIN"
+      ],
+      "formalization_status": "PARTIAL_OBJECTIVE_LOCAL_GRADIENT_NOT_WHOLE_MODEL",
+      "lean_full_graph_proved": false,
+      "python_source_equivalence_verified": false,
+      "real_world_capability_inferred": false,
+      "inference_graph_changed": false,
+      "whole_graph_IEEE_AD_equivalence": "OPEN"
+    }
   ]
 }
