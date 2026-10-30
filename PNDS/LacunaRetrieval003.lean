@@ -21,7 +21,7 @@ def conditionalRead (old current : Memory) (address nativeQuery : Key) : Key :=
 theorem native_read_decomposition (old current : Memory) (q : Key) :
     conditionalRead old current q q = read (fun i j => old i j+current i j) q := by
   funext i
-  simp [conditionalRead, read, add_mul, Finset.sum_add_distrib]
+  simp [conditionalRead, PNDS.LangMem086.read, add_mul, Finset.sum_add_distrib]
 
 def weightedValue {n : Nat} (weights : Fin n → ℝ) (values : Fin n → Key) : Key :=
   fun i => ∑ j, weights j*values j i
