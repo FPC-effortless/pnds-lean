@@ -22,11 +22,15 @@ theorem inner_scaled (a b : ℝ) (x y : Key) :
   intro i _
   ring
 
+theorem norm_scaled (a : ℝ) (x : Key) :
+    normSq (fun i => a*x i)=a*a*normSq x := by
+  simpa only [PNDS.LacunaRetrieval003.scaled] using
+    PNDS.LacunaRetrieval003.squaredNorm_scaled a x
+
 theorem unit_tangent_radius (a r : ℝ) (u z : Key)
     (hu : normSq u=1) (hz : normSq z=1) (huz : inner u z=0) :
     normSq (fun i => a*u i+r*z i)=a*a+r*r := by
-  rw [norm_sum, PNDS.LacunaRetrieval003.squaredNorm_scaled,
-    PNDS.LacunaRetrieval003.squaredNorm_scaled, inner_scaled, hu, hz, huz]
+  rw [norm_sum, norm_scaled, norm_scaled, inner_scaled, hu, hz, huz]
   ring
 
 theorem same_history_norm_and_projection_preserve_total (h candidate c : Key)
