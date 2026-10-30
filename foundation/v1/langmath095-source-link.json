@@ -1,0 +1,56 @@
+{
+  "id": "LANGMATH095",
+  "status": "DRAFT_PARTIAL_OPERATOR_FORMULATION_NOT_WHOLE_MODEL",
+  "source": {
+    "repository": "FPC-effortless/TAC-OSM",
+    "ancestor_commit": "d08fbba33990c503446c2a7d5073219a767f2f62",
+    "implementation_commit": "87d8a3b288242b2db8c4e052f1571ff6005d0e36",
+    "implementation_commit_status": "PINNED_PR662_HEAD_AND_FILE_DIGESTS_VERIFIED",
+    "paths": [
+      "research/mathematical-engineering/langmath095/candidate.py",
+      "research/mathematical-engineering/langmath095/scans.py",
+      "research/mathematical-engineering/langmath095/FORMULATION.md"
+    ],
+    "preserved_ancestor_paths": [
+      "research/mathematical-engineering/context026/context_transition.py",
+      "research/mathematical-engineering/langlayer038/recurrence_only.py"
+    ],
+    "pull_request": "https://github.com/FPC-effortless/TAC-OSM/pull/662",
+    "original_reviewed_implementation_commit": "db3a0faad09544a0939e620209ba39a7240c8186",
+    "file_sha256": {
+      "research/mathematical-engineering/langmath095/candidate.py": "1da3d7a024b44d0c91357de44d75a11be563edcfefe0fe01602a59de7a6aea1c",
+      "research/mathematical-engineering/langmath095/scans.py": "c7438f076bce940e4ee64ed1eaef1aa98693a2b54bedc80838bca80ae628be97",
+      "research/mathematical-engineering/langmath095/FORMULATION.md": "20c84eec2b8913b90a3056d3d713353115311388671c37235197918c2c5489ba"
+    },
+    "executable_files_byte_identical_to_original_pin": {
+      "research/mathematical-engineering/langmath095/candidate.py": true,
+      "research/mathematical-engineering/langmath095/scans.py": true
+    },
+    "note": "Aligns to the validated PR662 head. Metadata/documentation drift does not upgrade partial operator proofs into full composed-model certification."
+  },
+  "math": {
+    "repository": "FPC-effortless/pnds-lean",
+    "lean_path": "PNDS/LANGMATH095.lean",
+    "python_path": "foundation/v1/langmath095_reference.py",
+    "python_tests": "foundation/v1/test_langmath095_reference.py",
+    "lean_build": "PASS_OPERATOR_MODULE_CI",
+    "axiom_audit": "PASS_NINE_THEOREMS_STANDARD_MATHLIB_AXIOMS_ONLY",
+    "ci_url": "https://github.com/FPC-effortless/pnds-lean/actions/runs/41107033496",
+    "verified_math_commit": "7717c36ab1ad7d97dc74343aeb9ec31f50c1454b"
+  },
+  "python_verification": {
+    "status": "PASS_CONSTRUCTED_REFERENCE_ONLY",
+    "command": "python -m unittest discover -s foundation/v1 -p test_langmath095_reference.py -v",
+    "tests": 9,
+    "trained_source_equivalence": "OPEN",
+    "capability_evidence": false
+  },
+  "open_obligations": [
+    "Matrix-level algebra/norm proof and full composed graph",
+    "Actual-source forward/state/mask/gradient/precision correspondence",
+    "Learned reusable structure and causal future utility on authentic outcomes",
+    "Full acquisition plus retrieval plus verification resource accounting"
+  ],
+  "no_training": true,
+  "no_capability_claim": true
+}
