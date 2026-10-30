@@ -21,7 +21,7 @@ theorem residual_decomposition (m : Memory) (k v : Key) (rho eta : ℝ) :
 theorem zero_old_retains_current_write (k v : Key) (rho eta : ℝ) :
     residualUpdate (fun _ _ => 0) k v rho eta = currentComponent k v eta := by
   funext i j
-  simp [residualUpdate, read, currentComponent]
+  simp [PNDS.LangMem086.residualUpdate, PNDS.LangMem086.read, currentComponent]
 
 theorem duration_target_counts :
     160*4*256=163840 ∧ 640*4*256=655360 ∧ 1280*4*256=(1310720 : Nat) := by norm_num
