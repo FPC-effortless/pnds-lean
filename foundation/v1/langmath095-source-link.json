@@ -1,0 +1,44 @@
+{
+  "id": "LANGMATH095",
+  "status": "DRAFT_PARTIAL_OPERATOR_FORMULATION_NOT_WHOLE_MODEL",
+  "source": {
+    "repository": "FPC-effortless/TAC-OSM",
+    "ancestor_commit": "d08fbba33990c503446c2a7d5073219a767f2f62",
+    "implementation_commit": "db3a0faad09544a0939e620209ba39a7240c8186",
+    "implementation_commit_status": "PINNED_DRAFT_SOURCE",
+    "paths": [
+      "research/mathematical-engineering/langmath095/candidate.py",
+      "research/mathematical-engineering/langmath095/scans.py",
+      "research/mathematical-engineering/langmath095/FORMULATION.md"
+    ],
+    "preserved_ancestor_paths": [
+      "research/mathematical-engineering/context026/context_transition.py",
+      "research/mathematical-engineering/langlayer038/recurrence_only.py"
+    ],
+    "pull_request": "https://github.com/FPC-effortless/TAC-OSM/pull/662"
+  },
+  "math": {
+    "repository": "FPC-effortless/pnds-lean",
+    "lean_path": "PNDS/LANGMATH095.lean",
+    "python_path": "foundation/v1/langmath095_reference.py",
+    "python_tests": "foundation/v1/test_langmath095_reference.py",
+    "lean_build": "OPEN_NOT_RUN_NO_LOCAL_LEAN_EXECUTABLE",
+    "axiom_audit": "OPEN_NOT_RUN"
+  },
+  "python_verification": {
+    "status": "PASS_CONSTRUCTED_REFERENCE_ONLY",
+    "command": "python -m unittest discover -s foundation/v1 -p test_langmath095_reference.py -v",
+    "tests": 9,
+    "trained_source_equivalence": "OPEN",
+    "capability_evidence": false
+  },
+  "open_obligations": [
+    "Lean kernel compilation and axiom inspection",
+    "Matrix-level algebra/norm proof and full composed graph",
+    "Actual-source forward/state/mask/gradient/precision correspondence",
+    "Learned reusable structure and causal future utility on authentic outcomes",
+    "Full acquisition plus retrieval plus verification resource accounting"
+  ],
+  "no_training": true,
+  "no_capability_claim": true
+}
