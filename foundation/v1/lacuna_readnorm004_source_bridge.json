@@ -17,5 +17,14 @@
   "canonical_legacy_registry_migration": "OPEN_RECIPROCAL_PER_STUDY_BRIDGE_REGISTERED",
   "prior_failed_gates": "UNCHANGED",
   "fresh_evaluation": false,
-  "scientific_superiority": false
+  "scientific_superiority": false,
+  "scoped_ci": 41010497977,
+  "scoped_ci_status": "PASS",
+  "original_run": 41010825969,
+  "original_artifact": 12957059683,
+  "execution_commit": "e2a997d882e536dc706c21c88a8219ad57458b5d",
+  "empirical_report": "research/evidence/lacuna_readnorm004/RESULTS.md",
+  "outcome": "PRIVILEGED_D_AGE8_31_EXPLORATORY_SIGNAL_SMALL_WRONG_KEY_MARGIN",
+  "old_gates_reopened": false,
+  "new_research_fits": 0
 }

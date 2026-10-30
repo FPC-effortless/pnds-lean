@@ -37,3 +37,16 @@ all-parameter NN AD and source equivalence, global information-flow theorem,
 independent qualification, canonical historical registry migration and any
 autonomous retrieval capability. Paired source checks and no-fit evidence do
 not reopen earlier failed gates or authorize neural training.
+
+## Original measured evidence (not a theorem)
+
+TAC execution e2a997d882e536dc706c21c88a8219ad57458b5d,
+run41010825969/artifact12957059683 completed all integrity checks. Same226source
+query/bin cells repeated across3checkpoints=678measurements. All original003
+historical-only NLL scores reproduced exactly. Historical and total slow-read
+norms held within registered numerical tolerances; no fallback rows occurred.
+One new exploratory gate passes: evaluator-supplied key/raw-history at8–31bytes,
+gain0.005613 against original but only0.00007078 against wrong key. Seed1702
+prefers the wrong-key control. No older or autonomous-query condition passes.
+This is exposed DEV with5weakref short-age cells, not independent generalization.
+Mixed fast/slow norm can still change; old failed gates/training stop remain.
