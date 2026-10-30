@@ -3,7 +3,11 @@
   "status": "PARTIAL_EXACT_REAL_SPLIT_AND_PYTHON_REFERENCE_NOT_FULL_MODEL",
   "tac_repository": "FPC-effortless/TAC-OSM",
   "tac_source_commit": "9d6cda3be8e200fd607bf6f8bb39fa381587bc22",
-  "tac_source_files": ["scripts/langmem087_run.py", "research/mathematical-engineering/langmem087/diagnostic_tac087.py", "research/mathematical-engineering/langmem086/compact_tac.py"],
+  "tac_source_files": [
+    "scripts/langmem087_run.py",
+    "research/mathematical-engineering/langmem087/diagnostic_tac087.py",
+    "research/mathematical-engineering/langmem086/compact_tac.py"
+  ],
   "graph": "foundation/v1/LANGMEM087_GRAPH.md",
   "lean": "PNDS/LangMem087Historical.lean",
   "python": "foundation/v1/langmem087_historical.py",
@@ -14,5 +18,12 @@
   "canonical17_registry_unchanged": true,
   "canonical_registry_merge": "OPEN coordinated append; per-study reciprocal bridge here and TAC",
   "whole_graph_IEEE_AD": "OPEN",
-  "semantic_retrieval_and_independent_qualification": "OPEN"
+  "semantic_retrieval_and_independent_qualification": "OPEN",
+  "tac_pull_request": 630,
+  "tac_explicit_fit_commit": "535fbfafe6202f5a8aaf53629150372e60bd7cb1",
+  "tac_original_fit_first_DEV_run": 40984392435,
+  "pnds_pull_request": 84,
+  "successful_proof_commit": "5cefe03434af0248b0cce483518d4e89bb3a5217",
+  "successful_lean_python_ci": 40984197814,
+  "preserved_initial_failed_proof_run": 40983914975
 }
