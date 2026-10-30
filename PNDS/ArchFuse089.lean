@@ -1,7 +1,8 @@
+import PNDS.LangMem087Historical
+
 /-! ARCHFUSE089 exact-real, scoped channel-retention delta reference.
 The original Torch graph, finite-precision AD, memory usefulness and whole-model
 equivalence remain OPEN. Parent: LangMem087 historical-state decomposition. -/
-import PNDS.LangMem087Historical
 
 namespace PNDS.ArchFuse089
 open PNDS.LangMem086
