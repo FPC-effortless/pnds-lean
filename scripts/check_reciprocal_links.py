@@ -6,6 +6,7 @@ correspondence nor full Lean mathematical proof. Network/API failures fail
 closed instead of silently weakening the two-repository invariant.
 """
 import json
+import re
 import urllib.request
 from pathlib import Path
 
@@ -13,6 +14,15 @@ LOCAL = Path(__file__).resolve().parents[1] / "foundation/v1/variant-math-links.
 REMOTE = ("https://raw.githubusercontent.com/FPC-effortless/TAC-OSM/"
           "master/"
           "research/pnds-variant-math-links.json")
+
+
+PIN = LOCAL.parents[2] / "foundation/langcap103/TAC_PIN.json"
+if PIN.exists():
+    pin = json.loads(PIN.read_text())
+    if pin.get("repository") != "FPC-effortless/TAC-OSM" or not re.fullmatch("[0-9a-f]{40}", pin.get("commit", "")):
+        raise SystemExit("Invalid immutable TAC source peer pin")
+    REMOTE = ("https://raw.githubusercontent.com/FPC-effortless/TAC-OSM/" +
+              pin["commit"] + "/research/pnds-variant-math-links.json")
 
 
 def verify():
