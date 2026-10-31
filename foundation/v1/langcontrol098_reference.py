@@ -60,4 +60,8 @@ def controlled_cross_entropy(logits, targets, future, valid, domains, *, prefix_
     for index in np.ndindex(y.shape):
         gradient[(*index, y[index])] -= 1.
     gradient *= coefficient[..., None]
-    return float(np.sum(coefficient * terms)), gradient
+    with np.errstate(over='ignore', invalid='ignore'):
+        loss = float(np.sum(coefficient * terms))
+    if not np.isfinite(loss) or not np.isfinite(gradient).all():
+        raise ValueError('objective exceeded finite reference arithmetic')
+    return loss, gradient

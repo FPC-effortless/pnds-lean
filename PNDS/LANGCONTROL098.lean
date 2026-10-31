@@ -88,11 +88,11 @@ theorem zero_weight_loss_irrelevant {length : ℕ}
 
 /-- Fixed explicit coefficients do not imply fixed AdamW updates or clipping
 frequency. This is the scalar derivative before any optimizer transformation. -/
-theorem controlled_derivative (future prefix : ℝ → ℝ)
+theorem controlled_derivative (future prefixFn : ℝ → ℝ)
     (theta futureGrad prefixGrad lam : ℝ)
     (hFuture : HasDerivAt future futureGrad theta)
-    (hPrefix : HasDerivAt prefix prefixGrad theta) :
-    HasDerivAt (fun t => controlledObjective (future t) (prefix t) lam)
+    (hPrefix : HasDerivAt prefixFn prefixGrad theta) :
+    HasDerivAt (fun t => controlledObjective (future t) (prefixFn t) lam)
       (futureGrad + lam * prefixGrad) theta := by
   simpa [controlledObjective] using hFuture.add (hPrefix.const_mul lam)
 

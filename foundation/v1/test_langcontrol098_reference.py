@@ -99,6 +99,12 @@ class ControlledReferenceTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 controlled_cross_entropy(z,y,f,v,d,prefix_weight=lam)
 
+    def test_finite_terms_with_overflowing_total_fail_closed(self):
+        _,_,f,v,d=sample();z=np.zeros((3,5,4));z[...,0]=1e308
+        y=np.ones((3,5),dtype=int)
+        with self.assertRaises(ValueError):
+            controlled_cross_entropy(z,y,f,v,d,prefix_weight=1)
+
     def test_invalid_logit_or_target_rejected(self):
         z,y,f,v,d=sample()
         for badz,bady in ((z*np.nan,y),(z,y.astype(float)),(z,y+4)):
