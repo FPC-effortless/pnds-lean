@@ -3,7 +3,7 @@
   "status": "EXACT_SOURCE_PINNED_PENDING_CI",
   "tac": {
     "repository": "FPC-effortless/TAC-OSM",
-    "commit": "915d2d1c70114d04e75d4674697df057f241d8d0",
+    "commit": "2329af04420d5f7256d1f03d37229ca301cd400b",
     "source_sha256": {
       "research/mathematical-engineering/langmath101/candidates/models.py": "41b41b9ded06a0e1c6d3aa3f31ffc16508ddd4f2fbb678bfdc1015a878aeca5c",
       "research/mathematical-engineering/langmath101/candidates/native098.py": "e59c0aec80a39d84a6f01a7ca662d0c8baf3e2c2d33901057f017cb23c999498",
@@ -15,7 +15,7 @@
       "research/mathematical-engineering/langmath101/math/reference.py": "32ca0dff381522ba647cc32e1e1503935503cd5bf1d0dc934dc212ebdabe5e75",
       "research/mathematical-engineering/langmath101/math/test_reference.py": "10a676444604df26a12c309380b8aceef1fd24d0ac76d85f84ff3ccccfa1c51f",
       "research/mathematical-engineering/langmath101/math/FORMULATION.md": "2136054c114f01a9d872bdecace99301ae3e7b0407dcd1913c13db06605e5775",
-      "research/mathematical-engineering/langmath101/math/LANGMATH101.lean": "f39f9da5809ee7c732b40ea44dfcb6a711ae5ebd6d2ec450624aad6ffd1b7627",
+      "research/mathematical-engineering/langmath101/math/LANGMATH101.lean": "5507eb8987a6e7929edae3740d41cf49e5ebfe553d36b714a0fe3060576c4f47",
       "research/mathematical-engineering/langmath101/candidates/__init__.py": "f38944ea9fdb593c5f9283293b62a8fd01cdd96903677690d56889cf8788a65a",
       "research/mathematical-engineering/langmath101/adaptive/__init__.py": "7ef4c8d4a1c9a14a61e2ce907afdeea48896d2e498c5fa35760b37469ee220a7"
     }
