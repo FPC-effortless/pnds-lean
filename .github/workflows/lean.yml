@@ -6,6 +6,9 @@ on:
   pull_request:
   workflow_dispatch:
 
+env:
+  PNDS_DRAFT_PR: ${{ github.event.pull_request.draft }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,7 +19,7 @@ jobs:
         run: |
           python3 scripts/validate_foundation.py --strict
           python3 scripts/validate_variant_math.py
-          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
+          if [ "$GITHUB_EVENT_NAME" = "pull_request" ] && [ "$PNDS_DRAFT_PR" = "true" ]; then
             # Exact peer snapshot for the paired draft PR, not production parity.
             python3 scripts/check_reciprocal_links.py --peer-ref 6161187dee2fa6eb1d5543e117eaac46313bee83
           else
