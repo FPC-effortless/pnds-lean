@@ -533,5 +533,16 @@
       "python_source_equivalence_verified": false,
       "real_world_capability_inferred": false
     }
+  ],
+  "prospective_candidates": [
+    {
+      "id": "LANGCACHE104-DEEP-ASSOCIATIVE-CARRIED-CACHE",
+      "tac_source_commit": "b567f4c68a73106781555496c44145939efd1d92",
+      "source_map_path": "foundation/langcache104/SOURCE_MAP.json",
+      "tac_source_map_path": "research/langcache104/MATH_SOURCE_MAP.json",
+      "lean_path": "PNDS/LANGCACHE104.lean",
+      "python_path": "foundation/langcache104/math_reference.py",
+      "status": "OPEN"
+    }
   ]
 }
