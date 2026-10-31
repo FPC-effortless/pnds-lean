@@ -15,7 +15,14 @@ open scoped BigOperators
 abbrev Vec (n : ℕ) := Fin n → ℝ
 
 structure Geometry where
-  width heads keyDim valueDim rank layers ffnDim window : ℕ
+  width : ℕ
+  heads : ℕ
+  keyDim : ℕ
+  valueDim : ℕ
+  rank : ℕ
+  layers : ℕ
+  ffnDim : ℕ
+  window : ℕ
   positive : 0 < width ∧ 0 < heads ∧ 0 < keyDim ∧ 0 < valueDim ∧
     0 < rank ∧ 0 < layers ∧ 0 < ffnDim ∧ 0 < window
   evenValue : valueDim % 2 = 0
@@ -69,7 +76,8 @@ theorem cone_coordinate (m z a b c : ℝ)
   constructor <;> nlinarith [hb.1, hb.2]
 
 structure Affine where
-  a b : ℝ
+  a : ℝ
+  b : ℝ
 
 def compose (later earlier : Affine) : Affine :=
   ⟨later.a*earlier.a, later.a*earlier.b+later.b⟩
@@ -113,15 +121,21 @@ def legalRecent {k v : ℕ} (clock window : ℕ) (entry : RecentKV k v) : Prop :
   entry.observedAt ≤ clock ∧ clock < entry.observedAt + window
 
 structure LayerState (g : Geometry) where
-  fast slow : Fin g.heads → BankState g.keyDim g.valueDim
+  fast : Fin g.heads → BankState g.keyDim g.valueDim
+  slow : Fin g.heads → BankState g.keyDim g.valueDim
   rotary : Fin g.heads → PairVector (g.valueDim / 2)
   recent : Fin g.heads → List (RecentKV g.keyDim g.valueDim)
 
 /-- Named perspectives stay distinct until the learned output projection. -/
 structure Perspective (v : ℕ) where
-  fast slow difference product recent : Vec v
+  fast : Vec v
+  slow : Vec v
+  difference : Vec v
+  product : Vec v
+  recent : Vec v
   rotary : PairVector (v / 2)
-  fastEvidence slowEvidence : ℝ
+  fastEvidence : ℝ
+  slowEvidence : ℝ
 
 structure StreamState (g : Geometry) where
   owner : String
