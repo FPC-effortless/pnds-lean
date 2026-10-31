@@ -23,6 +23,30 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Verify exact draft reciprocal records and full source/reference pins
+        run: |
+          python - <<'PYCODE'
+          from pathlib import Path
+          import hashlib,json,urllib.request
+          source='78be202a2613c54629785b7a5874dbff0507d988'
+          metadata='ce358f5a5d607bb68ec029491134bb879488909b'
+          proof='63ced419c63c50c6e01380778240438aebf03e19'
+          base='https://raw.githubusercontent.com/FPC-effortless/TAC-OSM/'
+          def fetch(commit,path):
+              with urllib.request.urlopen(base+commit+'/'+path,timeout=30) as r:return r.read()
+          registry=json.loads(Path('foundation/v1/variant-math-links.json').read_text())
+          assert registry==json.loads(fetch(metadata,'research/pnds-variant-math-links.json'))
+          rows=[r for r in registry['prospective_training_candidates'] if r['id']=='LANGMATH098']
+          assert len(rows)==1 and rows[0]['tac']['commit']==source and rows[0]['pnds']['commit']==proof
+          for path,digest in rows[0]['tac']['source_sha256'].items():
+              assert hashlib.sha256(fetch(source,path)).hexdigest()==digest,path
+          ref=Path('foundation/v1/langmath098_reference.py').read_bytes()
+          assert ref==fetch(source,'research/mathematical-engineering/langmath098/reference.py')
+          assert hashlib.sha256(Path('PNDS/LANGMATH098.lean').read_bytes()).hexdigest()=='5cefad619fd57ff0d12c29b6355fbc9a0ee0b077cf68a1e13860c4fbd2974198'
+          assert rows[0]['lean_full_persistent_state_invariant_proved'] is True
+          assert rows[0]['lean_full_graph_proved'] is False and rows[0]['whole_graph_IEEE_AD_equivalence']=='OPEN'
+          Path('langmath098-draft-reciprocal.json').write_text(json.dumps({'status':'DRAFT_PINNED_RECIPROCAL_EQUAL','source_commit':source,'metadata_commit':metadata,'proof_commit':proof,'all_source_hashes_verified':True,'full_independent_reference_bytes_match':True,'canonical_main_master_alignment':'OPEN_UNMERGED','whole_model_IEEE_AD':'OPEN'},indent=2)+'\n')
+          PYCODE
       - name: Check independent numerical reference
         run: |
           python -m pip install numpy==2.3.2
@@ -66,5 +90,7 @@ jobs:
         if: always()
         with:
           name: langmath098-lean-axiom-log
-          path: langmath098-lean.log
+          path: |
+            langmath098-lean.log
+            langmath098-draft-reciprocal.json
           if-no-files-found: warn
