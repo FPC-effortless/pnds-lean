@@ -11,37 +11,37 @@ def unroll {P S I : Type*} (step : P → S → I → S) (p : P) (s : S)
     (xs : List I) : S := xs.foldl (step p) s
 
 theorem checkpoint_replay_exact {P S I : Type*} (step : P → S → I → S)
-    (p : P) (s : S) (prefix suffix : List I) :
-    unroll step p (unroll step p s prefix) suffix =
-      unroll step p s (prefix ++ suffix) := by
+    (p : P) (s : S) (historyA historyB : List I) :
+    unroll step p (unroll step p s historyA) historyB =
+      unroll step p s (historyA ++ historyB) := by
   simp [unroll, List.foldl_append]
 
 def directLoss {P S I : Type*} (step : P → S → I → S) (loss : P → S → ℝ)
-    (s : S) (prefix suffix : List I) : P → ℝ :=
-  fun p => loss p (unroll step p s (prefix ++ suffix))
+    (s : S) (historyA historyB : List I) : P → ℝ :=
+  fun p => loss p (unroll step p s (historyA ++ historyB))
 def replayLoss {P S I : Type*} (step : P → S → I → S) (loss : P → S → ℝ)
-    (s : S) (prefix suffix : List I) : P → ℝ :=
-  fun p => loss p (unroll step p (unroll step p s prefix) suffix)
+    (s : S) (historyA historyB : List I) : P → ℝ :=
+  fun p => loss p (unroll step p (unroll step p s historyA) historyB)
 
 theorem parameter_loss_equal {P S I : Type*} (step : P → S → I → S)
-    (loss : P → S → ℝ) (s : S) (prefix suffix : List I) :
-    replayLoss step loss s prefix suffix = directLoss step loss s prefix suffix := by
+    (loss : P → S → ℝ) (s : S) (historyA historyB : List I) :
+    replayLoss step loss s historyA historyB = directLoss step loss s historyA historyB := by
   funext p
   simp [replayLoss, directLoss, checkpoint_replay_exact]
 
 theorem conditional_derivative_equal {P S I : Type*} [NormedAddCommGroup P]
     [NormedSpace ℝ P] (step : P → S → I → S) (loss : P → S → ℝ)
-    (s : S) (prefix suffix : List I) (p : P) (derivative : P →L[ℝ] ℝ)
-    (h : HasFDerivAt (directLoss step loss s prefix suffix) derivative p) :
-    HasFDerivAt (replayLoss step loss s prefix suffix) derivative p := by
+    (s : S) (historyA historyB : List I) (p : P) (derivative : P →L[ℝ] ℝ)
+    (h : HasFDerivAt (directLoss step loss s historyA historyB) derivative p) :
+    HasFDerivAt (replayLoss step loss s historyA historyB) derivative p := by
   rw [parameter_loss_equal]
   exact h
 
 theorem frechet_derivative_equal {P S I : Type*} [NormedAddCommGroup P]
     [NormedSpace ℝ P] (step : P → S → I → S) (loss : P → S → ℝ)
-    (s : S) (prefix suffix : List I) (p : P) :
-    fderiv ℝ (replayLoss step loss s prefix suffix) p =
-      fderiv ℝ (directLoss step loss s prefix suffix) p := by
+    (s : S) (historyA historyB : List I) (p : P) :
+    fderiv ℝ (replayLoss step loss s historyA historyB) p =
+      fderiv ℝ (directLoss step loss s historyA historyB) p := by
   rw [parameter_loss_equal]
 
 end
