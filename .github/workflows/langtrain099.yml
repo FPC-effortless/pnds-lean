@@ -1,0 +1,88 @@
+name: LANGTRAIN099 tensor memory mathematics
+
+on:
+  pull_request:
+    paths:
+      - 'PNDS/LANGTRAIN099.lean'
+      - 'foundation/v1/variant-math-links.json'
+      - 'foundation/v1/langtrain099*'
+      - 'foundation/v1/test_langtrain099_reference.py'
+      - '.github/workflows/langtrain099.yml'
+      - 'lakefile.toml'
+      - 'lean-toolchain'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  operator-reference-and-lean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify full exact10M source pins and independent reference bytes
+        run: |
+          python - <<'PYCODE'
+          from pathlib import Path
+          import hashlib,json,urllib.request
+          link=json.loads(Path('foundation/v1/langtrain099-source-link.json').read_text())
+          base='https://raw.githubusercontent.com/FPC-effortless/TAC-OSM/'+link['tac']['commit']+'/'
+          def fetch(path):
+              with urllib.request.urlopen(base+path,timeout=30) as r:return r.read()
+          for path,digest in link['tac']['source_sha256'].items():
+              assert hashlib.sha256(fetch(path)).hexdigest()==digest,path
+          assert Path('foundation/v1/langtrain099_reference.py').read_bytes()==fetch('research/mathematical-engineering/langtrain099/reference.py')
+          assert Path('foundation/v1/langtrain099-formulation.md').read_bytes()==fetch('research/mathematical-engineering/langtrain099/FORMULATION.md')
+          Path('langtrain099-source-check.json').write_text(json.dumps({'status':'PASS_SOURCE_AND_FULL_REFERENCE_BYTES','tac_source':link['tac']['commit'],'whole_model_IEEE_AD':'OPEN','all_source_hashes_verified':True},indent=2)+'\n')
+          PYCODE
+      - name: Check independent numerical reference
+        run: |
+          python -m pip install numpy==2.3.2
+          python -m unittest discover -s foundation/v1 -p test_langtrain099_reference.py -v
+      - name: Install elan using repository toolchain
+        run: |
+          curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - uses: actions/cache@v4
+        with:
+          path: .lake/packages
+          key: pnds-langtrain099-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lakefile.toml') }}
+      - name: Resolve pinned Mathlib and fetch compiled dependencies
+        run: |
+          lake update
+          python - <<'PY'
+          import json
+          manifest = json.load(open('lake-manifest.json'))
+          assert any(p.get('name') == 'mathlib' for p in manifest['packages']), 'Mathlib absent'
+          PY
+          lake exe cache get
+      - name: Compile the new module explicitly and inspect printed axioms
+        shell: bash
+        run: |
+          set -o pipefail
+          lake env lean PNDS/LANGTRAIN099.lean 2>&1 | tee langtrain099-lean.log
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          text = Path('langtrain099-lean.log').read_text()
+          assert 'sorryAx' not in text, 'Unproved Lean placeholder'
+          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
+          for group in re.findall(r'depends on axioms:\s*\[([^\]]*)\]', text):
+              found = {a.strip() for a in group.split(',') if a.strip()}
+              assert found <= allowed, f'Unexpected axiom dependencies: {found - allowed}'
+          names = ('tensor_compose_assoc', 'tensor_identity_left', 'tensor_identity_right', 'tensor_action', 'tensor_nonwrite', 'chunk_equivalence', 'sigmoid_range', 'squash_bound', 'softmax_nonnegative', 'softmax_mass', 'zero_valid', 'bank_update_valid', 'bank_mass_update', 'bank_read_bound', 'convex_coordinate', 'exposed_reads_injective', 'scan_work_linear', 'native_zero_valid', 'native_step_valid', 'bank_alpha_range', 'encoded_step_valid', 'full_persistent_state_invariant')
+          for name in names:
+              assert f'PNDS.LANGTRAIN099.{name}' in text, f'Missing axiom inspection: {name}'
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: langtrain099-lean-axiom-log
+          path: |
+            langtrain099-lean.log
+            langtrain099-source-check.json
+          if-no-files-found: warn

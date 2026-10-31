@@ -1,0 +1,37 @@
+{
+  "schema": "langtrain099.empirical-status.v1",
+  "study": "LANGTRAIN099",
+  "TAC_results_commit": "2247b190f214ddcfb1797f6870bebccb53807adc",
+  "TAC_training_source": "068ed9bd5bd68c19b0fd98dcff9a42197c1e4d21",
+  "TAC_PR": 671,
+  "TAC_run": 41153068368,
+  "TAC_result_path": "research/mathematical-engineering/langtrain099/results/ACTUAL_RESEARCH_RESULTS.md",
+  "parameters_per_model": 10000000,
+  "seeds": [
+    9901,
+    9902,
+    9903
+  ],
+  "optimizer_updates_each": 2048,
+  "trained_code_nll": 1.7553453966975212,
+  "trained_documentation_with_code_nll": 2.113867444296678,
+  "positive_lexical_exact_each_seed": [
+    0,
+    0,
+    0
+  ],
+  "ARC_exact_each_seed": [
+    0,
+    0,
+    0
+  ],
+  "registered_capability_gates": "FAIL",
+  "proof_scope": "22 exact-real tensor and persistent-state theorems; full graph reference, source checks and gradients are numerical evidence",
+  "full_model_IEEE_AD": "OPEN",
+  "learned_general_intelligence_established": false,
+  "architecture_superiority_established": false,
+  "protected_TEST_opened": false,
+  "registry_bytes_unchanged": true,
+  "scope": "Internal exposed public DEV; bounded CPU pilot, not independent qualification or complete language pretraining",
+  "ordinary_Lean_CI_pass": 41154036739
+}
