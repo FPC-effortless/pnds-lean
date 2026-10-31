@@ -16,7 +16,12 @@ jobs:
         run: |
           python3 scripts/validate_foundation.py --strict
           python3 scripts/validate_variant_math.py
-          python3 scripts/check_reciprocal_links.py
+          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
+            # Exact peer snapshot for the paired draft PR, not production parity.
+            python3 scripts/check_reciprocal_links.py --peer-ref 6161187dee2fa6eb1d5543e117eaac46313bee83
+          else
+            python3 scripts/check_reciprocal_links.py
+          fi
           python3 -m unittest discover -s tests -p 'test_foundation.py' -v
           python3 -m unittest discover -s tests -p 'test_variant_math.py' -v
           python3 -m unittest discover -s tests -p 'test_sense_tok_006.py' -v

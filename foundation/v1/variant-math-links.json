@@ -556,7 +556,9 @@
         "repository": "FPC-effortless/pnds-lean",
         "lean_path": "PNDS/SenseTok006.lean",
         "python_path": "foundation/v1/sense_tok_006.py",
-        "spec_path": "foundation/v1/SENSE-TOK-006.md"
+        "spec_path": "foundation/v1/SENSE-TOK-006.md",
+        "commit": "6887529e33c6d7379a2cacc5dc3f24b40ae458be",
+        "pull_request": 100
       },
       "candidate_arms": [
         "dense_byte",

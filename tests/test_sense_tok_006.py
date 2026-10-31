@@ -1,14 +1,18 @@
 """Partial finite operator/provenance checks, no trained or full-model claims."""
 import json
+import io
 import math
 import random
 import sys
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'foundation/v1'))
+sys.path.insert(0, str(ROOT / 'scripts'))
 from sense_tok_006 import selected_readout, realized_regret, dense_byte_parameter_count
+import check_reciprocal_links
 
 
 class SenseTok006Operators(unittest.TestCase):
@@ -46,6 +50,19 @@ class SenseTok006Operators(unittest.TestCase):
         self.assertFalse(record['training_authorized'])
         self.assertTrue((ROOT/record['pnds']['lean_path']).is_file())
         self.assertTrue((ROOT/record['pnds']['python_path']).is_file())
+
+    def test_peer_check_requires_exact_equality_and_immutable_draft_ref(self):
+        local = (ROOT/'foundation/v1/variant-math-links.json').read_bytes()
+        with patch.object(check_reciprocal_links.urllib.request, 'urlopen', return_value=io.BytesIO(local)) as fetch:
+            check_reciprocal_links.verify('a'*40)
+            self.assertIn('/'+'a'*40+'/', fetch.call_args.args[0])
+        with patch.object(check_reciprocal_links.urllib.request, 'urlopen', return_value=io.BytesIO(b'{}')):
+            with self.assertRaises(SystemExit):
+                check_reciprocal_links.verify()
+        with patch.object(check_reciprocal_links.urllib.request, 'urlopen') as fetch:
+            with self.assertRaises(ValueError):
+                check_reciprocal_links.verify('research/moving-branch')
+            fetch.assert_not_called()
 
 
 if __name__ == '__main__':
