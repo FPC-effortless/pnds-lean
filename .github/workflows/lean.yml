@@ -16,7 +16,13 @@ jobs:
         run: |
           python3 scripts/validate_foundation.py --strict
           python3 scripts/validate_variant_math.py
-          python3 scripts/check_reciprocal_links.py
+          # Paired LANGMATH101 drafts mirror an immutable peer commit.
+          # All other branches retain the current main/master parity check.
+          if [ "${GITHUB_HEAD_REF:-${GITHUB_REF_NAME:-}}" = "research/langmath101-full-candidate-graphs-2026-10-31" ]; then
+            python3 scripts/check_reciprocal_links.py --peer-ref c8b44943edae126420a35fd4b771deb4f44eb4a2
+          else
+            python3 scripts/check_reciprocal_links.py
+          fi
           python3 -m unittest discover -s tests -p 'test_foundation.py' -v
           python3 -m unittest discover -s tests -p 'test_variant_math.py' -v
 
