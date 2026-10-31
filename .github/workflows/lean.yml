@@ -16,7 +16,11 @@ jobs:
         run: |
           python3 scripts/validate_foundation.py --strict
           python3 scripts/validate_variant_math.py
-          python3 scripts/check_reciprocal_links.py
+          if [ "$GITHUB_HEAD_REF" = 'research/langtrain099-exact10m-2026-10-30' ]; then
+            python3 scripts/check_reciprocal_links.py --peer-ref 068ed9bd5bd68c19b0fd98dcff9a42197c1e4d21
+          else
+            python3 scripts/check_reciprocal_links.py
+          fi
           python3 -m unittest discover -s tests -p 'test_foundation.py' -v
           python3 -m unittest discover -s tests -p 'test_variant_math.py' -v
 
@@ -26,7 +30,11 @@ jobs:
           echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
 
       - name: Resolve dependencies
-        run: lake update
+        run: |
+          lake update
+          if [ "$GITHUB_HEAD_REF" = 'research/langtrain099-exact10m-2026-10-30' ]; then
+            lake exe cache get
+          fi
 
       - name: Verify Mathlib was actually resolved
         run: |
