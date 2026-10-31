@@ -33,5 +33,13 @@
   "proof_scope": "exact-real full persistent-state invariant and22 kernel theorems; encoder/decoder IEEE AD remains OPEN",
   "original_source_constructed_checks": 51,
   "original_training": "PENDING, optimizer disabled",
-  "general_intelligence_established": false
+  "general_intelligence_established": false,
+  "proof_evidence": {
+    "run_id": 41152809360,
+    "job_id": 124392950193,
+    "theorems": 22,
+    "numpy_tests": 6,
+    "whole_model_IEEE_AD": "OPEN",
+    "status": "PASS"
+  }
 }
