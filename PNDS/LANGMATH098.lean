@@ -137,6 +137,106 @@ structure NativeState where
   previousKey : Fin 2 → Fin 8 → ℝ
   banks : Fin 2 → Bank 8 16
 
+structure NativeState.Valid (s : NativeState) : Prop where
+  context_bounded : ∀ i, |s.context i| ≤ 1
+  lexical_bounded : ∀ l i, |s.lexical l i| ≤ 1
+  previous_nonnegative : ∀ h j, 0 ≤ s.previousKey h j
+  previous_mass : ∀ h, ∑ j, s.previousKey h j ≤ 1
+  banks_valid : ∀ h, (s.banks h).Valid
+  banks_mass : ∀ h, ∑ j, (s.banks h).mass j ≤ 1
+
+def nativeZero : NativeState :=
+  ⟨fun _ => 0, fun _ _ => 0, fun _ _ => 0, fun _ => Bank.zero 8 16⟩
+theorem native_zero_valid : nativeZero.Valid := by
+  constructor <;> intros <;> simp [nativeZero, Bank.zero, Bank.Valid]
+
+def nativeStep (s : NativeState) (contextOffer : Fin 48 → ℝ)
+    (embedding : Fin 32 → ℝ) (keys : Fin 2 → Fin 8 → ℝ)
+    (values : Fin 2 → Fin 16 → ℝ) (delta : Fin 48 → ℝ)
+    (alpha : Fin 2 → ℝ) : NativeState where
+  context := fun i => delta i*s.context i+(1-delta i)*contextOffer i
+  lexical := fun l i => if l=0 then s.lexical 1 i else if l=1 then s.lexical 2 i else embedding i
+  previousKey := keys
+  banks := fun h => (s.banks h).update (alpha h) (s.previousKey h) (values h)
+
+theorem native_step_valid (s : NativeState) (c : Fin 48 → ℝ)
+    (e : Fin 32 → ℝ) (keys : Fin 2 → Fin 8 → ℝ)
+    (values : Fin 2 → Fin 16 → ℝ) (delta : Fin 48 → ℝ) (alpha : Fin 2 → ℝ)
+    (hs : s.Valid) (hc : ∀ i, |c i| ≤ 1) (he : ∀ i, |e i| ≤ 1)
+    (hk : ∀ h j, 0 ≤ keys h j) (hm : ∀ h, ∑ j, keys h j ≤ 1)
+    (hv : ∀ h i, |values h i| ≤ 1)
+    (hd : ∀ i, 0 ≤ delta i ∧ delta i ≤ 1)
+    (ha : ∀ h, 0 ≤ alpha h ∧ alpha h ≤ 1) :
+    (nativeStep s c e keys values delta alpha).Valid := by
+  constructor
+  · intro i; exact convex_coordinate _ _ _ (hs.context_bounded i) (hc i) (hd i)
+  · intro l i
+    dsimp [nativeStep]
+    split_ifs
+    · exact hs.lexical_bounded 1 i
+    · exact hs.lexical_bounded 2 i
+    · exact he i
+  · exact hk
+  · exact hm
+  · intro h; exact bank_update_valid _ _ _ _ (hs.banks_valid h) (ha h)
+      (hs.previous_nonnegative h) (hv h)
+  · intro h; exact bank_mass_update _ _ _ _ (hs.banks_mass h) (hs.previous_mass h) (ha h)
+
+def bankAlpha (h : Fin 2) (raw : ℝ) : ℝ :=
+  if h=0 then (0.97:ℝ)+(0.995-0.97)*sigmoid raw
+  else (0.995:ℝ)+(0.99995-0.995)*sigmoid raw
+theorem bank_alpha_range (h : Fin 2) (raw : ℝ) :
+    0 ≤ bankAlpha h raw ∧ bankAlpha h raw ≤ 1 := by
+  have hr := sigmoid_range raw
+  unfold bankAlpha
+  split_ifs <;> constructor <;> nlinarith
+
+/-- All encoder logits may depend on state and current observations. Bounds
+follow from the implemented activation ranges rather than assuming bounded
+matrix updates. Exact-real squash is tanh's sigmoid identity. -/
+structure RawOffer where
+  context : Fin 48 → ℝ
+  embedding : Fin 32 → ℝ
+  keys : Fin 2 → Fin 8 → ℝ
+  values : Fin 2 → Fin 16 → ℝ
+  decay : Fin 48 → ℝ
+  alpha : Fin 2 → ℝ
+  allowed : Bool
+
+def encodedStep (s : NativeState) (raw : RawOffer) : NativeState :=
+  nativeStep s (fun i => squash (raw.context i))
+    (fun i => squash (raw.embedding i)) (fun h => softmax (raw.keys h))
+    (fun h i => squash (raw.values h i)) (fun i => sigmoid (-raw.decay i))
+    (fun h => if raw.allowed then bankAlpha h (raw.alpha h) else 1)
+
+theorem encoded_step_valid (s : NativeState) (raw : RawOffer) (hs : s.Valid) :
+    (encodedStep s raw).Valid := by
+  unfold encodedStep
+  apply native_step_valid
+  · exact hs
+  · intro i; exact squash_bound _
+  · intro i; exact squash_bound _
+  · intro h j; exact softmax_nonnegative _ _
+  · intro h; exact le_of_eq (softmax_mass _)
+  · intro h i; exact squash_bound _
+  · intro i; exact ⟨(sigmoid_range _).1.le, (sigmoid_range _).2.le⟩
+  · intro h; split_ifs
+    · exact bank_alpha_range _ _
+    · norm_num
+
+/-- Full persistent tensor invariant for an arbitrary state/current-input
+encoder. It does not prove that an encoder learns information or that AD and
+IEEE arithmetic have exact-real behavior. -/
+theorem full_persistent_state_invariant {Input : Type*}
+    (encoder : NativeState → Input → RawOffer) (s : NativeState)
+    (hs : s.Valid) (observations : List Input) :
+    (unroll (fun state input => encodedStep state (encoder state input)) s observations).Valid := by
+  induction observations generalizing s with
+  | nil => simpa [unroll] using hs
+  | cons x xs ih =>
+    simpa [unroll, List.foldl_cons] using
+      ih (encodedStep s (encoder s x)) (encoded_step_valid s (encoder s x) hs)
+
 /-- Exposed reads are retained separately; comparison adds, rather than erases,
 the pair. This elementary injectivity is a deliberate interface guarantee. -/
 def exposed {ι} (fast slow mixed : Tensor ι) := (fast, slow, mixed)
@@ -178,3 +278,9 @@ end PNDS.LANGMATH098
 #print axioms PNDS.LANGMATH098.convex_coordinate
 #print axioms PNDS.LANGMATH098.exposed_reads_injective
 #print axioms PNDS.LANGMATH098.scan_work_linear
+
+#print axioms PNDS.LANGMATH098.native_zero_valid
+#print axioms PNDS.LANGMATH098.native_step_valid
+#print axioms PNDS.LANGMATH098.bank_alpha_range
+#print axioms PNDS.LANGMATH098.encoded_step_valid
+#print axioms PNDS.LANGMATH098.full_persistent_state_invariant

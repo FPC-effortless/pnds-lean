@@ -5,6 +5,7 @@ on:
     paths:
       - 'PNDS/LANGMATH098.lean'
       - 'foundation/v1/langmath098*'
+      - 'foundation/v1/test_langmath098_reference.py'
       - '.github/workflows/langmath098.yml'
       - 'lakefile.toml'
       - 'lean-toolchain'
@@ -57,7 +58,7 @@ jobs:
           for group in re.findall(r'depends on axioms:\s*\[([^\]]*)\]', text):
               found = {a.strip() for a in group.split(',') if a.strip()}
               assert found <= allowed, f'Unexpected axiom dependencies: {found - allowed}'
-          names = ('tensor_compose_assoc', 'tensor_identity_left', 'tensor_identity_right', 'tensor_action', 'tensor_nonwrite', 'chunk_equivalence', 'sigmoid_range', 'squash_bound', 'softmax_nonnegative', 'softmax_mass', 'zero_valid', 'bank_update_valid', 'bank_mass_update', 'bank_read_bound', 'convex_coordinate', 'exposed_reads_injective', 'scan_work_linear')
+          names = ('tensor_compose_assoc', 'tensor_identity_left', 'tensor_identity_right', 'tensor_action', 'tensor_nonwrite', 'chunk_equivalence', 'sigmoid_range', 'squash_bound', 'softmax_nonnegative', 'softmax_mass', 'zero_valid', 'bank_update_valid', 'bank_mass_update', 'bank_read_bound', 'convex_coordinate', 'exposed_reads_injective', 'scan_work_linear', 'native_zero_valid', 'native_step_valid', 'bank_alpha_range', 'encoded_step_valid', 'full_persistent_state_invariant')
           for name in names:
               assert f'PNDS.LANGMATH098.{name}' in text, f'Missing axiom inspection: {name}'
           PY

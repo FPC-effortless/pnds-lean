@@ -1,0 +1,25 @@
+{
+  "id": "LANGMATH098",
+  "tac": {
+    "repository": "FPC-effortless/TAC-OSM",
+    "commit": "efeba6556829d70b584c6b70de0e46f7710f8432",
+    "pull_request": 668,
+    "source_sha256": {
+      "research/mathematical-engineering/langmath098/objective.py": "ab02ada6e3727471941f7d35343a5628f4c1d6fffbcd88e7517b8cbd0aba127b",
+      "research/mathematical-engineering/langmath098/model.py": "44947a99e6042248e5a47ccb3f653b83933d5c4b9bef3bde105ca4c1c218e1a1",
+      "research/mathematical-engineering/langmath098/reference.py": "cc56c3092e1a8ca4710e7d7ff6e58f31621205619e0a3429e58854b7ae3346b8",
+      "research/mathematical-engineering/langmath098/probe_adapter.py": "e407492424e776a1abbc040b8c17429a40c473f5b9b854578b1bf5b8e4ffd874"
+    }
+  },
+  "pnds": {
+    "repository": "FPC-effortless/pnds-lean",
+    "pull_request": 97,
+    "lean_path": "PNDS/LANGMATH098.lean",
+    "python_path": "foundation/v1/langmath098_reference.py",
+    "full_graph_path": "foundation/v1/LANGMATH098_GRAPH.md"
+  },
+  "whole_model_IEEE_AD": "OPEN",
+  "training_enabled": false,
+  "capability_improvement": "NOT_ESTABLISHED",
+  "reciprocal_canonical_alignment": "OPEN_UNMERGED"
+}
