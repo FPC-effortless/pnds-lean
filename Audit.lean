@@ -8,6 +8,7 @@ import PNDS.Statistics
 import PNDS.Causal
 import PNDS.UnifiedTACOSM
 import PNDS.TACOSMVariantContracts
+import PNDS.LANGCACHE104
 
 /- Axiom audit. CI fails if any proof in the PNDS tree depends on an admitted
    goal, and prints the axioms of each top-level theorem so that hidden
@@ -78,3 +79,11 @@ import PNDS.TACOSMVariantContracts
 #print axioms PNDS.VariantContracts.bitemporal_known_after_record_start
 #print axioms PNDS.VariantContracts.weightedWindow_zero
 #print axioms PNDS.VariantContracts.edgeDiscrepancy_nonnegative
+
+/-! LANGCACHE104 coordinate/affine lemmas only; whole-model proofs stay OPEN. -/
+#check @PNDS.LANGCACHE104.cone_coordinate
+#check @PNDS.LANGCACHE104.affine_composition
+#check @PNDS.LANGCACHE104.affine_associative
+#print axioms PNDS.LANGCACHE104.cone_coordinate
+#print axioms PNDS.LANGCACHE104.affine_composition
+#print axioms PNDS.LANGCACHE104.affine_associative
