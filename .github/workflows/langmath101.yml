@@ -1,0 +1,102 @@
+name: LANGMATH101 full candidate graph formulations
+
+on:
+  pull_request:
+    paths:
+      - 'PNDS/LANGMATH101.lean'
+      - 'foundation/v1/langmath101*'
+      - '.github/workflows/langmath101.yml'
+      - 'lakefile.toml'
+      - 'lean-toolchain'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-reference-and-lean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch exact source graph and verify reciprocal reference bytes
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib,json,re,urllib.request
+          link=json.loads(Path('foundation/v1/langmath101-source-link.json').read_text())
+          commit=link['tac']['commit']
+          assert isinstance(commit,str) and re.fullmatch('[0-9a-f]{40}',commit),'Exact source commit required'
+          base='https://raw.githubusercontent.com/'+link['tac']['repository']+'/'+commit+'/'
+          root=Path('_langmath101_source')
+          for path,digest in link['tac']['source_sha256'].items():
+              with urllib.request.urlopen(base+path,timeout=30) as response:data=response.read()
+              assert hashlib.sha256(data).hexdigest()==digest,path
+              destination=root/path
+              destination.parent.mkdir(parents=True,exist_ok=True)
+              destination.write_bytes(data)
+          for source,local in link['reciprocal_copies'].items():
+              assert Path(local).read_bytes()==(root/source).read_bytes(),local
+          Path('langmath101-source-check.json').write_text(json.dumps({
+              'status':'PASS_EXACT_SOURCE_AND_RECIPROCAL_BYTES','tac_source':commit,
+              'whole_model_IEEE_AD':'OPEN','learned_capability':'NOT_ESTABLISHED_BY_THIS_JOB',
+              'independent_qualification':False},indent=2)+'\n')
+          PY
+      - name: Check full independent functional references
+        run: |
+          python -m pip install torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install pytest==8.4.1 numpy==2.3.2
+          # Separate processes prevent the two intentionally independent
+          # models.py/reference.py modules from sharing Python import names.
+          python -m pytest -q _langmath101_source/research/mathematical-engineering/langmath101/math/test_reference.py
+          python -m pytest -q _langmath101_source/research/mathematical-engineering/langmath101/adaptive/test_models.py
+      - name: Install elan using repository toolchain
+        run: |
+          curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - uses: actions/cache@v4
+        with:
+          path: .lake/packages
+          key: pnds-langmath101-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lakefile.toml') }}
+      - name: Resolve pinned Mathlib and fetch compiled dependencies
+        run: |
+          lake update
+          python - <<'PY'
+          import json
+          manifest=json.load(open('lake-manifest.json'))
+          assert any(p.get('name')=='mathlib' for p in manifest['packages']),'Mathlib absent'
+          PY
+          lake exe cache get
+      - name: Compile the full forward module and inspect four narrow theorem axioms
+        shell: bash
+        run: |
+          set -o pipefail
+          lake env lean PNDS/LANGMATH101.lean 2>&1 | tee langmath101-lean.log
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          log=Path('langmath101-lean.log').read_text()
+          source=Path('PNDS/LANGMATH101.lean').read_text()
+          assert not re.search(r'\b(sorry|admit|axiom)\b',re.sub(r'/\-.*?\-/|--[^\n]*','',source,flags=re.S)),'Unproved declaration'
+          assert 'sorryAx' not in log,'Unproved Lean placeholder'
+          allowed={'propext','Classical.choice','Quot.sound'}
+          names=('unroll_chunks','native_readout_does_not_update_state','bpe_prefix_cache','patch_readout_noninterference')
+          for name in names:
+              full='PNDS.LANGMATH101.'+name
+              # Lean prints either an explicit dependency list or no-axioms.
+              assert full in log, 'Missing axiom inspection: '+full
+          for group in re.findall(r'depends on axioms:\s*\[([^\]]*)\]',log):
+              found={item.strip() for item in group.split(',') if item.strip()}
+              assert found<=allowed,found-allowed
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: langmath101-source-reference-lean-axioms
+          path: |
+            langmath101-lean.log
+            langmath101-source-check.json
+          if-no-files-found: warn

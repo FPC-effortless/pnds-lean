@@ -532,6 +532,28 @@
       "lean_full_graph_proved": false,
       "python_source_equivalence_verified": false,
       "real_world_capability_inferred": false
+    },
+    {
+      "id": "LANGMATH101",
+      "lane": "language",
+      "version": "LANGMATH101",
+      "state_kind": "controlled_23_architecture_family",
+      "tac": {
+        "repository": "FPC-effortless/TAC-OSM",
+        "commit": "b7c2543953470210aa13422311b6880d3a227325",
+        "evidence_path": "research/mathematical-engineering/langmath101/RESULTS.md"
+      },
+      "pnds": {
+        "repository": "FPC-effortless/pnds-lean",
+        "lean_path": "PNDS/LANGMATH101.lean",
+        "lean_symbol": "PNDS.LANGMATH101",
+        "python_path": "foundation/v1/langmath101_reference.py",
+        "source_link_path": "foundation/v1/langmath101-source-link.json"
+      },
+      "formalization_status": "FULL_PRIMAL_GRAPH_NARROW_THEOREMS_IEEE_AD_OPEN",
+      "lean_full_graph_proved": false,
+      "python_source_equivalence_verified": true,
+      "real_world_capability_inferred": false
     }
   ]
 }
