@@ -38,3 +38,24 @@ registries index this record without changing the legacy variant set.
 No optimizer, protected TEST, dataset-derived model selection, signed evaluator
 receipt, full-compute parity or mathematical release qualification is created
 by compiling this file or passing numerical probes.
+
+## Executed evidence
+
+The exact-real module and all five theorem axiom sets passed in PNDS run
+41226944193; paired root build and reciprocal manifest verification passed
+in 41227438282. Original Lean output and artifact identity are preserved
+under `evidence/`.
+
+TAC-OSM run 41228185975 passed **1,211 repository tests** and all **24**
+full-graph forward/state/parameter-gradient cases on original FIT prefixes.
+Worst FP32 logit/parameter-gradient absolute errors were approximately
+4.77e-7 / 1.87e-9; FP64 errors were 1.34e-15 / 5.64e-18. Actual native
+serial/parallel and chunked carry checks, wrong-readout and future-poison
+falsifiers, generic state purity and entity-isolation probes passed.
+Transformer integer external history is now inspected and counted with
+exact discrete identity semantics, rather than described as stateless.
+
+These finite initialized-model checks do not prove universal backend or
+IEEE correspondence and do not establish learned capability. Independent
+prefit evidence, full compute accounting, permitted T4 execution and final
+training registration remain separate requirements.
