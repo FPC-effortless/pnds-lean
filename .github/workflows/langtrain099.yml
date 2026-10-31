@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'PNDS/LANGTRAIN099.lean'
+      - 'foundation/v1/variant-math-links.json'
       - 'foundation/v1/langtrain099*'
       - 'foundation/v1/test_langtrain099_reference.py'
       - '.github/workflows/langtrain099.yml'
