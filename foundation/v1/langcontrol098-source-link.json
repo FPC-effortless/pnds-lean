@@ -1,0 +1,84 @@
+{
+  "schema": "tac-pnds.source-bridge.v1",
+  "study": "LANGCONTROL098",
+  "type": "FIXED_FUTURE_PREFIX_SUPERVISION_INTERNAL_FOUR_FAMILY_COMPARISON",
+  "ancestry": [
+    "LANGACQUIRE097"
+  ],
+  "tac": {
+    "repository": "FPC-effortless/TAC-OSM",
+    "source_commit": "ebbd9e90fc57b77c9c89e96591c2f775a5726ead",
+    "source_commit_status": "PINNED_PROSPECTIVE_PR672_IMPLEMENTATION_NO_FITS",
+    "pull_request": 672,
+    "source_paths": [
+      "research/mathematical-engineering/langcontrol098/data.py",
+      "research/mathematical-engineering/langcontrol098/models.py",
+      "research/mathematical-engineering/langcontrol098/objective.py",
+      "research/mathematical-engineering/langcontrol098/probe_adapter.py",
+      "research/mathematical-engineering/langcontrol098/profile098.py",
+      "research/mathematical-engineering/langcontrol098/resources.py",
+      "research/mathematical-engineering/langcontrol098/train.py",
+      "research/mathematical-engineering/langhead093/model093.py",
+      "research/mathematical-engineering/langhead094/model094.py",
+      "research/mathematical-engineering/langmem086/compact_tac.py"
+    ],
+    "source_sha256": {
+      "research/mathematical-engineering/langcontrol098/data.py": "008951ae941e7c733c2f938982095260b6b1055d6a536ca33ee03b267f1735c6",
+      "research/mathematical-engineering/langcontrol098/models.py": "7ae511c47f6627262d075cce307834ad441d04d89f0d51bea2f1d73f8375c392",
+      "research/mathematical-engineering/langcontrol098/objective.py": "9bb85d2e3f9235a0fd053398cc8509a1752e4dbd4d863cf40cc18948a28318af",
+      "research/mathematical-engineering/langcontrol098/probe_adapter.py": "5ae3a40533b0765d7fb4c3fc00e5d904d796c3cfee913983083ea337c0f73aec",
+      "research/mathematical-engineering/langcontrol098/profile098.py": "b19199fb887f85ae5f6d49d485e7ff6f1511bd12119ecd56664e0c23cd50a7a2",
+      "research/mathematical-engineering/langcontrol098/resources.py": "4b2fc412cacc0ca9b0587ad798fea45e58f7ca3c1268a35ee3dc7a9539ef1d90",
+      "research/mathematical-engineering/langcontrol098/train.py": "4d0b2370ffd094a774a10af6da29958e1bd4694e18930e00ad0d1d229432aa13",
+      "research/mathematical-engineering/langhead093/model093.py": "004aabb7ac8e6926d5b038dfdc79d3e4aa1878a2af7b22765c217f6212e81cf4",
+      "research/mathematical-engineering/langhead094/model094.py": "ba7693db65c7a5690954c3e1365134e0ad81f160ea6e00b46844385bc8717acd",
+      "research/mathematical-engineering/langmem086/compact_tac.py": "7179908fa3672879f3c2046ec4521f0b9f783d5c696aaba82c4c2cd0b6ebc9b1"
+    },
+    "historical_checkpoints_unchanged": true
+  },
+  "pnds": {
+    "repository": "FPC-effortless/pnds-lean",
+    "proof_commit": "8c50893fab362ad1b1a1e6783862011959bc497e",
+    "pull_request": 99,
+    "lean_path": "PNDS/LANGCONTROL098.lean",
+    "lean_namespace": "PNDS.LANGCONTROL098",
+    "python_path": "foundation/v1/langcontrol098_reference.py",
+    "python_tests": "foundation/v1/test_langcontrol098_reference.py",
+    "full_typed_graph_record": "foundation/v1/LANGCONTROL098_GRAPH.md",
+    "source_link": "foundation/v1/langcontrol098-source-link.json",
+    "inherited_model_graph": {
+      "proof_commit": "f43ebf255688aa0d4ca9f0daf2450b24b13f9256",
+      "pull_request": 96,
+      "full_typed_graph_record": "foundation/v1/LANGACQUIRE097_GRAPH.md"
+    },
+    "related_objective_semantics": {
+      "proof_commit": "1f25d682c35a22e4a70eb38f992bc7badfb52f19",
+      "pull_request": 97,
+      "python_symbol": "controlled_loss",
+      "new_architecture_imported": false
+    }
+  },
+  "exact_source_contract": "Unchanged original086 TAC,094 GRU/SSM and097 causal Transformer. Domains/masks/targets reach loss only. Fixed equal-domain/case/segment target weights; lambda0/1 only changes prefix supervision. Local objective labels query/full mean lambda0/lambda1, not historical global target means.",
+  "mathematical_status": "PARTIAL_FIXED_COEFFICIENT_OBJECTIVE_ALGEBRA",
+  "verification": {
+    "python_reference": "PASS_11_CONSTRUCTED_TESTS",
+    "lean_build": "PASS_11_SCOPED_THEOREMS_STANDARD_MATHLIB_AXIOMS",
+    "source_loss_reference_correspondence": "PENDING_SOURCE_PINNED_TAC_CI",
+    "source_PyTorch_IEEE_AD_equivalence": "OPEN",
+    "full_composed_model_proof": "OPEN",
+    "learned_capability": "NOT_ESTABLISHED",
+    "canonical_main_master_reciprocal_parity": "OPEN_UNMERGED",
+    "lean_ci": {
+      "run_url": "https://github.com/FPC-effortless/pnds-lean/actions/runs/41153116421",
+      "run_id": 41153116421,
+      "job_id": 124393921009,
+      "source_math_commit": "8c50893fab362ad1b1a1e6783862011959bc497e",
+      "python_reference_tests_passed": 11,
+      "lean_theorems_inspected": 11
+    }
+  },
+  "evidence_level": "INTERNAL_RESEARCH_NOT_INDEPENDENT_QUALIFICATION",
+  "capability_claim": false,
+  "promotion_permitted": false,
+  "preserved_failed_lean_run": 41152906120
+}
