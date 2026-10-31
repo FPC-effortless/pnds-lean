@@ -1,0 +1,96 @@
+name: LANGMATH098 tensor memory mathematics
+
+on:
+  pull_request:
+    paths:
+      - 'PNDS/LANGMATH098.lean'
+      - 'foundation/v1/langmath098*'
+      - 'foundation/v1/test_langmath098_reference.py'
+      - '.github/workflows/langmath098.yml'
+      - 'lakefile.toml'
+      - 'lean-toolchain'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  operator-reference-and-lean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify exact draft reciprocal records and full source/reference pins
+        run: |
+          python - <<'PYCODE'
+          from pathlib import Path
+          import hashlib,json,urllib.request
+          source='78be202a2613c54629785b7a5874dbff0507d988'
+          metadata='ce358f5a5d607bb68ec029491134bb879488909b'
+          proof='63ced419c63c50c6e01380778240438aebf03e19'
+          base='https://raw.githubusercontent.com/FPC-effortless/TAC-OSM/'
+          def fetch(commit,path):
+              with urllib.request.urlopen(base+commit+'/'+path,timeout=30) as r:return r.read()
+          registry=json.loads(Path('foundation/v1/variant-math-links.json').read_text())
+          assert registry==json.loads(fetch(metadata,'research/pnds-variant-math-links.json'))
+          rows=[r for r in registry['prospective_training_candidates'] if r['id']=='LANGMATH098']
+          assert len(rows)==1 and rows[0]['tac']['commit']==source and rows[0]['pnds']['commit']==proof
+          for path,digest in rows[0]['tac']['source_sha256'].items():
+              assert hashlib.sha256(fetch(source,path)).hexdigest()==digest,path
+          ref=Path('foundation/v1/langmath098_reference.py').read_bytes()
+          assert ref==fetch(source,'research/mathematical-engineering/langmath098/reference.py')
+          assert hashlib.sha256(Path('PNDS/LANGMATH098.lean').read_bytes()).hexdigest()=='5cefad619fd57ff0d12c29b6355fbc9a0ee0b077cf68a1e13860c4fbd2974198'
+          assert rows[0]['lean_full_persistent_state_invariant_proved'] is True
+          assert rows[0]['lean_full_graph_proved'] is False and rows[0]['whole_graph_IEEE_AD_equivalence']=='OPEN'
+          Path('langmath098-draft-reciprocal.json').write_text(json.dumps({'status':'DRAFT_PINNED_RECIPROCAL_EQUAL','source_commit':source,'metadata_commit':metadata,'proof_commit':proof,'all_source_hashes_verified':True,'full_independent_reference_bytes_match':True,'canonical_main_master_alignment':'OPEN_UNMERGED','whole_model_IEEE_AD':'OPEN'},indent=2)+'\n')
+          PYCODE
+      - name: Check independent numerical reference
+        run: |
+          python -m pip install numpy==2.3.2
+          python -m unittest discover -s foundation/v1 -p test_langmath098_reference.py -v
+      - name: Install elan using repository toolchain
+        run: |
+          curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - uses: actions/cache@v4
+        with:
+          path: .lake/packages
+          key: pnds-langmath098-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lakefile.toml') }}
+      - name: Resolve pinned Mathlib and fetch compiled dependencies
+        run: |
+          lake update
+          python - <<'PY'
+          import json
+          manifest = json.load(open('lake-manifest.json'))
+          assert any(p.get('name') == 'mathlib' for p in manifest['packages']), 'Mathlib absent'
+          PY
+          lake exe cache get
+      - name: Compile the new module explicitly and inspect printed axioms
+        shell: bash
+        run: |
+          set -o pipefail
+          lake env lean PNDS/LANGMATH098.lean 2>&1 | tee langmath098-lean.log
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          text = Path('langmath098-lean.log').read_text()
+          assert 'sorryAx' not in text, 'Unproved Lean placeholder'
+          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
+          for group in re.findall(r'depends on axioms:\s*\[([^\]]*)\]', text):
+              found = {a.strip() for a in group.split(',') if a.strip()}
+              assert found <= allowed, f'Unexpected axiom dependencies: {found - allowed}'
+          names = ('tensor_compose_assoc', 'tensor_identity_left', 'tensor_identity_right', 'tensor_action', 'tensor_nonwrite', 'chunk_equivalence', 'sigmoid_range', 'squash_bound', 'softmax_nonnegative', 'softmax_mass', 'zero_valid', 'bank_update_valid', 'bank_mass_update', 'bank_read_bound', 'convex_coordinate', 'exposed_reads_injective', 'scan_work_linear', 'native_zero_valid', 'native_step_valid', 'bank_alpha_range', 'encoded_step_valid', 'full_persistent_state_invariant')
+          for name in names:
+              assert f'PNDS.LANGMATH098.{name}' in text, f'Missing axiom inspection: {name}'
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: langmath098-lean-axiom-log
+          path: |
+            langmath098-lean.log
+            langmath098-draft-reciprocal.json
+          if-no-files-found: warn
