@@ -21,6 +21,8 @@ jobs:
           python3 -m unittest discover -s tests -p 'test_variant_math.py' -v
           python3 -m unittest foundation.langcache104.test_math_reference -v
           python3 -m unittest foundation.langcache104.test_reciprocal_candidate -v
+          python3 -m unittest foundation.tac_ocr001.test_math_reference -v
+          python3 -m unittest foundation.tac_ocr001.test_reciprocal_candidate -v
 
       - name: Install elan
         run: |
@@ -47,7 +49,7 @@ jobs:
           # `lake build ... | tee` would mask lake's exit code behind tee's, which
           # has already produced a false-green run on this repo. Use PIPESTATUS.
           set -o pipefail
-          lake build 'PNDS' 'PNDS.LANGCACHE104' 'Audit' 2>&1 | tee build.log
+          lake build 'PNDS' 'PNDS.LANGCACHE104' 'PNDS.TACOCR001' 'Audit' 2>&1 | tee build.log
           echo "lake build exit code: ${PIPESTATUS[0]}"
           exit ${PIPESTATUS[0]}
 
@@ -57,7 +59,7 @@ jobs:
           # Counting .olean files is not sufficient: a single successfully-built
           # module (e.g. PNDS.Causal) already produces one, so a tree with five
           # broken modules passed this check. Require every root to be present.
-          for root in PNDS/LANGCACHE104 PNDS/TACOSMVariantContracts PNDS/UnifiedTACOSM PNDS/Causal PNDS/PathVerification PNDS/Registration \
+          for root in PNDS/TACOCR001 PNDS/LANGCACHE104 PNDS/TACOSMVariantContracts PNDS/UnifiedTACOSM PNDS/Causal PNDS/PathVerification PNDS/Registration \
                       PNDS/Scaling PNDS/Statistics PNDS/Softmax Audit; do
             if [ ! -f ".lake/build/lib/${root}.olean" ]; then
               echo "::error::Missing .olean for ${root}; that module did not compile"
@@ -91,3 +93,9 @@ jobs:
           for theorem in cone_coordinate affine_composition affine_associative; do
             grep -q "PNDS.LANGCACHE104.${theorem}" langcache104-axioms.log
           done
+      - name: Audit scoped OCR reference capacity theorem
+        run: |
+          set -euo pipefail
+          lake env lean PNDS/TACOCR001.lean 2>&1 | tee tac-ocr001-axioms.log
+          if grep -q 'sorryAx' tac-ocr001-axioms.log; then exit 1; fi
+          grep -q 'PNDS.TACOCR001.referenceCountBound' tac-ocr001-axioms.log

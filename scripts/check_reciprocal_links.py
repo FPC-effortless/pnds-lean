@@ -55,7 +55,11 @@ def verify_candidate(base, row, read_remote):
     fields = {"id", "tac_source_commit", "source_map_path", "tac_source_map_path",
               "lean_path", "python_path", "status"}
     require(isinstance(row, dict) and set(row) == fields, "candidate fields are incomplete or unexpected")
-    require(row["id"] == "LANGCACHE104-DEEP-ASSOCIATIVE-CARRIED-CACHE",
+    reviewed = {"LANGCACHE104-DEEP-ASSOCIATIVE-CARRIED-CACHE": "pnds.langcache104.tac_pin.v1",
+                "TAC-OCR-001-TAC": "pnds.tac_ocr001.tac_pin.v1",
+                "TAC-OCR-001-TRANSFORMER": "pnds.tac_ocr001.tac_pin.v1",
+                "TAC-OCR-001-GRU": "pnds.tac_ocr001.tac_pin.v1"}
+    require(row["id"] in reviewed,
             "candidate needs its own reviewed verifier")
     require(row["status"] == "OPEN" and _sha(row["tac_source_commit"], 40),
             "candidate source pin missing or unsupported proof promotion")
@@ -63,7 +67,7 @@ def verify_candidate(base, row, read_remote):
     pin_path = map_path.parent/"TAC_PIN.json"
     require(pin_path.is_file(), "missing immutable prospective TAC companion pin")
     pin = json.loads(pin_path.read_text())
-    require(pin.get("schema") == "pnds.langcache104.tac_pin.v1" and
+    require(pin.get("schema") == reviewed[row["id"]] and
             _sha(pin.get("tac_metadata_commit"), 40) and
             pin.get("tac_source_commit") == row["tac_source_commit"] and
             _sha(pin.get("source_map_sha256"), 64), "invalid prospective TAC companion pin")
