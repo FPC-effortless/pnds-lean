@@ -1,4 +1,4 @@
-import Std
+import Mathlib
 
 /-!
 TAC-OCR-001, partial computational formulation.
