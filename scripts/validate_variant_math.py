@@ -48,12 +48,24 @@ def check(base: Path = ROOT) -> dict:
                 f"{name} TAC original PR/SHA/evidence pin changed")
         require(re.fullmatch("[0-9a-f]{40}", tac["commit"]) is not None,
                 f"{name} invalid commit pin")
-        require(pnds.get("repository") == "FPC-effortless/pnds-lean" and
-                pnds.get("pull_request") == 5, f"{name} mathematical authority missing")
-        require(pnds.get("lean_path") == "PNDS/TACOSMVariantContracts.lean" and
-                pnds.get("python_path") == "foundation/v1/variant_math.py" and
-                pnds.get("python_symbol") == "evaluate_variant",
-                f"{name} missing exact paired Lean and Python paths")
+        if name in {"COLLECT016-FULL_BPTT", "COLLECT016-DETACH_128", "COLLECT016-CURRENT_ONLY"}:
+            require(tac["commit"] == "2209e1328e3b42db4dd48cd702a21a55ffad24af" and
+                    pnds.get("repository") == "FPC-effortless/pnds-lean" and
+                    pnds.get("pull_request") == 107 and
+                    pnds.get("commit") == "fd948078115bd89b8685f1e2e62bbde166ceb4c4",
+                    f"{name} COLLECT016 source/math authority mismatch")
+            require(pnds.get("lean_path") == "PNDS/COLLECT016.lean" and
+                    pnds.get("lean_symbol") == "COLLECT016.CausalSequenceGraph" and
+                    pnds.get("python_path") == "foundation/v1/collect016/reference.py" and
+                    pnds.get("python_symbol") == "whole_reference",
+                    f"{name} missing source-specific Lean/Python paths")
+        else:
+            require(pnds.get("repository") == "FPC-effortless/pnds-lean" and
+                    pnds.get("pull_request") == 5, f"{name} mathematical authority missing")
+            require(pnds.get("lean_path") == "PNDS/TACOSMVariantContracts.lean" and
+                    pnds.get("python_path") == "foundation/v1/variant_math.py" and
+                    pnds.get("python_symbol") == "evaluate_variant",
+                    f"{name} missing exact paired Lean and Python paths")
         require(v.get("formalization_status") == "PARTIAL_SHARED_KERNEL_NOT_WHOLE_MODEL" and
                 v.get("lean_full_graph_proved") is False and
                 v.get("python_source_equivalence_verified") is False and

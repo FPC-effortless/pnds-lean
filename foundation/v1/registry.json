@@ -577,6 +577,148 @@
         "MATH-008",
         "MATH-012"
       ]
+    },
+    {
+      "id": "COLLECT016-FULL_BPTT",
+      "lane": "system1",
+      "version": "COLLECT016",
+      "parent_versions": [
+        "COLLECT014",
+        "COLLECT012",
+        "COLLECT011"
+      ],
+      "implementation": "Source-pinned native TAC110 with full_bptt phase/credit condition",
+      "state_kind": "native_recurrent_with_preconditioned_phase_memory",
+      "evidence_tier": "math_candidate",
+      "status": "internal_fits_submitted_formal_release_open",
+      "params": 99971,
+      "source": {
+        "repository": "FPC-effortless/TAC-OSM",
+        "pull_request": 700,
+        "commit_sha": "2209e1328e3b42db4dd48cd702a21a55ffad24af",
+        "evidence_path": "research/collect016/results"
+      },
+      "supported": [
+        "Registered source graph, local Lean definitions and finite Python reference fixtures"
+      ],
+      "limitations": [
+        "Full Lean/source/IEEE/AD correspondence OPEN",
+        "Constructed source-copy task cannot establish independent real-world intelligence",
+        "Full training FLOPs parity and architecture superiority OPEN",
+        "Trained results not yet included in this registration"
+      ],
+      "proof_obligations": [
+        "MATH-001",
+        "MATH-002",
+        "MATH-003",
+        "MATH-004",
+        "MATH-005",
+        "MATH-006",
+        "MATH-007",
+        "MATH-008",
+        "MATH-009",
+        "MATH-010",
+        "MATH-011",
+        "MATH-012",
+        "MATH-013"
+      ]
+    },
+    {
+      "id": "COLLECT016-DETACH_128",
+      "lane": "system1",
+      "version": "COLLECT016",
+      "parent_versions": [
+        "COLLECT014",
+        "COLLECT012",
+        "COLLECT011"
+      ],
+      "implementation": "Source-pinned native TAC110 with detach_128 phase/credit condition",
+      "state_kind": "native_recurrent_with_preconditioned_phase_memory",
+      "evidence_tier": "math_candidate",
+      "status": "internal_fits_submitted_formal_release_open",
+      "params": 99971,
+      "source": {
+        "repository": "FPC-effortless/TAC-OSM",
+        "pull_request": 700,
+        "commit_sha": "2209e1328e3b42db4dd48cd702a21a55ffad24af",
+        "evidence_path": "research/collect016/results"
+      },
+      "supported": [
+        "Registered source graph, local Lean definitions and finite Python reference fixtures"
+      ],
+      "limitations": [
+        "Full Lean/source/IEEE/AD correspondence OPEN",
+        "Constructed source-copy task cannot establish independent real-world intelligence",
+        "Full training FLOPs parity and architecture superiority OPEN",
+        "Trained results not yet included in this registration"
+      ],
+      "proof_obligations": [
+        "MATH-001",
+        "MATH-002",
+        "MATH-003",
+        "MATH-004",
+        "MATH-005",
+        "MATH-006",
+        "MATH-007",
+        "MATH-008",
+        "MATH-009",
+        "MATH-010",
+        "MATH-011",
+        "MATH-012",
+        "MATH-013"
+      ]
+    },
+    {
+      "id": "COLLECT016-CURRENT_ONLY",
+      "lane": "system1",
+      "version": "COLLECT016",
+      "parent_versions": [
+        "COLLECT014",
+        "COLLECT012",
+        "COLLECT011"
+      ],
+      "implementation": "Source-pinned native TAC110 with current_only phase/credit condition",
+      "state_kind": "native_recurrent_with_current_value_phase_lane",
+      "evidence_tier": "math_candidate",
+      "status": "internal_fits_submitted_formal_release_open",
+      "params": 99907,
+      "source": {
+        "repository": "FPC-effortless/TAC-OSM",
+        "pull_request": 700,
+        "commit_sha": "2209e1328e3b42db4dd48cd702a21a55ffad24af",
+        "evidence_path": "research/collect016/results"
+      },
+      "supported": [
+        "Registered source graph, local Lean definitions and finite Python reference fixtures"
+      ],
+      "limitations": [
+        "Full Lean/source/IEEE/AD correspondence OPEN",
+        "Constructed source-copy task cannot establish independent real-world intelligence",
+        "Full training FLOPs parity and architecture superiority OPEN",
+        "Trained results not yet included in this registration"
+      ],
+      "proof_obligations": [
+        "MATH-001",
+        "MATH-002",
+        "MATH-003",
+        "MATH-004",
+        "MATH-005",
+        "MATH-006",
+        "MATH-007",
+        "MATH-008",
+        "MATH-009",
+        "MATH-010",
+        "MATH-011",
+        "MATH-012",
+        "MATH-013"
+      ]
+    }
+  ],
+  "append_only_updates": [
+    {
+      "date": "2026-11-03",
+      "study": "COLLECT016",
+      "note": "Original 2026-10-24 snapshot rows and negative findings preserved; three new source-pinned conditions appended."
     }
   ]
 }
