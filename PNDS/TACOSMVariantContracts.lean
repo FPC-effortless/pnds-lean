@@ -61,6 +61,14 @@ def allIndexedVariants : List VariantLink := indexedVariants ++ collect016Varian
 theorem all_indexed_count : allIndexedVariants.length = 20 := by
   rfl
 
+/- An additional post-null control is indexed separately. Historical 17/20
+   definitions and their exact count theorems above remain unchanged. -/
+def collect017Variants : List VariantLink :=
+  [ ⟨"COLLECT017-ATTENTION", "e5813459c9337af058cdfb2d3e864c767c457053", .window⟩ ]
+def completeIndexedVariants : List VariantLink := allIndexedVariants ++ collect017Variants
+theorem complete_indexed_count : completeIndexedVariants.length = 21 := by
+  rfl
+
 /-- Translation of a base cumulative distribution, assuming a true base median. -/
 def translatedCDF (base : ℝ → ℝ) (q m y : ℝ) : ℝ :=
   base (y - m + q)

@@ -23,6 +23,6 @@ test_new_math_authority_mutation_fails (test_variant_math.VariantProvenanceGates
 test_new_reference_missing_fails (test_variant_math.VariantProvenanceGates.test_new_reference_missing_fails) ... ok
 
 ----------------------------------------------------------------------
-Ran 23 tests in 0.057s
+Ran 23 tests in 0.063s
 
 OK

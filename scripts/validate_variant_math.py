@@ -48,8 +48,9 @@ def check(base: Path = ROOT) -> dict:
                 f"{name} TAC original PR/SHA/evidence pin changed")
         require(re.fullmatch("[0-9a-f]{40}", tac["commit"]) is not None,
                 f"{name} invalid commit pin")
-        if name in {"COLLECT016-FULL_BPTT", "COLLECT016-DETACH_128", "COLLECT016-CURRENT_ONLY"}:
-            require(tac["commit"] == "2209e1328e3b42db4dd48cd702a21a55ffad24af" and
+        if name in {"COLLECT016-FULL_BPTT", "COLLECT016-DETACH_128", "COLLECT016-CURRENT_ONLY", "COLLECT017-ATTENTION"}:
+            expected_source = "e5813459c9337af058cdfb2d3e864c767c457053" if name == "COLLECT017-ATTENTION" else "2209e1328e3b42db4dd48cd702a21a55ffad24af"
+            require(tac["commit"] == expected_source and
                     pnds.get("repository") == "FPC-effortless/pnds-lean" and
                     pnds.get("pull_request") == 107 and
                     pnds.get("commit") == "090c7f8b1d7af0c8680c5856df156d3d7c181e2e",

@@ -115,9 +115,9 @@ class VariantProvenanceGates(unittest.TestCase):
 
     def test_17_original_links_and_open_gates(self):
         r = check(self.root)
-        self.assertEqual(r["indexed_variants"], 20)
+        self.assertEqual(r["indexed_variants"], 21)
         rows = json.loads((self.root / "foundation/v1/variant-math-links.json").read_text())["variants"]
-        self.assertEqual(sum(not v["id"].startswith("COLLECT016-") for v in rows), 17)
+        self.assertEqual(sum(not v["id"].startswith(("COLLECT016-", "COLLECT017-")) for v in rows), 17)
         self.assertEqual(r["complete_full_graph_proofs"], 0)
 
     def test_missing_link_fails(self):
