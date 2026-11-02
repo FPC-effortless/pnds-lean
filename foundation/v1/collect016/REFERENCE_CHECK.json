@@ -1,0 +1,37 @@
+{
+  "status": "PASS_PORTABLE_REFERENCE_CORRESPONDENCE_FIXTURES",
+  "rows": [
+    {
+      "arm": "full_bptt",
+      "dtype": "torch.float32",
+      "portable_reference_values_state_surrogate_gradients_exact": true
+    },
+    {
+      "arm": "full_bptt",
+      "dtype": "torch.float64",
+      "portable_reference_values_state_surrogate_gradients_exact": true
+    },
+    {
+      "arm": "detach_128",
+      "dtype": "torch.float32",
+      "portable_reference_values_state_surrogate_gradients_exact": true
+    },
+    {
+      "arm": "detach_128",
+      "dtype": "torch.float64",
+      "portable_reference_values_state_surrogate_gradients_exact": true
+    },
+    {
+      "arm": "current_only",
+      "dtype": "torch.float32",
+      "portable_reference_values_state_surrogate_gradients_exact": true
+    },
+    {
+      "arm": "current_only",
+      "dtype": "torch.float64",
+      "portable_reference_values_state_surrogate_gradients_exact": true
+    }
+  ],
+  "optimizer_updates": 0,
+  "full_Lean_IEEE_AD": "OPEN"
+}
