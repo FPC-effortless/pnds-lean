@@ -52,7 +52,7 @@ def check(base: Path = ROOT) -> dict:
             require(tac["commit"] == "2209e1328e3b42db4dd48cd702a21a55ffad24af" and
                     pnds.get("repository") == "FPC-effortless/pnds-lean" and
                     pnds.get("pull_request") == 107 and
-                    pnds.get("commit") == "fd948078115bd89b8685f1e2e62bbde166ceb4c4",
+                    pnds.get("commit") == "090c7f8b1d7af0c8680c5856df156d3d7c181e2e",
                     f"{name} COLLECT016 source/math authority mismatch")
             require(pnds.get("lean_path") == "PNDS/COLLECT016.lean" and
                     pnds.get("lean_symbol") == "COLLECT016.CausalSequenceGraph" and
