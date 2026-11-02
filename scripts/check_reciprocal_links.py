@@ -16,7 +16,9 @@ REMOTE = ("https://raw.githubusercontent.com/FPC-effortless/TAC-OSM/"
           "research/pnds-variant-math-links.json")
 
 
-PIN = LOCAL.parents[2] / "foundation/langcap103/TAC_PIN.json"
+LANGSCALE_PIN = LOCAL.parents[2] / "foundation/langscale001/TAC_PIN.json"
+PIN = (LANGSCALE_PIN if LANGSCALE_PIN.exists() else
+       LOCAL.parents[2] / "foundation/langcap103/TAC_PIN.json")
 if PIN.exists():
     pin = json.loads(PIN.read_text())
     if pin.get("repository") != "FPC-effortless/TAC-OSM" or not re.fullmatch("[0-9a-f]{40}", pin.get("commit", "")):

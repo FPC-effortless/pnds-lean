@@ -1,0 +1,45 @@
+name: LANGSCALE001 typed memory-allocation specializations (NO FIT)
+on:
+  pull_request:
+    paths:
+      - 'PNDS/LANGSCALE001.lean'
+      - 'foundation/langscale001/**'
+      - '.github/workflows/langscale001.yml'
+permissions:
+  contents: read
+jobs:
+  typed-specializations:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Check local source pins and syntax
+        run: |
+          python foundation/langscale001/validate.py
+          python -m py_compile foundation/langscale001/reference.py
+      - name: Install the existing pinned Lean toolchain
+        run: |
+          curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Resolve pinned Mathlib cache and compile the complete generic graph
+        run: |
+          lake update
+          lake exe cache get
+          lake build PNDS.LANGCAP103
+      - name: Elaborate specialized full graphs and inspect four count-theorem axiom sets
+        run: |
+          set -o pipefail
+          lake env lean PNDS/LANGSCALE001.lean 2>&1 | tee langscale001-lean.log
+          if grep -E 'sorryAx|declaration uses .sorry.' langscale001-lean.log; then exit 1; fi
+          test "$(grep -c 'depends on axioms\|does not depend on any axioms' langscale001-lean.log)" -eq 4
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: LANGSCALE001-Lean-specialization-and-axiom-evidence
+          path: |
+            langscale001-lean.log
+            foundation/langscale001/SOURCE_MAP.json
+          if-no-files-found: error
+          retention-days: 90
