@@ -524,7 +524,7 @@
       "parent_versions": [
         "ESWAM-ESWAM013"
       ],
-      "implementation": "quadratic smooth low-speed residual relevance gate gamma(v)=v²/(v²+0.25)",
+      "implementation": "quadratic smooth low-speed residual relevance gate gamma(v)=v\u00b2/(v\u00b2+0.25)",
       "state_kind": "window_fed_entity_memory",
       "evidence_tier": "trained_exposed_dev",
       "status": "low_speed_gate_failed",
@@ -577,6 +577,198 @@
         "MATH-008",
         "MATH-012"
       ]
+    },
+    {
+      "id": "COLLECT016-FULL_BPTT",
+      "lane": "system1",
+      "version": "COLLECT016",
+      "parent_versions": [
+        "COLLECT014",
+        "COLLECT012",
+        "COLLECT011"
+      ],
+      "implementation": "Source-pinned native TAC110 with full_bptt phase/credit condition",
+      "state_kind": "native_recurrent_with_preconditioned_phase_memory",
+      "evidence_tier": "math_candidate",
+      "status": "internal_fits_submitted_formal_release_open",
+      "params": 99971,
+      "source": {
+        "repository": "FPC-effortless/TAC-OSM",
+        "pull_request": 700,
+        "commit_sha": "2209e1328e3b42db4dd48cd702a21a55ffad24af",
+        "evidence_path": "research/collect016/results"
+      },
+      "supported": [
+        "Registered source graph, local Lean definitions and finite Python reference fixtures"
+      ],
+      "limitations": [
+        "Full Lean/source/IEEE/AD correspondence OPEN",
+        "Constructed source-copy task cannot establish independent real-world intelligence",
+        "Full training FLOPs parity and architecture superiority OPEN",
+        "Trained results not yet included in this registration"
+      ],
+      "proof_obligations": [
+        "MATH-001",
+        "MATH-002",
+        "MATH-003",
+        "MATH-004",
+        "MATH-005",
+        "MATH-006",
+        "MATH-007",
+        "MATH-008",
+        "MATH-009",
+        "MATH-010",
+        "MATH-011",
+        "MATH-012",
+        "MATH-013"
+      ]
+    },
+    {
+      "id": "COLLECT016-DETACH_128",
+      "lane": "system1",
+      "version": "COLLECT016",
+      "parent_versions": [
+        "COLLECT014",
+        "COLLECT012",
+        "COLLECT011"
+      ],
+      "implementation": "Source-pinned native TAC110 with detach_128 phase/credit condition",
+      "state_kind": "native_recurrent_with_preconditioned_phase_memory",
+      "evidence_tier": "math_candidate",
+      "status": "internal_fits_submitted_formal_release_open",
+      "params": 99971,
+      "source": {
+        "repository": "FPC-effortless/TAC-OSM",
+        "pull_request": 700,
+        "commit_sha": "2209e1328e3b42db4dd48cd702a21a55ffad24af",
+        "evidence_path": "research/collect016/results"
+      },
+      "supported": [
+        "Registered source graph, local Lean definitions and finite Python reference fixtures"
+      ],
+      "limitations": [
+        "Full Lean/source/IEEE/AD correspondence OPEN",
+        "Constructed source-copy task cannot establish independent real-world intelligence",
+        "Full training FLOPs parity and architecture superiority OPEN",
+        "Trained results not yet included in this registration"
+      ],
+      "proof_obligations": [
+        "MATH-001",
+        "MATH-002",
+        "MATH-003",
+        "MATH-004",
+        "MATH-005",
+        "MATH-006",
+        "MATH-007",
+        "MATH-008",
+        "MATH-009",
+        "MATH-010",
+        "MATH-011",
+        "MATH-012",
+        "MATH-013"
+      ]
+    },
+    {
+      "id": "COLLECT016-CURRENT_ONLY",
+      "lane": "system1",
+      "version": "COLLECT016",
+      "parent_versions": [
+        "COLLECT014",
+        "COLLECT012",
+        "COLLECT011"
+      ],
+      "implementation": "Source-pinned native TAC110 with current_only phase/credit condition",
+      "state_kind": "native_recurrent_with_current_value_phase_lane",
+      "evidence_tier": "math_candidate",
+      "status": "internal_fits_submitted_formal_release_open",
+      "params": 99907,
+      "source": {
+        "repository": "FPC-effortless/TAC-OSM",
+        "pull_request": 700,
+        "commit_sha": "2209e1328e3b42db4dd48cd702a21a55ffad24af",
+        "evidence_path": "research/collect016/results"
+      },
+      "supported": [
+        "Registered source graph, local Lean definitions and finite Python reference fixtures"
+      ],
+      "limitations": [
+        "Full Lean/source/IEEE/AD correspondence OPEN",
+        "Constructed source-copy task cannot establish independent real-world intelligence",
+        "Full training FLOPs parity and architecture superiority OPEN",
+        "Trained results not yet included in this registration"
+      ],
+      "proof_obligations": [
+        "MATH-001",
+        "MATH-002",
+        "MATH-003",
+        "MATH-004",
+        "MATH-005",
+        "MATH-006",
+        "MATH-007",
+        "MATH-008",
+        "MATH-009",
+        "MATH-010",
+        "MATH-011",
+        "MATH-012",
+        "MATH-013"
+      ]
+    },
+    {
+      "id": "COLLECT017-ATTENTION",
+      "lane": "system1",
+      "version": "COLLECT017",
+      "parent_versions": [
+        "COLLECT016",
+        "COLLECT012-ATTENTION",
+        "COLLECT011-ATTENTION"
+      ],
+      "implementation": "Native causal TAC attention with a complete-prefix1536 KV bound; no phase lane",
+      "state_kind": "native_causal_attention_KV_with_other_states",
+      "evidence_tier": "math_candidate",
+      "status": "post_null_control_registered_before_full_fits",
+      "params": 99875,
+      "source": {
+        "repository": "FPC-effortless/TAC-OSM",
+        "pull_request": 701,
+        "commit_sha": "e5813459c9337af058cdfb2d3e864c767c457053",
+        "evidence_path": "research/collect017/results"
+      },
+      "supported": [
+        "Actual-source FP32/FP64 forward/state/gradient and connected-credit fixtures pass"
+      ],
+      "limitations": [
+        "Post-null addition; not original primary comparison",
+        "Native TAC attention is not a pure Transformer",
+        "Full FLOPs parity and convergence OPEN",
+        "Full Lean/source/IEEE/AD release OPEN"
+      ],
+      "proof_obligations": [
+        "MATH-001",
+        "MATH-002",
+        "MATH-003",
+        "MATH-004",
+        "MATH-005",
+        "MATH-006",
+        "MATH-007",
+        "MATH-008",
+        "MATH-009",
+        "MATH-010",
+        "MATH-011",
+        "MATH-012",
+        "MATH-013"
+      ]
+    }
+  ],
+  "append_only_updates": [
+    {
+      "date": "2026-11-03",
+      "study": "COLLECT016",
+      "note": "Original 2026-10-24 snapshot rows and negative findings preserved; three new source-pinned conditions appended."
+    },
+    {
+      "date": "2026-11-03",
+      "study": "COLLECT017",
+      "note": "One native-attention learnability comparator, registered before its own full fits; original17 plus COLLECT016 retained."
     }
   ]
 }

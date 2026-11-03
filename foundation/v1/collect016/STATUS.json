@@ -1,0 +1,18 @@
+{
+  "study": "COLLECT016",
+  "lean_definitions": "mathematics/CarriedCredit.lean",
+  "python_reference": "collect016/reference.py",
+  "lean_compilation": "OPEN_NOT_EXECUTED",
+  "full_lean_source_equivalence": "OPEN",
+  "IEEE_bounds": "OPEN",
+  "full_AD_proof": "OPEN",
+  "straight_through": "declared surrogate, not ordinary argmax derivative",
+  "source_lineage": "bb454b06d3845fbf021d2e90a171c827ce682083; new source hash map pinned before optimizer",
+  "qualification": false,
+  "tac_source_commit": "2209e1328e3b42db4dd48cd702a21a55ffad24af",
+  "tac_source_reference_sha256": "8b70809de412eb5e6ac69835a0f7d5cc0d10fb4bf0c5dae60f612c6ee93fa5b5",
+  "portable_reference_sha256": "5bc6731137458883ed2896b00c54a1980cdab1e78a98cfc9d93ea2199a8a2287",
+  "portable_import_difference": "Only relative common import changed to absolute collect016.common; all equation text otherwise identical",
+  "lean_path": "PNDS/COLLECT016.lean",
+  "python_path": "foundation/v1/collect016/reference.py"
+}

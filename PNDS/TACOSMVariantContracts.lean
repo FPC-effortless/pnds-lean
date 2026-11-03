@@ -46,6 +46,29 @@ def indexedVariants : List VariantLink :=
 theorem indexed_count : indexedVariants.length = 17 := by
   rfl
 
+/- Additive source index. The original 17-entry definition and theorem above
+   remain unchanged. These links do not identify the normalized write with the
+   shared plain-delta theorem; exact new equations live in the Python reference,
+   with full formal source equivalence deliberately OPEN. -/
+def collect016Variants : List VariantLink :=
+  [ ⟨"COLLECT016-FULL_BPTT", "2209e1328e3b42db4dd48cd702a21a55ffad24af", .delta⟩
+  , ⟨"COLLECT016-DETACH_128", "2209e1328e3b42db4dd48cd702a21a55ffad24af", .delta⟩
+  , ⟨"COLLECT016-CURRENT_ONLY", "2209e1328e3b42db4dd48cd702a21a55ffad24af", .gated⟩
+  ]
+
+def allIndexedVariants : List VariantLink := indexedVariants ++ collect016Variants
+
+theorem all_indexed_count : allIndexedVariants.length = 20 := by
+  rfl
+
+/- An additional post-null control is indexed separately. Historical 17/20
+   definitions and their exact count theorems above remain unchanged. -/
+def collect017Variants : List VariantLink :=
+  [ ⟨"COLLECT017-ATTENTION", "e5813459c9337af058cdfb2d3e864c767c457053", .window⟩ ]
+def completeIndexedVariants : List VariantLink := allIndexedVariants ++ collect017Variants
+theorem complete_indexed_count : completeIndexedVariants.length = 21 := by
+  rfl
+
 /-- Translation of a base cumulative distribution, assuming a true base median. -/
 def translatedCDF (base : ℝ → ℝ) (q m y : ℝ) : ℝ :=
   base (y - m + q)

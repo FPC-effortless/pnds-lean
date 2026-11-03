@@ -16,7 +16,11 @@ jobs:
         run: |
           python3 scripts/validate_foundation.py --strict
           python3 scripts/validate_variant_math.py
-          python3 scripts/check_reciprocal_links.py
+          if [ "$GITHUB_EVENT_NAME" = "pull_request" ] && [ -f foundation/v1/collect016/PEER_PIN.json ]; then
+            python3 scripts/check_reciprocal_links.py --peer-pin foundation/v1/collect016/PEER_PIN.json
+          else
+            python3 scripts/check_reciprocal_links.py
+          fi
           python3 -m unittest discover -s tests -p 'test_foundation.py' -v
           python3 -m unittest discover -s tests -p 'test_variant_math.py' -v
 
@@ -42,7 +46,7 @@ jobs:
           # `lake build ... | tee` would mask lake's exit code behind tee's, which
           # has already produced a false-green run on this repo. Use PIPESTATUS.
           set -o pipefail
-          lake build 'PNDS' 'Audit' 2>&1 | tee build.log
+          lake build 'PNDS' 'Audit' 'PNDS.COLLECT016' 2>&1 | tee build.log
           echo "lake build exit code: ${PIPESTATUS[0]}"
           exit ${PIPESTATUS[0]}
 
@@ -52,7 +56,7 @@ jobs:
           # Counting .olean files is not sufficient: a single successfully-built
           # module (e.g. PNDS.Causal) already produces one, so a tree with five
           # broken modules passed this check. Require every root to be present.
-          for root in PNDS/TACOSMVariantContracts PNDS/UnifiedTACOSM PNDS/Causal PNDS/PathVerification PNDS/Registration \
+          for root in PNDS/COLLECT016 PNDS/TACOSMVariantContracts PNDS/UnifiedTACOSM PNDS/Causal PNDS/PathVerification PNDS/Registration \
                       PNDS/Scaling PNDS/Statistics PNDS/Softmax Audit; do
             if [ ! -f ".lake/build/lib/${root}.olean" ]; then
               echo "::error::Missing .olean for ${root}; that module did not compile"
