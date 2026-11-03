@@ -1,0 +1,7 @@
+{
+  "tac_source_commit": "7b637554765267b81e41ee38fe9f060767d2a19d",
+  "tac_path": "research/binding_diagnosis_20261103/repaired_reference.py",
+  "python_sha256": "c0d568ee040eb3239086c2d550a0090fb0d821b7e8bcc8147e726a99ef11e568",
+  "mathematical_base_commit": "4f0ea7f3116f752542f1df12a20bde0a5bbe91be",
+  "scope": "Supplemental whole-forward equations for the two adjoint-repaired variants, independent of candidate model/block/write calls. Finite FP32/FP64 source/state/loss/gradient audit is separately versioned in TAC source. Whole-model Lean/IEEE/AD proof remains OPEN. No new fit."
+}

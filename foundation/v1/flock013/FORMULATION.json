@@ -1,0 +1,31 @@
+{
+  "schema": "flock013.partial-adjoint-formulation.v1",
+  "variants": [
+    "FLOCK013-PHASE-ADJOINT",
+    "FLOCK013-CONTEXT-ADJOINT"
+  ],
+  "tac_source_commit": "41af8c423eceeb2bb4f1d95ae391ee807779f603",
+  "tac_pull_request": 705,
+  "tac_code_paths": [
+    "research/binding_diagnosis_20261103/write_repair.py",
+    "research/binding_diagnosis_20261103/model_repair.py"
+  ],
+  "inherited_graph_source": "c4666aed949e408a58dd9b1b99f825da415feb3f",
+  "inherited_lean_formulation": {
+    "commit": "c15d2ee51991b97bcc887461f85ed89a2fac5e00",
+    "path": "PNDS/COLLECT018.lean",
+    "scope": "partial typed graph only"
+  },
+  "lean_path": "PNDS/FLOCK013.lean",
+  "python_path": "foundation/v1/flock013/adjoint_reference.py",
+  "formulation_scope": "Exact-real affine gain increment plus declared straight-through surrogate adjoint; scalar-coordinate Python equations. No derivative of hard argmax.",
+  "full_model_Lean_IEEE_AD_correspondence": "OPEN",
+  "trained_repair_results": "NOT_RUN",
+  "independent_qualification": false,
+  "source_sha256": {
+    "write_repair.py": "46afc6b25e93072c0e5fe6707cb15c81828554733d297da578188d94b9077c67",
+    "model_repair.py": "ec2040e75b42408b40d677a79b0ff2cb28521aa29da4f22bf9de8c03e7887dbe",
+    "FLOCK013.lean": "5160457d4df3bf918331d6fbeb9ad9df983f62abfe4e8e537af02a20215ba911",
+    "adjoint_reference.py": "d9fc9231ca53d3b472021688f3b93d48546499f51934277c9af4cfe335d55dd9"
+  }
+}

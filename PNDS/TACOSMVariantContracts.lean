@@ -81,6 +81,15 @@ def acquisitionIndexedVariants : List VariantLink := completeIndexedVariants ++ 
 theorem acquisition_indexed_count : acquisitionIndexedVariants.length = 27 := by
   rfl
 
+/- FLOCK013 adds only an adjoint repair; all older count theorems are retained.
+   The delta tag is an index, not identification with the shared delta theorem. -/
+def flock013Variants : List VariantLink :=
+  [ ⟨"FLOCK013-PHASE-ADJOINT", "41af8c423eceeb2bb4f1d95ae391ee807779f603", .delta⟩
+  , ⟨"FLOCK013-CONTEXT-ADJOINT", "41af8c423eceeb2bb4f1d95ae391ee807779f603", .delta⟩ ]
+def adjointIndexedVariants : List VariantLink := acquisitionIndexedVariants ++ flock013Variants
+theorem adjoint_indexed_count : adjointIndexedVariants.length = 29 := by
+  rfl
+
 /-- Translation of a base cumulative distribution, assuming a true base median. -/
 def translatedCDF (base : ℝ → ℝ) (q m y : ℝ) : ℝ :=
   base (y - m + q)

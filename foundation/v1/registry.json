@@ -524,7 +524,7 @@
       "parent_versions": [
         "ESWAM-ESWAM013"
       ],
-      "implementation": "quadratic smooth low-speed residual relevance gate gamma(v)=v\u00b2/(v\u00b2+0.25)",
+      "implementation": "quadratic smooth low-speed residual relevance gate gamma(v)=v²/(v²+0.25)",
       "state_kind": "window_fed_entity_memory",
       "evidence_tier": "trained_exposed_dev",
       "status": "low_speed_gate_failed",
@@ -1005,6 +1005,94 @@
         "Full graph/source/IEEE/AD mathematical completion OPEN",
         "Constructed copy mechanism is not authentic-world factual retrieval",
         "Independent qualification and superiority are not claimed"
+      ],
+      "proof_obligations": [
+        "MATH-001",
+        "MATH-002",
+        "MATH-003",
+        "MATH-004",
+        "MATH-005",
+        "MATH-006",
+        "MATH-007",
+        "MATH-008",
+        "MATH-009",
+        "MATH-010",
+        "MATH-011",
+        "MATH-012",
+        "MATH-013"
+      ]
+    },
+    {
+      "id": "FLOCK013-PHASE-ADJOINT",
+      "lane": "system1",
+      "version": "FLOCK013",
+      "parent_versions": [
+        "COLLECT018"
+      ],
+      "implementation": "phase forward graph with repaired zero-gain candidate adjoint",
+      "state_kind": "native_and_phase",
+      "evidence_tier": "no_fit_audit",
+      "status": "READ_ONLY_SOURCE_REPAIR_VERIFIED_NO_FIT",
+      "params": 99971,
+      "source": {
+        "repository": "FPC-effortless/TAC-OSM",
+        "pull_request": 705,
+        "commit_sha": "41af8c423eceeb2bb4f1d95ae391ee807779f603",
+        "evidence_path": "research/binding_diagnosis_20261103/output"
+      },
+      "supported": [
+        "Frozen-checkpoint no-fit diagnostic 41628953759: 13 kernel regression checks pass; the two repaired variants preserve first-answer forward logits bitwise, and router gradients change.",
+        "No new optimizer or fitted repaired checkpoint."
+      ],
+      "limitations": [
+        "Whole-model Lean/source/IEEE/AD completion remains OPEN.",
+        "Scalar operator lemmas and finite tests do not prove the full model.",
+        "Current weights still produce the same failed answers; learned recall improvement has not been established.",
+        "Earlier 15 trained FP32 and 20 sensitivity diagnostic failures remain preserved."
+      ],
+      "proof_obligations": [
+        "MATH-001",
+        "MATH-002",
+        "MATH-003",
+        "MATH-004",
+        "MATH-005",
+        "MATH-006",
+        "MATH-007",
+        "MATH-008",
+        "MATH-009",
+        "MATH-010",
+        "MATH-011",
+        "MATH-012",
+        "MATH-013"
+      ]
+    },
+    {
+      "id": "FLOCK013-CONTEXT-ADJOINT",
+      "lane": "system1",
+      "version": "FLOCK013",
+      "parent_versions": [
+        "COLLECT018"
+      ],
+      "implementation": "context forward graph with repaired zero-gain candidate adjoint",
+      "state_kind": "context_address_native_and_phase",
+      "evidence_tier": "no_fit_audit",
+      "status": "READ_ONLY_SOURCE_REPAIR_VERIFIED_NO_FIT",
+      "params": 99971,
+      "source": {
+        "repository": "FPC-effortless/TAC-OSM",
+        "pull_request": 705,
+        "commit_sha": "41af8c423eceeb2bb4f1d95ae391ee807779f603",
+        "evidence_path": "research/binding_diagnosis_20261103/output"
+      },
+      "supported": [
+        "Frozen-checkpoint no-fit diagnostic 41628953759: 13 kernel regression checks pass; the two repaired variants preserve first-answer forward logits bitwise, and router gradients change.",
+        "No new optimizer or fitted repaired checkpoint."
+      ],
+      "limitations": [
+        "Whole-model Lean/source/IEEE/AD completion remains OPEN.",
+        "Scalar operator lemmas and finite tests do not prove the full model.",
+        "Current weights still produce the same failed answers; learned recall improvement has not been established.",
+        "Earlier 15 trained FP32 and 20 sensitivity diagnostic failures remain preserved."
       ],
       "proof_obligations": [
         "MATH-001",

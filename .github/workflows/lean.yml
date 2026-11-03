@@ -16,7 +16,9 @@ jobs:
         run: |
           python3 scripts/validate_foundation.py --strict
           python3 scripts/validate_variant_math.py
-          if [ "$GITHUB_EVENT_NAME" = "pull_request" ] && [ -f foundation/v1/collect018/PEER_PIN.json ]; then
+          if [ "$GITHUB_EVENT_NAME" = "pull_request" ] && [ -f foundation/v1/flock013/PEER_PIN.json ]; then
+            python3 scripts/check_reciprocal_links.py --peer-pin foundation/v1/flock013/PEER_PIN.json
+          elif [ "$GITHUB_EVENT_NAME" = "pull_request" ] && [ -f foundation/v1/collect018/PEER_PIN.json ]; then
             python3 scripts/check_reciprocal_links.py --peer-pin foundation/v1/collect018/PEER_PIN.json
           elif [ "$GITHUB_EVENT_NAME" = "pull_request" ] && [ -f foundation/v1/collect016/PEER_PIN.json ]; then
             python3 scripts/check_reciprocal_links.py --peer-pin foundation/v1/collect016/PEER_PIN.json
@@ -26,6 +28,8 @@ jobs:
           python3 -m unittest discover -s tests -p 'test_foundation.py' -v
           python3 -m unittest discover -s tests -p 'test_variant_math.py' -v
           python3 -m unittest discover -s tests -p 'test_collect018_axioms.py' -v
+          python3 foundation/v1/flock013/adjoint_reference.py
+          python3 scripts/check_flock013_axioms.py --self-test
 
       - name: Install elan
         run: |
@@ -49,7 +53,7 @@ jobs:
           # `lake build ... | tee` would mask lake's exit code behind tee's, which
           # has already produced a false-green run on this repo. Use PIPESTATUS.
           set -o pipefail
-          lake build 'PNDS' 'Audit' 'PNDS.COLLECT016' 'PNDS.COLLECT018' 2>&1 | tee build.log
+          lake build 'PNDS' 'Audit' 'PNDS.COLLECT016' 'PNDS.COLLECT018' 'PNDS.FLOCK013' 2>&1 | tee build.log
           echo "lake build exit code: ${PIPESTATUS[0]}"
           exit ${PIPESTATUS[0]}
 
@@ -59,7 +63,7 @@ jobs:
           # Counting .olean files is not sufficient: a single successfully-built
           # module (e.g. PNDS.Causal) already produces one, so a tree with five
           # broken modules passed this check. Require every root to be present.
-          for root in PNDS/COLLECT018 PNDS/COLLECT016 PNDS/TACOSMVariantContracts PNDS/UnifiedTACOSM PNDS/Causal PNDS/PathVerification PNDS/Registration \
+          for root in PNDS/FLOCK013 PNDS/COLLECT018 PNDS/COLLECT016 PNDS/TACOSMVariantContracts PNDS/UnifiedTACOSM PNDS/Causal PNDS/PathVerification PNDS/Registration \
                       PNDS/Scaling PNDS/Statistics PNDS/Softmax Audit; do
             if [ ! -f ".lake/build/lib/${root}.olean" ]; then
               echo "::error::Missing .olean for ${root}; that module did not compile"
@@ -90,6 +94,12 @@ jobs:
           set -euo pipefail
           lake env lean AuditCOLLECT018.lean 2>&1 | tee collect018-axioms.log
           python3 scripts/check_collect018_axioms.py collect018-axioms.log
+
+      - name: Audit FLOCK013 limited operator theorem axioms
+        run: |
+          set -euo pipefail
+          lake env lean AuditFLOCK013.lean 2>&1 | tee flock013-axioms.log
+          python3 scripts/check_flock013_axioms.py flock013-axioms.log
 
       - name: Print axioms
         run: |
