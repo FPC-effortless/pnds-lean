@@ -1,3 +1,4 @@
+import PNDS.TACOCR004Lifecycle
 import Mathlib
 
 import PNDS.Softmax
@@ -27,3 +28,4 @@ explicit specification gap, and §24 is theorem-candidates only.
 
 /-! Foundation v1 is versioned separately from the original v0.2 document. -/
 def unifiedFoundationVersion : String := "1.0.0"
+

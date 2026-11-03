@@ -32,7 +32,9 @@ def require(condition, message):
 
 def fetch_bytes(url):
     with urllib.request.urlopen(url, timeout=30) as response:
-        return response.read()
+        raw = response.read(8 * 1024 * 1024 + 1)
+    require(len(raw) <= 8 * 1024 * 1024, "immutable peer response exceeds bound")
+    return raw
 
 
 def _digest(raw):
@@ -114,7 +116,26 @@ def verify_candidate(base, row, read_remote):
             "whole_model_source_equivalence_established": False}
 
 
+
+def verify_ocr004(base, read_remote):
+    """Run the separate strict contract; a pass cannot waive legacy gates."""
+    import importlib.util
+
+    contract_root = Path(base) / "foundation/tac_ocr004"
+    pin = json.loads((contract_root / "IMMUTABLE_PEER_PIN.json").read_text())
+    spec = importlib.util.spec_from_file_location(
+        "ocr004_native_peer_contract", contract_root / "verify_immutable_peer.py")
+    contract = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(contract)
+    result = contract.verify_immutable_peer(base, "pnds", pin, read_remote)
+    # This is an intermediate scoped receipt. Overall success is emitted only
+    # after every original legacy and non-OCR004 check below still succeeds.
+    print(json.dumps({"ocr004_scoped_byte_correspondence": result,
+                      "overall_canonical_gate_established": False}, sort_keys=True))
+    return result
+
 def verify(base=ROOT, read_remote=fetch_bytes):
+    ocr004 = verify_ocr004(base, read_remote)
     local = json.loads((base/LEGACY_PATH).read_text(encoding="utf-8"))
     remote = json.loads(read_remote(REMOTE))
     local_legacy, remote_legacy = dict(local), dict(remote)
@@ -125,7 +146,12 @@ def verify(base=ROOT, read_remote=fetch_bytes):
     ids = [x.get("id") for x in candidates if isinstance(x, dict)]
     require(len(ids) == len(candidates) and len(ids) == len(set(ids)),
             "candidate IDs missing or duplicated")
-    verified = [verify_candidate(base, row, read_remote) for row in candidates]
+    # OCR004 rows were checked as one exact frozen set by the dedicated
+    # contract above. Every other row retains its original verifier.
+    ocr004_ids = {"TAC-OCR-004-TAC", "TAC-OCR-004-TRANSFORMER", "TAC-OCR-004-GRU"}
+    verified = [verify_candidate(base, row, read_remote) for row in candidates
+                if row["id"] not in ocr004_ids]
+    verified.append({"ocr004_scoped_byte_correspondence": ocr004})
     result = {"legacy_manifest_equal": True,
               "cross_repository_linked_legacy_variants": len(local_legacy["variants"]),
               "prospective_candidates": verified,
