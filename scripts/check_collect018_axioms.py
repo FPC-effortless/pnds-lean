@@ -1,7 +1,7 @@
 """Strict scoped audit; exact expected foundational sets, never a full graph proof."""
 import json,re,sys
 from pathlib import Path
-EXPECTED={'COLLECT018.value_path_independent':set(),
+EXPECTED={'COLLECT018.value_path_independent':{'propext','Classical.choice','Quot.sound'},
           'COLLECT018.first_loss_increment':{'propext','Classical.choice','Quot.sound'},
           'COLLECT018.first_loss_not_smaller':{'propext','Classical.choice','Quot.sound'}}
 def check(text):
