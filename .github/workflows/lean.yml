@@ -23,6 +23,7 @@ jobs:
           python3 -m unittest foundation.langcache104.test_reciprocal_candidate -v
           python3 -m unittest foundation.tac_ocr001.test_math_reference -v
           python3 -m unittest foundation.tac_ocr001.test_reciprocal_candidate -v
+          python3 -m unittest foundation.tac_ocr004.test_immutable_peer foundation.tac_ocr004.test_dispatch -v
 
       - name: Install elan
         run: |
