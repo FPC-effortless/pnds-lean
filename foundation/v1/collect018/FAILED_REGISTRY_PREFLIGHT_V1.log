@@ -1,0 +1,46 @@
+test_cannot_drop_research_lane (test_foundation.FoundationContractTests.test_cannot_drop_research_lane) ... ok
+test_current_versioned_research_validates (test_foundation.FoundationContractTests.test_current_versioned_research_validates) ... ok
+test_every_source_version_must_have_commit_pin (test_foundation.FoundationContractTests.test_every_source_version_must_have_commit_pin) ... ok
+test_failure_evidence_cannot_be_edited_into_success (test_foundation.FoundationContractTests.test_failure_evidence_cannot_be_edited_into_success) ... ok
+test_historical_gaps_cannot_be_silently_erased (test_foundation.FoundationContractTests.test_historical_gaps_cannot_be_silently_erased) ... ok
+test_math_proved_label_requires_actual_theorem_mapping (test_foundation.FoundationContractTests.test_math_proved_label_requires_actual_theorem_mapping) ... ok
+test_original_375_PR_provenance_cannot_be_truncated (test_foundation.FoundationContractTests.test_original_375_PR_provenance_cannot_be_truncated) ... ok
+test_synthetic_promotion_cannot_be_declared_real (test_foundation.FoundationContractTests.test_synthetic_promotion_cannot_be_declared_real) ... ok
+test_training_budget_preserves_actual_parity_not_cpu_runtime (test_foundation.FoundationContractTests.test_training_budget_preserves_actual_parity_not_cpu_runtime) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.043s
+
+OK
+test_affine_compose_matches_serial_and_associative (test_variant_math.MathematicalKernels.test_affine_compose_matches_serial_and_associative) ... ok
+test_delta_projection (test_variant_math.MathematicalKernels.test_delta_projection) ... ok
+test_eor_mass_and_median_assumptions (test_variant_math.MathematicalKernels.test_eor_mass_and_median_assumptions) ... ok
+test_gate_interval_error_identity (test_variant_math.MathematicalKernels.test_gate_interval_error_identity) ... ok
+test_remaining_interfaces_are_limited_not_causal_proofs (test_variant_math.MathematicalKernels.test_remaining_interfaces_are_limited_not_causal_proofs) ... ok
+test_temporal_actor_window_and_motion (test_variant_math.MathematicalKernels.test_temporal_actor_window_and_motion) ... ok
+test_17_original_links_and_open_gates (test_variant_math.VariantProvenanceGates.test_17_original_links_and_open_gates) ... ERROR
+test_commit_mutation_fails (test_variant_math.VariantProvenanceGates.test_commit_mutation_fails) ... ok
+test_false_mathematical_completion_fails (test_variant_math.VariantProvenanceGates.test_false_mathematical_completion_fails) ... ok
+test_math_kernel_link_mutation_fails (test_variant_math.VariantProvenanceGates.test_math_kernel_link_mutation_fails) ... ok
+test_missing_link_fails (test_variant_math.VariantProvenanceGates.test_missing_link_fails) ... ok
+test_missing_python_reference_fails (test_variant_math.VariantProvenanceGates.test_missing_python_reference_fails) ... ok
+test_new_math_authority_mutation_fails (test_variant_math.VariantProvenanceGates.test_new_math_authority_mutation_fails) ... ok
+test_new_reference_missing_fails (test_variant_math.VariantProvenanceGates.test_new_reference_missing_fails) ... ok
+
+======================================================================
+ERROR: test_17_original_links_and_open_gates (test_variant_math.VariantProvenanceGates.test_17_original_links_and_open_gates)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dd0d3071414b/pnds_collect018_work/tests/test_variant_math.py", line 117, in test_17_original_links_and_open_gates
+    r = check(self.root)
+        ^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/dd0d3071414b/pnds_collect018_work/scripts/validate_variant_math.py", line 64, in check
+    require(pnds.get("repository") == "FPC-effortless/pnds-lean" and
+  File "/workspace/scratch/dd0d3071414b/pnds_collect018_work/scripts/validate_variant_math.py", line 19, in require
+    raise VariantMathError(message)
+validate_variant_math.VariantMathError: COLLECT018-PHASE_JOINT mathematical authority missing
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.024s
+
+FAILED (errors=1)

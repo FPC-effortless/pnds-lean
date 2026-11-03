@@ -48,7 +48,14 @@ def check(base: Path = ROOT) -> dict:
                 f"{name} TAC original PR/SHA/evidence pin changed")
         require(re.fullmatch("[0-9a-f]{40}", tac["commit"]) is not None,
                 f"{name} invalid commit pin")
-        if name in {"COLLECT016-FULL_BPTT", "COLLECT016-DETACH_128", "COLLECT016-CURRENT_ONLY", "COLLECT017-ATTENTION"}:
+        if name in {'COLLECT018-PHASE_JOINT', 'COLLECT018-PHASE_FIRST', 'COLLECT018-CONTEXT_JOINT', 'COLLECT018-CONTEXT_FIRST', 'COLLECT018-GRU_JOINT', 'COLLECT018-GRU_FIRST'}:
+            require(tac['commit'] == '7b9af0d5dccc1f52c5055db850f8f8c28c3ae70c' and pnds.get('repository') == 'FPC-effortless/pnds-lean' and
+                    pnds.get('pull_request') == 109 and pnds.get('commit') == 'c15d2ee51991b97bcc887461f85ed89a2fac5e00',
+                    f'{name} COLLECT018 source/math authority mismatch')
+            require(pnds.get('lean_path') == 'PNDS/COLLECT018.lean' and pnds.get('lean_symbol') == 'COLLECT018.TypedSequenceGraph' and
+                    pnds.get('python_path') == 'foundation/v1/collect018/reference.py' and pnds.get('python_symbol') == 'whole_reference',
+                    f'{name} missing source-specific C18 formulations')
+        elif name in {"COLLECT016-FULL_BPTT", "COLLECT016-DETACH_128", "COLLECT016-CURRENT_ONLY", "COLLECT017-ATTENTION"}:
             expected_source = "e5813459c9337af058cdfb2d3e864c767c457053" if name == "COLLECT017-ATTENTION" else "2209e1328e3b42db4dd48cd702a21a55ffad24af"
             require(tac["commit"] == expected_source and
                     pnds.get("repository") == "FPC-effortless/pnds-lean" and
