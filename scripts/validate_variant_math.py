@@ -55,6 +55,13 @@ def check(base: Path = ROOT) -> dict:
             require(pnds.get('lean_path') == 'PNDS/COLLECT018.lean' and pnds.get('lean_symbol') == 'COLLECT018.TypedSequenceGraph' and
                     pnds.get('python_path') == 'foundation/v1/collect018/reference.py' and pnds.get('python_symbol') == 'whole_reference',
                     f'{name} missing source-specific C18 formulations')
+        elif name in {"FLOCK013-PHASE-ADJOINT", "FLOCK013-CONTEXT-ADJOINT"}:
+            require(tac["commit"] == "41af8c423eceeb2bb4f1d95ae391ee807779f603" and tac.get("pull_request") == 705 and
+                    pnds.get("repository") == "FPC-effortless/pnds-lean" and pnds.get("pull_request") == 111 and
+                    pnds.get("commit") == "4f0ea7f3116f752542f1df12a20bde0a5bbe91be", f"{name} source/adjoint authority mismatch")
+            require(pnds.get("lean_path") == "PNDS/FLOCK013.lean" and pnds.get("lean_symbol") == "FLOCK013.candidate" and
+                    pnds.get("python_path") == "foundation/v1/flock013/adjoint_reference.py" and
+                    pnds.get("python_symbol") == "memory_gain_adjoint", f"{name} missing partial adjoint formulations")
         elif name in {"COLLECT016-FULL_BPTT", "COLLECT016-DETACH_128", "COLLECT016-CURRENT_ONLY", "COLLECT017-ATTENTION"}:
             expected_source = "e5813459c9337af058cdfb2d3e864c767c457053" if name == "COLLECT017-ATTENTION" else "2209e1328e3b42db4dd48cd702a21a55ffad24af"
             require(tac["commit"] == expected_source and

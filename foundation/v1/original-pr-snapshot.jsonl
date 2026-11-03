@@ -376,3 +376,4 @@
 {"pr_number": 700, "head_commit_sha": "2209e1328e3b42db4dd48cd702a21a55ffad24af", "url": "https://github.com/FPC-effortless/TAC-OSM/pull/700", "title": "COLLECT016 carried-state supervision", "status": "draft_source_registration"}
 {"pr_number": 701, "head_commit_sha": "e5813459c9337af058cdfb2d3e864c767c457053", "url": "https://github.com/FPC-effortless/TAC-OSM/pull/701", "title": "COLLECT017 native attention learnability control", "status": "draft_source_registration"}
 {"pr_number": 702, "head_commit_sha": "7b9af0d5dccc1f52c5055db850f8f8c28c3ae70c", "url": "https://github.com/FPC-effortless/TAC-OSM/pull/702", "title": "COLLECT018 local first-answer acquisition", "status": "draft_source_registration"}
+{"pr_number":705,"head_commit_sha":"41af8c423eceeb2bb4f1d95ae391ee807779f603","url":"https://github.com/FPC-effortless/TAC-OSM/pull/705","title":"FLOCK013 frozen binding diagnosis and zero-gain adjoint repair","status":"draft_no_fit_repair_registration"}
