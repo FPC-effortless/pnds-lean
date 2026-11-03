@@ -205,7 +205,13 @@
         "SYSTEM1-ME079",
         "PHYSICAL-ME094",
         "ENTERPRISE-ME073",
-        "ESWAM-ESWAM013"
+        "ESWAM-ESWAM013",
+        "COLLECT018-PHASE_JOINT",
+        "COLLECT018-PHASE_FIRST",
+        "COLLECT018-CONTEXT_JOINT",
+        "COLLECT018-CONTEXT_FIRST",
+        "COLLECT018-GRU_JOINT",
+        "COLLECT018-GRU_FIRST"
       ],
       "limitations": [
         "no integrated exact tensor+FP+parameter gradient proof, spectral stability bound, or causal valid source transfer"

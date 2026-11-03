@@ -69,6 +69,18 @@ def completeIndexedVariants : List VariantLink := allIndexedVariants ++ collect0
 theorem complete_indexed_count : completeIndexedVariants.length = 21 := by
   rfl
 
+/- C18 appends to the preserved 17/20/21 snapshots. -/
+def collect018Variants : List VariantLink :=
+  [ ⟨"COLLECT018-PHASE_JOINT", "7b9af0d5dccc1f52c5055db850f8f8c28c3ae70c", .delta⟩
+  , ⟨"COLLECT018-PHASE_FIRST", "7b9af0d5dccc1f52c5055db850f8f8c28c3ae70c", .delta⟩
+  , ⟨"COLLECT018-CONTEXT_JOINT", "7b9af0d5dccc1f52c5055db850f8f8c28c3ae70c", .delta⟩
+  , ⟨"COLLECT018-CONTEXT_FIRST", "7b9af0d5dccc1f52c5055db850f8f8c28c3ae70c", .delta⟩
+  , ⟨"COLLECT018-GRU_JOINT", "7b9af0d5dccc1f52c5055db850f8f8c28c3ae70c", .gated⟩
+  , ⟨"COLLECT018-GRU_FIRST", "7b9af0d5dccc1f52c5055db850f8f8c28c3ae70c", .gated⟩ ]
+def acquisitionIndexedVariants : List VariantLink := completeIndexedVariants ++ collect018Variants
+theorem acquisition_indexed_count : acquisitionIndexedVariants.length = 27 := by
+  rfl
+
 /-- Translation of a base cumulative distribution, assuming a true base median. -/
 def translatedCDF (base : ℝ → ℝ) (q m y : ℝ) : ℝ :=
   base (y - m + q)

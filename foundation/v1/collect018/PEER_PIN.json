@@ -1,0 +1,8 @@
+{
+  "schema": "pnds.peer-manifest.v1",
+  "repository": "FPC-effortless/TAC-OSM",
+  "path": "research/pnds-variant-math-links.json",
+  "commit": "dbc3c13c7a39b7ee050155b7ac1fb8e94c1cff1d",
+  "sha256": "3113e3c9c7442248586351be1dadca4142cd6645395e0ca26bd1a86eca31f6bc",
+  "scope": "paired draft commits only; original legacy snapshots preserved"
+}

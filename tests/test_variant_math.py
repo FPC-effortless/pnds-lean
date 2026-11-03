@@ -100,7 +100,9 @@ class VariantProvenanceGates(unittest.TestCase):
                   "foundation/v1/variant_math.py",
                   "PNDS/TACOSMVariantContracts.lean",
                   "PNDS/COLLECT016.lean",
-                  "foundation/v1/collect016/reference.py"]:
+                  "foundation/v1/collect016/reference.py",
+                  "PNDS/COLLECT018.lean",
+                  "foundation/v1/collect018/reference.py"]:
             (self.root / f).parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(ROOT / f, self.root / f)
 
@@ -115,9 +117,9 @@ class VariantProvenanceGates(unittest.TestCase):
 
     def test_17_original_links_and_open_gates(self):
         r = check(self.root)
-        self.assertEqual(r["indexed_variants"], 21)
+        self.assertEqual(r["indexed_variants"], 27)
         rows = json.loads((self.root / "foundation/v1/variant-math-links.json").read_text())["variants"]
-        self.assertEqual(sum(not v["id"].startswith(("COLLECT016-", "COLLECT017-")) for v in rows), 17)
+        self.assertEqual(sum(not v["id"].startswith(("COLLECT016-", "COLLECT017-", "COLLECT018-")) for v in rows), 17)
         self.assertEqual(r["complete_full_graph_proofs"], 0)
 
     def test_missing_link_fails(self):
@@ -144,6 +146,16 @@ class VariantProvenanceGates(unittest.TestCase):
         self.change(lambda d: d["variants"][0].update(kernel="event"))
         with self.assertRaises(VariantMathError):
             check(self.root)
+
+    def test_c18_both_source_pins_cannot_be_rewritten(self):
+        self.change(lambda d: d['variants'][-1]['tac'].update(commit='f'*40))
+        p=self.root/'foundation/v1/registry.json'
+        d=json.loads(p.read_text());d['variants'][-1]['source']['commit_sha']='f'*40;p.write_text(json.dumps(d))
+        with self.assertRaises(VariantMathError):check(self.root)
+
+    def test_c18_cannot_reuse_the_old_partial_module_as_its_own(self):
+        self.change(lambda d: d['variants'][-1]['pnds'].update(lean_path='PNDS/COLLECT016.lean'))
+        with self.assertRaises(VariantMathError):check(self.root)
 
     def test_new_reference_missing_fails(self):
         (self.root / "foundation/v1/collect016/reference.py").unlink()

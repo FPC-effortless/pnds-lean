@@ -757,6 +757,270 @@
         "MATH-012",
         "MATH-013"
       ]
+    },
+    {
+      "id": "COLLECT018-PHASE_JOINT",
+      "lane": "system1",
+      "version": "COLLECT018",
+      "parent_versions": [
+        "COLLECT016",
+        "COLLECT017"
+      ],
+      "implementation": "phase forward graph / joint objective; source-native local acquisition",
+      "state_kind": "native_and_phase",
+      "evidence_tier": "math_candidate",
+      "status": "registered_before_new_fits",
+      "params": 99971,
+      "source": {
+        "repository": "FPC-effortless/TAC-OSM",
+        "pull_request": 702,
+        "commit_sha": "7b9af0d5dccc1f52c5055db850f8f8c28c3ae70c",
+        "evidence_path": "research/collect018/results"
+      },
+      "supported": [
+        "Actual-source untrained FP32/64 forward/state/backward, causal owner/chunk and answer-poison checks pass"
+      ],
+      "limitations": [
+        "No model has been fitted at registration",
+        "Full graph/source/IEEE/AD mathematical completion OPEN",
+        "Constructed copy mechanism is not authentic-world factual retrieval",
+        "Independent qualification and superiority are not claimed"
+      ],
+      "proof_obligations": [
+        "MATH-001",
+        "MATH-002",
+        "MATH-003",
+        "MATH-004",
+        "MATH-005",
+        "MATH-006",
+        "MATH-007",
+        "MATH-008",
+        "MATH-009",
+        "MATH-010",
+        "MATH-011",
+        "MATH-012",
+        "MATH-013"
+      ]
+    },
+    {
+      "id": "COLLECT018-PHASE_FIRST",
+      "lane": "system1",
+      "version": "COLLECT018",
+      "parent_versions": [
+        "COLLECT016",
+        "COLLECT017"
+      ],
+      "implementation": "phase forward graph / first objective; source-native local acquisition",
+      "state_kind": "native_and_phase",
+      "evidence_tier": "math_candidate",
+      "status": "registered_before_new_fits",
+      "params": 99971,
+      "source": {
+        "repository": "FPC-effortless/TAC-OSM",
+        "pull_request": 702,
+        "commit_sha": "7b9af0d5dccc1f52c5055db850f8f8c28c3ae70c",
+        "evidence_path": "research/collect018/results"
+      },
+      "supported": [
+        "Actual-source untrained FP32/64 forward/state/backward, causal owner/chunk and answer-poison checks pass"
+      ],
+      "limitations": [
+        "No model has been fitted at registration",
+        "Full graph/source/IEEE/AD mathematical completion OPEN",
+        "Constructed copy mechanism is not authentic-world factual retrieval",
+        "Independent qualification and superiority are not claimed"
+      ],
+      "proof_obligations": [
+        "MATH-001",
+        "MATH-002",
+        "MATH-003",
+        "MATH-004",
+        "MATH-005",
+        "MATH-006",
+        "MATH-007",
+        "MATH-008",
+        "MATH-009",
+        "MATH-010",
+        "MATH-011",
+        "MATH-012",
+        "MATH-013"
+      ]
+    },
+    {
+      "id": "COLLECT018-CONTEXT_JOINT",
+      "lane": "system1",
+      "version": "COLLECT018",
+      "parent_versions": [
+        "COLLECT016",
+        "COLLECT017"
+      ],
+      "implementation": "context forward graph / joint objective; source-native local acquisition",
+      "state_kind": "context_address_native_and_phase",
+      "evidence_tier": "math_candidate",
+      "status": "registered_before_new_fits",
+      "params": 99971,
+      "source": {
+        "repository": "FPC-effortless/TAC-OSM",
+        "pull_request": 702,
+        "commit_sha": "7b9af0d5dccc1f52c5055db850f8f8c28c3ae70c",
+        "evidence_path": "research/collect018/results"
+      },
+      "supported": [
+        "Actual-source untrained FP32/64 forward/state/backward, causal owner/chunk and answer-poison checks pass"
+      ],
+      "limitations": [
+        "No model has been fitted at registration",
+        "Full graph/source/IEEE/AD mathematical completion OPEN",
+        "Constructed copy mechanism is not authentic-world factual retrieval",
+        "Independent qualification and superiority are not claimed"
+      ],
+      "proof_obligations": [
+        "MATH-001",
+        "MATH-002",
+        "MATH-003",
+        "MATH-004",
+        "MATH-005",
+        "MATH-006",
+        "MATH-007",
+        "MATH-008",
+        "MATH-009",
+        "MATH-010",
+        "MATH-011",
+        "MATH-012",
+        "MATH-013"
+      ]
+    },
+    {
+      "id": "COLLECT018-CONTEXT_FIRST",
+      "lane": "system1",
+      "version": "COLLECT018",
+      "parent_versions": [
+        "COLLECT016",
+        "COLLECT017"
+      ],
+      "implementation": "context forward graph / first objective; source-native local acquisition",
+      "state_kind": "context_address_native_and_phase",
+      "evidence_tier": "math_candidate",
+      "status": "registered_before_new_fits",
+      "params": 99971,
+      "source": {
+        "repository": "FPC-effortless/TAC-OSM",
+        "pull_request": 702,
+        "commit_sha": "7b9af0d5dccc1f52c5055db850f8f8c28c3ae70c",
+        "evidence_path": "research/collect018/results"
+      },
+      "supported": [
+        "Actual-source untrained FP32/64 forward/state/backward, causal owner/chunk and answer-poison checks pass"
+      ],
+      "limitations": [
+        "No model has been fitted at registration",
+        "Full graph/source/IEEE/AD mathematical completion OPEN",
+        "Constructed copy mechanism is not authentic-world factual retrieval",
+        "Independent qualification and superiority are not claimed"
+      ],
+      "proof_obligations": [
+        "MATH-001",
+        "MATH-002",
+        "MATH-003",
+        "MATH-004",
+        "MATH-005",
+        "MATH-006",
+        "MATH-007",
+        "MATH-008",
+        "MATH-009",
+        "MATH-010",
+        "MATH-011",
+        "MATH-012",
+        "MATH-013"
+      ]
+    },
+    {
+      "id": "COLLECT018-GRU_JOINT",
+      "lane": "system1",
+      "version": "COLLECT018",
+      "parent_versions": [
+        "COLLECT016",
+        "COLLECT017"
+      ],
+      "implementation": "gru forward graph / joint objective; source-native local acquisition",
+      "state_kind": "GRU_hidden125",
+      "evidence_tier": "math_candidate",
+      "status": "registered_before_new_fits",
+      "params": 100323,
+      "source": {
+        "repository": "FPC-effortless/TAC-OSM",
+        "pull_request": 702,
+        "commit_sha": "7b9af0d5dccc1f52c5055db850f8f8c28c3ae70c",
+        "evidence_path": "research/collect018/results"
+      },
+      "supported": [
+        "Actual-source untrained FP32/64 forward/state/backward, causal owner/chunk and answer-poison checks pass"
+      ],
+      "limitations": [
+        "No model has been fitted at registration",
+        "Full graph/source/IEEE/AD mathematical completion OPEN",
+        "Constructed copy mechanism is not authentic-world factual retrieval",
+        "Independent qualification and superiority are not claimed"
+      ],
+      "proof_obligations": [
+        "MATH-001",
+        "MATH-002",
+        "MATH-003",
+        "MATH-004",
+        "MATH-005",
+        "MATH-006",
+        "MATH-007",
+        "MATH-008",
+        "MATH-009",
+        "MATH-010",
+        "MATH-011",
+        "MATH-012",
+        "MATH-013"
+      ]
+    },
+    {
+      "id": "COLLECT018-GRU_FIRST",
+      "lane": "system1",
+      "version": "COLLECT018",
+      "parent_versions": [
+        "COLLECT016",
+        "COLLECT017"
+      ],
+      "implementation": "gru forward graph / first objective; source-native local acquisition",
+      "state_kind": "GRU_hidden125",
+      "evidence_tier": "math_candidate",
+      "status": "registered_before_new_fits",
+      "params": 100323,
+      "source": {
+        "repository": "FPC-effortless/TAC-OSM",
+        "pull_request": 702,
+        "commit_sha": "7b9af0d5dccc1f52c5055db850f8f8c28c3ae70c",
+        "evidence_path": "research/collect018/results"
+      },
+      "supported": [
+        "Actual-source untrained FP32/64 forward/state/backward, causal owner/chunk and answer-poison checks pass"
+      ],
+      "limitations": [
+        "No model has been fitted at registration",
+        "Full graph/source/IEEE/AD mathematical completion OPEN",
+        "Constructed copy mechanism is not authentic-world factual retrieval",
+        "Independent qualification and superiority are not claimed"
+      ],
+      "proof_obligations": [
+        "MATH-001",
+        "MATH-002",
+        "MATH-003",
+        "MATH-004",
+        "MATH-005",
+        "MATH-006",
+        "MATH-007",
+        "MATH-008",
+        "MATH-009",
+        "MATH-010",
+        "MATH-011",
+        "MATH-012",
+        "MATH-013"
+      ]
     }
   ],
   "append_only_updates": [
@@ -769,6 +1033,18 @@
       "date": "2026-11-03",
       "study": "COLLECT017",
       "note": "One native-attention learnability comparator, registered before its own full fits; original17 plus COLLECT016 retained."
+    },
+    {
+      "date": "2026-11-03",
+      "ids": [
+        "COLLECT018-PHASE_JOINT",
+        "COLLECT018-PHASE_FIRST",
+        "COLLECT018-CONTEXT_JOINT",
+        "COLLECT018-CONTEXT_FIRST",
+        "COLLECT018-GRU_JOINT",
+        "COLLECT018-GRU_FIRST"
+      ],
+      "note": "C18 local acquisition 3graphs x2objectives; preserve prior21 records and their negative findings."
     }
   ]
 }

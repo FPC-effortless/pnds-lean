@@ -1,0 +1,11 @@
+{
+  "status": "FAILED_SCOPED_AXIOM_EXPECTATION_RETAINED",
+  "run_id": 41559888781,
+  "job_id": 125667710470,
+  "source_commit": "794a779dabdc58ce30a4d72b41174021491378ce",
+  "lean_kernel_build": "PASS",
+  "reason": "The value-path projection theorem also depends on standard propext/Classical.choice/Quot.sound; initial empty set expectation was incorrect.",
+  "review": "The observed three foundational axioms match the already reviewed real-number foundation. Freeze all three exact sets; reject additional/missing/custom axioms or proof holes. No theorem/operator/model equation changed.",
+  "full_graph_IEEE_AD": "OPEN",
+  "optimizer_updates": 0
+}
