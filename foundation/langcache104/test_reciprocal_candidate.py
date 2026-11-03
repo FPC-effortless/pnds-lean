@@ -5,7 +5,6 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
-from unittest.mock import patch
 
 from scripts.check_reciprocal_links import (LEGACY_PATH, PEER_REGISTRY, RAW, REMOTE,
                                             ReciprocalError, verify)
@@ -54,12 +53,7 @@ class CandidatePinTests(unittest.TestCase):
         return raw
 
     def check(self):
-        # This fixture isolates the historical candidate verifier. OCR004 has
-        # its own required native-routing tests and strict source-byte checks;
-        # do not make a tiny legacy-only fixture impersonate that repository.
-        with patch("scripts.check_reciprocal_links.verify_ocr004",
-                   return_value={"scope": "LEGACY_FIXTURE_ISOLATION_ONLY"}):
-            return verify(self.base, lambda url: self.remote[url])
+        return verify(self.base, lambda url: self.remote[url])
 
     def test_matching_pinned_candidate_and_original_source(self):
         result = self.check()
