@@ -75,6 +75,13 @@ jobs:
           fi
           echo "no sorry in build output: clean"
 
+      - name: Audit COLLECT016 definitional theorem axioms explicitly
+        run: |
+          set -euo pipefail
+          python3 scripts/check_collect016_axioms.py --self-test
+          lake env lean AuditCOLLECT016.lean 2>&1 | tee collect016-axioms.log
+          python3 scripts/check_collect016_axioms.py collect016-axioms.log
+
       - name: Print axioms
         run: |
           lake env lean PNDS.lean 2>&1 | grep -E "axioms|sorry" || true
