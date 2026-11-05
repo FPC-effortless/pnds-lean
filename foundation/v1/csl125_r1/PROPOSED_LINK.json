@@ -1,0 +1,30 @@
+{
+  "schema": "pnds.proposed-mathematical-variant-link.v1",
+  "variant_id": "CSL-125-R1",
+  "status": "NONCANONICAL_PARTIAL_OPERATOR_REFERENCE_ONLY",
+  "parent_variant_id": "CSL-125",
+  "original_tac_repo": "FPC-effortless/TAC-OSM",
+  "original_tac_source_commit_sha": "287dbcce6129b91d04a01f9a1e921c63ea1ad27e",
+  "original_tac_source_path": "src/tac_osm/csl125_r1.py",
+  "original_tac_source_sha256": "1dfe5a6d1855ef6c07a6ec5209227981a4df1995a97f944f764f042a49a79793",
+  "source_draft_pr": "https://github.com/FPC-effortless/TAC-OSM/pull/712",
+  "lean_module": "PNDS/CSL125R1.lean",
+  "python_reference": "foundation/v1/csl125_r1/math_reference.py",
+  "python_test": "foundation/v1/csl125_r1/test_math_reference.py",
+  "actual_operator_source_tests": "tests/test_csl125_r1.py",
+  "independent_full_model_lean_source_equivalence": "OPEN",
+  "lean_build_and_axiom_audit": "PASS_THREE_LIMITED_THEOREMS__NOT_FULL_MODEL",
+  "full_learning_capability": "UNTRAINED_NO_FIT",
+  "policy": "new-scale-v2-on-master",
+  "canonical_registry_change": false,
+  "lean_proof_run_url": "https://github.com/FPC-effortless/pnds-lean/actions/runs/42034101964",
+  "lean_standard_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "lean_axiom_scope": "step_upper_and_step_lower_exact_reals_only",
+  "previous_source_commit_sha": "e54915f7baa3ff98ef3c7429942379be516ebafe",
+  "previous_source_sha256": "f5037b5d632bdd3b4ff308c5b6d5012ab023e0419163cd49dc88bf6a31910e85",
+  "source_revision_note": "Changes only the invalid depth-entry validation (explicit 0, boolean or non-registered exit raises); the role-state and legal-depth computation remain unchanged. Historical evidence is not reclassified."
+}

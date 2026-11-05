@@ -9,6 +9,7 @@ import PNDS.Causal
 import PNDS.UnifiedTACOSM
 import PNDS.TACOSMVariantContracts
 import PNDS.CSL001
+import PNDS.CSL125R1
 
 /- Axiom audit. CI fails if any proof in the PNDS tree depends on an admitted
    goal, and prints the axioms of each top-level theorem so that hidden
@@ -89,3 +90,11 @@ import PNDS.CSL001
 #print axioms CSL001.retentionStep_one
 #print axioms CSL001.retentionStep_fixed
 #print axioms CSL001.retentionStep_nonneg
+
+/-! CSL-125-R1: exact-real numerator/mass bounds ONLY; not trained graph. -/
+#check @CSL125R1.step_upper
+#check @CSL125R1.step_lower
+#check @CSL125R1.parameter_cap
+#print axioms CSL125R1.step_upper
+#print axioms CSL125R1.step_lower
+#print axioms CSL125R1.parameter_cap
