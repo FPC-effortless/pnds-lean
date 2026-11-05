@@ -1,8 +1,9 @@
 /-
-CSL-125-R1 source-side formal *candidate*, not a kernel-checked proof record.
+CSL-125-R1 exact-real boundedness propositions, not whole-model certification.
 The exact real-variable state updates below match the Python numerator/mass
-recurrence. This module has NOT been compiled or axiom-audited and does NOT
-prove full PyTorch equivalence, floating-point bounds or retrieval capability.
+recurrence. The named theorems passed Lean 4 compilation and explicit axiom printing in
+GitHub Actions 42034101964; full PyTorch graph correspondence, floating-point
+bounds, and learned retrieval capability remain OPEN.
 -/
 import Mathlib
 namespace CSL125R1

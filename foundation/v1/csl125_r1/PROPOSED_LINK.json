@@ -13,8 +13,15 @@
   "python_test": "foundation/v1/csl125_r1/test_math_reference.py",
   "actual_operator_source_tests": "tests/test_csl125_r1.py",
   "independent_full_model_lean_source_equivalence": "OPEN",
-  "lean_build_and_axiom_audit": "NOT_VERIFIED",
+  "lean_build_and_axiom_audit": "PASS_THREE_LIMITED_THEOREMS__NOT_FULL_MODEL",
   "full_learning_capability": "UNTRAINED_NO_FIT",
   "policy": "new-scale-v2-on-master",
-  "canonical_registry_change": false
+  "canonical_registry_change": false,
+  "lean_proof_run_url": "https://github.com/FPC-effortless/pnds-lean/actions/runs/42034101964",
+  "lean_standard_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "lean_axiom_scope": "step_upper_and_step_lower_exact_reals_only"
 }
