@@ -1,0 +1,17 @@
+{
+  "status": "DRAFT_PROPOSED_NOT_CANONICAL_REGISTRY",
+  "variant_id": "CSL-001",
+  "architecture": "compositional-state-ladder",
+  "source_repository": "FPC-effortless/TAC-OSM",
+  "source_pull_request": 710,
+  "source_commit": "a8c8006829c3d20759acf955745cf7ca571f9c2a",
+  "source_path": "src/tac_osm/csl001.py",
+  "source_sha256": "45ef72bf9303849d3b1eebdae0cee87937ce837d3c5f8d4b91b942b299f3902f",
+  "pnds_lean": "PNDS/CSL001.lean",
+  "pnds_python_reference": "foundation/v1/csl001/math_reference.py",
+  "lean_compiled": false,
+  "whole_source_graph_formalized": false,
+  "python_source_equivalence_verified": false,
+  "reciprocal_manifest_registered": false,
+  "trained_model_qualified": false
+}

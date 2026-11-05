@@ -8,6 +8,7 @@ import PNDS.Statistics
 import PNDS.Causal
 import PNDS.UnifiedTACOSM
 import PNDS.TACOSMVariantContracts
+import PNDS.CSL001
 
 /- Axiom audit. CI fails if any proof in the PNDS tree depends on an admitted
    goal, and prints the axioms of each top-level theorem so that hidden
@@ -78,3 +79,13 @@ import PNDS.TACOSMVariantContracts
 #print axioms PNDS.VariantContracts.bitemporal_known_after_record_start
 #print axioms PNDS.VariantContracts.weightedWindow_zero
 #print axioms PNDS.VariantContracts.edgeDiscrepancy_nonnegative
+
+/-! CSL-001: only scalar exact-field retention theorems. NOT full-model source parity. -/
+#check @CSL001.retentionStep_zero
+#check @CSL001.retentionStep_one
+#check @CSL001.retentionStep_fixed
+#check @CSL001.retentionStep_nonneg
+#print axioms CSL001.retentionStep_zero
+#print axioms CSL001.retentionStep_one
+#print axioms CSL001.retentionStep_fixed
+#print axioms CSL001.retentionStep_nonneg
