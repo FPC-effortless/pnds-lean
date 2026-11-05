@@ -1,0 +1,22 @@
+{
+  "contract_id": "COPYCONTRACT20261105",
+  "kind": "finite_diagnostic_task_contract_not_model_variant",
+  "tac_commit": "db876fec9256f9c235202a5548c611adc55a1580",
+  "tac_paths_sha256": {
+    "src/tac_osm/copy_task_contract.py": "c2925c01ec32962692165b63285e00be4523c1b5f025f707340766f14a59a906",
+    "scripts/audit_copy_task_contract.py": "cbc714e1d5b81f49c4966a5e348330ba1aa2a0c8ac93c029ba405e29a67e5f8e",
+    "research/copy_contract_20261105/pnds_reference.py": "b1163a0ea6dc4cf862cdd89ca34d851e06b6087d334de0e0a7db4cb653736363",
+    "research/copy_contract_20261105/PROTOCOL.json": "ce8ecb76cc3cbfbbe3128e18b97405ef14a80f68866ed141f4fdf5b3a70e61da"
+  },
+  "lean_path": "PNDS/CopyTaskContract.lean",
+  "python_path": "foundation/v1/copy_task_contract_reference.py",
+  "scope": "Exact finite record lookup/singleton degeneracy/necessary query selection witness. Independent Python reference; source wire correspondence bounded by finite tests only.",
+  "registry": "Original model variant registries UNCHANGED; this is not a neural variant",
+  "OPEN": [
+    "Formal byte parser refinement",
+    "Whole neural source/Lean/IEEE/AD",
+    "Learned binding/capacity/generalization",
+    "Independent qualification"
+  ],
+  "execution": "No neural fitting or model/checkpoint evaluation authorized"
+}

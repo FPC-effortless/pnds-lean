@@ -1,0 +1,40 @@
+name: Finite copy task contract Lean and Python
+on:
+  pull_request:
+    paths:
+      - 'PNDS/CopyTaskContract.lean'
+      - 'foundation/v1/copy_task_contract*'
+      - 'scripts/check_copy_contract_axioms.py'
+      - '.github/workflows/copy-task-contract.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  scoped-contract:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Python reference and receipt parser fixtures
+        run: |
+          python3 foundation/v1/copy_task_contract_reference.py
+          python3 scripts/check_copy_contract_axioms.py --self-test
+      - name: Install source-pinned Lean toolchain
+        run: |
+          curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Compile exact scoped module and inspect all seven declarations
+        run: |
+          set -euo pipefail
+          mkdir -p copy-contract-evidence
+          lean -o copy-contract-evidence/CopyTaskContract.olean PNDS/CopyTaskContract.lean 2>&1 | tee copy-contract-evidence/AXIOMS.log
+          test -s copy-contract-evidence/CopyTaskContract.olean
+          python3 scripts/check_copy_contract_axioms.py copy-contract-evidence/AXIOMS.log > copy-contract-evidence/RESULT.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: finite-copy-contract-proof
+          path: copy-contract-evidence/
+          retention-days: 90
