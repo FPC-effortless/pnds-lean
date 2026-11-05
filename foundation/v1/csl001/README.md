@@ -1,0 +1,9 @@
+# PNDS mathematical reference: CSL-001 (draft, PARTIAL)
+
+Original implementation: [TAC-OSM CSL-001 draft PR #710](https://github.com/FPC-effortless/TAC-OSM/pull/710), source file `src/tac_osm/csl001.py`, source-containing commit `a8c8006829c3d20759acf955745cf7ca571f9c2a`, original source SHA-256 `45ef72bf9303849d3b1eebdae0cee87937ce837d3c5f8d4b91b942b299f3902f`.
+
+This PNDS draft adds only real-field scalar EMA theorem candidates in `PNDS/CSL001.lean` and a NumPy reference for serial retention, normalized role readout and causal depthwise convolution. The source's exact 8-layer/20-layer tensor graphs, trainable forward/backward, chunked FP32 cumsum, mixed precision, typed tool/field/acceptance outputs, masks, timing, source state owner boundary, and multi-rung training loss are NOT fully formalized in Lean. The Lean module has NOT been compiled in this task. Mathlib import alone is not proof of correct model behavior.
+
+TAC-OSM retains original implementation and authentic future training/outcome evidence; PNDS retains mathematical authority. The existing 17-variant canonical manifests and PNDS registry stay unchanged in this draft because current validators bind their exact old entries and `PNDS/TACOSMVariantContracts.lean`. Appending a row without simultaneously updating registry, Lean index, validator/test coverage and reciprocal TAC manifest would violate those controls. `PROPOSED_LINK.json` is a proposal, explicitly NOT canonical registration.
+
+**Required next gates:** verified Lean kernel build and axiom check; whole-graph tensor shapes, gradients, scan/serial source parity including numerical/precision/mask/causal boundaries; state ownership; stable source SHA; revision of PNDS variant index and reciprocal TAC manifest; independent source review. No no-fit test grants scientific training approval. No real language/tool accuracy, low-power device suitability or quantization advantage is claimed.
