@@ -6,10 +6,10 @@
 import Mathlib
 namespace CSL125R2
 
-def beta (rate gate : ℝ) : ℝ := Real.exp (-(rate * gate))
-def numStep (rate gate address value numerator : ℝ) : ℝ :=
+noncomputable def beta (rate gate : ℝ) : ℝ := Real.exp (-(rate * gate))
+noncomputable def numStep (rate gate address value numerator : ℝ) : ℝ :=
   beta rate gate * numerator + (1-beta rate gate)*address*value
-def massStep (rate gate address mass : ℝ) : ℝ :=
+noncomputable def massStep (rate gate address mass : ℝ) : ℝ :=
   beta rate gate * mass + (1-beta rate gate)*address
 
 theorem no_write_holds_numerator (rate address value numerator : ℝ) :
