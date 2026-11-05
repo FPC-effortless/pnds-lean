@@ -1,0 +1,23 @@
+{
+  "variant": "CSL-125",
+  "status": "NONCANONICAL_DRAFT_PARTIAL_OPERATOR_ONLY",
+  "tac_osm_repo": "FPC-effortless/TAC-OSM",
+  "tac_osm_pull_request": "https://github.com/FPC-effortless/TAC-OSM/pull/711",
+  "tac_osm_source_commit": "ed9913d33da0cd9d94dc985f946ebe673799d41e",
+  "tac_osm_source_path": "src/tac_osm/csl125.py",
+  "tac_osm_source_sha256": "0bf0ba779cf570084179675dd83a8b2a423867275282a129359a5f5a5828e85b",
+  "learned_parameter_count": 123699534,
+  "ceiling": 125000000,
+  "python_reference": "foundation/v1/csl125/math_reference.py",
+  "lean_module": "PNDS/CSL125.lean",
+  "scope": "NumPy local masked GQA and serial EMA; discrete causal-window proof only",
+  "status_gates": {
+    "source_graph_equivalence": "OPEN",
+    "full_backward_equivalence": "OPEN",
+    "state_ownership": "OPEN",
+    "lean_build_and_axiom_audit": "OPEN",
+    "matched_training_and_capability": "NOT_STARTED",
+    "canonical_bidirectional_registry_update": "NOT_DONE",
+    "train_authority": "BLOCKED_BY_TAC_OSM_100K_POLICY"
+  }
+}
