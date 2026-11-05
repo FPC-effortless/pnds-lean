@@ -1,0 +1,36 @@
+name: CSL125-R2 selective-admission math reference (NO FIT)
+on:
+  pull_request:
+    paths:
+      - 'PNDS/CSL125R2.lean'
+      - 'Audit.lean'
+      - 'foundation/v1/csl125_r2/**'
+      - '.github/workflows/csl125-r2-math-no-fit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  python-operator-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install math-reference-only dependencies
+        run: python -m pip install 'numpy==2.3.3' 'pytest>=8,<9'
+      - name: Check R2 independent NumPy operator and boundaries
+        working-directory: foundation/v1/csl125_r2
+        run: python -m pytest -q test_math_reference.py
+      - name: Reject premature promotion or training claims
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=json.loads(Path('foundation/v1/csl125_r2/PROPOSED_LINK.json').read_text())
+          assert p['status']=='PROPOSED_NONCANONICAL_DRAFT'
+          assert not p['canonical_registry_modified'] and p['optimizer_steps']==0
+          assert p['trained_capability']=='NOT_TESTED'
+          print('PASS: partial mathematical draft and original source pin, no training')
+          PY

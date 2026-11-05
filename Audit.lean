@@ -10,6 +10,7 @@ import PNDS.UnifiedTACOSM
 import PNDS.TACOSMVariantContracts
 import PNDS.CSL001
 import PNDS.CSL125R1
+import PNDS.CSL125R2
 
 /- Axiom audit. CI fails if any proof in the PNDS tree depends on an admitted
    goal, and prints the axioms of each top-level theorem so that hidden
@@ -98,3 +99,17 @@ import PNDS.CSL125R1
 #print axioms CSL125R1.step_upper
 #print axioms CSL125R1.step_lower
 #print axioms CSL125R1.parameter_cap
+
+/-! CSL-125-R2: closed write admission, bounded exact-real update only. -/
+#check @CSL125R2.no_write_holds_numerator
+#check @CSL125R2.no_write_holds_mass
+#check @CSL125R2.full_write_matches_decay
+#check @CSL125R2.step_upper
+#check @CSL125R2.step_lower
+#check @CSL125R2.model_parameter_ceiling
+#print axioms CSL125R2.no_write_holds_numerator
+#print axioms CSL125R2.no_write_holds_mass
+#print axioms CSL125R2.full_write_matches_decay
+#print axioms CSL125R2.step_upper
+#print axioms CSL125R2.step_lower
+#print axioms CSL125R2.model_parameter_ceiling

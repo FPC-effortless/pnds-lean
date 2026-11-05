@@ -1,0 +1,19 @@
+{
+  "variant": "CSL-125-R2",
+  "status": "PROPOSED_NONCANONICAL_DRAFT",
+  "authoritative_original_repo": "FPC-effortless/TAC-OSM",
+  "original_source_commit": "4ed0dd73380043e4eb9aa0f8d93796b334946660",
+  "original_model_source_path": "src/tac_osm/csl125_r2.py",
+  "original_model_sha256": "e1349869ea05efe59fc12fee2bf386779760570395e419dd90578b26a24e9afa",
+  "pending_reference": "PNDS/CSL125R2.lean",
+  "covered_operators": [
+    "closed_gate_hold",
+    "full_gate_R1_reduction",
+    "numerator_occupancy_boundedness"
+  ],
+  "full_original_source_graph_equivalence": "OPEN",
+  "lean_compile": "CI_REQUIRED",
+  "trained_capability": "NOT_TESTED",
+  "canonical_registry_modified": false,
+  "optimizer_steps": 0
+}
