@@ -1,0 +1,56 @@
+{
+  "study_id": "DECISION-SYS1-001",
+  "status": "PARTIAL_OPERATOR_REFERENCE_UNCOMPILED_NOT_TRAINING_READY",
+  "variants": ["DECISION-SYS1-001-RISK", "DECISION-SYS1-001-CORRECTION"],
+  "source": {
+    "repository": "FPC-effortless/TAC-OSM",
+    "implementation_commit": "cc5616728d98c32f2d6ee73e0608bc4b6bf972ba",
+    "path": "src/tac_osm/decision_sys1_001.py",
+    "sha256": "af2f40ecdac845804d9977a72b9c63909877bf90249bce9b03d567ec25c3fedf",
+    "parent_commit": "5f288776f87be1423ec607f5077b96400654ffdc",
+    "parent_path": "src/tac_osm/predictive_state_agent.py",
+    "parent_git_blob": "00e7c715d280e8195a38c473db5b2ef3a90291ff"
+  },
+  "formulations": {
+    "lean": "PNDS/DecisionSYS1001.lean",
+    "python": "foundation/v1/decision_sys1_001_reference.py",
+    "python_scope": "feedback operator only; exact duplicate of source-repository independent NumPy reference",
+    "lean_scope": "residual edit identity, interval-mass telescoping and declared count expression only",
+    "full_graph_specification": "TAC-OSM research/decision-sys1-001/README.md and actual pinned source; formal graph remains OPEN"
+  },
+  "risk_graph": {
+    "context_dim": 212,
+    "fast_dim": 32,
+    "slow_dim": 32,
+    "memory_shape": [8, 8],
+    "readout_width": 301,
+    "hazard_logits": 4,
+    "output_classes": 5,
+    "observed_parameter_count": 99963,
+    "fp32_state_tensor_bytes_per_entity": 512,
+    "classification": "nonlinear native recurrent associative-state model; not standard Transformer or Mamba/SSM",
+    "unused_action_feedback_heads": false
+  },
+  "evidence": {
+    "local_numerical_tests": 32,
+    "optimizer_updates": 0,
+    "real_data_cases_scored": 0,
+    "lean_compiled": false,
+    "independent_review": false,
+    "whole_model_reference": false,
+    "source_gradient_proof": false
+  },
+  "canonical_reciprocal_index_integration": "OPEN; this prospective sidecar does not certify registration in the canonical 17-version indexes",
+  "training_admission": "BLOCKED",
+  "open_obligations": [
+    "complete typed inherited observation-to-output Lean/Python graph",
+    "Lean kernel compilation and axiom audit",
+    "whole-graph actual-source forward/backward and finite-precision correspondence",
+    "outcome arrival, entity ownership and exactly-once receipt contracts",
+    "authentic source/schema/censoring and exposure-safe holdout",
+    "qualified matched Transformer/GRU/SSM models and resource budgets",
+    "signed independent source/evaluator and full FAIR_COMPARISON gates",
+    "reciprocal canonical index integration and independent review"
+  ],
+  "nonclaims": ["no trained capability", "no efficiency advantage", "no novelty for standard delta rules or residual gates", "no calibration", "no causal repair effects", "no deployment readiness"]
+}
