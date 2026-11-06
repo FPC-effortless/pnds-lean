@@ -62,7 +62,7 @@ theorem rollout_representation_eq
       have hnext :
           phi (transition s a) = phi (transition t a) :=
         hcong heq a
-      simpa [rollout] using ih hnext actions
+      simpa [rollout] using ih hnext
 
 /-- An outcome invariant under representation equivalence stays invariant after
     any finite rollout, when the same final action is applied.
