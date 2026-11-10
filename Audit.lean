@@ -11,6 +11,7 @@ import PNDS.TACOSMVariantContracts
 import PNDS.CSL001
 import PNDS.CSL125R1
 import PNDS.CSL125R2
+import PNDS.StateIngress
 
 /- Axiom audit. CI fails if any proof in the PNDS tree depends on an admitted
    goal, and prints the axioms of each top-level theorem so that hidden
@@ -113,3 +114,9 @@ import PNDS.CSL125R2
 #print axioms CSL125R2.step_upper
 #print axioms CSL125R2.step_lower
 #print axioms CSL125R2.model_parameter_ceiling
+
+#check @StateIngress.denominator_positive
+#check @StateIngress.normalized_read_bound
+#print axioms StateIngress.denominator_positive
+#print axioms StateIngress.numerator_bounded_by_denominator
+#print axioms StateIngress.normalized_read_bound

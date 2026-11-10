@@ -1,0 +1,19 @@
+{
+  "id": "STATE-INGRESS-20261110",
+  "scope": "PARTIAL_SCALAR_DOMAIN_NOT_WHOLE_MODEL",
+  "tac_commit": "2da15296c7510f72255f2df23e7504d3077dec43",
+  "tac_PR": 727,
+  "tac_file": "src/tac_osm/state_ingress.py",
+  "tac_sha256": "8310dd19f7f472dbc55700118fa6fdbb04c6dfb0605ed0a78e27bfd1b867fada",
+  "python_reference_sha256": "d23fcedaf44de27f609d30256a79f2a3fdcabb1a18ae8932416d6d31ac6c4697",
+  "Lean": "PNDS/StateIngress.lean",
+  "math": "D>=0,abs(N)<=D,epsilon>0 => denominator positive and normalized read bounded. Source guard additionally checks finite machine normal epsilon, layout/ownership; those extra checks are not Lean source refinements.",
+  "OPEN": [
+    "actual PyTorch IEEE/AD refinement",
+    "whole graph and provenance/ownership refinement",
+    "machine finiteness/normality proof",
+    "authentic checkpoint/source authority",
+    "canonical model/variant integration not applicable to boundary utility"
+  ],
+  "qualification": "internal scalar mathematical reference, no safety/reward/capability certificate"
+}
