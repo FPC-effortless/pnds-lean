@@ -1,8 +1,13 @@
 # BYTE100K-001 — partial mathematical companion, no fit
 
 Source TAC-OSM PR732, ccac3f8aaf9df4e11dddf2614a6a489131bf5e95.
-Exact source/model/graph/Lean/Python pins: PROPOSED_LINK.json. Reciprocal proposed
-link added to both indexes; all17historical canonical entries remain unchanged.
+Exact source/model/graph/Lean/Python pins: PROPOSED_LINK.json. Reciprocal proposal
+link added to separate proposed indexes; canonical indexes/all17historical
+entries/default-master comparison stay byte-identical to parent. Full canonical
+integration remains OPEN. First CI43687889457 stopped before Lean compilation
+because the provisional field in the canonical index did not match TAC master;
+original proposed index and exact failure excerpt are retained. No validator or
+its comparison requirement was weakened.
 This is explicitly NONCANONICAL/PARTIAL, never a certification or promotion.
 
 GRAPH.json copies the source-pinned observation-to-byte-logit data/state graph:
