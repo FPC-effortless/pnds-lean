@@ -533,5 +533,13 @@
       "python_source_equivalence_verified": false,
       "real_world_capability_inferred": false
     }
+  ],
+  "proposed_variant_links": [
+    {
+      "id": "BYTE100K-001",
+      "status": "PROPOSED_NONCANONICAL_PARTIAL_NOT_QUALIFIED",
+      "tac_osm_record": "research/byte100k_001/MATH_LINK.json",
+      "pnds_record": "foundation/v1/byte100k_001/PROPOSED_LINK.json"
+    }
   ]
 }

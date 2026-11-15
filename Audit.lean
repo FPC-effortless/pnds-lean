@@ -12,6 +12,7 @@ import PNDS.CSL001
 import PNDS.CSL125R1
 import PNDS.CSL125R2
 import PNDS.StateIngress
+import PNDS.ByteLanguage100K
 
 /- Axiom audit. CI fails if any proof in the PNDS tree depends on an admitted
    goal, and prints the axioms of each top-level theorem so that hidden
@@ -120,3 +121,12 @@ import PNDS.StateIngress
 #print axioms StateIngress.denominator_positive
 #print axioms StateIngress.numerator_bounded_by_denominator
 #print axioms StateIngress.normalized_read_bound
+
+#check @ByteLanguage100K.parameter_count
+#check @ByteLanguage100K.parameter_band
+#check @ByteLanguage100K.target_follows_input
+#check @ByteLanguage100K.target_inside_source
+#print axioms ByteLanguage100K.parameter_count
+#print axioms ByteLanguage100K.parameter_band
+#print axioms ByteLanguage100K.target_follows_input
+#print axioms ByteLanguage100K.target_inside_source
